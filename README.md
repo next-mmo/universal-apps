@@ -1,114 +1,196 @@
-<div align="center"><img src = "https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/assets/31413093/91cdcd1b-2387-4c01-9710-9b2f44c10329" height="100px" alt="Tauri"/><img src = "https://user-images.githubusercontent.com/31413093/197097625-5b3bd3cf-2bd6-4a3a-8059-a1fe9f28100b.svg" height="100px" alt="Vite"/></div>
-
-<h2 align="center">template-tauri-vite-react-ts-tailwind</h2>
-
 <div align="center">
-<a href="https://reactjs.org/"><image src="https://img.shields.io/static/v1?label=React&message=^19&style=for-the-badge&labelColor=FFFFFF&logo=react&color=61DAFB"/></a> <a href="https://www.typescriptlang.org/"><image src="https://img.shields.io/static/v1?label=TypeScript&message=^5&style=for-the-badge&labelColor=FFFFFF&logo=typescript&color=3178C6"/></a>
+  <img
+    src="https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/assets/31413093/91cdcd1b-2387-4c01-9710-9b2f44c10329"
+    height="100"
+    alt="Tauri logo"
+  />
+  <img
+    src="https://user-images.githubusercontent.com/31413093/197097625-5b3bd3cf-2bd6-4a3a-8059-a1fe9f28100b.svg"
+    height="100"
+    alt="Vite logo"
+  />
 </div>
 
-<div align="center">
-<a href="https://cn.vitejs.dev/"><image src="https://img.shields.io/static/v1?label=Vite&message=^7&style=for-the-badge&labelColor=FFFFFF&logo=vite&color=646CFF"/></a> <a href="https://tailwindcss.com/"><image src="https://img.shields.io/static/v1?label=Tailwind%20CSS&message=^4&style=for-the-badge&labelColor=FFFFFF&logo=tailwindcss&color=06B6D4"/></a> <a href="https://tauri.app/"><image src="https://img.shields.io/static/v1?label=Tauri&message=^2&style=for-the-badge&labelColor=FFFFFF&logo=tauri&color=FFC131"/></a>
-</div>
+<h1 align="center">template-tauri-vite-react-ts-tailwind</h1>
 
-## Introduction
+<p align="center">
+  An opinionated Tauri v2 starter template organized as a pnpm monorepo.
+</p>
 
-A starter [Tauri](https://v2.tauri.app/) template, but with pnpm monorepo and some recommended configurations:
+<p align="center">
+  <a href="https://react.dev/">
+    <img src="https://img.shields.io/static/v1?label=React&message=19&style=for-the-badge&labelColor=FFFFFF&logo=react&color=61DAFB" alt="React 19" />
+  </a>
+  <a href="https://www.typescriptlang.org/">
+    <img src="https://img.shields.io/static/v1?label=TypeScript&message=5&style=for-the-badge&labelColor=FFFFFF&logo=typescript&color=3178C6" alt="TypeScript 5" />
+  </a>
+  <a href="https://vite.dev/">
+    <img src="https://img.shields.io/static/v1?label=Vite&message=7&style=for-the-badge&labelColor=FFFFFF&logo=vite&color=646CFF" alt="Vite 7" />
+  </a>
+  <a href="https://tailwindcss.com/">
+    <img src="https://img.shields.io/static/v1?label=Tailwind%20CSS&message=4&style=for-the-badge&labelColor=FFFFFF&logo=tailwindcss&color=06B6D4" alt="Tailwind CSS 4" />
+  </a>
+  <a href="https://tauri.app/">
+    <img src="https://img.shields.io/static/v1?label=Tauri&message=2&style=for-the-badge&labelColor=FFFFFF&logo=tauri&color=FFC131" alt="Tauri 2" />
+  </a>
+</p>
 
-这是一个 [Tauri](https://v2.tauri.app/) 启动模板，已经整理成 pnpm monorepo 结构，并带了一些常用的推荐配置：
+## Overview
 
-- Vite
-- React
-- TypeScript
-- Tailwind CSS
-- Oxc
+This repository provides a practical foundation for building cross-platform
+desktop applications with Tauri. The frontend uses React, TypeScript, Vite,
+and Tailwind CSS, while reusable modules are organized as pnpm workspace
+packages.
 
-## Install
+The template includes:
 
-> This project uses [pnpm](https://pnpm.io/) as its package manager. Go check it out if you don't have it locally installed. If you use other package managers like *Yarn* or *npm*, you may need to change some scripts in `tauri.conf.json` and `package.json`.
->
-> 这个项目使用 [pnpm](https://pnpm.io/) 作为包管理器。如果本地还没安装，可以先去看一下 pnpm 的安装方式。如果你更习惯用 *Yarn* 或 *npm*，可能需要自己调整 `tauri.conf.json` 和 `package.json` 里的部分脚本。
+- [Tauri 2](https://v2.tauri.app/) for the native desktop application shell
+- [React 19](https://react.dev/) and
+  [TypeScript 5](https://www.typescriptlang.org/) for the frontend
+- [Vite 7](https://vite.dev/) for development and production builds
+- [Tailwind CSS 4](https://tailwindcss.com/) through its Vite integration
+- A [pnpm workspace](https://pnpm.io/workspaces) for application and shared
+  packages
+- [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) and
+  [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) configuration
+- A project renaming script that synchronizes the workspace, Tauri, and Rust
+  package names
 
-> [!TIP]
-> 
-> The fastest way to use this template is to click the “Use this template” button on the top right of this repository. It will help you create a new repository quickly, and you can make any modifications to your own repository. If you still want to download this template separately, please continue reading.
-> 
-> 使用这个模板最快的方式，是点击仓库右上角的 “Use this template” 按钮。它会帮你快速创建一个新仓库，之后你就可以在自己的仓库里自由修改。如果你还是想单独下载一份模板，也可以继续往下看。
+## Prerequisites
 
-Then you need a copy of this repository. You can [download](https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/archive/refs/heads/main.zip) a copy as zip but [tiged](https://github.com/tiged/tiged) is recommended.
+Before using the template, install the following tools:
 
-接着你需要把这个仓库复制到本地。你可以直接下载 [zip 压缩包](https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/archive/refs/heads/main.zip)，不过更推荐使用 [tiged](https://github.com/tiged/tiged)。
+- [Node.js](https://nodejs.org/) 20.19 or later, or 22.12 or later, as
+  required by Vite 7
+- [pnpm](https://pnpm.io/installation)
+- [Rust](https://www.rust-lang.org/tools/install)
+- The platform-specific dependencies listed in the
+  [Tauri prerequisites guide](https://v2.tauri.app/start/prerequisites/)
 
-After you installed tiged, please excute the following command:
+This repository is configured for pnpm. Using npm, Yarn, or another package
+manager requires corresponding changes to the workspace scripts and
+`apps/tauri-app/src-tauri/tauri.conf.json`.
 
-安装好 tiged 后，执行下面的命令：
+## Getting Started
 
-```sh
-$ cd path-to-save-your-project
-$ tiged royrao2333/template-tauri-vite-react-ts-tailwind your-project-name
-```
+### Create a repository from the template
 
-After getting a copy of this repository, you can use your package manager to install dependecies:
+The recommended approach is to select **Use this template** on GitHub and
+create a new repository from this template.
 
-拿到项目代码后，进入项目目录并安装依赖：
-
-```sh
-$ cd path-to-your-project
-$ pnpm install
-```
-
-## Rename Project
-
-Before you start development, rename the template placeholders to your own project name and bundle identifier:
-
-开始开发前，建议先把模板里的占位名称改成你自己的项目名称和 bundle identifier：
-
-```sh
-$ pnpm rename-project --name "My App" --id com.example.my-app
-```
-
-| Argument 参数 | Required 是否必填 | Default 默认值 | Example 示例         | Description 说明                                                                                                                                                                                                                                                                                                |
-| ------------- | ----------------- | -------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--name`      | Yes 是            | None 无        | `"My App"`           | The project name you would enter as `Project name` in `create-tauri-app`.<br>也就是你在 `create-tauri-app` 里会填写的 `Project name`。它会用于 Tauri 的 `productName` 和窗口标题；Node.js、pnpm、TypeScript 相关命名会转成 kebab-case；Rust 相关命名会继续使用 `create-tauri-app` 的 package name 规则。 |
-| `--id`        | Yes 是            | None 无        | `com.example.my-app` | The bundle identifier you would enter as `Identifier` in `create-tauri-app`.<br>也就是你在 `create-tauri-app` 里会填写的 `Identifier`，会写入 `src-tauri/tauri.conf.json`。                                                                                                                                     |
-
-| Usage 用途                                                 | Command 命令                                                  |
-| ---------------------------------------------------------- | ------------------------------------------------------------- |
-| Rename the template to `My App`<br>把模板重命名为 `My App` | `pnpm rename-project --name "My App" --id com.example.my-app` |
-
-For Node.js, pnpm, and TypeScript related names, this template uses kebab-case. For Rust and Tauri package names, it follows the same normalization rules as `create-tauri-app`: it is lowercased, `:`, `;`, spaces, and `~` become `-`, `.`, `/`, and `\` are removed, leading digits and `-` are removed, and an empty result falls back to `tauri-app`.
-
-Node.js、pnpm、TypeScript 相关命名会使用 kebab-case，主要包括 `apps/<workspacePackageName>`、`@app/<workspacePackageName>` 和根目录 `package.json` 里的 `pnpm --filter`。Rust 和 Tauri package name 继续使用 `create-tauri-app` 的归一化规则：先转成小写；把 `:`、`;`、空格和 `~` 转成 `-`；移除 `.`、`/` 和 `\`；再移除开头的数字和 `-`。如果最后结果为空，就使用 `tauri-app` 作为默认值。
-
-| Input `--name` 输入值 | Workspace package name | Rust package name  | Rust lib name         |
-| --------------------- | ---------------------- | ------------------ | --------------------- |
-| `MyProjectHello`      | `my-project-hello`     | `myprojecthello`   | `myprojecthello_lib`  |
-| `myProjectHello`      | `my-project-hello`     | `myprojecthello`   | `myprojecthello_lib`  |
-| `my_project_hello`    | `my-project-hello`     | `my_project_hello` | `my_project_hello_lib` |
-
-## Usage
-
-Let's run!
-
-现在可以启动项目了：
+Alternatively, download the
+[source archive](https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/archive/refs/heads/main.zip)
+or create a clean local copy with [tiged](https://github.com/tiged/tiged):
 
 ```sh
-$ pnpm tauri dev
+pnpm dlx tiged royrao2333/template-tauri-vite-react-ts-tailwind my-app
+cd my-app
 ```
 
-> We've already implemented some recommended configurations in ```.eslintrc.js```, ```.eslintignore```, ```.prettierrc.json5``` and ```.prettierignore```. Feel free to edit them if you have your own preferences.
->
-> 模板里已经放好了一些推荐配置，比如 ```.eslintrc.js```、```.eslintignore```、```.prettierrc.json5``` 和 ```.prettierignore```。如果你有自己的偏好，可以按项目习惯继续调整。
+### Install dependencies
 
-## Related Efforts
+```sh
+pnpm install
+```
 
-相关项目：
+### Rename the project
 
-- [Vite](https://github.com/vitejs/vite)
+Rename the template before starting application development:
+
+```sh
+pnpm rename-project --name "My App" --id com.example.my-app
+```
+
+The command updates the application directory, workspace package name, root
+scripts, Tauri product name, window title, bundle identifier, Cargo package,
+Rust library name, Rust entry point, and application README reference.
+
+| Argument | Required | Example              | Description                                                                                      |
+| -------- | -------- | -------------------- | ------------------------------------------------------------------------------------------------ |
+| `--name` | Yes      | `"My App"`           | The project name, equivalent to the **Project name** field in `create-tauri-app`.                |
+| `--id`   | Yes      | `com.example.my-app` | The application bundle identifier, equivalent to the **Identifier** field in `create-tauri-app`. |
+
+#### Name normalization
+
+Workspace package names use kebab-case. This name is applied to the
+`apps/<workspace-package-name>` directory, the `@app/<workspace-package-name>`
+package, and the root pnpm filter scripts.
+
+Rust and Tauri package names follow the normalization behavior used by
+`create-tauri-app`:
+
+- Input is converted to lowercase.
+- Colons, semicolons, spaces, and tildes are converted to hyphens.
+- Periods, forward slashes, and backslashes are removed.
+- Leading digits and hyphens are removed.
+- An empty result falls back to `tauri-app`.
+
+| Input              | Workspace package  | Rust package       | Rust library           |
+| ------------------ | ------------------ | ------------------ | ---------------------- |
+| `MyProjectHello`   | `my-project-hello` | `myprojecthello`   | `myprojecthello_lib`   |
+| `myProjectHello`   | `my-project-hello` | `myprojecthello`   | `myprojecthello_lib`   |
+| `my_project_hello` | `my-project-hello` | `my_project_hello` | `my_project_hello_lib` |
+
+### Start the desktop application
+
+```sh
+pnpm tauri dev
+```
+
+## Available Scripts
+
+Run these commands from the repository root:
+
+| Command                                                       | Description                                                     |
+| ------------------------------------------------------------- | --------------------------------------------------------------- |
+| `pnpm dev`                                                    | Start the Vite frontend development server.                     |
+| `pnpm build`                                                  | Type-check the frontend and create a production frontend build. |
+| `pnpm preview`                                                | Preview the production frontend build locally.                  |
+| `pnpm tauri dev`                                              | Start the Tauri application in development mode.                |
+| `pnpm tauri build`                                            | Build platform-specific desktop application bundles.            |
+| `pnpm lint`                                                   | Check the workspace with Oxlint.                                |
+| `pnpm lint:fix`                                               | Apply supported Oxlint fixes.                                   |
+| `pnpm rename-project --name "My App" --id com.example.my-app` | Rename the template and update its application identifiers.     |
+
+Oxfmt behavior is defined in `oxfmt.config.ts`. Oxlint rules are defined in
+`oxlint.config.ts`.
+
+## Project Structure
+
+```text
+.
+├── apps/
+│   └── tauri-app/       # React frontend and Tauri application
+├── packages/
+│   ├── core/            # Shared core modules
+│   ├── tauri-api/       # Shared Tauri API integrations
+│   ├── ui/              # Shared UI modules
+│   └── utils/           # Shared utility modules
+├── scripts/
+│   └── renameProject.ts # Project renaming utility
+├── oxfmt.config.ts      # Oxfmt configuration
+├── oxlint.config.ts     # Oxlint configuration
+└── pnpm-workspace.yaml  # pnpm workspace definition
+```
+
+## Related Projects
+
 - [Tauri](https://github.com/tauri-apps/tauri)
+- [Vite](https://github.com/vitejs/vite)
+- [React](https://github.com/facebook/react)
 - [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
+- [Oxc](https://github.com/oxc-project/oxc)
 
 ## Contributing
 
-Feel free to dive in! [Open an issue](https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/issues/new) or submit PRs.
+Contributions are welcome. Before opening a pull request, run the relevant
+build and lint commands and verify the application on the platform affected by
+your changes.
 
-欢迎一起改进这个模板！你可以[提交 issue](https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/issues/new)，也可以直接发 PR。
+Use the
+[issue tracker](https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/issues/new)
+to report bugs, request features, or propose significant changes.
+
+## License
+
+This project is available under the terms of the [MIT License](LICENSE).
