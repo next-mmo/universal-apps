@@ -1,0 +1,13 @@
+{
+  "name": "@package/pro-svelte",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "dependencies": {
+    "@package/pro-core": "workspace:*",
+    "@tanstack/svelte-query": "^6.0.0"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  }
+}

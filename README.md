@@ -153,8 +153,33 @@ calls are wrapped in `@package/tauri-api` — keep raw `invoke()` calls out of
 UI components and add a web fallback there when introducing new commands.
 
 Note: Tailwind's automatic content detection only scans `apps/`; classes used
-inside `packages/` require the explicit `@source` entries in
-`apps/tauri-app/src/index.css`.
+inside `packages/` require the explicit `@source` entries in each app's CSS
+entry file.
+
+### Universal component blocks (shadcn + TanStack only)
+
+An Ant Design Pro-style block library layered on shadcn/ui patterns and
+TanStack libraries, styled after Apple's macOS/iOS design language (system
+colors, SF font stack, hairline separators, translucent sidebars):
+
+- `packages/pro-core` — framework-free logic: typed column DSL, form field
+  schemas + validation, query-key factories, client-side table engine.
+  No React/Vue/Svelte imports.
+- `packages/ui` — shadcn primitives, `cn()` utility, Apple-inspired tokens
+  (`src/styles/tokens.css`).
+- `packages/pro` — React views: DataTable (TanStack Table), ProForm +
+  dialog (TanStack Form), AppShell/PageContainer (TanStack Router-ready).
+- `packages/pro-vue` / `packages/pro-svelte` — Vue 3 and Svelte 5 adapters
+  consuming the same `pro-core` models and tokens (Vue Query / Svelte
+  Query for data states).
+
+Playground apps prove the adapters against the shared storage bridge:
+`pnpm --filter @app/vue-playground dev` (port 1451) and
+`pnpm --filter @app/svelte-playground dev` (port 1452).
+
+E2E smoke tests drive real Edge via `playwright-core` (no browser
+downloads): `node scripts/e2e-smoke.mjs http://localhost:1431` for React,
+and `node scripts/e2e-playground.mjs <url>` per playground.
 
 ## Available Scripts
 
@@ -181,12 +206,18 @@ Oxfmt behavior is defined in `oxfmt.config.ts`. Oxlint rules are defined in
 ```text
 .
 ├── apps/
-│   └── tauri-app/       # React frontend and Tauri application
+│   ├── tauri-app/          # React frontend and Tauri application
+│   ├── vue-playground/     # Vue 3 demo of the pro blocks
+│   └── svelte-playground/  # Svelte 5 demo of the pro blocks
 ├── packages/
-│   ├── core/            # Shared core modules
-│   ├── tauri-api/       # Shared Tauri API integrations
-│   ├── ui/              # Shared UI modules
-│   └── utils/           # Shared utility modules
+│   ├── core/               # Shared domain + state logic
+│   ├── pro-core/           # Framework-free pro component models
+│   ├── pro/                # React pro blocks (DataTable/Form/Layout)
+│   ├── pro-vue/            # Vue adapters of the pro blocks
+│   ├── pro-svelte/         # Svelte adapters of the pro blocks
+│   ├── tauri-api/          # Platform bridge (desktop/web/mobile)
+│   ├── ui/                 # shadcn primitives + design tokens
+│   └── utils/              # Shared utility modules
 ├── scripts/
 │   └── renameProject.ts # Project renaming utility
 ├── oxfmt.config.ts      # Oxfmt configuration

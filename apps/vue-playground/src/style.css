@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+@import '@package/ui/src/styles/tokens.css';
+
+/* Tailwind scans this app directory only; shared packages are declared here. */
+@source '../../../packages/ui/src';
+@source '../../../packages/pro-core/src';
+@source '../../../packages/pro-vue/src';

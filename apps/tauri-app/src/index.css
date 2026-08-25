@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import '@package/ui/src/styles/tokens.css';
 
 /* Tailwind's automatic detection only scans the app directory; the shared
    packages live outside it, so their sources must be declared explicitly. */

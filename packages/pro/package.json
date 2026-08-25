@@ -1,0 +1,19 @@
+{
+  "name": "@package/pro",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "dependencies": {
+    "@package/pro-core": "workspace:*",
+    "@package/ui": "workspace:*",
+    "@tanstack/react-form": "^1.0.0",
+    "@tanstack/react-query": "^5.0.0",
+    "@tanstack/react-router": "^1.0.0",
+    "@tanstack/react-table": "^8.21.3",
+    "lucide-react": "^0.545.0",
+    "react": "19.2.6"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.15"
+  }
+}

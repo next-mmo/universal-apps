@@ -201,3 +201,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,node
+# Local artifacts
+.zcode/
+/android-screen.png
+/design-todos-apple.png
