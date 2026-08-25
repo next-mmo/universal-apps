@@ -2,5 +2,12 @@
   "name": "@package/ui",
   "private": true,
   "version": "0.1.0",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@package/core": "workspace:*",
+    "react": "19.2.6"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.15"
+  }
 }

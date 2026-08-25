@@ -2,5 +2,9 @@
   "name": "@package/tauri-api",
   "private": true,
   "version": "0.1.0",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@package/core": "workspace:*",
+    "@tauri-apps/api": "2.11.0"
+  }
 }

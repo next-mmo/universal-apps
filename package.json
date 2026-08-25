@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter @app/tauri-app dev",
+    "dev:web": "pnpm --filter @app/tauri-app dev:web",
     "build": "pnpm --filter @app/tauri-app build",
+    "build:web": "pnpm --filter @app/tauri-app build:web",
     "preview": "pnpm --filter @app/tauri-app preview",
     "tauri": "pnpm --filter @app/tauri-app tauri",
     "rename-project": "tsx --tsconfig scripts/tsconfig.json scripts/renameProject.ts",

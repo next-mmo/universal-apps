@@ -137,6 +137,25 @@ Rust and Tauri package names follow the normalization behavior used by
 pnpm tauri dev
 ```
 
+### Run the same app in the browser
+
+The frontend is platform-independent: a runtime check (`isTauri()`) selects a
+storage adapter per platform, so the identical UI code runs in the browser.
+
+```sh
+pnpm dev:web    # Vite dev server for the browser
+pnpm build:web  # Type-checked production web bundle (deploy dist/ anywhere)
+```
+
+Desktop builds persist todos through Rust commands backed by a JSON file in
+the app data directory; browser builds fall back to `localStorage`. Platform
+calls are wrapped in `@package/tauri-api` — keep raw `invoke()` calls out of
+UI components and add a web fallback there when introducing new commands.
+
+Note: Tailwind's automatic content detection only scans `apps/`; classes used
+inside `packages/` require the explicit `@source` entries in
+`apps/tauri-app/src/index.css`.
+
 ## Available Scripts
 
 Run these commands from the repository root:
@@ -144,7 +163,9 @@ Run these commands from the repository root:
 | Command                                                       | Description                                                     |
 | ------------------------------------------------------------- | --------------------------------------------------------------- |
 | `pnpm dev`                                                    | Start the Vite frontend development server.                     |
+| `pnpm dev:web`                                                | Start the Vite development server for the browser.              |
 | `pnpm build`                                                  | Type-check the frontend and create a production frontend build. |
+| `pnpm build:web`                                              | Create the production web bundle for static hosting.            |
 | `pnpm preview`                                                | Preview the production frontend build locally.                  |
 | `pnpm tauri dev`                                              | Start the Tauri application in development mode.                |
 | `pnpm tauri build`                                            | Build platform-specific desktop application bundles.            |

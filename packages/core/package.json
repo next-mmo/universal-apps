@@ -2,5 +2,11 @@
   "name": "@package/core",
   "private": true,
   "version": "0.1.0",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "react": "19.2.6"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.15"
+  }
 }
