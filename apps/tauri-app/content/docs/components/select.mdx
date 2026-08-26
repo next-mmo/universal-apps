@@ -1,0 +1,39 @@
+---
+title: Select
+description: Single-value picker with typeahead, built on Radix UI.
+---
+
+A native-feeling select with full styling control. Source: `packages/ui/src/components/ui/select.tsx`, built on `@radix-ui/react-select`.
+
+## Import
+
+```ts
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@package/ui/src/components/ui/select';
+```
+
+## Usage
+
+<SelectDemo />
+
+```tsx
+<Select defaultValue='normal'>
+  <SelectTrigger className='w-40'>
+    <SelectValue placeholder='Priority' />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value='low'>Low</SelectItem>
+    <SelectItem value='normal'>Normal</SelectItem>
+    <SelectItem value='high'>High</SelectItem>
+  </SelectContent>
+</Select>
+```
+
+## API
+
+`Select` root (`value`, `defaultValue`, `onValueChange`). `SelectTrigger` opens the list; `SelectValue` shows the current choice or `placeholder`. `SelectItem` requires a unique `value` (use `'none'`-style sentinels, not empty strings, for "no selection").

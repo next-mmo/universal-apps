@@ -1,7 +1,8 @@
 import { Outlet, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
-import { ListTodoIcon, LayoutDashboardIcon, PenSquareIcon } from 'lucide-react';
+import { BookOpenIcon, ListTodoIcon, LayoutDashboardIcon, PenSquareIcon } from 'lucide-react';
 
 import DashboardPage from './pages/dashboard-page';
+import DocsPage from './pages/docs-page';
 import FormsDemoPage from './pages/forms-page';
 import TodosPage from './pages/todos-page';
 import { AppShell } from '@package/pro/src/layout/app-shell';
@@ -14,6 +15,7 @@ const rootRoute = createRootRoute({
         { label: 'Dashboard', to: '/', icon: LayoutDashboardIcon },
         { label: 'Todos', to: '/todos', icon: ListTodoIcon },
         { label: 'Form blocks', to: '/forms', icon: PenSquareIcon },
+        { label: 'Docs', to: '/docs', icon: BookOpenIcon },
       ]}
     >
       <Outlet />
@@ -32,8 +34,13 @@ const formsRoute = createRoute({
   path: '/forms',
   component: FormsDemoPage,
 });
+const docsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/docs/$',
+  component: DocsPage,
+});
 
-const routeTree = rootRoute.addChildren([indexRoute, todosRoute, formsRoute]);
+const routeTree = rootRoute.addChildren([indexRoute, todosRoute, formsRoute, docsRoute]);
 
 export const router = createRouter({ routeTree });
 

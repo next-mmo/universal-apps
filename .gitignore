@@ -205,3 +205,8 @@ $RECYCLE.BIN/
 .zcode/
 /android-screen.png
 /design-todos-apple.png
+
+# Fumadocs MDX codegen + generated LLM endpoints (regenerated on dev/build)
+apps/tauri-app/.source/
+apps/tauri-app/public/docs.txt
+apps/tauri-app/public/docs/

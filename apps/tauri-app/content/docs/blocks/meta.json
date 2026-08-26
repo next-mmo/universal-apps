@@ -1,0 +1,12 @@
+{
+  "title": "Blocks",
+  "defaultOpen": true,
+  "pages": [
+    "index",
+    "pro-data-table",
+    "pro-form",
+    "pro-form-dialog",
+    "app-shell",
+    "page-container"
+  ]
+}

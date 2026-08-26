@@ -1,0 +1,36 @@
+---
+title: Button
+description: Primary interactive element, with variants, sizes, and asChild support.
+---
+
+Displays a button or an anchor that looks like a button. Source: `packages/ui/src/components/ui/button.tsx`, styled with `class-variance-authority`.
+
+## Import
+
+```ts
+import { Button } from '@package/ui/src/components/ui/button';
+```
+
+## Usage
+
+<ButtonDemo />
+
+```tsx
+import { Button } from '@package/ui/src/components/ui/button';
+
+<Button variant='default'>Save</Button>
+<Button variant='secondary' size='sm'>Small</Button>
+<Button variant='destructive'>Delete</Button>
+<Button variant='ghost' size='icon'><PlusIcon /></Button>
+<Button asChild>
+  <a href='/docs'>Docs</a>
+</Button>
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `variant` | `default` \| `secondary` \| `destructive` \| `outline` \| `ghost` \| `link` | `default` |
+| `size` | `default` \| `sm` \| `lg` \| `icon` | `default` |
+| `asChild` | boolean | `false` — merges props onto the child element instead of rendering `<button>`. |

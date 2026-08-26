@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:web": "vite --port=1431",
-    "build": "tsc -p tsconfig.json && vite build",
-    "build:web": "tsc -p tsconfig.json && vite build",
+    "dev": "fumadocs-mdx && tsx scripts/generate-llm.ts && vite",
+    "dev:web": "fumadocs-mdx && tsx scripts/generate-llm.ts && vite --port=1431",
+    "build": "fumadocs-mdx && tsx scripts/generate-llm.ts && tsc -p tsconfig.json && vite build",
+    "build:web": "fumadocs-mdx && tsx scripts/generate-llm.ts && tsc -p tsconfig.json && vite build",
     "preview": "vite preview",
     "tauri": "tauri"
   },
@@ -21,6 +21,9 @@
     "@tanstack/react-router": "^1.0.0",
     "@tauri-apps/api": "2.11.0",
     "@tauri-apps/plugin-opener": "2.5.4",
+    "fumadocs-core": "^16.15.2",
+    "fumadocs-mdx": "^15.3.1",
+    "fumadocs-ui": "^16.15.2",
     "lucide-react": "^0.545.0",
     "react": "19.2.6",
     "react-dom": "19.2.6"

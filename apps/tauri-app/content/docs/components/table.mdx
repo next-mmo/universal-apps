@@ -1,0 +1,44 @@
+---
+title: Table
+description: Styled table primitives — the base under the ProDataTable block.
+---
+
+Low-level table styling primitives. Source: `packages/ui/src/components/ui/table.tsx`. For full-featured tables (sorting, filters, pagination, column visibility), use `ProDataTable` from `@package/pro`, which composes these.
+
+## Import
+
+```ts
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@package/ui/src/components/ui/table';
+```
+
+## Usage
+
+<TableDemo />
+
+```tsx
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Task</TableHead>
+      <TableHead>Status</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Write docs</TableCell>
+      <TableCell>In progress</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+## API
+
+`Table` wraps content in a horizontally scrollable container. `TableRow` highlights on hover; `TableRow` also accepts `data-state='selected'` for row-selection styling used by the pro table.

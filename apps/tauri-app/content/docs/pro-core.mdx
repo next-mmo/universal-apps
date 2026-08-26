@@ -1,0 +1,101 @@
+---
+title: Pro Core
+description: The framework-free contracts behind every pro component — form schemas, column DSL, table features, and query keys.
+---
+
+`@package/pro-core` holds the **framework-free contracts** that pro component adapters consume. It has no React, Vue, or Svelte dependencies — only types and pure functions — which is what lets the same contracts drive adapters across frameworks.
+
+There is no package-root entrypoint; import each module by its full path:
+
+```bash
+@package/pro-core/src/form/schema
+@package/pro-core/src/table/columns
+@package/pro-core/src/table/features
+@package/pro-core/src/table/client-engine
+@package/pro-core/src/query/keys
+```
+
+## Form schema
+
+`form/schema` defines the declarative form model rendered by `ProForm` adapters (`ProFormDialog` in React):
+
+- `ProFieldSchema` — one field: `name`, `label`, `type` (`text | textarea | number | select | checkbox | switch`), plus `placeholder`, `description`, `options`, `required`, `disabled`, and synchronous `validators` (functions returning an error message or `undefined`).
+- `ProFormGroup` — fields grouped under a shared `title`/`description` with a `stacked` or `grid-2` layout.
+- `validateField(schema, raw)` — runs the required check, then every validator, returning the first error.
+
+```ts
+import { validateField } from '@package/pro-core/src/form/schema';
+
+const title = {
+  name: 'text',
+  label: 'Task',
+  type: 'text',
+  required: true,
+} as const;
+
+validateField(title, ''); // "Task is required"
+```
+
+## Column DSL
+
+`table/columns` is the declarative column model for pro data tables. Adapters map each `valueType` to a concrete cell renderer:
+
+| ValueType | Renders |
+| --------- | ------- |
+| `text` / `number` / `date` | Plain values, dates via locale formatting |
+| `badge` / `status` | `@package/ui` badge variants |
+| `actions` | Row action buttons from an `onSelect(row)` list |
+
+Useful members: `ProColumnDef<T>` (the union), `isActionColumn()` (type guard), and `readCellValue(row, column)` which resolves the `accessor` (defaulting to `key`).
+
+```ts
+import type { ProColumnDef } from '@package/pro-core/src/table/columns';
+
+const columns: Array<ProColumnDef<TodoRow>> = [
+  { key: 'text', header: 'Task', valueType: 'text' },
+  { key: 'priority', header: 'Priority', valueType: 'badge', hiddenByDefault: true },
+  { key: 'status', header: 'Status', valueType: 'status' },
+  {
+    key: 'actions',
+    header: '',
+    valueType: 'actions',
+    actions: [
+      { label: 'Done', onSelect: (row) => toggle(row.id) },
+      { label: 'Delete', destructive: true, onSelect: (row) => remove(row.id) },
+    ],
+  },
+];
+```
+
+## Table features & query contract
+
+`table/features` configures which capabilities a table instance exposes and defines the server-mode contract:
+
+- `TableFeatures` — toggles for `sorting`, `globalFilter`, `pagination`, `rowSelection`, `columnVisibility`, `refresh`, plus `pageSizeOptions`.
+- `TableQuery` / `PagedResult<T>` — the shape adapters translate into their fetcher when a table runs in **server mode**; in client mode everything happens in memory.
+- `buildTableQuery({ page, pageSize, ... })` — normalizes a query with `undefined` defaults for the optional fields.
+
+```ts
+import { buildTableQuery } from '@package/pro-core/src/table/features';
+
+buildTableQuery({ page: 0, pageSize: 20 });
+// { page: 0, pageSize: 20, sortBy: undefined, sortDir: undefined, search: undefined }
+```
+
+## Client engine
+
+`table/client-engine` is the in-memory pipeline for lightweight adapters (Svelte today): `filterRows` (case-insensitive search across non-action columns), `sortRows` (numeric-aware, stable copy), and `pageRows`. Each step takes the output of the previous one, so adapters compose them freely.
+
+## Query keys
+
+`query/keys` provides deterministic cache-key factories shared by every adapter, so mutations invalidate consistently across frameworks:
+
+```ts
+import { queryKeys } from '@package/pro-core/src/query/keys';
+
+queryKeys.table('todos', { page: 0 }); // ['pro', 'table', 'todos', { page: 0 }]
+queryKeys.detail('todos', 1); //        ['pro', 'detail', 'todos', 1]
+queryKeys.stats('todos'); //            ['pro', 'stats', 'todos']
+```
+
+Invalidation can use the key prefix — this app's todo mutations invalidate `['pro', 'table', 'todos']`, which matches every parameterization of `queryKeys.table('todos', …)`.

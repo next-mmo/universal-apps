@@ -1,0 +1,31 @@
+---
+title: Tabs
+description: Switch between panels within the same context, built on Radix UI.
+---
+
+A tabbed interface. Source: `packages/ui/src/components/ui/tabs.tsx`, built on `@radix-ui/react-tabs`.
+
+## Import
+
+```ts
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@package/ui/src/components/ui/tabs';
+```
+
+## Usage
+
+<TabsDemo />
+
+```tsx
+<Tabs defaultValue='preview'>
+  <TabsList>
+    <TabsTrigger value='preview'>Preview</TabsTrigger>
+    <TabsTrigger value='code'>Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value='preview'>…rendered output…</TabsContent>
+  <TabsContent value='code'>…source…</TabsContent>
+</Tabs>
+```
+
+## API
+
+`Tabs` root (`value`, `defaultValue`, `onValueChange`, `orientation`). Each `TabsTrigger` value must match a `TabsContent` value; only the active content is mounted.

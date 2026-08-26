@@ -1,0 +1,18 @@
+{
+  "$schema": "./packages/cli/scaffold.config.schema.json",
+  "targets": {
+    "ui": {
+      "componentDir": "packages/ui/src/components/ui",
+      "templateDir": "packages/cli/templates/ui",
+      "baseTemplate": "_base.tsx",
+      "package": "@package/ui",
+      "docsDir": "apps/tauri-app/content/docs/components",
+      "docsMeta": "apps/tauri-app/content/docs/components/meta.json",
+      "importRewrites": {
+        "@/lib/cn": "../../lib/cn",
+        "@/lib/utils": "../../lib/cn",
+        "@/components/ui/": "./"
+      }
+    }
+  }
+}

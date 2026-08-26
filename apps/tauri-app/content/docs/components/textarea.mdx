@@ -1,0 +1,30 @@
+---
+title: Textarea
+description: Multi-line text field that grows with content.
+---
+
+A multi-line text field. Source: `packages/ui/src/components/ui/textarea.tsx`.
+
+## Import
+
+```ts
+import { Textarea } from '@package/ui/src/components/ui/textarea';
+```
+
+## Usage
+
+<TextareaDemo />
+
+```tsx
+import { Label } from '@package/ui/src/components/ui/label';
+import { Textarea } from '@package/ui/src/components/ui/textarea';
+
+<div className='grid gap-2'>
+  <Label htmlFor='notes'>Notes</Label>
+  <Textarea id='notes' placeholder='Optional details…' rows={4} />
+</div>
+```
+
+## API
+
+A plain `<textarea>` — all native props forward (`value`, `onChange`, `rows`, `disabled`, …). `aria-invalid` switches the border to destructive, matching `Input`.

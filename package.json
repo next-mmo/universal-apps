@@ -10,6 +10,7 @@
     "preview": "pnpm --filter @app/tauri-app preview",
     "tauri": "pnpm --filter @app/tauri-app tauri",
     "rename-project": "tsx --tsconfig scripts/tsconfig.json scripts/renameProject.ts",
+    "scaffold": "tsx packages/cli/src/index.ts",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix"
   },

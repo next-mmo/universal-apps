@@ -1,0 +1,26 @@
+---
+title: Label
+description: Form field caption linked to controls via htmlFor, built on Radix UI.
+---
+
+A caption for a form control. Source: `packages/ui/src/components/ui/label.tsx`, built on `@radix-ui/react-label`.
+
+## Import
+
+```ts
+import { Label } from '@package/ui/src/components/ui/label';
+```
+
+## Usage
+
+<LabelDemo />
+
+```tsx
+import { Label } from '@package/ui/src/components/ui/label';
+
+<Label htmlFor='priority'>Priority</Label>
+```
+
+## API
+
+Forwards all `<label>` props; `htmlFor` clicking focuses the linked control. When the associated control is disabled, Radix applies `data-disabled` styling automatically.

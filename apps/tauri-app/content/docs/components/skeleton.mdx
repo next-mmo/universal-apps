@@ -1,0 +1,25 @@
+---
+title: Skeleton
+description: Loading placeholder that mirrors the shape of incoming content.
+---
+
+A pulsing placeholder block for loading states. Source: `packages/ui/src/components/ui/skeleton.tsx`.
+
+## Import
+
+```ts
+import { Skeleton } from '@package/ui/src/components/ui/skeleton';
+```
+
+## Usage
+
+<SkeletonDemo />
+
+```tsx
+<Skeleton className='h-4 w-48' />
+<Skeleton className='h-24 w-full rounded-xl' />
+```
+
+## API
+
+A single `<div>` with the `animate-pulse` background. Size and shape are entirely driven by `className`.

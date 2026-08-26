@@ -1,0 +1,41 @@
+---
+title: Dropdown Menu
+description: Action list anchored to a trigger, built on Radix UI.
+---
+
+A menu of actions revealed from a trigger. Source: `packages/ui/src/components/ui/dropdown-menu.tsx`, built on `@radix-ui/react-dropdown-menu`.
+
+## Import
+
+```ts
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@package/ui/src/components/ui/dropdown-menu';
+```
+
+## Usage
+
+<DropdownMenuDemo />
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant='ghost' size='icon'><MoreHorizontalIcon /></Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent align='end'>
+    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+    <DropdownMenuItem onSelect={() => toggle(row.id)}>Done</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem variant='destructive' onSelect={() => remove(row.id)}>Delete</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+## API
+
+`DropdownMenu` root (`open`, `onOpenChange`, `modal`). `DropdownMenuContent` positions the panel (`align`, `side`, `sideOffset`). Items close the menu on select unless `onSelect` calls `event.preventDefault()`.

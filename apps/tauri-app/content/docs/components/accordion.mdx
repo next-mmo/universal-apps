@@ -1,0 +1,61 @@
+---
+title: Accordion
+description: A vertically stacked set of collapsible content panels, built on Radix UI.
+---
+
+Displays an accordion: vertically stacked, collapsible section panels. Source: `packages/ui/src/components/ui/accordion.tsx`, built on `@radix-ui/react-accordion`.
+
+## Import
+
+```ts
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@package/ui/src/components/ui/accordion';
+```
+
+## Usage
+
+<AccordionDemo />
+
+```tsx title="Example"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@package/ui/src/components/ui/accordion';
+
+export function Basic() {
+  return (
+    <Accordion type='single' collapsible>
+      <AccordionItem value='item-1'>
+        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It uses Radix UI primitives with full keyboard and screen-reader support.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value='item-2'>
+        <AccordionTrigger>Is it animated?</AccordionTrigger>
+        <AccordionContent>
+          Yes. Height animations come from the `accordion-down` / `accordion-up` keyframes
+          defined in the shared theme tokens.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+```
+
+## API
+
+| Component | Props | Notes |
+| --------- | ----- | ----- |
+| `Accordion` | `type='single' \| 'multiple'`, `collapsible`, `defaultValue` | Root; forwarded to Radix Root. `type='single'` keeps one panel open; `collapsible` allows closing it. |
+| `AccordionItem` | `value` (required) | One panel row; bottom border, no border on the last item. |
+| `AccordionTrigger` | children | Header button with rotating chevron; `data-state=open` flips it 180°. |
+| `AccordionContent` | children | Animated open/close wrapper; add padding via `className` on inner `div`. |
+
+All props not listed are forwarded to the underlying Radix primitive, so `onValueChange`, `disabled`, and friends work as documented by Radix UI.

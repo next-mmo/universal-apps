@@ -1,0 +1,31 @@
+---
+title: Popover
+description: Non-modal floating panel anchored to a trigger, built on Radix UI.
+---
+
+A floating panel for rich content. Source: `packages/ui/src/components/ui/popover.tsx`, built on `@radix-ui/react-popover`.
+
+## Import
+
+```ts
+import { Popover, PopoverContent, PopoverTrigger } from '@package/ui/src/components/ui/popover';
+```
+
+## Usage
+
+<PopoverDemo />
+
+```tsx
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant='outline'>Options</Button>
+  </PopoverTrigger>
+  <PopoverContent align='end' className='w-72'>
+    …any content…
+  </PopoverContent>
+</Popover>
+```
+
+## API
+
+`Popover` root (`open`, `onOpenChange`), `PopoverTrigger`, `PopoverContent` (`align`, `side`, `sideOffset`, `matchTriggerWidth`). Closes on outside click or Esc.

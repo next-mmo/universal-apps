@@ -1,0 +1,26 @@
+---
+title: Blocks
+description: Ant Design Pro-style feature blocks on shadcn primitives and TanStack engines — data table, forms, and layouts.
+---
+
+**Blocks** are higher-level feature components in `@package/pro`: complete, composable units (a searchable sortable table, a schema-driven form, an app shell) assembled from `@package/ui` primitives, `@package/pro-core` contracts, and TanStack engines (Table, Form, Query). Every block is React today, driven by framework-free contracts so Vue/Svelte adapters can share the same core.
+
+## The blocks
+
+| Block | Purpose |
+| ----- | ------- |
+| `ProDataTable` | Toolbar + table + pagination over TanStack Table, client or server mode |
+| `ProForm` | Schema-driven form over TanStack Form with validation and submit states |
+| `ProFormDialog` | ProForm inside a Dialog for create/edit flows |
+| `AppShell` | Application frame: sidebar nav, header, content area |
+| `PageContainer` | Breadcrumb trail, title block, actions, page body |
+
+## Block vs. component
+
+Components (`@package/ui`) are dumb primitives — a Button, an Input. Blocks own **behavior and data plumbing**: ProDataTable wires sorting/filter/pagination state, ProForm runs validation and submit lifecycles. Rule of thumb from the README: *blocks are shadcn primitives + TanStack engines only*, no other state or data libraries.
+
+## Where they're used
+
+- `/todos` — `ProDataTable` + `ProFormDialog` for task management
+- `/forms` — `ProForm` showcase with validation, groups, and submit states
+- Everywhere — `AppShell` wraps the app (see `src/routes.tsx`), `PageContainer` wraps each page

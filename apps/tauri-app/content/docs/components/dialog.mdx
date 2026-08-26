@@ -1,0 +1,46 @@
+---
+title: Dialog
+description: Modal overlay built on Radix UI — alert and form dialogs.
+---
+
+A modal window layered over the page. Source: `packages/ui/src/components/ui/dialog.tsx`, built on `@radix-ui/react-dialog`. `ProFormDialog` in `@package/pro` composes this for schema-driven forms.
+
+## Import
+
+```ts
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@package/ui/src/components/ui/dialog';
+```
+
+## Usage
+
+<DialogDemo />
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button variant='outline'>Open</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>New task</DialogTitle>
+      <DialogDescription>Describe what needs doing.</DialogDescription>
+    </DialogHeader>
+    …fields…
+    <DialogFooter>
+      <Button>Create</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+## API
+
+`Dialog` is the controlled/uncontrolled root (`open`, `onOpenChange`). `DialogTrigger` opens it; `DialogContent` renders the overlay + panel (Esc and overlay click close it), and `DialogHeader`/`DialogFooter` are layout slots.

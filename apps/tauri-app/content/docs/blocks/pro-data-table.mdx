@@ -1,0 +1,53 @@
+---
+title: ProDataTable
+description: Toolbar, table, and pagination over TanStack Table — client or server mode.
+---
+
+A complete list view: search toolbar, column sorting, column visibility, page-size selector, pagination, loading/error/empty states. Source: `packages/pro/src/data-table/pro-data-table.tsx`, built on TanStack Table's row-model engines and `@package/ui` table primitives. Column shape comes from the `ProColumnDef` DSL in `@package/pro-core`.
+
+## Import
+
+```ts
+import { ProDataTable } from '@package/pro/src/data-table/pro-data-table';
+```
+
+## Usage
+
+<ProDataTableDemo />
+
+```tsx title="Client mode (from src/pages/todos-page.tsx)"
+import { ProDataTable } from '@package/pro/src/data-table/pro-data-table';
+import type { ProColumnDef } from '@package/pro-core/src/table/columns';
+
+const columns: Array<ProColumnDef<TodoRow>> = [
+  { key: 'text', header: 'Task', valueType: 'text' },
+  { key: 'createdAt', header: 'Created', valueType: 'date' },
+  {
+    key: 'actions',
+    header: '',
+    valueType: 'actions',
+    actions: [
+      { label: 'Done', onSelect: (row) => toggle(row.id) },
+      { label: 'Delete', destructive: true, onSelect: (row) => remove(row.id) },
+    ],
+  },
+];
+
+<ProDataTable columns={columns} data={todos} loading={isLoading} />
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `columns` | `Array<ProColumnDef<T>>` | Column DSL from `@package/pro-core`. |
+| `data` | `T[]` | Row data for client mode. |
+| `loading` / `error` / `onRetry` | — | State rendering: skeletons, error card with retry. |
+| `features` | `TableFeatures` | Toggle sorting, globalFilter, pagination, rowSelection, columnVisibility, refresh. |
+| `query` + `totalRows` + `onQueryChange` | `TableQuery` | **Server mode**: pass all three and the table stops managing state internally; your fetcher owns the data. |
+| `searchPlaceholder`, `toolbarExtra`, `onRefresh` | — | Toolbar customization. |
+| `getRowId` | `(row) => string` | Stable row identity for selection. |
+
+## Client vs. server mode
+
+Without `query`, filtering/sorting/pagination happen in memory (TanStack row models). Pass `query`/`totalRows`/`onQueryChange` and the block becomes a controlled view over your API — translate `TableQuery` into fetch parameters and feed back rows + total. Pair it with `queryKeys.table()` from `@package/pro-core` so cache invalidation stays deterministic.

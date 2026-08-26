@@ -1,0 +1,43 @@
+---
+title: PageContainer
+description: Breadcrumb trail, title block, actions, and page body in a standard layout.
+---
+
+Standard page scaffold: breadcrumb trail, title, optional description, right-aligned actions, body, optional footer. Source: `packages/pro/src/layout/page-container.tsx`.
+
+## Import
+
+```ts
+import { PageContainer } from '@package/pro/src/layout/page-container';
+```
+
+## Usage
+
+<PageContainerDemo />
+
+```tsx title="From src/pages/todos-page.tsx"
+import { PageContainer } from '@package/pro/src/layout/page-container';
+
+<PageContainer
+  title='Todos'
+  breadcrumbs={['App', 'Data', 'Todos']}
+  description='ProTable-style block on TanStack Table + Query.'
+  extra={
+    <Button onClick={() => setCreateOpen(true)}>
+      <PlusIcon /> New task
+    </Button>
+  }
+>
+  <ProDataTable … />
+</PageContainer>
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `title` / `description` | `string` | Title block content. |
+| `breadcrumbs` | `string[]` | Rendered as `A / B / C` above the title. |
+| `extra` | `ReactNode` | Right-aligned action slot beside the title. |
+| `footer` | `ReactNode` | Below the body. |
+| `children` | `ReactNode` | Page body. |

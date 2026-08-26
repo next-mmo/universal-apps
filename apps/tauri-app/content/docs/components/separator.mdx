@@ -1,0 +1,28 @@
+---
+title: Separator
+description: Horizontal or vertical rule dividing content sections, built on Radix UI.
+---
+
+A visual divider. Source: `packages/ui/src/components/ui/separator.tsx`, built on `@radix-ui/react-separator`.
+
+## Import
+
+```ts
+import { Separator } from '@package/ui/src/components/ui/separator';
+```
+
+## Usage
+
+<SeparatorDemo />
+
+```tsx
+<Separator />
+<Separator orientation='vertical' className='h-6' />
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `orientation` | `horizontal` \| `vertical` | `horizontal` |
+| `decorative` | boolean | `true` — renders as `<div>`; set `false` for a semantic `<hr role="separator">`. |

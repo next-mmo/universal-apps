@@ -1,0 +1,33 @@
+---
+title: Card
+description: Grouped container with header, title, description, content, and footer slots.
+---
+
+Groups related content in a bordered container. Source: `packages/ui/src/components/ui/card.tsx`.
+
+## Import
+
+```ts
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@package/ui/src/components/ui/card';
+```
+
+## Usage
+
+<CardDemo />
+
+```tsx
+<Card>
+  <CardHeader>
+    <CardTitle>Task details</CardTitle>
+    <CardDescription>Fill in the information below.</CardDescription>
+  </CardHeader>
+  <CardContent>…form controls…</CardContent>
+  <CardFooter className='justify-end'>
+    <Button>Create</Button>
+  </CardFooter>
+</Card>
+```
+
+## API
+
+Each slot is a plain `<div>` with layout classes: `Card` (border, radius, shadow), `CardHeader` (vertical stack), `CardContent`, `CardFooter` (horizontal stack). Compose them freely; none accept special props beyond `className` and `asChild`.

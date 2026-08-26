@@ -1,0 +1,41 @@
+---
+title: AppShell
+description: Application frame — sidebar navigation, header, and content area.
+---
+
+The application frame used by every route in this app: fixed-width sidebar with nav items (desktop), horizontal scrollable nav in the header (mobile), sticky header with the app title. Source: `packages/pro/src/layout/app-shell.tsx`. You are looking at it right now — this docs page renders inside the AppShell.
+
+## Import
+
+```ts
+import { AppShell } from '@package/pro/src/layout/app-shell';
+```
+
+## Usage
+
+```tsx title="Root route (from src/routes.tsx)"
+import { AppShell } from '@package/pro/src/layout/app-shell';
+import { BookOpenIcon, ListTodoIcon, LayoutDashboardIcon } from 'lucide-react';
+
+<AppShell
+  title='Universal Todos'
+  navItems={[
+    { label: 'Dashboard', to: '/', icon: LayoutDashboardIcon },
+    { label: 'Todos', to: '/todos', icon: ListTodoIcon },
+    { label: 'Docs', to: '/docs', icon: BookOpenIcon },
+  ]}
+>
+  <Outlet />
+</AppShell>
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `title` | `string` | Sidebar brand text and header title. |
+| `navItems` | `Array<NavItem>` | `{ label, to, icon? }`; active state derives from `location.pathname` (exact or prefix match). |
+| `headerExtra` | `ReactNode` | Right-aligned header slot (actions, theme toggle, …). |
+| `children` | `ReactNode` | Routed content. |
+
+Active styling uses the `primary` background for the matched item; icons come from `lucide-react`.

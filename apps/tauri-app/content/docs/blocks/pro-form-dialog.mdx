@@ -1,0 +1,47 @@
+---
+title: ProFormDialog
+description: ProForm inside a Dialog for create and edit flows.
+---
+
+Controlled Dialog wrapping `ProForm` — the standard create/edit surface. Key the rendered dialog by the edited record so defaults reset between opens. Source: `packages/pro/src/form/pro-form-dialog.tsx`.
+
+## Import
+
+```ts
+import { ProFormDialog } from '@package/pro/src/form/pro-form-dialog';
+```
+
+## Usage
+
+<ProFormDialogDemo />
+
+```tsx title="Create flow (from src/pages/todos-page.tsx)"
+const [createOpen, setCreateOpen] = useState(false);
+const addTodo = useAddTodo();
+
+<Button onClick={() => setCreateOpen(true)}>New task</Button>
+<ProFormDialog
+  open={createOpen}
+  onOpenChange={setCreateOpen}
+  title='New task'
+  schema={createSchema}
+  defaultValues={{}}
+  submitLabel='Create'
+  pending={addTodo.isPending}
+  onSubmit={async (values) => {
+    await addTodo.mutateAsync(String(values.text));
+    setCreateOpen(false);
+  }}
+/>
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `open` / `onOpenChange` | boolean / `(open) => void` | Controlled dialog visibility. |
+| `title` / `description` | `string` | Dialog header text. |
+| `schema` | `Array<ProFormGroup>` | Same schema as `ProForm`. |
+| `defaultValues` | `ProFormValues` | Re-key the dialog element per record so values reset. |
+| `onSubmit` | `(values) => Promise<void> \| void` | Close the dialog yourself after success. |
+| `submitLabel` / `pending` | — | Submit button label and pending state. |

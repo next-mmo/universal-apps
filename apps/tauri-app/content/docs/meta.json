@@ -1,0 +1,4 @@
+{
+  "title": "Docs",
+  "pages": ["index", "agent", "getting-started", "architecture", "pro-core", "blocks", "components"]
+}

@@ -1,0 +1,35 @@
+---
+title: Switch
+description: Toggle control for immediate on/off settings, built on Radix UI.
+---
+
+An on/off toggle. Source: `packages/ui/src/components/ui/switch.tsx`, built on `@radix-ui/react-switch`.
+
+## Import
+
+```ts
+import { Switch } from '@package/ui/src/components/ui/switch';
+```
+
+## Usage
+
+<SwitchDemo />
+
+```tsx
+import { Label } from '@package/ui/src/components/ui/label';
+import { Switch } from '@package/ui/src/components/ui/switch';
+
+<div className='flex items-center gap-2'>
+  <Switch id='pin' />
+  <Label htmlFor='pin'>Surface this task at the top</Label>
+</div>
+```
+
+## API
+
+| Prop | Notes |
+| ---- | ----- |
+| `checked` / `defaultChecked` | Controlled / uncontrolled state. |
+| `onCheckedChange` | `(checked: boolean) => void`. |
+
+Other props forward to the Radix primitive (`disabled`, `required`, `name` for forms).

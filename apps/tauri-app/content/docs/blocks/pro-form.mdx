@@ -1,0 +1,65 @@
+---
+title: ProForm
+description: Schema-driven form over TanStack Form with validation, groups, and submit states.
+---
+
+Renders a complete form from a `ProFormGroup[]` schema (see `@package/pro-core/src/form/schema`): field controls per type, synchronous validators, group titles/descriptions, `stacked` or `grid-2` layouts, pending state on submit. Source: `packages/pro/src/form/pro-form.tsx`, built on TanStack Form.
+
+## Import
+
+```ts
+import { ProForm } from '@package/pro/src/form/pro-form';
+```
+
+## Usage
+
+<ProFormDemo />
+
+```tsx title="Schema-driven form"
+import { ProForm } from '@package/pro/src/form/pro-form';
+
+const schema = [
+  {
+    title: 'Task details',
+    fields: [
+      { name: 'text', label: 'Task', type: 'text', required: true, placeholder: 'What needs doing?' },
+      { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Optional details…' },
+    ],
+  },
+  {
+    title: 'Options',
+    layout: 'grid-2',
+    fields: [
+      { name: 'priority', label: 'Priority', type: 'select', options: [
+        { label: 'Low', value: 'low' },
+        { label: 'Normal', value: 'normal' },
+        { label: 'High', value: 'high' },
+      ] },
+      { name: 'pinned', label: 'Pin to top', type: 'switch' },
+    ],
+  },
+];
+
+<ProForm
+  schema={schema}
+  defaultValues={{ priority: 'normal', pinned: false }}
+  submitLabel='Create task'
+  onSubmit={async (values) => {
+    await addTodo(String(values.text));
+  }}
+/>
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `schema` | `Array<ProFormGroup>` | Groups → fields; field types: `text`, `textarea`, `number`, `select`, `checkbox`, `switch`. |
+| `defaultValues` | `ProFormValues` | Initial values keyed by field `name`. |
+| `onSubmit` | `(values) => Promise<void> \| void` | Receives the collected values. |
+| `onCancel` | `() => void` | Renders a Cancel button when provided. |
+| `submitLabel` / `cancelLabel` | `string` | Button labels. |
+| `pending` | `boolean` | Disables the submit button while true. |
+| `className` | `string` | Extra classes on the form element. |
+
+Validators are plain functions on the field schema (`validators: [(v) => v.length < 3 ? 'Too short' : undefined]`) — no schema library involved.

@@ -1,0 +1,35 @@
+---
+title: Checkbox
+description: Binary input built on Radix UI with checked/indeterminate states.
+---
+
+A binary input that toggles a single value. Source: `packages/ui/src/components/ui/checkbox.tsx`, built on `@radix-ui/react-checkbox`.
+
+## Import
+
+```ts
+import { Checkbox } from '@package/ui/src/components/ui/checkbox';
+```
+
+## Usage
+
+<CheckboxDemo />
+
+```tsx
+import { Checkbox } from '@package/ui/src/components/ui/checkbox';
+import { Label } from '@package/ui/src/components/ui/label';
+
+<div className='flex items-center gap-2'>
+  <Checkbox id='pin' />
+  <Label htmlFor='pin'>Pin to top</Label>
+</div>
+```
+
+## API
+
+| Prop | Values | Notes |
+| ---- | ------ | ----- |
+| `checked` | `boolean` \| `'indeterminate'` | Controlled state; use `defaultChecked` for uncontrolled. |
+| `onCheckedChange` | `(checked) => void` | Change handler. |
+
+All other props forward to the Radix primitive (`disabled`, `required`, …).

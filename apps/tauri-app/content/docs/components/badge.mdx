@@ -1,0 +1,35 @@
+---
+title: Badge
+description: Small status descriptor for UI elements, with six visual variants.
+---
+
+Displays a badge or component tag. Source: `packages/ui/src/components/ui/badge.tsx`.
+
+## Import
+
+```ts
+import { Badge } from '@package/ui/src/components/ui/badge';
+```
+
+## Usage
+
+<BadgeDemo />
+
+```tsx
+import { Badge } from '@package/ui/src/components/ui/badge';
+
+<Badge>Default</Badge>
+<Badge variant='secondary'>Secondary</Badge>
+<Badge variant='destructive'>Destructive</Badge>
+<Badge variant='outline'>Outline</Badge>
+```
+
+The pro packages additionally use `success` and `warning` variants (see `BadgeTone` in `@package/pro-core/src/table/columns`).
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `variant` | `default` \| `secondary` \| `destructive` \| `outline` | `default` |
+
+Accepts any `<span>` props plus `asChild` (Radix Slot) to render as a different element.
