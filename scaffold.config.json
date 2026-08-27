@@ -13,6 +13,17 @@
         "@/lib/utils": "../../lib/cn",
         "@/components/ui/": "./"
       }
+    },
+    "native": {
+      "componentDir": "packages/ui-native/src/components/ui",
+      "templateDir": "packages/cli/templates/native",
+      "baseTemplate": "_base.tsx",
+      "package": "@package/ui-native",
+      "docsDir": "apps/tauri-app/content/docs/platforms",
+      "docsMeta": "apps/tauri-app/content/docs/platforms/meta.json",
+      "importRewrites": {
+        "@/lib/theme": "../../lib/theme"
+      }
     }
   }
 }

@@ -1,0 +1,50 @@
+---
+title: React Native Web
+description: The shared token base rendered through React Native primitives — ui-native, the playground, and the RN porting recipe.
+---
+
+The same Apple-inspired design system that powers the DOM components runs on **React Native Web (RNW)** via `@package/ui-native` — hand-built RN primitives (`Pressable`/`View`/`Text`/`StyleSheet`) styled from a JavaScript token mirror. No NativeWind, no Metro, no Expo required: the playground is a plain Vite app.
+
+## How it fits the adapter architecture
+
+The repo's cross-framework recipe applies unchanged:
+
+| Layer | DOM (React) | Native (RNW) |
+| ----- | ----------- | ------------ |
+| Tokens | `packages/ui/src/styles/tokens.css` (CSS custom properties) | `packages/ui/src/tokens.ts` (JS mirror — RN can't read CSS variables) |
+| Components | `packages/ui` (Radix + Tailwind classes) | `packages/ui-native` (RN primitives + `StyleSheet`) |
+| Playground | `apps/tauri-app` | `apps/native-playground` (Vite alias `react-native` → `react-native-web`, port 1453) |
+
+## Token mirroring
+
+`packages/ui/src/tokens.ts` mirrors `tokens.css` 1:1: light/dark palettes, the radius scale, the SF font stack. The two composite shadows are provided in two shapes — `boxShadow` strings for RNW's css layer, and native `shadow*` decompositions for future iOS/Android via Metro (RN cannot render the CSS hairline outline natively). **Keep both files in sync**; the header comment on each says so. `@package/ui-native/src/lib/theme.tsx` exposes `ThemeRoot` + `useTheme()` so components pull `palette`/`mode`/`setMode` from context.
+
+## Running the playground
+
+```bash
+pnpm dev:native   # → http://localhost:1453
+```
+
+Renders every ui-native component (buttons in all variants/sizes, badges, a form card with Input + Switch, separators) with a working light/dark toggle.
+
+## Component parity
+
+| Primitive | Status | Notes |
+| --------- | ------ | ----- |
+| Button | ✅ | All 6 variants + 4 sizes; `Pressable` |
+| Badge | ✅ | 6 variants including pro `success`/`warning` |
+| Card | ✅ | All five slots (`Card`…`CardFooter`) |
+| Input | ✅ | Wraps RN `TextInput`; `invalid` prop mirrors `aria-invalid` |
+| Switch | ✅ | Radix-style `checked`/`onCheckedChange` API |
+| Separator | ✅ | Horizontal/vertical hairline |
+| Accordion, Dialog, Select, … | ⏳ | Radix-behavior components need RN equivalents (modals, pickers); follow the same recipe |
+
+## Porting recipe (and the CLI)
+
+New native components follow the DOM siblings' prop APIs so the two stay swappable behind a shared contract:
+
+```bash
+pnpm scaffold add native <kebab-name>   # emits from templates/native/, wires docs
+```
+
+The scaffold's `native` target writes to `packages/ui-native/src/components/ui/` with the theme-import rewrite applied. Then port the real implementation from the DOM component, replacing Tailwind classes with `StyleSheet` styles and Radix behavior with RN primitives.

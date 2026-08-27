@@ -1,15 +1,9 @@
-import {
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { flexRender } from '@tanstack/react-table';
 
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 import { buildColumnDefs } from './columns';
+import { proTableFeatures } from './pro-table-features';
 import { Button } from '@package/ui/src/components/ui/button';
 import {
   Table,
@@ -25,11 +19,14 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { ProColumnDef } from '@package/pro-core/src/table/columns';
 import type {
+  ColumnVisibilityState,
   PaginationState,
+  RowData,
+  RowSelectionState,
   SortingState,
-  VisibilityState,
 } from '@tanstack/react-table';
 import type { TableFeatures, TableQuery } from '@package/pro-core/src/table/features';
+import { useTable } from '@tanstack/react-table';
 
 export interface ProDataTableProps<T> {
   columns: Array<ProColumnDef<T>>;
@@ -53,7 +50,7 @@ export interface ProDataTableProps<T> {
   onRefresh?: () => void;
 }
 
-export function ProDataTable<T>({
+export function ProDataTable<T extends RowData>({
   columns,
   data,
   loading = false,
@@ -77,8 +74,8 @@ export function ProDataTable<T>({
     pageIndex: 0,
     pageSize: features.pageSizeOptions?.[0] ?? 10,
   });
-  const [rowSelection, setRowSelection] = useState({});
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(() =>
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>(() =>
     Object.fromEntries(
       columns.filter((c) => c.hiddenByDefault === true).map((c) => [c.key, false]),
     ),
@@ -103,7 +100,8 @@ export function ProDataTable<T>({
     }
   }
 
-  const table = useReactTable({
+  const table = useTable({
+    features: proTableFeatures,
     data,
     columns: buildColumnDefs(columns, { enableRowSelection }),
     getRowId: getRowId !== undefined ? (row) => getRowId(row as T) : undefined,
@@ -141,10 +139,6 @@ export function ProDataTable<T>({
     onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     globalFilterFn: 'includesString',
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: serverMode ? undefined : getSortedRowModel(),
-    getFilteredRowModel: serverMode ? undefined : getFilteredRowModel(),
-    getPaginationRowModel: serverMode ? undefined : getPaginationRowModel(),
   });
 
   const rows = table.getRowModel().rows;
@@ -170,7 +164,7 @@ export function ProDataTable<T>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} style={{ width: header.getSize() }}>
+                  <TableHead key={header.id} style={{ width: header.column.getSize() }}>
                     {header.isPlaceholder ? null : header.column.getCanSort() ? (
                       <button
                         type='button'

@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["react-native", "vite/client"],
+    "paths": {
+      "@package/ui-native": ["../../packages/ui-native/src/index.ts"],
+      "@package/ui-native/*": ["../../packages/ui-native/src/*"],
+      "@package/ui/*": ["../../packages/ui/src/*"],
+      "@package/ui/src/*": ["../../packages/ui/src/*"]
+    }
+  },
+  "include": ["src", "../../packages/ui-native/src"]
+}

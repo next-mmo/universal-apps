@@ -12,7 +12,8 @@
     "rename-project": "tsx --tsconfig scripts/tsconfig.json scripts/renameProject.ts",
     "scaffold": "tsx packages/cli/src/index.ts",
     "lint": "oxlint",
-    "lint:fix": "oxlint --fix"
+    "lint:fix": "oxlint --fix",
+    "dev:native": "pnpm --filter @app/native-playground dev"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.0",

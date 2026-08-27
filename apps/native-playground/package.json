@@ -1,0 +1,25 @@
+{
+  "name": "@app/native-playground",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=1453",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@package/ui-native": "workspace:*",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-native": "^0.81.4",
+    "react-native-web": "^0.21.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "4.7.0",
+    "typescript": "5.8.3",
+    "vite": "7.3.3"
+  }
+}

@@ -8,7 +8,8 @@ import type {
   ColumnValueType,
   ProColumnDef,
 } from '@package/pro-core/src/table/columns';
-import type { ColumnDef } from '@tanstack/react-table';
+import type { ColumnDef, RowData } from '@tanstack/react-table';
+import type { ProTableFeatures } from './pro-table-features';
 
 function formatDate(value: unknown): string {
   const date = new Date(value as string | number | Date);
@@ -42,11 +43,11 @@ function renderTypedCell(
  * Maps framework-free pro-core column definitions onto TanStack Table defs.
  * This adapter layer is the only place that knows about both worlds.
  */
-export function buildColumnDefs<T>(
+export function buildColumnDefs<T extends RowData>(
   columns: Array<ProColumnDef<T>>,
   options: { enableRowSelection?: boolean } = {},
-): Array<ColumnDef<T>> {
-  const defs: Array<ColumnDef<T>> = [];
+): Array<ColumnDef<ProTableFeatures, T>> {
+  const defs: Array<ColumnDef<ProTableFeatures, T>> = [];
 
   if (options.enableRowSelection) {
     defs.push({
@@ -95,7 +96,7 @@ export function buildColumnDefs<T>(
       header: column.header,
       enableSorting: column.sortable !== false,
       enableHiding: true,
-      sortingFn: column.valueType === 'number' ? 'basic' : 'alphanumeric',
+      sortFn: column.valueType === 'number' ? 'basic' : 'alphanumeric',
       accessorFn: (row) => (row as Record<string, unknown>)[column.accessor ?? column.key],
       cell: (context) => renderTypedCell(context.getValue(), column.valueType),
     });

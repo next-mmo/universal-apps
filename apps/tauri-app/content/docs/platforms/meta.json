@@ -1,0 +1,5 @@
+{
+  "title": "Platforms",
+  "defaultOpen": true,
+  "pages": ["react-native-web"]
+}
