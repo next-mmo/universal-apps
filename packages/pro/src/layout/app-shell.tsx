@@ -13,6 +13,7 @@ export interface AppShellProps {
   title: string;
   navItems: Array<NavItem>;
   headerExtra?: ReactNode;
+  sidebarAction?: ReactNode;
   children: ReactNode;
 }
 
@@ -20,14 +21,15 @@ export interface AppShellProps {
  * macOS-window-inspired shell: translucent blurred sidebar with tinted
  * pill selections, hairline separators, floating content area.
  */
-export function AppShell({ title, navItems, headerExtra, children }: AppShellProps) {
+export function AppShell({ title, navItems, headerExtra, sidebarAction, children }: AppShellProps) {
   const location = useLocation();
 
   return (
     <div className='flex min-h-screen bg-background text-foreground'>
       <aside className='sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-border/70 bg-sidebar backdrop-blur-2xl md:flex'>
-        <div className='flex h-14 items-center border-b border-border/60 px-5 text-[15px] font-semibold tracking-[-0.02em]'>
-          {title}
+        <div className='flex h-14 items-center justify-between gap-2 border-b border-border/60 px-5 text-[15px] font-semibold tracking-[-0.02em]'>
+          <span className='truncate'>{title}</span>
+          {sidebarAction !== undefined && <div className='flex items-center gap-1'>{sidebarAction}</div>}
         </div>
         <nav className='flex flex-1 flex-col gap-0.5 p-2.5'>
           {navItems.map((item) => {

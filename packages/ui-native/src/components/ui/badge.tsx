@@ -1,45 +1,42 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { useTheme } from '../../lib/theme';
+import { cn } from '@package/ui/src/lib/cn';
 
 import type { ReactNode } from 'react';
 
 type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning';
 
-export function Badge({ variant = 'default', children }: { variant?: BadgeVariant; children?: ReactNode }) {
-  const { palette, fontFamily } = useTheme();
-  const style = variantStyles(variant, palette);
+const variantClasses: Record<BadgeVariant, { container: string; text: string }> = {
+  default: { container: 'bg-primary/12', text: 'text-primary' },
+  secondary: { container: 'bg-fill', text: 'text-muted-foreground' },
+  destructive: { container: 'bg-destructive/12', text: 'text-destructive' },
+  success: { container: 'bg-green/15', text: 'text-green' },
+  warning: { container: 'bg-orange/15', text: 'text-orange' },
+  outline: { container: 'border-border bg-transparent', text: 'text-muted-foreground' },
+};
+
+/** RN port of `@package/ui` Badge with the DOM variant strings (tinted fills). */
+export function Badge({
+  variant = 'default',
+  className,
+  children,
+}: {
+  variant?: BadgeVariant;
+  className?: string;
+  children?: ReactNode;
+}) {
+  const variantClass = variantClasses[variant];
   return (
-    <View style={[styles.badge, { backgroundColor: style.background, borderColor: style.border }]}>
-      <Text style={{ color: style.color, fontFamily, fontSize: 11, fontWeight: '600' }}>{children}</Text>
+    <View
+      className={cn(
+        'flex-row self-start overflow-hidden rounded-full border border-transparent px-2.5 py-0.5 font-sans',
+        variantClass.container,
+        className,
+      )}
+    >
+      <Text className={cn('text-[11px] font-semibold tracking-[-0.01em]', variantClass.text)}>
+        {children}
+      </Text>
     </View>
   );
 }
-
-function variantStyles(variant: BadgeVariant, palette: ReturnType<typeof useTheme>['palette']) {
-  switch (variant) {
-    case 'secondary':
-      return { background: palette.secondary, color: palette.secondaryForeground, border: 'transparent' };
-    case 'destructive':
-      return { background: palette.destructive, color: palette.destructiveForeground, border: 'transparent' };
-    case 'outline':
-      return { background: 'transparent', color: palette.foreground, border: palette.border };
-    case 'success':
-      return { background: palette.green, color: '#ffffff', border: 'transparent' };
-    case 'warning':
-      return { background: palette.orange, color: '#ffffff', border: 'transparent' };
-    default:
-      return { background: palette.primary, color: palette.primaryForeground, border: 'transparent' };
-  }
-}
-
-const styles = StyleSheet.create({
-  badge: {
-    alignSelf: 'flex-start',
-    borderRadius: 999,
-    borderWidth: StyleSheet.hairlineWidth,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    overflow: 'hidden',
-  },
-});

@@ -36,6 +36,7 @@ import { BookOpenIcon, ListTodoIcon, LayoutDashboardIcon } from 'lucide-react';
 | `title` | `string` | Sidebar brand text and header title. |
 | `navItems` | `Array<NavItem>` | `{ label, to, icon? }`; active state derives from `location.pathname` (exact or prefix match). |
 | `headerExtra` | `ReactNode` | Right-aligned header slot (actions, theme toggle, …). |
+| `sidebarAction` | `ReactNode` | Right-aligned slot in the sidebar title row. |
 | `children` | `ReactNode` | Routed content. |
 
 Active styling uses the `primary` background for the matched item; icons come from `lucide-react`.

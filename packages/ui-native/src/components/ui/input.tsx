@@ -1,51 +1,54 @@
-import { Platform, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Platform, Text, TextInput, View } from 'react-native';
+import { useCSSVariable } from 'uniwind';
 
-import { useTheme } from '../../lib/theme';
+import { cn } from '@package/ui/src/lib/cn';
 
 import type { ComponentProps } from 'react';
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 export interface InputProps extends Omit<ComponentProps<typeof TextInput>, 'style'> {
   invalid?: boolean;
-  style?: object;
+  className?: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 /** RN port of `@package/ui` Input; forwards all native TextInput props. */
-export function Input({ invalid = false, style, ...props }: InputProps) {
-  const { palette, fontFamily } = useTheme();
+export function Input({ invalid = false, className, style, ...props }: InputProps) {
+  const resolved = useCSSVariable('--color-muted-foreground');
+  const placeholderColor = typeof resolved === 'string' ? resolved : undefined;
+
   return (
     <View
-      style={[
-        styles.wrap,
-        { backgroundColor: 'transparent', borderColor: invalid ? palette.destructive : palette.input },
-        style,
-      ]}
+      className={cn(
+        'h-9 w-full flex-row items-center rounded-[10px] border border-input bg-fill px-3',
+        invalid && 'border-destructive',
+        className,
+      )}
+      style={style}
     >
       <TextInput
         accessibilityRole='text'
-        placeholderTextColor={palette.mutedForeground}
-        style={[styles.input, { color: palette.foreground, fontFamily }, Platform.select({ web: { outlineWidth: 0 as unknown as number } })]}
+        placeholderTextColor={placeholderColor}
+        className='h-full flex-1 font-sans text-sm text-foreground'
+        style={Platform.select({ web: { outlineWidth: 0 as unknown as number } })}
         {...props}
       />
     </View>
   );
 }
 
-export function InputLabel({ children }: { children?: React.ReactNode }) {
-  const { palette, fontFamily } = useTheme();
-  return <Text style={{ color: palette.foreground, fontFamily, fontSize: 13, fontWeight: '500', marginBottom: 6 }}>{children}</Text>;
+export function InputLabel({
+  className,
+  style,
+  children,
+}: {
+  className?: string;
+  style?: StyleProp<TextStyle>;
+  children?: React.ReactNode;
+}) {
+  return (
+    <Text className={cn('mb-1.5 font-sans text-[13px] font-medium text-foreground', className)} style={style}>
+      {children}
+    </Text>
+  );
 }
-
-const styles = StyleSheet.create({
-  wrap: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
-    height: 40,
-    justifyContent: 'center',
-    paddingHorizontal: 12,
-  },
-  input: {
-    fontSize: 14,
-    padding: 0,
-    height: '100%',
-  },
-});

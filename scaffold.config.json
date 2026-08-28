@@ -22,7 +22,8 @@
       "docsDir": "apps/tauri-app/content/docs/platforms",
       "docsMeta": "apps/tauri-app/content/docs/platforms/meta.json",
       "importRewrites": {
-        "@/lib/theme": "../../lib/theme"
+        "@/lib/cn": "@package/ui/src/lib/cn",
+        "@/components/ui/": "./"
       }
     }
   }

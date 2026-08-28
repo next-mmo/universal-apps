@@ -1,0 +1,79 @@
+# Tauri Universal
+
+> Agent-native Tauri and web application building blocks for React, Vue, Svelte, and React Native Web.
+
+Use the catalog before searching source. Retrieve only the documentation page needed for the current task.
+
+## Agent entry points
+
+- [Agent contract](AGENTS.md): mandatory safety and implementation rules
+- [Capability catalog](agent/catalog.json): query with `pnpm agent find <capability>`
+- [Efficiency baseline](agent/evals.md): repeatable tasks and measurements
+
+## Capability matrix
+
+Framework support per catalog capability. Query details with `pnpm agent inspect <id-or-symbol>`.
+
+- ui.accordion (component): react
+- ui.badge (component): react, native
+- ui.button (component): react, native
+- ui.card (component): react, native
+- ui.checkbox (component): react
+- ui.dialog (component): react
+- ui.dropdown-menu (component): react
+- ui.input (component): react, native
+- ui.label (component): react
+- ui.popover (component): react
+- ui.select (component): react
+- ui.separator (component): react, native
+- ui.skeleton (component): react
+- ui.switch (component): react, native
+- ui.table (component): react
+- ui.tabs (component): react
+- ui.textarea (component): react
+- ui.tooltip (component): react
+- block.data-table (block): react, vue, svelte
+- block.form (block): react, vue, svelte
+- block.form-dialog (block): react, vue, svelte
+- block.app-shell (block): react, vue, svelte
+- block.page-container (block): react, vue, svelte
+- core.form-schema (contract): core
+- core.table (contract): core
+- core.query-keys (contract): core
+- bridge.todo-storage (bridge): universal
+
+## Documentation
+
+- [Introduction](apps/tauri-app/content/docs/index.mdx): Documentation for the Universal Todos app.
+- [Agent Guide](apps/tauri-app/content/docs/agent.mdx): Compact discovery, implementation, and verification paths for coding agents working in this monorepo.
+- [Getting Started](apps/tauri-app/content/docs/getting-started.mdx): Set up the project locally and start developing.
+- [Architecture](apps/tauri-app/content/docs/architecture.mdx): How the monorepo and shared packages fit together.
+- [Pro Core](apps/tauri-app/content/docs/pro-core.mdx): The framework-free contracts behind every pro component — form schemas, column DSL, table features, and query keys.
+  - Blocks
+  - [Blocks](apps/tauri-app/content/docs/blocks/index.mdx): Ant Design Pro-style feature blocks on shadcn primitives and TanStack engines — data table, forms, and layouts.
+  - [ProDataTable](apps/tauri-app/content/docs/blocks/pro-data-table.mdx): Toolbar, table, and pagination over TanStack Table — client or server mode.
+  - [ProForm](apps/tauri-app/content/docs/blocks/pro-form.mdx): Schema-driven form over TanStack Form with validation, groups, and submit states.
+  - [ProFormDialog](apps/tauri-app/content/docs/blocks/pro-form-dialog.mdx): ProForm inside a Dialog for create and edit flows.
+  - [AppShell](apps/tauri-app/content/docs/blocks/app-shell.mdx): Application frame — sidebar navigation, header, and content area.
+  - [PageContainer](apps/tauri-app/content/docs/blocks/page-container.mdx): Breadcrumb trail, title block, actions, and page body in a standard layout.
+  - Components
+  - [Accordion](apps/tauri-app/content/docs/components/accordion.mdx): A vertically stacked set of collapsible content panels, built on Radix UI.
+  - [Badge](apps/tauri-app/content/docs/components/badge.mdx): Small status descriptor for UI elements, with six visual variants.
+  - [Button](apps/tauri-app/content/docs/components/button.mdx): Primary interactive element, with variants, sizes, and asChild support.
+  - [Card](apps/tauri-app/content/docs/components/card.mdx): Grouped container with header, title, description, content, and footer slots.
+  - [Checkbox](apps/tauri-app/content/docs/components/checkbox.mdx): Binary input built on Radix UI with checked/indeterminate states.
+  - [Dialog](apps/tauri-app/content/docs/components/dialog.mdx): Modal overlay built on Radix UI — alert and form dialogs.
+  - [Dropdown Menu](apps/tauri-app/content/docs/components/dropdown-menu.mdx): Action list anchored to a trigger, built on Radix UI.
+  - [Input](apps/tauri-app/content/docs/components/input.mdx): Single-line text field styled for the shared theme.
+  - [Label](apps/tauri-app/content/docs/components/label.mdx): Form field caption linked to controls via htmlFor, built on Radix UI.
+  - [Popover](apps/tauri-app/content/docs/components/popover.mdx): Non-modal floating panel anchored to a trigger, built on Radix UI.
+  - [Select](apps/tauri-app/content/docs/components/select.mdx): Single-value picker with typeahead, built on Radix UI.
+  - [Separator](apps/tauri-app/content/docs/components/separator.mdx): Horizontal or vertical rule dividing content sections, built on Radix UI.
+  - [Skeleton](apps/tauri-app/content/docs/components/skeleton.mdx): Loading placeholder that mirrors the shape of incoming content.
+  - [Switch](apps/tauri-app/content/docs/components/switch.mdx): Toggle control for immediate on/off settings, built on Radix UI.
+  - [Table](apps/tauri-app/content/docs/components/table.mdx): Styled table primitives — the base under the ProDataTable block.
+  - [Tabs](apps/tauri-app/content/docs/components/tabs.mdx): Switch between panels within the same context, built on Radix UI.
+  - [Textarea](apps/tauri-app/content/docs/components/textarea.mdx): Multi-line text field that grows with content.
+  - [Tooltip](apps/tauri-app/content/docs/components/tooltip.mdx): Small informational popup on hover or focus, built on Radix UI.
+  - Platforms
+  - [React Native Web](apps/tauri-app/content/docs/platforms/react-native-web.mdx): The shared token base rendered through React Native primitives — ui-native, the playground, and the RN porting recipe.

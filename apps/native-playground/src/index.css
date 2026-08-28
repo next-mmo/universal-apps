@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+@import 'uniwind';
+@import '@package/ui/src/styles/tokens.css';
+
+/* Tailwind's automatic detection only scans the app directory; the shared
+   native package lives outside it, so its sources must be declared explicitly. */
+@source '../../../packages/ui-native/src';

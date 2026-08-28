@@ -11,4 +11,3 @@ export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export { Input, InputLabel, type InputProps } from './components/ui/input';
 export { Separator } from './components/ui/separator';
 export { Switch, type SwitchProps } from './components/ui/switch';
-export { ThemeRoot, useTheme, type NativeTheme, type ThemeRootProps } from './lib/theme';

@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, Text } from 'react-native';
 
-import { useTheme } from '../../lib/theme';
+import { cn } from '@package/ui/src/lib/cn';
 
 import type { ComponentProps, ReactNode } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
@@ -11,36 +11,64 @@ type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
 export interface ButtonProps extends Omit<ComponentProps<typeof Pressable>, 'children' | 'style'> {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  className?: string;
   children?: ReactNode;
   style?: StyleProp<ViewStyle>;
 }
 
-/** RN port of `@package/ui` Button; same variant/size names as the DOM version. */
-export function Button({ variant = 'default', size = 'default', style, disabled, onPress, children, ...props }: ButtonProps) {
-  const { palette, fontFamily } = useTheme();
+/**
+ * RN port of `@package/ui` Button, styled with Uniwind-compiled Tailwind
+ * classes mirroring the DOM variant strings; web-only hover/focus-ring
+ * utilities are elided and pressed feedback is `active:opacity-80`.
+ * Color lives on the inner Text because native RN has no style inheritance.
+ */
+const variantClasses: Record<ButtonVariant, { container: string; text: string }> = {
+  default: { container: 'bg-primary', text: 'text-primary-foreground' },
+  secondary: { container: 'bg-secondary', text: 'text-secondary-foreground' },
+  destructive: { container: 'bg-destructive', text: 'text-destructive-foreground' },
+  outline: { container: 'border border-border bg-card', text: 'text-card-foreground' },
+  ghost: { container: 'bg-transparent', text: 'text-primary' },
+  link: { container: 'bg-transparent', text: 'text-primary' },
+};
 
-  const variantStyle = variantStyles(variant, palette);
-  const sizeStyle = sizeStyles(size);
+const sizeClasses: Record<ButtonSize, { container: string; text: string }> = {
+  default: { container: 'h-9 px-4', text: 'text-sm' },
+  sm: { container: 'h-8 gap-1 px-3', text: 'text-[13px]' },
+  lg: { container: 'h-11 px-6', text: 'text-base' },
+  icon: { container: 'h-9 w-9 px-0', text: 'text-sm' },
+};
+
+export function Button({
+  className,
+  variant = 'default',
+  size = 'default',
+  style,
+  disabled,
+  onPress,
+  children,
+  ...props
+}: ButtonProps) {
+  const variantClass = variantClasses[variant];
+  const sizeClass = sizeClasses[size];
 
   return (
     <Pressable
       accessibilityRole='button'
+      accessibilityState={{ disabled: !!disabled }}
       disabled={disabled}
       onPress={onPress}
-      style={({ pressed }) =>
-        StyleSheet.flatten([
-          styles.base,
-          sizeStyle,
-          variantStyle,
-          disabled ? styles.disabled : null,
-          pressed ? styles.pressed : null,
-          style,
-        ]) as StyleProp<ViewStyle>
-      }
+      className={cn(
+        'flex-row items-center justify-center gap-1.5 rounded-[10px] font-sans active:opacity-80',
+        variantClass.container,
+        sizeClass.container,
+        disabled && 'opacity-40',
+        className,
+      )}
+      style={style}
       {...props}
     >
       {typeof children === 'string' ? (
-        <Text style={[styles.text, { color: variantStyle.color, fontFamily }, sizeStyle.text]}>
+        <Text className={cn('font-medium tracking-[-0.01em]', variantClass.text, sizeClass.text)}>
           {children}
         </Text>
       ) : (
@@ -49,52 +77,3 @@ export function Button({ variant = 'default', size = 'default', style, disabled,
     </Pressable>
   );
 }
-
-function variantStyles(variant: ButtonVariant, palette: ReturnType<typeof useTheme>['palette']) {
-  switch (variant) {
-    case 'secondary':
-      return { backgroundColor: palette.secondary, color: palette.secondaryForeground, borderWidth: 0 };
-    case 'destructive':
-      return { backgroundColor: palette.destructive, color: palette.destructiveForeground, borderWidth: 0 };
-    case 'outline':
-      return { backgroundColor: 'transparent', color: palette.foreground, borderWidth: StyleSheet.hairlineWidth, borderColor: palette.border };
-    case 'ghost':
-      return { backgroundColor: 'transparent', color: palette.foreground, borderWidth: 0 };
-    case 'link':
-      return { backgroundColor: 'transparent', color: palette.primary, borderWidth: 0 };
-    default:
-      return { backgroundColor: palette.primary, color: palette.primaryForeground, borderWidth: 0 };
-  }
-}
-
-function sizeStyles(size: ButtonSize) {
-  switch (size) {
-    case 'sm':
-      return { paddingHorizontal: 12, height: 32, borderRadius: 10, text: { fontSize: 13 } };
-    case 'lg':
-      return { paddingHorizontal: 24, height: 48, borderRadius: 12, text: { fontSize: 16 } };
-    case 'icon':
-      return { width: 36, height: 36, borderRadius: 10, paddingHorizontal: 0, alignItems: 'center' as const, justifyContent: 'center' as const, text: { fontSize: 14 } };
-    default:
-      return { paddingHorizontal: 16, height: 40, borderRadius: 10, text: { fontSize: 14 } };
-  }
-}
-
-const styles = StyleSheet.create({
-  base: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    gap: 8,
-  },
-  text: {
-    fontWeight: '500',
-    fontSize: 14,
-  },
-  disabled: {
-    opacity: 0.5,
-  },
-  pressed: {
-    opacity: 0.8,
-  },
-});

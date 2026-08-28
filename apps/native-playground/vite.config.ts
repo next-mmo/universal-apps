@@ -1,14 +1,17 @@
-import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+import { uniwind } from 'uniwind/vite';
+import { rnw } from 'vite-plugin-rnw';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      // Render React Native primitives in the browser via RNW.
-      'react-native': 'react-native-web',
-    },
-  },
+  plugins: [
+    rnw(),
+    tailwindcss(),
+    uniwind({
+      cssEntryFile: './src/index.css',
+      dtsFile: './src/uniwind.d.ts',
+    }),
+  ],
   server: {
     port: 1453,
   },

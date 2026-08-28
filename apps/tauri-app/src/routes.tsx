@@ -5,12 +5,14 @@ import DashboardPage from './pages/dashboard-page';
 import DocsPage from './pages/docs-page';
 import FormsDemoPage from './pages/forms-page';
 import TodosPage from './pages/todos-page';
+import { ThemeToggle } from './components/theme-toggle';
 import { AppShell } from '@package/pro/src/layout/app-shell';
 
 const rootRoute = createRootRoute({
   component: () => (
     <AppShell
       title='Universal Todos'
+      sidebarAction={<ThemeToggle />}
       navItems={[
         { label: 'Dashboard', to: '/', icon: LayoutDashboardIcon },
         { label: 'Todos', to: '/todos', icon: ListTodoIcon },

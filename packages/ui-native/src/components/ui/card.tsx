@@ -1,70 +1,61 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { useTheme } from '../../lib/theme';
+import { cn } from '@package/ui/src/lib/cn';
 
 import type { ReactNode } from 'react';
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-export function Card({ style, children }: { style?: object; children?: ReactNode }) {
-  const { palette } = useTheme();
+interface SlotProps {
+  className?: string;
+  style?: StyleProp<ViewStyle>;
+  children?: ReactNode;
+}
+
+interface TextSlotProps {
+  className?: string;
+  style?: StyleProp<TextStyle>;
+  children?: ReactNode;
+}
+
+/** RN port of `@package/ui` Card with the DOM slot classes. */
+export function Card({ className, style, children }: SlotProps) {
   return (
     <View
-      style={[
-        styles.card,
-        { backgroundColor: palette.card, borderColor: palette.border, boxShadow: palette.boxShadowCard },
-        style,
-      ]}
+      className={cn(
+        'flex-col gap-6 overflow-hidden rounded-xl border border-border bg-card py-6 shadow-[var(--shadow-card)]',
+        className,
+      )}
+      style={style}
     >
       {children}
     </View>
   );
 }
 
-export function CardHeader({ style, children }: { style?: object; children?: ReactNode }) {
-  return <View style={[styles.header, style]}>{children}</View>;
+export function CardHeader({ className, style, children }: SlotProps) {
+  return <View className={cn('flex-col gap-1.5 px-6', className)} style={style}>{children}</View>;
 }
 
-export function CardTitle({ children }: { children?: ReactNode }) {
-  const { palette, fontFamily } = useTheme();
-  return <Text style={[styles.title, { color: palette.cardForeground, fontFamily }]}>{children}</Text>;
+export function CardTitle({ className, style, children }: TextSlotProps) {
+  return (
+    <Text className={cn('font-sans text-base font-semibold leading-none text-card-foreground', className)} style={style}>
+      {children}
+    </Text>
+  );
 }
 
-export function CardDescription({ children }: { children?: ReactNode }) {
-  const { palette, fontFamily } = useTheme();
-  return <Text style={[styles.description, { color: palette.mutedForeground, fontFamily }]}>{children}</Text>;
+export function CardDescription({ className, style, children }: TextSlotProps) {
+  return (
+    <Text className={cn('font-sans text-sm text-muted-foreground', className)} style={style}>
+      {children}
+    </Text>
+  );
 }
 
-export function CardContent({ style, children }: { style?: object; children?: ReactNode }) {
-  return <View style={[styles.content, style]}>{children}</View>;
+export function CardContent({ className, style, children }: SlotProps) {
+  return <View className={cn('px-6', className)} style={style}>{children}</View>;
 }
 
-export function CardFooter({ style, children }: { style?: object; children?: ReactNode }) {
-  return <View style={[styles.footer, style]}>{children}</View>;
+export function CardFooter({ className, style, children }: SlotProps) {
+  return <View className={cn('flex-row items-center justify-end px-6', className)} style={style}>{children}</View>;
 }
-
-const styles = StyleSheet.create({
-  card: {
-    borderRadius: 14,
-    borderWidth: StyleSheet.hairlineWidth,
-    paddingVertical: 20,
-    gap: 12,
-  },
-  header: {
-    gap: 4,
-    paddingHorizontal: 20,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  description: {
-    fontSize: 13,
-  },
-  content: {
-    paddingHorizontal: 20,
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 20,
-  },
-});

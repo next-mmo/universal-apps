@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
+import { Uniwind, useUniwind } from 'uniwind';
 
 import {
   Badge,
@@ -14,35 +15,30 @@ import {
   InputLabel,
   Separator,
   Switch,
-  ThemeRoot,
-  useTheme,
 } from '@package/ui-native';
-import type { Palette } from '@package/ui/src/tokens';
+
+import './index.css';
 
 export function Playground() {
-  return (
-    <ThemeRoot defaultMode='light'>
-      <PlaygroundScreen />
-    </ThemeRoot>
-  );
+  return <PlaygroundScreen />;
 }
 
 function PlaygroundScreen() {
-  const { mode, palette, setMode } = useTheme();
+  const { theme } = useUniwind();
   const [pinned, setPinned] = useState(false);
   const [name, setName] = useState('');
 
   return (
-    <ScrollView style={[styles.root, { backgroundColor: palette.background }]}>
-      <View style={styles.header}>
-        <Text style={[styles.title, { color: palette.foreground }]}>ui-native playground</Text>
-        <Button variant='outline' onPress={() => setMode(mode === 'light' ? 'dark' : 'light')}>
-          {mode === 'light' ? 'Dark mode' : 'Light mode'}
+    <ScrollView className='flex-1 bg-background'>
+      <View className='flex-row items-center justify-between px-6 pt-8 pb-2'>
+        <Text className='font-sans text-[22px] font-bold text-foreground'>ui-native playground</Text>
+        <Button variant='outline' onPress={() => Uniwind.setTheme(theme === 'dark' ? 'light' : 'dark')}>
+          {theme === 'dark' ? 'Light mode' : 'Dark mode'}
         </Button>
       </View>
 
-      <Section palette={palette} title='Buttons'>
-        <View style={styles.row}>
+      <Section title='Buttons'>
+        <View className='flex-row flex-wrap items-center gap-2'>
           <Button>Default</Button>
           <Button variant='secondary'>Secondary</Button>
           <Button variant='destructive'>Delete</Button>
@@ -50,15 +46,15 @@ function PlaygroundScreen() {
           <Button variant='ghost'>Ghost</Button>
           <Button variant='link'>Link</Button>
         </View>
-        <View style={styles.row}>
+        <View className='flex-row flex-wrap items-center gap-2'>
           <Button size='sm' variant='secondary'>Small</Button>
           <Button size='lg' variant='secondary'>Large</Button>
           <Button size='icon' variant='outline' onPress={() => setPinned(!pinned)}>★</Button>
         </View>
       </Section>
 
-      <Section palette={palette} title='Badges'>
-        <View style={styles.row}>
+      <Section title='Badges'>
+        <View className='flex-row flex-wrap items-center gap-2'>
           <Badge>Default</Badge>
           <Badge variant='secondary'>Secondary</Badge>
           <Badge variant='destructive'>Destructive</Badge>
@@ -68,18 +64,18 @@ function PlaygroundScreen() {
         </View>
       </Section>
 
-      <Section palette={palette} title='Card + form controls'>
+      <Section title='Card + form controls'>
         <Card>
           <CardHeader>
             <CardTitle>New task</CardTitle>
             <CardDescription>Schema would come from @package/pro-core.</CardDescription>
           </CardHeader>
-          <CardContent style={styles.form}>
+          <CardContent className='gap-3'>
             <InputLabel>Task</InputLabel>
             <Input value={name} onChangeText={setName} placeholder='What needs doing?' />
-            <View style={[styles.row, styles.switchRow]}>
+            <View className='flex-row items-center gap-2.5'>
               <Switch checked={pinned} onCheckedChange={setPinned} />
-              <Text style={{ color: palette.foreground }}>Pin to top</Text>
+              <Text className='font-sans text-sm text-foreground'>Pin to top</Text>
             </View>
           </CardContent>
           <CardFooter>
@@ -88,64 +84,22 @@ function PlaygroundScreen() {
         </Card>
       </Section>
 
-      <Section palette={palette} title='Separator'>
-        <Text style={{ color: palette.foreground }}>Above the divider</Text>
+      <Section title='Separator'>
+        <Text className='font-sans text-sm text-foreground'>Above the divider</Text>
         <Separator />
-        <Text style={{ color: palette.foreground }}>Below the divider</Text>
+        <Text className='font-sans text-sm text-foreground'>Below the divider</Text>
       </Section>
     </ScrollView>
   );
 }
 
-function Section({ palette, title, children }: { palette: Palette; title: string; children: React.ReactNode }) {
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <View style={styles.section}>
-      <Text style={[styles.sectionTitle, { color: palette.mutedForeground }]}>{title}</Text>
-      <View style={styles.sectionBody}>{children}</View>
+    <View className='mt-6 px-6'>
+      <Text className='mb-2 font-sans text-[11px] font-semibold uppercase tracking-wider text-muted-foreground'>
+        {title}
+      </Text>
+      <View className='gap-3'>{children}</View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    paddingTop: 32,
-    paddingBottom: 8,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: '700',
-  },
-  section: {
-    paddingHorizontal: 24,
-    marginTop: 24,
-  },
-  sectionTitle: {
-    fontSize: 11,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginBottom: 8,
-  },
-  sectionBody: {
-    gap: 12,
-  },
-  row: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: 8,
-  },
-  switchRow: {
-    gap: 10,
-  },
-  form: {
-    gap: 12,
-  },
-});

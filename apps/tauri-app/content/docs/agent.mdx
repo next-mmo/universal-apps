@@ -1,73 +1,63 @@
 ---
 title: Agent Guide
-description: Hand-off briefing for LLM coding agents working in this monorepo — map, commands, hard conventions, and recipes.
+description: Compact discovery, implementation, and verification paths for coding agents working in this monorepo.
 ---
 
-You are an AI coding agent working in this repository. This page is your briefing. It complements `AGENTS.md` (the authoritative operating rules — read it first); everything here is codebase-specific fact, verified against the tree.
+Read the root `AGENTS.md` first. It is the authoritative operating contract. This page routes repository work; API facts come from the checked-in catalog and focused component pages.
 
-## Machine-readable entry points
+## Start with one command
 
-| Endpoint | Contents |
-| -------- | -------- |
-| `/docs.txt` | This docs site as an llms.txt-style index (every page, one line each) |
-| `/docs/<page>.md` | Raw markdown of any docs page — fetch instead of guessing APIs |
-| `AGENTS.md` (repo root) | Mandatory operating rules: workspace boundary, plan-before-implementation |
+```bash
+pnpm agent find table --framework vue
+pnpm agent inspect ProDataTable      # by exported symbol
+pnpm agent inspect block.data-table  # or by catalog id
+pnpm agent recipe crud-page --framework react
+pnpm agent check --changed
+```
+
+`agent/catalog.json` is the machine-readable capability source. `/llms.txt` is the standard documentation index, `/llms-full.txt` is the optional complete bundle, and `/docs/<path>.md` exposes clean Markdown for one page. Prefer the index plus one relevant page over the full bundle.
 
 ## Workspace map
 
-pnpm monorepo (`pnpm-workspace.yaml`: `apps/*`, `packages/*`):
+| Path | Responsibility |
+| --- | --- |
+| `packages/pro-core` | Framework-free form, table, and query contracts |
+| `packages/ui` | React DOM primitives and CSS design tokens |
+| `packages/pro` | React feature blocks |
+| `packages/pro-vue` | Vue feature-block adapters |
+| `packages/pro-svelte` | Svelte feature-block adapters |
+| `packages/ui-native` | React Native/Web primitives styled with Uniwind (Tailwind classes, shared tokens.css) |
+| `packages/tauri-api` | Typed Tauri operations and browser fallbacks |
+| `packages/core` | Shared application domain logic |
+| `packages/cli` | Agent discovery, verification, and scaffold commands |
+| `apps/*-playground` | Compileable integration examples for each framework |
 
-| Path | Role |
-| ---- | ---- |
-| `apps/tauri-app` | The product: Tauri 2 shell + React 19 SPA. Routes in `src/routes.tsx`, pages in `src/pages/`. |
-| `packages/core` | Framework-free business logic (todo service/queries). |
-| `packages/tauri-api` | Typed Tauri command bindings. |
-| `packages/ui` | shadcn-pattern primitives (`src/components/ui/*.tsx`), Apple-style tokens in `src/styles/tokens.css`. |
-| `packages/pro` | Feature blocks: `data-table/`, `form/`, `layout/` (React adapters). |
-| `packages/pro-core` | The framework-free contracts those blocks implement (column DSL, form schema, query keys). |
-| `packages/cli` | Scaffold CLI (`pnpm scaffold …`), templates in `templates/ui/`. |
-| `apps/vue-playground`, `apps/svelte-playground` | Future-framework adapter experiments. |
+## Hard conventions
 
-## Commands
+1. Use full cross-package file imports until stable subpath exports exist; do not add root barrel files.
+2. Put framework-neutral contracts in `pro-core` before adapters.
+3. Keep raw Tauri calls inside `tauri-api` and provide a browser fallback.
+4. Register new Tailwind-scanned package sources in each consuming app stylesheet.
+5. Add component/block docs and catalog metadata with the implementation.
+6. Use shadcn patterns for primitives and TanStack engines for feature blocks.
+
+## Safe scaffolding
 
 ```bash
-pnpm dev                 # vite dev server on :1420 (runs fumadocs-mdx + generate-llm first)
-pnpm build               # typecheck + production build
-pnpm lint                # oxlint
-pnpm scaffold add ui <n> # generate a UI component + docs stub + sidebar wiring
-pnpm scaffold list       # available templates vs. installed
+pnpm scaffold list
+pnpm scaffold add ui alert --dry-run
+pnpm scaffold add ui alert
 ```
 
-Type-check a single package (no global tsc on PATH — use the store binary):
+Only complete vendored templates are accepted by default. Unknown components fail without writing. `--allow-placeholder` is an explicit escape hatch and is not production-ready. Use `--no-install` to plan dependency changes separately and `--json` for machine-readable output.
 
-```bash
-node_modules/.pnpm/typescript@5.8.3/node_modules/typescript/bin/tsc -p apps/tauri-app/tsconfig.json
-```
+## Documentation maintenance
 
-## Hard conventions (violations get rejected)
+Run `pnpm agent:docs` after documentation or catalog changes. `pnpm agent:docs:check` detects stale checked-in `llms.txt` artifacts without writing. The normal changed-scope verifier includes this check.
 
-1. **Deep-path imports only.** `@package/ui/src/components/ui/button` — never a package-root entrypoint. There are no `index.ts` re-export barrels.
-2. **Workspace boundary.** Write only inside this repo. No system files, no global installs.
-3. **Plan before code.** Present an implementation plan and wait for explicit approval (see `AGENTS.md`).
-4. **shadcn pattern for UI primitives**: Radix primitive + `cn()` from `@package/ui/src/lib/cn`, `data-slot` attribute, `class-variance-authority` for variants, props forwarded via `ComponentProps<typeof Primitive>`.
-5. **Blocks = shadcn primitives + TanStack engines only** (Table, Form, Query, Router). No other state/data libraries.
-6. **New package scanned by Tailwind?** Its `src` must be registered in `apps/tauri-app/src/index.css` via `@source` or its classes silently don't exist.
-7. **Docs pages for new components/blocks** under `apps/tauri-app/content/docs/`, slug added to the folder's `meta.json`. Live demos go in `src/components/component-demos.tsx` / `blocks-demos.tsx` and are registered in `src/pages/docs-page.tsx`.
+## Known operational details
 
-## Recipes
-
-**Add a UI component** — prefer the CLI: `pnpm scaffold add ui <kebab-name>`, then paste the canonical shadcn source over the generated placeholder and fill in the docs stub. If a Radix dependency is needed: `pnpm --filter @package/ui add @radix-ui/react-<name>`. Animation keyframes (if any) go into `packages/ui/src/styles/tokens.css` `@theme` block.
-
-**Add a block** — contracts first in `packages/pro-core/src/<area>/`, adapter in `packages/pro/src/<area>/`, demo + docs page under `content/docs/blocks/`.
-
-**Add a docs page** — `.mdx` with `title`/`description` frontmatter into the right folder; add the slug to that folder's `meta.json`. **Restart `pnpm dev` after adding files** — fumadocs typegen only runs at dev-server start. Raw `.md` endpoints and `/docs.txt` regenerate via `pnpm --filter @app/tauri-app exec tsx scripts/generate-llm.ts` (also automatic on next dev/build).
-
-**Wire a TanStack Query mutation** — keys from `@package/pro-core/src/query/keys`; invalidate by prefix (`['pro', 'table', 'todos']`).
-
-## Gotchas learned the hard way
-
-- The dev script is plain `vite` — no Tauri window; `pnpm tauri dev` for native.
-- fumadocs-mdx rejects unused exports in `source.config.ts`.
-- MDX frontmatter must be fenced (`---\ntitle: …\n---`) or title validation fails.
-- `md:flex`-type responsive classes missing at runtime usually mean the owning package lacks an `@source` entry.
-- `meta.json` sidebar lists are explicit — a new file without a slug entry is invisible in navigation (but still routed via `/docs/<path>` splat).
+- `pnpm dev` starts the browser frontend; `pnpm tauri dev` starts the native shell.
+- Fumadocs type generation runs when the docs app starts or builds.
+- Sidebar order comes from each folder's `meta.json`.
+- `pnpm agent check --changed` selects affected framework builds and prints detailed output only on failure.

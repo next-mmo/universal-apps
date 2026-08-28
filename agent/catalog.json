@@ -1,0 +1,524 @@
+{
+  "version": 1,
+  "name": "tauri-universal",
+  "summary": "Cross-framework Tauri application primitives, feature blocks, platform bridges, and agent-safe recipes.",
+  "entries": [
+    {
+      "id": "ui.accordion",
+      "kind": "component",
+      "summary": "Accessible collapsible content panels.",
+      "keywords": ["collapse", "faq", "disclosure"],
+      "docs": "apps/tauri-app/content/docs/components/accordion.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/accordion",
+          "exports": ["Accordion", "AccordionContent", "AccordionItem", "AccordionTrigger"],
+          "source": "packages/ui/src/components/ui/accordion.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.badge",
+      "kind": "component",
+      "summary": "Compact semantic status label with visual variants.",
+      "keywords": ["status", "tag", "label"],
+      "docs": "apps/tauri-app/content/docs/components/badge.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/badge",
+          "exports": ["Badge", "badgeVariants", "BadgeProps"],
+          "source": "packages/ui/src/components/ui/badge.tsx"
+        },
+        "native": {
+          "import": "@package/ui-native/src/components/ui/badge",
+          "exports": ["Badge"],
+          "source": "packages/ui-native/src/components/ui/badge.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.button",
+      "kind": "component",
+      "summary": "Primary action control with variants, sizes, and asChild composition.",
+      "keywords": ["action", "click", "submit"],
+      "docs": "apps/tauri-app/content/docs/components/button.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/button",
+          "exports": ["Button", "buttonVariants", "ButtonProps"],
+          "source": "packages/ui/src/components/ui/button.tsx"
+        },
+        "native": {
+          "import": "@package/ui-native/src/components/ui/button",
+          "exports": ["Button", "ButtonProps"],
+          "source": "packages/ui-native/src/components/ui/button.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.card",
+      "kind": "component",
+      "summary": "Grouped content surface with header, body, action, and footer slots.",
+      "keywords": ["panel", "surface", "container"],
+      "docs": "apps/tauri-app/content/docs/components/card.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/card",
+          "exports": ["Card", "CardHeader", "CardTitle", "CardDescription", "CardAction", "CardContent", "CardFooter"],
+          "source": "packages/ui/src/components/ui/card.tsx"
+        },
+        "native": {
+          "import": "@package/ui-native/src/components/ui/card",
+          "exports": ["Card", "CardHeader", "CardTitle", "CardDescription", "CardContent", "CardFooter"],
+          "source": "packages/ui-native/src/components/ui/card.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.checkbox",
+      "kind": "component",
+      "summary": "Accessible checked, unchecked, and indeterminate input.",
+      "keywords": ["boolean", "selection", "form"],
+      "docs": "apps/tauri-app/content/docs/components/checkbox.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/checkbox",
+          "exports": ["Checkbox"],
+          "source": "packages/ui/src/components/ui/checkbox.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.dialog",
+      "kind": "component",
+      "summary": "Accessible modal overlay for confirmation and focused workflows.",
+      "keywords": ["modal", "overlay", "confirm"],
+      "docs": "apps/tauri-app/content/docs/components/dialog.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/dialog",
+          "exports": ["Dialog", "DialogTrigger", "DialogClose", "DialogContent", "DialogHeader", "DialogFooter", "DialogTitle", "DialogDescription"],
+          "source": "packages/ui/src/components/ui/dialog.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.dropdown-menu",
+      "kind": "component",
+      "summary": "Action menu anchored to a trigger.",
+      "keywords": ["menu", "actions", "context"],
+      "docs": "apps/tauri-app/content/docs/components/dropdown-menu.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/dropdown-menu",
+          "exports": ["DropdownMenu", "DropdownMenuTrigger", "DropdownMenuContent", "DropdownMenuItem", "DropdownMenuCheckboxItem", "DropdownMenuRadioGroup", "DropdownMenuLabel", "DropdownMenuSeparator", "DropdownMenuShortcut", "DropdownMenuGroup"],
+          "source": "packages/ui/src/components/ui/dropdown-menu.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.input",
+      "kind": "component",
+      "summary": "Styled single-line text input with invalid state.",
+      "keywords": ["text", "field", "form"],
+      "docs": "apps/tauri-app/content/docs/components/input.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/input",
+          "exports": ["Input"],
+          "source": "packages/ui/src/components/ui/input.tsx"
+        },
+        "native": {
+          "import": "@package/ui-native/src/components/ui/input",
+          "exports": ["Input", "InputLabel", "InputProps"],
+          "source": "packages/ui-native/src/components/ui/input.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.label",
+      "kind": "component",
+      "summary": "Accessible caption associated with a form control.",
+      "keywords": ["caption", "field", "form"],
+      "docs": "apps/tauri-app/content/docs/components/label.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/label",
+          "exports": ["Label"],
+          "source": "packages/ui/src/components/ui/label.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.popover",
+      "kind": "component",
+      "summary": "Non-modal floating content anchored to a trigger.",
+      "keywords": ["floating", "overlay", "panel"],
+      "docs": "apps/tauri-app/content/docs/components/popover.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/popover",
+          "exports": ["Popover", "PopoverTrigger", "PopoverContent", "PopoverAnchor"],
+          "source": "packages/ui/src/components/ui/popover.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.select",
+      "kind": "component",
+      "summary": "Accessible single-value picker with typeahead.",
+      "keywords": ["picker", "dropdown", "form"],
+      "docs": "apps/tauri-app/content/docs/components/select.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/select",
+          "exports": ["Select", "SelectContent", "SelectGroup", "SelectItem", "SelectLabel", "SelectTrigger", "SelectValue"],
+          "source": "packages/ui/src/components/ui/select.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.separator",
+      "kind": "component",
+      "summary": "Horizontal or vertical visual divider.",
+      "keywords": ["divider", "rule", "layout"],
+      "docs": "apps/tauri-app/content/docs/components/separator.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/separator",
+          "exports": ["Separator"],
+          "source": "packages/ui/src/components/ui/separator.tsx"
+        },
+        "native": {
+          "import": "@package/ui-native/src/components/ui/separator",
+          "exports": ["Separator"],
+          "source": "packages/ui-native/src/components/ui/separator.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.skeleton",
+      "kind": "component",
+      "summary": "Loading placeholder that mirrors incoming content.",
+      "keywords": ["loading", "placeholder", "pending"],
+      "docs": "apps/tauri-app/content/docs/components/skeleton.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/skeleton",
+          "exports": ["Skeleton"],
+          "source": "packages/ui/src/components/ui/skeleton.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.switch",
+      "kind": "component",
+      "summary": "Immediate on/off setting control.",
+      "keywords": ["toggle", "boolean", "setting"],
+      "docs": "apps/tauri-app/content/docs/components/switch.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/switch",
+          "exports": ["Switch"],
+          "source": "packages/ui/src/components/ui/switch.tsx"
+        },
+        "native": {
+          "import": "@package/ui-native/src/components/ui/switch",
+          "exports": ["Switch", "SwitchProps"],
+          "source": "packages/ui-native/src/components/ui/switch.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.table",
+      "kind": "component",
+      "summary": "Styled semantic table primitives.",
+      "keywords": ["grid", "rows", "columns"],
+      "docs": "apps/tauri-app/content/docs/components/table.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/table",
+          "exports": ["Table", "TableHeader", "TableBody", "TableFooter", "TableRow", "TableHead", "TableCell"],
+          "source": "packages/ui/src/components/ui/table.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.tabs",
+      "kind": "component",
+      "summary": "Switch between related panels in one context.",
+      "keywords": ["panels", "navigation", "sections"],
+      "docs": "apps/tauri-app/content/docs/components/tabs.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/tabs",
+          "exports": ["Tabs", "TabsList", "TabsTrigger", "TabsContent"],
+          "source": "packages/ui/src/components/ui/tabs.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.textarea",
+      "kind": "component",
+      "summary": "Styled multi-line text input with invalid state.",
+      "keywords": ["multiline", "field", "form"],
+      "docs": "apps/tauri-app/content/docs/components/textarea.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/textarea",
+          "exports": ["Textarea"],
+          "source": "packages/ui/src/components/ui/textarea.tsx"
+        }
+      }
+    },
+    {
+      "id": "ui.tooltip",
+      "kind": "component",
+      "summary": "Small informational popup on hover or focus.",
+      "keywords": ["hint", "help", "popup"],
+      "docs": "apps/tauri-app/content/docs/components/tooltip.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/ui/src/components/ui/tooltip",
+          "exports": ["Tooltip", "TooltipTrigger", "TooltipContent", "TooltipProvider"],
+          "source": "packages/ui/src/components/ui/tooltip.tsx"
+        }
+      }
+    },
+    {
+      "id": "block.data-table",
+      "kind": "block",
+      "summary": "Searchable, sortable, pageable data table with loading, error, and empty states.",
+      "keywords": ["crud", "list", "pagination", "sorting", "filter"],
+      "docs": "apps/tauri-app/content/docs/blocks/pro-data-table.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/pro/src/data-table/pro-data-table",
+          "exports": ["ProDataTable", "ProDataTableProps"],
+          "source": "packages/pro/src/data-table/pro-data-table.tsx"
+        },
+        "vue": {
+          "import": "@package/pro-vue/src/data-table/pro-data-table.vue",
+          "exports": ["default"],
+          "source": "packages/pro-vue/src/data-table/pro-data-table.vue"
+        },
+        "svelte": {
+          "import": "@package/pro-svelte/src/data-table/pro-data-table.svelte",
+          "exports": ["default"],
+          "source": "packages/pro-svelte/src/data-table/pro-data-table.svelte"
+        }
+      }
+    },
+    {
+      "id": "block.form",
+      "kind": "block",
+      "summary": "Schema-driven form with groups, validation, and submit lifecycle.",
+      "keywords": ["fields", "validation", "submit"],
+      "docs": "apps/tauri-app/content/docs/blocks/pro-form.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/pro/src/form/pro-form",
+          "exports": ["ProForm", "ProFormProps"],
+          "source": "packages/pro/src/form/pro-form.tsx"
+        },
+        "vue": {
+          "import": "@package/pro-vue/src/form/pro-form.vue",
+          "exports": ["default"],
+          "source": "packages/pro-vue/src/form/pro-form.vue"
+        },
+        "svelte": {
+          "import": "@package/pro-svelte/src/form/pro-form.svelte",
+          "exports": ["default"],
+          "source": "packages/pro-svelte/src/form/pro-form.svelte"
+        }
+      }
+    },
+    {
+      "id": "block.form-dialog",
+      "kind": "block",
+      "summary": "Schema-driven create or edit form inside a dialog.",
+      "keywords": ["modal", "crud", "edit", "create"],
+      "docs": "apps/tauri-app/content/docs/blocks/pro-form-dialog.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/pro/src/form/pro-form-dialog",
+          "exports": ["ProFormDialog", "ProFormDialogProps"],
+          "source": "packages/pro/src/form/pro-form-dialog.tsx"
+        },
+        "vue": {
+          "import": "@package/pro-vue/src/form/pro-form-dialog.vue",
+          "exports": ["default"],
+          "source": "packages/pro-vue/src/form/pro-form-dialog.vue"
+        },
+        "svelte": {
+          "import": "@package/pro-svelte/src/form/pro-form-dialog.svelte",
+          "exports": ["default"],
+          "source": "packages/pro-svelte/src/form/pro-form-dialog.svelte"
+        }
+      }
+    },
+    {
+      "id": "block.app-shell",
+      "kind": "block",
+      "summary": "Responsive application frame with navigation, header, and content area.",
+      "keywords": ["layout", "sidebar", "navigation"],
+      "docs": "apps/tauri-app/content/docs/blocks/app-shell.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/pro/src/layout/app-shell",
+          "exports": ["AppShell", "AppShellProps", "NavItem"],
+          "source": "packages/pro/src/layout/app-shell.tsx"
+        },
+        "vue": {
+          "import": "@package/pro-vue/src/layout/app-shell.vue",
+          "exports": ["default"],
+          "source": "packages/pro-vue/src/layout/app-shell.vue"
+        },
+        "svelte": {
+          "import": "@package/pro-svelte/src/layout/app-shell.svelte",
+          "exports": ["default"],
+          "source": "packages/pro-svelte/src/layout/app-shell.svelte"
+        }
+      }
+    },
+    {
+      "id": "block.page-container",
+      "kind": "block",
+      "summary": "Page title, breadcrumbs, actions, body, and footer layout.",
+      "keywords": ["layout", "page", "breadcrumbs"],
+      "docs": "apps/tauri-app/content/docs/blocks/page-container.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/pro/src/layout/page-container",
+          "exports": ["PageContainer", "PageContainerProps"],
+          "source": "packages/pro/src/layout/page-container.tsx"
+        },
+        "vue": {
+          "import": "@package/pro-vue/src/layout/page-container.vue",
+          "exports": ["default"],
+          "source": "packages/pro-vue/src/layout/page-container.vue"
+        },
+        "svelte": {
+          "import": "@package/pro-svelte/src/layout/page-container.svelte",
+          "exports": ["default"],
+          "source": "packages/pro-svelte/src/layout/page-container.svelte"
+        }
+      }
+    },
+    {
+      "id": "core.form-schema",
+      "kind": "contract",
+      "summary": "Framework-free field schemas, groups, values, and synchronous validation.",
+      "keywords": ["form", "validation", "schema"],
+      "docs": "apps/tauri-app/content/docs/pro-core.mdx",
+      "implementations": {
+        "core": {
+          "import": "@package/pro-core/src/form/schema",
+          "exports": ["ProFieldSchema", "ProFormGroup", "ProFormValues", "validateField"],
+          "source": "packages/pro-core/src/form/schema.ts"
+        }
+      }
+    },
+    {
+      "id": "core.table",
+      "kind": "contract",
+      "summary": "Framework-free column DSL, table features, queries, filtering, sorting, and paging.",
+      "keywords": ["table", "columns", "query", "pagination"],
+      "docs": "apps/tauri-app/content/docs/pro-core.mdx",
+      "implementations": {
+        "core": {
+          "import": "@package/pro-core/src/table/columns",
+          "exports": ["ProColumnDef", "isActionColumn", "readCellValue"],
+          "source": "packages/pro-core/src/table/columns.ts"
+        }
+      }
+    },
+    {
+      "id": "core.query-keys",
+      "kind": "contract",
+      "summary": "Deterministic cache-key factories shared by framework adapters.",
+      "keywords": ["query", "cache", "invalidation"],
+      "docs": "apps/tauri-app/content/docs/pro-core.mdx",
+      "implementations": {
+        "core": {
+          "import": "@package/pro-core/src/query/keys",
+          "exports": ["queryKeys"],
+          "source": "packages/pro-core/src/query/keys.ts"
+        }
+      }
+    },
+    {
+      "id": "bridge.todo-storage",
+      "kind": "bridge",
+      "summary": "Universal todo persistence through Tauri commands or browser localStorage.",
+      "keywords": ["tauri", "storage", "localstorage", "platform"],
+      "docs": "apps/tauri-app/content/docs/architecture.mdx",
+      "implementations": {
+        "universal": {
+          "import": "@package/tauri-api/src/todo-storage",
+          "exports": ["todoStorage"],
+          "source": "packages/tauri-api/src/todo-storage.ts"
+        }
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "crud-page",
+      "summary": "List, create, update, and delete records with a data table and form dialog.",
+      "frameworks": ["react", "vue", "svelte"],
+      "uses": ["block.data-table", "block.form-dialog", "core.form-schema", "core.query-keys"],
+      "examples": {
+        "react": "apps/tauri-app/src/pages/todos-page.tsx",
+        "vue": "apps/vue-playground/src/views/todos-view.vue",
+        "svelte": "apps/svelte-playground/src/views/todos-view.svelte"
+      },
+      "verify": "pnpm agent check --changed"
+    },
+    {
+      "id": "schema-form",
+      "summary": "Build a validated form from framework-free field groups.",
+      "frameworks": ["react", "vue", "svelte"],
+      "uses": ["block.form", "core.form-schema"],
+      "examples": {
+        "react": "apps/tauri-app/src/pages/forms-page.tsx",
+        "vue": "apps/vue-playground/src/views/forms-view.vue",
+        "svelte": "apps/svelte-playground/src/views/forms-view.svelte"
+      },
+      "verify": "pnpm agent check --changed"
+    },
+    {
+      "id": "application-layout",
+      "summary": "Compose navigation and consistent pages with AppShell and PageContainer.",
+      "frameworks": ["react", "vue", "svelte"],
+      "uses": ["block.app-shell", "block.page-container"],
+      "examples": {
+        "react": "apps/tauri-app/src/routes.tsx",
+        "vue": "apps/vue-playground/src/App.vue",
+        "svelte": "apps/svelte-playground/src/App.svelte"
+      },
+      "verify": "pnpm agent check --changed"
+    },
+    {
+      "id": "universal-storage",
+      "summary": "Expose a typed platform operation with Tauri and browser implementations.",
+      "frameworks": ["universal"],
+      "uses": ["bridge.todo-storage"],
+      "examples": {
+        "universal": "packages/tauri-api/src/todo-storage.ts"
+      },
+      "verify": "pnpm agent check --changed"
+    },
+    {
+      "id": "ui-component",
+      "summary": "Install a complete vendored UI component template and documentation page.",
+      "frameworks": ["react"],
+      "uses": ["ui.button"],
+      "examples": {
+        "react": "packages/cli/templates/ui/alert.tsx"
+      },
+      "command": "pnpm scaffold add ui <name> --dry-run",
+      "verify": "pnpm agent check --changed"
+    }
+  ]
+}

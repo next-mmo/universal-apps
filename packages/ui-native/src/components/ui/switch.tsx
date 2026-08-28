@@ -1,50 +1,37 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
-import { useTheme } from '../../lib/theme';
+import { cn } from '@package/ui/src/lib/cn';
 
 import type { ComponentProps } from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
 
 export interface SwitchProps extends Omit<ComponentProps<typeof Pressable>, 'onChange' | 'style'> {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
-  style?: ComponentProps<typeof View>['style'];
+  className?: string;
+  style?: StyleProp<ViewStyle>;
 }
 
-/** RN port of `@package/ui` Switch; mirrors the Radix `checked` API shape. */
-export function Switch({ checked = false, onCheckedChange, disabled, style, ...props }: SwitchProps) {
-  const { palette } = useTheme();
+/** RN port of `@package/ui` Switch (green-on track like the iOS/DOM version). */
+export function Switch({ checked = false, onCheckedChange, disabled, className, style, ...props }: SwitchProps) {
   return (
     <Pressable
       accessibilityRole='switch'
       accessibilityState={{ checked: !!checked, disabled: !!disabled }}
       disabled={disabled}
       onPress={() => onCheckedChange?.(!checked)}
-      style={[styles.track, { backgroundColor: checked ? palette.primary : palette.fill }, style]}
+      className={cn(
+        'h-[31px] w-[51px] flex-row items-center rounded-full p-[2px] active:opacity-80',
+        checked ? 'bg-green' : 'bg-fill',
+        disabled && 'opacity-40',
+        className,
+      )}
+      style={style}
       {...props}
     >
       <View
-        style={[
-          styles.thumb,
-          {
-            backgroundColor: '#ffffff',
-            transform: [{ translateX: checked ? 20 : 2 }],
-          },
-        ]}
+        className={cn('size-[27px] rounded-full bg-white', checked ? 'translate-x-5' : 'translate-x-0')}
       />
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  track: {
-    width: 44,
-    height: 26,
-    borderRadius: 999,
-    justifyContent: 'center',
-  },
-  thumb: {
-    width: 22,
-    height: 22,
-    borderRadius: 999,
-  },
-});

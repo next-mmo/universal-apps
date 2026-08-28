@@ -11,6 +11,9 @@
     "tauri": "pnpm --filter @app/tauri-app tauri",
     "rename-project": "tsx --tsconfig scripts/tsconfig.json scripts/renameProject.ts",
     "scaffold": "tsx packages/cli/src/index.ts",
+    "agent": "tsx packages/cli/src/index.ts agent",
+    "agent:docs": "pnpm --filter @app/tauri-app exec tsx scripts/generate-llm.ts",
+    "agent:docs:check": "pnpm --filter @app/tauri-app exec tsx scripts/generate-llm.ts --check",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "dev:native": "pnpm --filter @app/native-playground dev"
@@ -22,6 +25,7 @@
     "oxlint": "1.66.0",
     "playwright-core": "^1.62.1",
     "tailwindcss": "4.3.0",
+    "typescript": "5.8.3",
     "tsx": "4.22.3"
   }
 }

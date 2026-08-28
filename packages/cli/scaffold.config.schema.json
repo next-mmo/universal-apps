@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Scaffold configuration",
+  "description": "Targets for `pnpm scaffold add`, consumed by packages/cli/src/config.ts.",
+  "type": "object",
+  "required": ["targets"],
+  "additionalProperties": false,
+  "properties": {
+    "targets": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "componentDir",
+          "templateDir",
+          "baseTemplate",
+          "package",
+          "docsDir",
+          "docsMeta",
+          "importRewrites"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "componentDir": { "type": "string", "description": "Workspace-relative directory for generated components." },
+          "templateDir": { "type": "string", "description": "Workspace-relative directory of complete templates." },
+          "baseTemplate": { "type": "string", "description": "Template file name used by the --allow-placeholder escape hatch." },
+          "package": { "type": "string", "description": "Workspace package that receives generated components." },
+          "docsDir": { "type": "string", "description": "Workspace-relative directory for generated documentation pages." },
+          "docsMeta": { "type": "string", "description": "Workspace-relative meta.json controlling docs sidebar order." },
+          "importRewrites": {
+            "type": "object",
+            "description": "Template-authoring import aliases rewritten to workspace conventions.",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

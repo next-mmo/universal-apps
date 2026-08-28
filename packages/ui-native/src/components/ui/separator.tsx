@@ -1,27 +1,26 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
-import { useTheme } from '../../lib/theme';
+import { cn } from '@package/ui/src/lib/cn';
 
-export function Separator({ orientation = 'horizontal', style }: { orientation?: 'horizontal' | 'vertical'; style?: object }) {
-  const { palette } = useTheme();
+import type { StyleProp, ViewStyle } from 'react-native';
+
+export function Separator({
+  orientation = 'horizontal',
+  className,
+  style,
+}: {
+  orientation?: 'horizontal' | 'vertical';
+  className?: string;
+  style?: StyleProp<ViewStyle>;
+}) {
   return (
     <View
-      style={[
-        orientation === 'horizontal' ? styles.horizontal : styles.vertical,
-        { backgroundColor: palette.border },
-        style,
-      ]}
+      className={cn(
+        'shrink-0 self-stretch bg-border',
+        orientation === 'horizontal' ? 'h-px w-full' : 'w-px',
+        className,
+      )}
+      style={style}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  horizontal: {
-    height: StyleSheet.hairlineWidth,
-    alignSelf: 'stretch',
-  },
-  vertical: {
-    width: StyleSheet.hairlineWidth,
-    alignSelf: 'stretch',
-  },
-});

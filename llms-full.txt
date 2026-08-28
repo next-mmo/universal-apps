@@ -1,0 +1,1141 @@
+# Tauri Universal — Complete documentation
+
+
+
+> Generated from the checked-in MDX documentation. Prefer `llms.txt` plus one relevant page when possible.
+
+
+
+## Introduction
+
+Source: `apps/tauri-app/content/docs/index.mdx`
+
+This is the documentation index. It is built with [Fumadocs](https://fumadocs.dev) running entirely client-side inside a Vite SPA — no server required, which makes it a good fit for Tauri.
+
+## What's inside
+
+- **Dashboard** — an overview of your todos
+- **Todos** — create and manage tasks
+- **Form blocks** — reusable form components
+
+## Writing docs
+
+Every `.mdx` file under `apps/tauri-app/content/docs` becomes a page. Frontmatter controls its title and description.
+
+## Agent Guide
+
+Source: `apps/tauri-app/content/docs/agent.mdx`
+
+Read the root `AGENTS.md` first. It is the authoritative operating contract. This page routes repository work; API facts come from the checked-in catalog and focused component pages.
+
+## Start with one command
+
+```bash
+pnpm agent find table --framework vue
+pnpm agent inspect ProDataTable      # by exported symbol
+pnpm agent inspect block.data-table  # or by catalog id
+pnpm agent recipe crud-page --framework react
+pnpm agent check --changed
+```
+
+`agent/catalog.json` is the machine-readable capability source. `/llms.txt` is the standard documentation index, `/llms-full.txt` is the optional complete bundle, and `/docs/<path>.md` exposes clean Markdown for one page. Prefer the index plus one relevant page over the full bundle.
+
+## Workspace map
+
+| Path | Responsibility |
+| --- | --- |
+| `packages/pro-core` | Framework-free form, table, and query contracts |
+| `packages/ui` | React DOM primitives and CSS design tokens |
+| `packages/pro` | React feature blocks |
+| `packages/pro-vue` | Vue feature-block adapters |
+| `packages/pro-svelte` | Svelte feature-block adapters |
+| `packages/ui-native` | React Native/Web primitives styled with Uniwind (Tailwind classes, shared tokens.css) |
+| `packages/tauri-api` | Typed Tauri operations and browser fallbacks |
+| `packages/core` | Shared application domain logic |
+| `packages/cli` | Agent discovery, verification, and scaffold commands |
+| `apps/*-playground` | Compileable integration examples for each framework |
+
+## Hard conventions
+
+1. Use full cross-package file imports until stable subpath exports exist; do not add root barrel files.
+2. Put framework-neutral contracts in `pro-core` before adapters.
+3. Keep raw Tauri calls inside `tauri-api` and provide a browser fallback.
+4. Register new Tailwind-scanned package sources in each consuming app stylesheet.
+5. Add component/block docs and catalog metadata with the implementation.
+6. Use shadcn patterns for primitives and TanStack engines for feature blocks.
+
+## Safe scaffolding
+
+```bash
+pnpm scaffold list
+pnpm scaffold add ui alert --dry-run
+pnpm scaffold add ui alert
+```
+
+Only complete vendored templates are accepted by default. Unknown components fail without writing. `--allow-placeholder` is an explicit escape hatch and is not production-ready. Use `--no-install` to plan dependency changes separately and `--json` for machine-readable output.
+
+## Documentation maintenance
+
+Run `pnpm agent:docs` after documentation or catalog changes. `pnpm agent:docs:check` detects stale checked-in `llms.txt` artifacts without writing. The normal changed-scope verifier includes this check.
+
+## Known operational details
+
+- `pnpm dev` starts the browser frontend; `pnpm tauri dev` starts the native shell.
+- Fumadocs type generation runs when the docs app starts or builds.
+- Sidebar order comes from each folder's `meta.json`.
+- `pnpm agent check --changed` selects affected framework builds and prints detailed output only on failure.
+
+## Getting Started
+
+Source: `apps/tauri-app/content/docs/getting-started.mdx`
+
+## Prerequisites
+
+- Node.js 20+
+- pnpm 10+
+
+## Install
+
+```bash
+pnpm install
+```
+
+## Run
+
+```bash title="Run dev server"
+pnpm dev
+```
+
+The app is served at `http://localhost:1420`.
+
+## Build
+
+```bash
+pnpm build
+```
+
+For the web-only build without Tauri, use `pnpm build:web`.
+
+## Architecture
+
+Source: `apps/tauri-app/content/docs/architecture.mdx`
+
+## Workspace layout
+
+| Path | Purpose |
+| ---- | ------- |
+| `apps/tauri-app` | The Tauri + React application |
+| `packages/core` | Shared business logic |
+| `packages/ui` | Shared UI components (shadcn-based) |
+| `packages/pro` | Pro layout components |
+| `packages/tauri-api` | Typed Tauri command bindings |
+
+## Tech stack
+
+- **Tauri 2** for the native shell (desktop & Android)
+- **TanStack Router** for client-side routing
+- **TanStack Query** for data fetching
+- **Tailwind CSS v4** for styling
+- **Fumadocs** for this documentation section
+
+## Data flow
+
+Todos live in `@package/core` as plain services. The app exposes them through TanStack Query hooks in `src/lib/todo-queries.ts`, and pages consume those hooks — no global state library involved.
+
+## Pro Core
+
+Source: `apps/tauri-app/content/docs/pro-core.mdx`
+
+`@package/pro-core` holds the **framework-free contracts** that pro component adapters consume. It has no React, Vue, or Svelte dependencies — only types and pure functions — which is what lets the same contracts drive adapters across frameworks.
+
+There is no package-root entrypoint; import each module by its full path:
+
+```bash
+@package/pro-core/src/form/schema
+@package/pro-core/src/table/columns
+@package/pro-core/src/table/features
+@package/pro-core/src/table/client-engine
+@package/pro-core/src/query/keys
+```
+
+## Form schema
+
+`form/schema` defines the declarative form model rendered by `ProForm` adapters (`ProFormDialog` in React):
+
+- `ProFieldSchema` — one field: `name`, `label`, `type` (`text | textarea | number | select | checkbox | switch`), plus `placeholder`, `description`, `options`, `required`, `disabled`, and synchronous `validators` (functions returning an error message or `undefined`).
+- `ProFormGroup` — fields grouped under a shared `title`/`description` with a `stacked` or `grid-2` layout.
+- `validateField(schema, raw)` — runs the required check, then every validator, returning the first error.
+
+```ts
+
+const title = {
+  name: 'text',
+  label: 'Task',
+  type: 'text',
+  required: true,
+} as const;
+
+validateField(title, ''); // "Task is required"
+```
+
+## Column DSL
+
+`table/columns` is the declarative column model for pro data tables. Adapters map each `valueType` to a concrete cell renderer:
+
+| ValueType | Renders |
+| --------- | ------- |
+| `text` / `number` / `date` | Plain values, dates via locale formatting |
+| `badge` / `status` | `@package/ui` badge variants |
+| `actions` | Row action buttons from an `onSelect(row)` list |
+
+Useful members: `ProColumnDef<T>` (the union), `isActionColumn()` (type guard), and `readCellValue(row, column)` which resolves the `accessor` (defaulting to `key`).
+
+```ts
+
+const columns: Array<ProColumnDef<TodoRow>> = [
+  { key: 'text', header: 'Task', valueType: 'text' },
+  { key: 'priority', header: 'Priority', valueType: 'badge', hiddenByDefault: true },
+  { key: 'status', header: 'Status', valueType: 'status' },
+  {
+    key: 'actions',
+    header: '',
+    valueType: 'actions',
+    actions: [
+      { label: 'Done', onSelect: (row) => toggle(row.id) },
+      { label: 'Delete', destructive: true, onSelect: (row) => remove(row.id) },
+    ],
+  },
+];
+```
+
+## Table features & query contract
+
+`table/features` configures which capabilities a table instance exposes and defines the server-mode contract:
+
+- `TableFeatures` — toggles for `sorting`, `globalFilter`, `pagination`, `rowSelection`, `columnVisibility`, `refresh`, plus `pageSizeOptions`.
+- `TableQuery` / `PagedResult<T>` — the shape adapters translate into their fetcher when a table runs in **server mode**; in client mode everything happens in memory.
+- `buildTableQuery({ page, pageSize, ... })` — normalizes a query with `undefined` defaults for the optional fields.
+
+```ts
+
+buildTableQuery({ page: 0, pageSize: 20 });
+// { page: 0, pageSize: 20, sortBy: undefined, sortDir: undefined, search: undefined }
+```
+
+## Client engine
+
+`table/client-engine` is the in-memory pipeline for lightweight adapters (Svelte today): `filterRows` (case-insensitive search across non-action columns), `sortRows` (numeric-aware, stable copy), and `pageRows`. Each step takes the output of the previous one, so adapters compose them freely.
+
+## Query keys
+
+`query/keys` provides deterministic cache-key factories shared by every adapter, so mutations invalidate consistently across frameworks:
+
+```ts
+
+queryKeys.table('todos', { page: 0 }); // ['pro', 'table', 'todos', { page: 0 }]
+queryKeys.detail('todos', 1); //        ['pro', 'detail', 'todos', 1]
+queryKeys.stats('todos'); //            ['pro', 'stats', 'todos']
+```
+
+Invalidation can use the key prefix — this app's todo mutations invalidate `['pro', 'table', 'todos']`, which matches every parameterization of `queryKeys.table('todos', …)`.
+
+## Blocks
+
+Source: `apps/tauri-app/content/docs/blocks/index.mdx`
+
+**Blocks** are higher-level feature components: complete, composable units (a searchable sortable table, a schema-driven form, an app shell) assembled from UI primitives, `@package/pro-core` contracts, and TanStack engines. React implementations live in `@package/pro`; Vue and Svelte adapters implement the same contracts in `@package/pro-vue` and `@package/pro-svelte`.
+
+## The blocks
+
+| Block | Purpose |
+| ----- | ------- |
+| `ProDataTable` | Toolbar + table + pagination over TanStack Table, client or server mode |
+| `ProForm` | Schema-driven form over TanStack Form with validation and submit states |
+| `ProFormDialog` | ProForm inside a Dialog for create/edit flows |
+| `AppShell` | Application frame: sidebar nav, header, content area |
+| `PageContainer` | Breadcrumb trail, title block, actions, page body |
+
+## Block vs. component
+
+Components (`@package/ui`) are dumb primitives — a Button, an Input. Blocks own **behavior and data plumbing**: ProDataTable wires sorting/filter/pagination state, ProForm runs validation and submit lifecycles. Rule of thumb from the README: *blocks are shadcn primitives + TanStack engines only*, no other state or data libraries.
+
+## Where they're used
+
+- `/todos` — `ProDataTable` + `ProFormDialog` for task management
+- `/forms` — `ProForm` showcase with validation, groups, and submit states
+- Everywhere — `AppShell` wraps the app (see `src/routes.tsx`), `PageContainer` wraps each page
+
+## ProDataTable
+
+Source: `apps/tauri-app/content/docs/blocks/pro-data-table.mdx`
+
+A complete list view: search toolbar, column sorting, column visibility, page-size selector, pagination, loading/error/empty states. Source: `packages/pro/src/data-table/pro-data-table.tsx`, built on **TanStack Table v9** (`useTable` + `tableFeatures` with registered sorting/filtering/pagination/selection/visibility features) and `@package/ui` table primitives. Column shape comes from the `ProColumnDef` DSL in `@package/pro-core`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx title="Client mode (from src/pages/todos-page.tsx)"
+
+const columns: Array<ProColumnDef<TodoRow>> = [
+  { key: 'text', header: 'Task', valueType: 'text' },
+  { key: 'createdAt', header: 'Created', valueType: 'date' },
+  {
+    key: 'actions',
+    header: '',
+    valueType: 'actions',
+    actions: [
+      { label: 'Done', onSelect: (row) => toggle(row.id) },
+      { label: 'Delete', destructive: true, onSelect: (row) => remove(row.id) },
+    ],
+  },
+];
+
+<ProDataTable columns={columns} data={todos} loading={isLoading} />
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `columns` | `Array<ProColumnDef<T>>` | Column DSL from `@package/pro-core`. |
+| `data` | `T[]` | Row data for client mode. |
+| `loading` / `error` / `onRetry` | — | State rendering: skeletons, error card with retry. |
+| `features` | `TableFeatures` | Toggle sorting, globalFilter, pagination, rowSelection, columnVisibility, refresh. |
+| `query` + `totalRows` + `onQueryChange` | `TableQuery` | **Server mode**: pass all three and the table stops managing state internally; your fetcher owns the data. |
+| `searchPlaceholder`, `toolbarExtra`, `onRefresh` | — | Toolbar customization. |
+| `getRowId` | `(row) => string` | Stable row identity for selection. |
+
+## Client vs. server mode
+
+Without `query`, filtering/sorting/pagination happen in memory (TanStack row models). Pass `query`/`totalRows`/`onQueryChange` and the block becomes a controlled view over your API — translate `TableQuery` into fetch parameters and feed back rows + total. Pair it with `queryKeys.table()` from `@package/pro-core` so cache invalidation stays deterministic.
+
+## ProForm
+
+Source: `apps/tauri-app/content/docs/blocks/pro-form.mdx`
+
+Renders a complete form from a `ProFormGroup[]` schema (see `@package/pro-core/src/form/schema`): field controls per type, synchronous validators, group titles/descriptions, `stacked` or `grid-2` layouts, pending state on submit. Source: `packages/pro/src/form/pro-form.tsx`, built on TanStack Form.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx title="Schema-driven form"
+
+const schema = [
+  {
+    title: 'Task details',
+    fields: [
+      { name: 'text', label: 'Task', type: 'text', required: true, placeholder: 'What needs doing?' },
+      { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Optional details…' },
+    ],
+  },
+  {
+    title: 'Options',
+    layout: 'grid-2',
+    fields: [
+      { name: 'priority', label: 'Priority', type: 'select', options: [
+        { label: 'Low', value: 'low' },
+        { label: 'Normal', value: 'normal' },
+        { label: 'High', value: 'high' },
+      ] },
+      { name: 'pinned', label: 'Pin to top', type: 'switch' },
+    ],
+  },
+];
+
+<ProForm
+  schema={schema}
+  defaultValues={{ priority: 'normal', pinned: false }}
+  submitLabel='Create task'
+  onSubmit={async (values) => {
+    await addTodo(String(values.text));
+  }}
+/>
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `schema` | `Array<ProFormGroup>` | Groups → fields; field types: `text`, `textarea`, `number`, `select`, `checkbox`, `switch`. |
+| `defaultValues` | `ProFormValues` | Initial values keyed by field `name`. |
+| `onSubmit` | `(values) => Promise<void> \| void` | Receives the collected values. |
+| `onCancel` | `() => void` | Renders a Cancel button when provided. |
+| `submitLabel` / `cancelLabel` | `string` | Button labels. |
+| `pending` | `boolean` | Disables the submit button while true. |
+| `className` | `string` | Extra classes on the form element. |
+
+Validators are plain functions on the field schema (`validators: [(v) => v.length < 3 ? 'Too short' : undefined]`) — no schema library involved.
+
+## ProFormDialog
+
+Source: `apps/tauri-app/content/docs/blocks/pro-form-dialog.mdx`
+
+Controlled Dialog wrapping `ProForm` — the standard create/edit surface. Key the rendered dialog by the edited record so defaults reset between opens. Source: `packages/pro/src/form/pro-form-dialog.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx title="Create flow (from src/pages/todos-page.tsx)"
+const [createOpen, setCreateOpen] = useState(false);
+const addTodo = useAddTodo();
+
+<Button onClick={() => setCreateOpen(true)}>New task</Button>
+<ProFormDialog
+  open={createOpen}
+  onOpenChange={setCreateOpen}
+  title='New task'
+  schema={createSchema}
+  defaultValues={{}}
+  submitLabel='Create'
+  pending={addTodo.isPending}
+  onSubmit={async (values) => {
+    await addTodo.mutateAsync(String(values.text));
+    setCreateOpen(false);
+  }}
+/>
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `open` / `onOpenChange` | boolean / `(open) => void` | Controlled dialog visibility. |
+| `title` / `description` | `string` | Dialog header text. |
+| `schema` | `Array<ProFormGroup>` | Same schema as `ProForm`. |
+| `defaultValues` | `ProFormValues` | Re-key the dialog element per record so values reset. |
+| `onSubmit` | `(values) => Promise<void> \| void` | Close the dialog yourself after success. |
+| `submitLabel` / `pending` | — | Submit button label and pending state. |
+
+## AppShell
+
+Source: `apps/tauri-app/content/docs/blocks/app-shell.mdx`
+
+The application frame used by every route in this app: fixed-width sidebar with nav items (desktop), horizontal scrollable nav in the header (mobile), sticky header with the app title. Source: `packages/pro/src/layout/app-shell.tsx`. You are looking at it right now — this docs page renders inside the AppShell.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+```tsx title="Root route (from src/routes.tsx)"
+
+<AppShell
+  title='Universal Todos'
+  navItems={[
+    { label: 'Dashboard', to: '/', icon: LayoutDashboardIcon },
+    { label: 'Todos', to: '/todos', icon: ListTodoIcon },
+    { label: 'Docs', to: '/docs', icon: BookOpenIcon },
+  ]}
+>
+</AppShell>
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `title` | `string` | Sidebar brand text and header title. |
+| `navItems` | `Array<NavItem>` | `{ label, to, icon? }`; active state derives from `location.pathname` (exact or prefix match). |
+| `headerExtra` | `ReactNode` | Right-aligned header slot (actions, theme toggle, …). |
+| `sidebarAction` | `ReactNode` | Right-aligned slot in the sidebar title row. |
+| `children` | `ReactNode` | Routed content. |
+
+Active styling uses the `primary` background for the matched item; icons come from `lucide-react`.
+
+## PageContainer
+
+Source: `apps/tauri-app/content/docs/blocks/page-container.mdx`
+
+Standard page scaffold: breadcrumb trail, title, optional description, right-aligned actions, body, optional footer. Source: `packages/pro/src/layout/page-container.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx title="From src/pages/todos-page.tsx"
+
+<PageContainer
+  title='Todos'
+  breadcrumbs={['App', 'Data', 'Todos']}
+  description='ProTable-style block on TanStack Table + Query.'
+  extra={
+    <Button onClick={() => setCreateOpen(true)}>
+      <PlusIcon /> New task
+    </Button>
+  }
+>
+  <ProDataTable … />
+</PageContainer>
+```
+
+## API
+
+| Prop | Type | Notes |
+| ---- | ---- | ----- |
+| `title` / `description` | `string` | Title block content. |
+| `breadcrumbs` | `string[]` | Rendered as `A / B / C` above the title. |
+| `extra` | `ReactNode` | Right-aligned action slot beside the title. |
+| `footer` | `ReactNode` | Below the body. |
+| `children` | `ReactNode` | Page body. |
+
+## Accordion
+
+Source: `apps/tauri-app/content/docs/components/accordion.mdx`
+
+Displays an accordion: vertically stacked, collapsible section panels. Source: `packages/ui/src/components/ui/accordion.tsx`, built on `@radix-ui/react-accordion`.
+
+## Import
+
+```ts
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@package/ui/src/components/ui/accordion';
+```
+
+## Usage
+
+
+```tsx title="Example"
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@package/ui/src/components/ui/accordion';
+
+  return (
+    <Accordion type='single' collapsible>
+      <AccordionItem value='item-1'>
+        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It uses Radix UI primitives with full keyboard and screen-reader support.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value='item-2'>
+        <AccordionTrigger>Is it animated?</AccordionTrigger>
+        <AccordionContent>
+          Yes. Height animations come from the `accordion-down` / `accordion-up` keyframes
+          defined in the shared theme tokens.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+```
+
+## API
+
+| Component | Props | Notes |
+| --------- | ----- | ----- |
+| `Accordion` | `type='single' \| 'multiple'`, `collapsible`, `defaultValue` | Root; forwarded to Radix Root. `type='single'` keeps one panel open; `collapsible` allows closing it. |
+| `AccordionItem` | `value` (required) | One panel row; bottom border, no border on the last item. |
+| `AccordionTrigger` | children | Header button with rotating chevron; `data-state=open` flips it 180°. |
+| `AccordionContent` | children | Animated open/close wrapper; add padding via `className` on inner `div`. |
+
+All props not listed are forwarded to the underlying Radix primitive, so `onValueChange`, `disabled`, and friends work as documented by Radix UI.
+
+## Badge
+
+Source: `apps/tauri-app/content/docs/components/badge.mdx`
+
+Displays a badge or component tag. Source: `packages/ui/src/components/ui/badge.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+
+<Badge>Default</Badge>
+<Badge variant='secondary'>Secondary</Badge>
+<Badge variant='destructive'>Destructive</Badge>
+<Badge variant='outline'>Outline</Badge>
+```
+
+The pro packages additionally use `success` and `warning` variants (see `BadgeTone` in `@package/pro-core/src/table/columns`).
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `variant` | `default` \| `secondary` \| `destructive` \| `outline` | `default` |
+
+Accepts any `<span>` props plus `asChild` (Radix Slot) to render as a different element.
+
+## Button
+
+Source: `apps/tauri-app/content/docs/components/button.mdx`
+
+Displays a button or an anchor that looks like a button. Source: `packages/ui/src/components/ui/button.tsx`, styled with `class-variance-authority`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+
+<Button variant='default'>Save</Button>
+<Button variant='secondary' size='sm'>Small</Button>
+<Button variant='destructive'>Delete</Button>
+<Button variant='ghost' size='icon'><PlusIcon /></Button>
+<Button asChild>
+  <a href='/docs'>Docs</a>
+</Button>
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `variant` | `default` \| `secondary` \| `destructive` \| `outline` \| `ghost` \| `link` | `default` |
+| `size` | `default` \| `sm` \| `lg` \| `icon` | `default` |
+| `asChild` | boolean | `false` — merges props onto the child element instead of rendering `<button>`. |
+
+## Card
+
+Source: `apps/tauri-app/content/docs/components/card.mdx`
+
+Groups related content in a bordered container. Source: `packages/ui/src/components/ui/card.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+<Card>
+  <CardHeader>
+    <CardTitle>Task details</CardTitle>
+    <CardDescription>Fill in the information below.</CardDescription>
+  </CardHeader>
+  <CardContent>…form controls…</CardContent>
+  <CardFooter className='justify-end'>
+    <Button>Create</Button>
+  </CardFooter>
+</Card>
+```
+
+## API
+
+Each slot is a plain `<div>` with layout classes: `Card` (border, radius, shadow), `CardHeader` (vertical stack), `CardContent`, `CardFooter` (horizontal stack). Compose them freely; none accept special props beyond `className` and `asChild`.
+
+## Checkbox
+
+Source: `apps/tauri-app/content/docs/components/checkbox.mdx`
+
+A binary input that toggles a single value. Source: `packages/ui/src/components/ui/checkbox.tsx`, built on `@radix-ui/react-checkbox`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+
+<div className='flex items-center gap-2'>
+  <Checkbox id='pin' />
+  <Label htmlFor='pin'>Pin to top</Label>
+</div>
+```
+
+## API
+
+| Prop | Values | Notes |
+| ---- | ------ | ----- |
+| `checked` | `boolean` \| `'indeterminate'` | Controlled state; use `defaultChecked` for uncontrolled. |
+| `onCheckedChange` | `(checked) => void` | Change handler. |
+
+All other props forward to the Radix primitive (`disabled`, `required`, …).
+
+## Dialog
+
+Source: `apps/tauri-app/content/docs/components/dialog.mdx`
+
+A modal window layered over the page. Source: `packages/ui/src/components/ui/dialog.tsx`, built on `@radix-ui/react-dialog`. `ProFormDialog` in `@package/pro` composes this for schema-driven forms.
+
+## Import
+
+```ts
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@package/ui/src/components/ui/dialog';
+```
+
+## Usage
+
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button variant='outline'>Open</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>New task</DialogTitle>
+      <DialogDescription>Describe what needs doing.</DialogDescription>
+    </DialogHeader>
+    …fields…
+    <DialogFooter>
+      <Button>Create</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+## API
+
+`Dialog` is the controlled/uncontrolled root (`open`, `onOpenChange`). `DialogTrigger` opens it; `DialogContent` renders the overlay + panel (Esc and overlay click close it), and `DialogHeader`/`DialogFooter` are layout slots.
+
+## Dropdown Menu
+
+Source: `apps/tauri-app/content/docs/components/dropdown-menu.mdx`
+
+A menu of actions revealed from a trigger. Source: `packages/ui/src/components/ui/dropdown-menu.tsx`, built on `@radix-ui/react-dropdown-menu`.
+
+## Import
+
+```ts
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@package/ui/src/components/ui/dropdown-menu';
+```
+
+## Usage
+
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant='ghost' size='icon'><MoreHorizontalIcon /></Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent align='end'>
+    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+    <DropdownMenuItem onSelect={() => toggle(row.id)}>Done</DropdownMenuItem>
+    <DropdownMenuItem variant='destructive' onSelect={() => remove(row.id)}>Delete</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+## API
+
+`DropdownMenu` root (`open`, `onOpenChange`, `modal`). `DropdownMenuContent` positions the panel (`align`, `side`, `sideOffset`). Items close the menu on select unless `onSelect` calls `event.preventDefault()`.
+
+## Input
+
+Source: `apps/tauri-app/content/docs/components/input.mdx`
+
+A single-line text field. Source: `packages/ui/src/components/ui/input.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+
+<div className='grid gap-2'>
+  <Label htmlFor='task'>Task</Label>
+  <Input id='task' placeholder='What needs doing?' />
+</div>
+```
+
+## API
+
+A plain `<input>` — every native prop forwards (`type`, `value`, `onChange`, `disabled`, …). Validation styling: `aria-invalid` switches the border to destructive.
+
+## Label
+
+Source: `apps/tauri-app/content/docs/components/label.mdx`
+
+A caption for a form control. Source: `packages/ui/src/components/ui/label.tsx`, built on `@radix-ui/react-label`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+
+<Label htmlFor='priority'>Priority</Label>
+```
+
+## API
+
+Forwards all `<label>` props; `htmlFor` clicking focuses the linked control. When the associated control is disabled, Radix applies `data-disabled` styling automatically.
+
+## Popover
+
+Source: `apps/tauri-app/content/docs/components/popover.mdx`
+
+A floating panel for rich content. Source: `packages/ui/src/components/ui/popover.tsx`, built on `@radix-ui/react-popover`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant='outline'>Options</Button>
+  </PopoverTrigger>
+  <PopoverContent align='end' className='w-72'>
+    …any content…
+  </PopoverContent>
+</Popover>
+```
+
+## API
+
+`Popover` root (`open`, `onOpenChange`), `PopoverTrigger`, `PopoverContent` (`align`, `side`, `sideOffset`, `matchTriggerWidth`). Closes on outside click or Esc.
+
+## Select
+
+Source: `apps/tauri-app/content/docs/components/select.mdx`
+
+A native-feeling select with full styling control. Source: `packages/ui/src/components/ui/select.tsx`, built on `@radix-ui/react-select`.
+
+## Import
+
+```ts
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@package/ui/src/components/ui/select';
+```
+
+## Usage
+
+
+```tsx
+<Select defaultValue='normal'>
+  <SelectTrigger className='w-40'>
+    <SelectValue placeholder='Priority' />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value='low'>Low</SelectItem>
+    <SelectItem value='normal'>Normal</SelectItem>
+    <SelectItem value='high'>High</SelectItem>
+  </SelectContent>
+</Select>
+```
+
+## API
+
+`Select` root (`value`, `defaultValue`, `onValueChange`). `SelectTrigger` opens the list; `SelectValue` shows the current choice or `placeholder`. `SelectItem` requires a unique `value` (use `'none'`-style sentinels, not empty strings, for "no selection").
+
+## Separator
+
+Source: `apps/tauri-app/content/docs/components/separator.mdx`
+
+A visual divider. Source: `packages/ui/src/components/ui/separator.tsx`, built on `@radix-ui/react-separator`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+<Separator orientation='vertical' className='h-6' />
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `orientation` | `horizontal` \| `vertical` | `horizontal` |
+| `decorative` | boolean | `true` — renders as `<div>`; set `false` for a semantic `<hr role="separator">`. |
+
+## Skeleton
+
+Source: `apps/tauri-app/content/docs/components/skeleton.mdx`
+
+A pulsing placeholder block for loading states. Source: `packages/ui/src/components/ui/skeleton.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+<Skeleton className='h-4 w-48' />
+<Skeleton className='h-24 w-full rounded-xl' />
+```
+
+## API
+
+A single `<div>` with the `animate-pulse` background. Size and shape are entirely driven by `className`.
+
+## Switch
+
+Source: `apps/tauri-app/content/docs/components/switch.mdx`
+
+An on/off toggle. Source: `packages/ui/src/components/ui/switch.tsx`, built on `@radix-ui/react-switch`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+
+<div className='flex items-center gap-2'>
+  <Switch id='pin' />
+  <Label htmlFor='pin'>Surface this task at the top</Label>
+</div>
+```
+
+## API
+
+| Prop | Notes |
+| ---- | ----- |
+| `checked` / `defaultChecked` | Controlled / uncontrolled state. |
+| `onCheckedChange` | `(checked: boolean) => void`. |
+
+Other props forward to the Radix primitive (`disabled`, `required`, `name` for forms).
+
+## Table
+
+Source: `apps/tauri-app/content/docs/components/table.mdx`
+
+Low-level table styling primitives. Source: `packages/ui/src/components/ui/table.tsx`. For full-featured tables (sorting, filters, pagination, column visibility), use `ProDataTable` from `@package/pro`, which composes these.
+
+## Import
+
+```ts
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@package/ui/src/components/ui/table';
+```
+
+## Usage
+
+
+```tsx
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Task</TableHead>
+      <TableHead>Status</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Write docs</TableCell>
+      <TableCell>In progress</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+## API
+
+`Table` wraps content in a horizontally scrollable container. `TableRow` highlights on hover; `TableRow` also accepts `data-state='selected'` for row-selection styling used by the pro table.
+
+## Tabs
+
+Source: `apps/tauri-app/content/docs/components/tabs.mdx`
+
+A tabbed interface. Source: `packages/ui/src/components/ui/tabs.tsx`, built on `@radix-ui/react-tabs`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+<Tabs defaultValue='preview'>
+  <TabsList>
+    <TabsTrigger value='preview'>Preview</TabsTrigger>
+    <TabsTrigger value='code'>Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value='preview'>…rendered output…</TabsContent>
+  <TabsContent value='code'>…source…</TabsContent>
+</Tabs>
+```
+
+## API
+
+`Tabs` root (`value`, `defaultValue`, `onValueChange`, `orientation`). Each `TabsTrigger` value must match a `TabsContent` value; only the active content is mounted.
+
+## Textarea
+
+Source: `apps/tauri-app/content/docs/components/textarea.mdx`
+
+A multi-line text field. Source: `packages/ui/src/components/ui/textarea.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+
+<div className='grid gap-2'>
+  <Label htmlFor='notes'>Notes</Label>
+  <Textarea id='notes' placeholder='Optional details…' rows={4} />
+</div>
+```
+
+## API
+
+A plain `<textarea>` — all native props forward (`value`, `onChange`, `rows`, `disabled`, …). `aria-invalid` switches the border to destructive, matching `Input`.
+
+## Tooltip
+
+Source: `apps/tauri-app/content/docs/components/tooltip.mdx`
+
+A brief message on hover/focus. Source: `packages/ui/src/components/ui/tooltip.tsx`, built on `@radix-ui/react-tooltip`. The app wraps the router in `TooltipProvider` (see `src/main.tsx`).
+
+## Import
+
+```ts
+```
+
+## Usage
+
+
+```tsx
+<Tooltip>
+  <TooltipTrigger asChild>
+    <Button variant='ghost' size='icon'><InfoIcon /></Button>
+  </TooltipTrigger>
+  <TooltipContent>More information</TooltipContent>
+</Tooltip>
+```
+
+## API
+
+`Tooltip` root, `TooltipTrigger` (hover/focus target), `TooltipContent` (`side`, `align`, `sideOffset`). Delay and dismiss behavior come from the provider (`delayDuration`, `skipDelayDuration`).
+
+## React Native Web
+
+Source: `apps/tauri-app/content/docs/platforms/react-native-web.mdx`
+
+The same Apple-inspired design system that powers the DOM components runs on **React Native Web (RNW)** via `@package/ui-native` — hand-built RN primitives (`Pressable`/`View`/`Text`) styled with **Uniwind**, which compiles Tailwind v4 classes for React Native at build time. No Metro, no Expo required: the playground is a plain Vite app.
+
+## How it fits the adapter architecture
+
+The repo's cross-framework recipe applies unchanged:
+
+| Layer | DOM (React) | Native (RNW) |
+| ----- | ----------- | ------------ |
+| Tokens | `packages/ui/src/styles/tokens.css` (CSS custom properties) | **same file**, imported into the playground CSS entry |
+| Components | `packages/ui` (Radix + Tailwind classes) | `packages/ui-native` (RN primitives + Uniwind `className`) |
+| Playground | `apps/tauri-app` | `apps/native-playground` (`vite-plugin-rnw` + `@tailwindcss/vite` + `uniwind/vite`, port 1453) |
+
+## Uniwind styling
+
+`apps/native-playground/vite.config.ts` chains `rnw()` (react-native-web resolution + fixes, replaces the manual `react-native` alias), `tailwindcss()`, and `uniwind({ cssEntryFile: './src/index.css' })`. The CSS entry imports `tailwindcss`, `uniwind`, and the shared `@package/ui/src/styles/tokens.css`, and scans `packages/ui-native/src` via `@source` — so both engines read the same design tokens.
+
+Components mirror the DOM siblings' class strings 1:1; color utilities (`bg-primary`, `text-muted-foreground`, `dark:bg-card`, …) resolve the tokens.css variables. Because RN has no style inheritance, container utilities sit on the primitive and text color/size utilities on the inner `Text` — see the `variantClasses` maps in `packages/ui-native/src/components/ui/*`. Web-only utilities (hover, focus rings) are elided; pressed feedback uses `active:`.
+
+Dark mode is uniwind-managed: `Uniwind.setTheme('dark' | 'light')` flips the theme and uniwind keeps `<html class="dark">` in sync, so the tokens.css variables and every `dark:` variant switch together. The initial theme follows the system (uniwind's `adaptiveThemes` default). The toggle in `apps/native-playground/src/playground.tsx` is the reference implementation.
+
+`packages/ui/src/tokens.ts` (the JS palette/shadow mirror) stays in the repo for future real-native Metro targets, but ui-native no longer imports it.
+
+## Running the playground
+
+```bash
+pnpm dev:native   # → http://localhost:1453
+```
+
+Renders every ui-native component (buttons in all variants/sizes, badges, a form card with Input + Switch, separators) with a working light/dark toggle.
+
+## Component parity
+
+| Primitive | Status | Notes |
+| --------- | ------ |-------|
+| Button | ✅ | All 6 variants + 4 sizes; same variant classes as the DOM version; `Pressable` |
+| Badge | ✅ | 6 variants with the DOM tinted fills (`bg-primary/12`, `bg-green/15`, …) |
+| Card | ✅ | All five slots (`Card`…`CardFooter`); `shadow-[var(--shadow-card)]` |
+| Input | ✅ | Wraps RN `TextInput`; `invalid` prop mirrors `aria-invalid`; placeholder color via uniwind `useCSSVariable` |
+| Switch | ✅ | Radix-style `checked`/`onCheckedChange` API; green-on track like the DOM version |
+| Separator | ✅ | Horizontal/vertical hairline |
+| Accordion, Dialog, Select, … | ⏳ | Radix-behavior components need RN equivalents (modals, pickers); follow the same recipe |
+
+## Porting recipe (and the CLI)
+
+New native components follow the DOM siblings' prop APIs so the two stay swappable behind a shared contract:
+
+```bash
+pnpm scaffold add native <kebab-name>   # emits from templates/native/, wires docs
+```
+
+The scaffold's `native` target writes to `packages/ui-native/src/components/ui/` and rewrites `@/lib/cn` → `@package/ui/src/lib/cn`. Then port the real implementation from the DOM component: the Tailwind classes carry over as-is (Uniwind compiles them for RN), replace Radix behavior with RN primitives, and split text color/size utilities onto the `Text` node.
+
