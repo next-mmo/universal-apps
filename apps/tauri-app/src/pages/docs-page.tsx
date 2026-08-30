@@ -39,6 +39,7 @@ import {
   TooltipDemo,
 } from '../components/component-demos';
 import { source } from '../lib/source';
+import { PlatformProvider, PlatformSwitcher } from '../components/platform-switcher';
 
 const mdxComponents = {
   ...defaultMdxComponents,
@@ -90,19 +91,21 @@ export default function DocsRoute() {
 
   return (
     <RootProvider>
-      <DocsLayout tree={source.getPageTree()}>
-        <DocsPage toc={data.toc}>
-          <div className='flex flex-row items-center gap-2 border-b pb-2'>
-            <DocsTitle className='flex-1'>{data.title}</DocsTitle>
-            <MarkdownCopyButton markdownUrl={markdownUrl} />
-            <ViewOptionsPopover markdownUrl={markdownUrl} />
-          </div>
-          {data.description ? <DocsDescription>{data.description}</DocsDescription> : null}
-          <DocsBody>
-            <data.body components={mdxComponents} />
-          </DocsBody>
-        </DocsPage>
-      </DocsLayout>
+      <PlatformProvider>
+        <DocsLayout tree={source.getPageTree()} sidebar={{ banner: <PlatformSwitcher /> }}>
+          <DocsPage toc={data.toc}>
+            <div className='flex flex-row items-center gap-2 border-b pb-2'>
+              <DocsTitle className='flex-1'>{data.title}</DocsTitle>
+              <MarkdownCopyButton markdownUrl={markdownUrl} />
+              <ViewOptionsPopover markdownUrl={markdownUrl} />
+            </div>
+            {data.description ? <DocsDescription>{data.description}</DocsDescription> : null}
+            <DocsBody>
+              <data.body components={mdxComponents} />
+            </DocsBody>
+          </DocsPage>
+        </DocsLayout>
+      </PlatformProvider>
     </RootProvider>
   );
 }

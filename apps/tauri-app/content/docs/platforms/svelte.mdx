@@ -1,0 +1,28 @@
+---
+title: Svelte
+description: The pro blocks re-implemented as Svelte components — @package/pro-svelte and the svelte-playground.
+---
+
+The pro block layer ships a Svelte adapter, `@package/pro-svelte`: the same layout, form, and data-table blocks from the React docs re-implemented as `.svelte` components that share the exact same design tokens (`@package/ui/src/styles/tokens.css`).
+
+## Blocks
+
+| Block | File |
+| ----- | ---- |
+| AppShell | `packages/pro-svelte/src/layout/app-shell.svelte` |
+| PageContainer | `packages/pro-svelte/src/layout/page-container.svelte` |
+| ProForm | `packages/pro-svelte/src/form/pro-form.svelte` |
+| ProFormDialog | `packages/pro-svelte/src/form/pro-form-dialog.svelte` |
+| ProDataTable | `packages/pro-svelte/src/data-table/pro-data-table.svelte` |
+
+The components mirror the React prop APIs 1:1 so the blocks stay swappable behind a shared contract, and shared logic (filters, sorting, validation) comes from the framework-agnostic `@package/pro-core`.
+
+## Running the playground
+
+`apps/svelte-playground` is a Vite + `@sveltejs/vite-plugin-svelte` app that renders every block (forms view, todos view):
+
+```bash
+pnpm --filter @app/svelte-playground dev   # → http://localhost:1452
+```
+
+Its CSS entry imports the shared `tokens.css` and scans the Svelte packages via `@source`, exactly like the React docs app does.

@@ -43,7 +43,20 @@ Renders every ui-native component (buttons in all variants/sizes, badges, a form
 | Input | ✅ | Wraps RN `TextInput`; `invalid` prop mirrors `aria-invalid`; placeholder color via uniwind `useCSSVariable` |
 | Switch | ✅ | Radix-style `checked`/`onCheckedChange` API; green-on track like the DOM version |
 | Separator | ✅ | Horizontal/vertical hairline |
-| Accordion, Dialog, Select, … | ⏳ | Radix-behavior components need RN equivalents (modals, pickers); follow the same recipe |
+| Label | ✅ | Text port; pairs with `InputLabel` for form fields |
+| Checkbox | ✅ | `checked`/`onCheckedChange` API; ✓ glyph indicator |
+| Skeleton | ✅ | RN `Animated` pulse loop (Uniwind has no keyframes) |
+| Textarea | ✅ | Multiline `TextInput` in a bordered box; token-aware placeholder |
+| Table | ✅ | Rows become flex Views in a horizontal `ScrollView` |
+| Accordion | ✅ | Context-based single-open list; `defaultValue` uncontrolled mode |
+| Tabs | ✅ | Segmented `TabsList` + content panel; controlled or `defaultValue` |
+| Tooltip | ✅ | Single `content`-prop API: press-and-hold shows the bubble |
+| Dialog | ✅ | RN `Modal` card over a dimmed backdrop; `open`/`onOpenChange` |
+| Dropdown Menu | ✅ | `Modal` action sheet; items, labels, separators, checkbox items |
+| Popover | ✅ | `Modal` panel with arbitrary content; backdrop-press dismiss |
+| Select | ✅ | `Modal` sheet; `value`/`onValueChange` with `SelectValue`/`SelectItem` markers |
+
+RN has no portals or Radix, so the overlay components (Dialog, Dropdown Menu, Popover, Select) render via RN's `Modal` as centered sheets over a dimmed backdrop instead of anchored popups — the prop APIs stay DOM-compatible. lucide icons are replaced with text glyphs (✓ ⌄ ×) to avoid a `react-native-svg` dependency, and animations that rely on CSS keyframes (`animate-pulse`) use RN's `Animated` instead.
 
 ## Porting recipe (and the CLI)
 

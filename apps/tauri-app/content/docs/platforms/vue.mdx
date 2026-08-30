@@ -1,0 +1,28 @@
+---
+title: Vue
+description: The pro blocks re-implemented as Vue SFCs — @package/pro-vue and the vue-playground.
+---
+
+The pro block layer ships a Vue adapter, `@package/pro-vue`: the same layout, form, and data-table blocks from the React docs re-implemented as single-file components that share the exact same design tokens (`@package/ui/src/styles/tokens.css`).
+
+## Blocks
+
+| Block | File |
+| ----- | ---- |
+| AppShell | `packages/pro-vue/src/layout/app-shell.vue` |
+| PageContainer | `packages/pro-vue/src/layout/page-container.vue` |
+| ProForm | `packages/pro-vue/src/form/pro-form.vue` |
+| ProFormDialog | `packages/pro-vue/src/form/pro-form-dialog.vue` |
+| ProDataTable | `packages/pro-vue/src/data-table/pro-data-table.vue` |
+
+The SFCs mirror the React prop APIs 1:1 so the blocks stay swappable behind a shared contract, and shared logic (filters, sorting, validation) comes from the framework-agnostic `@package/pro-core`.
+
+## Running the playground
+
+`apps/vue-playground` is a Vite + `@vitejs/plugin-vue` app that renders every block (forms view, todos view) on top of TanStack Vue Query:
+
+```bash
+pnpm --filter @app/vue-playground dev   # → http://localhost:1451
+```
+
+Its CSS entry imports the shared `tokens.css` and scans the Vue packages via `@source`, exactly like the React docs app does.
