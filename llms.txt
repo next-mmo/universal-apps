@@ -14,24 +14,24 @@ Use the catalog before searching source. Retrieve only the documentation page ne
 
 Framework support per catalog capability. Query details with `pnpm agent inspect <id-or-symbol>`.
 
-- ui.accordion (component): react
+- ui.accordion (component): react, native
 - ui.badge (component): react, native
 - ui.button (component): react, native
 - ui.card (component): react, native
-- ui.checkbox (component): react
-- ui.dialog (component): react
-- ui.dropdown-menu (component): react
+- ui.checkbox (component): react, native
+- ui.dialog (component): react, native
+- ui.dropdown-menu (component): react, native
 - ui.input (component): react, native
-- ui.label (component): react
-- ui.popover (component): react
-- ui.select (component): react
+- ui.label (component): react, native
+- ui.popover (component): react, native
+- ui.select (component): react, native
 - ui.separator (component): react, native
-- ui.skeleton (component): react
+- ui.skeleton (component): react, native
 - ui.switch (component): react, native
-- ui.table (component): react
-- ui.tabs (component): react
-- ui.textarea (component): react
-- ui.tooltip (component): react
+- ui.table (component): react, native
+- ui.tabs (component): react, native
+- ui.textarea (component): react, native
+- ui.tooltip (component): react, native
 - block.data-table (block): react, vue, svelte
 - block.form (block): react, vue, svelte
 - block.form-dialog (block): react, vue, svelte
@@ -76,4 +76,6 @@ Framework support per catalog capability. Query details with `pnpm agent inspect
   - [Textarea](apps/tauri-app/content/docs/components/textarea.mdx): Multi-line text field that grows with content.
   - [Tooltip](apps/tauri-app/content/docs/components/tooltip.mdx): Small informational popup on hover or focus, built on Radix UI.
   - Platforms
+  - [Vue](apps/tauri-app/content/docs/platforms/vue.mdx): The pro blocks re-implemented as Vue SFCs — @package/pro-vue and the vue-playground.
+  - [Svelte](apps/tauri-app/content/docs/platforms/svelte.mdx): The pro blocks re-implemented as Svelte components — @package/pro-svelte and the svelte-playground.
   - [React Native Web](apps/tauri-app/content/docs/platforms/react-native-web.mdx): The shared token base rendered through React Native primitives — ui-native, the playground, and the RN porting recipe.

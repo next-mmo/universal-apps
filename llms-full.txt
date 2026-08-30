@@ -1083,6 +1083,62 @@ A brief message on hover/focus. Source: `packages/ui/src/components/ui/tooltip.t
 
 `Tooltip` root, `TooltipTrigger` (hover/focus target), `TooltipContent` (`side`, `align`, `sideOffset`). Delay and dismiss behavior come from the provider (`delayDuration`, `skipDelayDuration`).
 
+## Vue
+
+Source: `apps/tauri-app/content/docs/platforms/vue.mdx`
+
+The pro block layer ships a Vue adapter, `@package/pro-vue`: the same layout, form, and data-table blocks from the React docs re-implemented as single-file components that share the exact same design tokens (`@package/ui/src/styles/tokens.css`).
+
+## Blocks
+
+| Block | File |
+| ----- | ---- |
+| AppShell | `packages/pro-vue/src/layout/app-shell.vue` |
+| PageContainer | `packages/pro-vue/src/layout/page-container.vue` |
+| ProForm | `packages/pro-vue/src/form/pro-form.vue` |
+| ProFormDialog | `packages/pro-vue/src/form/pro-form-dialog.vue` |
+| ProDataTable | `packages/pro-vue/src/data-table/pro-data-table.vue` |
+
+The SFCs mirror the React prop APIs 1:1 so the blocks stay swappable behind a shared contract, and shared logic (filters, sorting, validation) comes from the framework-agnostic `@package/pro-core`.
+
+## Running the playground
+
+`apps/vue-playground` is a Vite + `@vitejs/plugin-vue` app that renders every block (forms view, todos view) on top of TanStack Vue Query:
+
+```bash
+pnpm --filter @app/vue-playground dev   # → http://localhost:1451
+```
+
+Its CSS entry imports the shared `tokens.css` and scans the Vue packages via `@source`, exactly like the React docs app does.
+
+## Svelte
+
+Source: `apps/tauri-app/content/docs/platforms/svelte.mdx`
+
+The pro block layer ships a Svelte adapter, `@package/pro-svelte`: the same layout, form, and data-table blocks from the React docs re-implemented as `.svelte` components that share the exact same design tokens (`@package/ui/src/styles/tokens.css`).
+
+## Blocks
+
+| Block | File |
+| ----- | ---- |
+| AppShell | `packages/pro-svelte/src/layout/app-shell.svelte` |
+| PageContainer | `packages/pro-svelte/src/layout/page-container.svelte` |
+| ProForm | `packages/pro-svelte/src/form/pro-form.svelte` |
+| ProFormDialog | `packages/pro-svelte/src/form/pro-form-dialog.svelte` |
+| ProDataTable | `packages/pro-svelte/src/data-table/pro-data-table.svelte` |
+
+The components mirror the React prop APIs 1:1 so the blocks stay swappable behind a shared contract, and shared logic (filters, sorting, validation) comes from the framework-agnostic `@package/pro-core`.
+
+## Running the playground
+
+`apps/svelte-playground` is a Vite + `@sveltejs/vite-plugin-svelte` app that renders every block (forms view, todos view):
+
+```bash
+pnpm --filter @app/svelte-playground dev   # → http://localhost:1452
+```
+
+Its CSS entry imports the shared `tokens.css` and scans the Svelte packages via `@source`, exactly like the React docs app does.
+
 ## React Native Web
 
 Source: `apps/tauri-app/content/docs/platforms/react-native-web.mdx`
@@ -1127,7 +1183,20 @@ Renders every ui-native component (buttons in all variants/sizes, badges, a form
 | Input | ✅ | Wraps RN `TextInput`; `invalid` prop mirrors `aria-invalid`; placeholder color via uniwind `useCSSVariable` |
 | Switch | ✅ | Radix-style `checked`/`onCheckedChange` API; green-on track like the DOM version |
 | Separator | ✅ | Horizontal/vertical hairline |
-| Accordion, Dialog, Select, … | ⏳ | Radix-behavior components need RN equivalents (modals, pickers); follow the same recipe |
+| Label | ✅ | Text port; pairs with `InputLabel` for form fields |
+| Checkbox | ✅ | `checked`/`onCheckedChange` API; ✓ glyph indicator |
+| Skeleton | ✅ | RN `Animated` pulse loop (Uniwind has no keyframes) |
+| Textarea | ✅ | Multiline `TextInput` in a bordered box; token-aware placeholder |
+| Table | ✅ | Rows become flex Views in a horizontal `ScrollView` |
+| Accordion | ✅ | Context-based single-open list; `defaultValue` uncontrolled mode |
+| Tabs | ✅ | Segmented `TabsList` + content panel; controlled or `defaultValue` |
+| Tooltip | ✅ | Single `content`-prop API: press-and-hold shows the bubble |
+| Dialog | ✅ | RN `Modal` card over a dimmed backdrop; `open`/`onOpenChange` |
+| Dropdown Menu | ✅ | `Modal` action sheet; items, labels, separators, checkbox items |
+| Popover | ✅ | `Modal` panel with arbitrary content; backdrop-press dismiss |
+| Select | ✅ | `Modal` sheet; `value`/`onValueChange` with `SelectValue`/`SelectItem` markers |
+
+RN has no portals or Radix, so the overlay components (Dialog, Dropdown Menu, Popover, Select) render via RN's `Modal` as centered sheets over a dimmed backdrop instead of anchored popups — the prop APIs stay DOM-compatible. lucide icons are replaced with text glyphs (✓ ⌄ ×) to avoid a `react-native-svg` dependency, and animations that rely on CSS keyframes (`animate-pulse`) use RN's `Animated` instead.
 
 ## Porting recipe (and the CLI)
 

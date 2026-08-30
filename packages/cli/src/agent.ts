@@ -204,15 +204,20 @@ async function validateCatalog(config: ScaffoldConfig): Promise<string[]> {
     }
   }
 
-  const uiDir = path.join(config.rootDir, 'packages/ui/src/components/ui');
-  const uiSources = new Set(
-    (await readdir(uiDir)).filter((file) => file.endsWith('.tsx')).map((file) => `packages/ui/src/components/ui/${file}`),
-  );
   const catalogSources = new Set(
     catalog.entries.flatMap((entry) => Object.values(entry.implementations).map((implementation) => implementation.source)),
   );
-  for (const source of uiSources) {
-    if (!catalogSources.has(source)) errors.push(`uncataloged UI source: ${source}`);
+  for (const [sourceDir, label] of [
+    ['packages/ui/src/components/ui', 'UI'],
+    ['packages/ui-native/src/components/ui', 'native UI'],
+  ] as const) {
+    const dir = path.join(config.rootDir, sourceDir);
+    const sources = new Set(
+      (await readdir(dir)).filter((file) => file.endsWith('.tsx')).map((file) => `${sourceDir}/${file}`),
+    );
+    for (const source of sources) {
+      if (!catalogSources.has(source)) errors.push(`uncataloged ${label} source: ${source}`);
+    }
   }
   return errors;
 }
