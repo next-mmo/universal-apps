@@ -279,6 +279,9 @@ function selectedChecks(files: string[], all: boolean): CheckCommand[] {
   if (include(['apps/native-playground', 'packages/ui-native', 'packages/ui/src/tokens.ts'])) {
     checks.push({ label: 'Native playground', args: ['--filter', '@app/native-playground', 'build'] });
   }
+  if (include(['apps/web-todo', 'packages/core', 'packages/tauri-api', 'packages/ui', 'packages/pro', 'packages/pro-core'])) {
+    checks.push({ label: 'web-todo', args: ['--filter', '@app/web-todo', 'build'] });
+  }
   return checks;
 }
 
