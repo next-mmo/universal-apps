@@ -12,6 +12,7 @@
     "rename-project": "tsx --tsconfig scripts/tsconfig.json scripts/renameProject.ts",
     "scaffold": "tsx packages/cli/src/index.ts",
     "agent": "tsx packages/cli/src/index.ts agent",
+    "mcp:test": "tsx packages/mcp/test/integration.ts",
     "agent:docs": "pnpm --filter @app/tauri-app exec tsx scripts/generate-llm.ts",
     "agent:docs:check": "pnpm --filter @app/tauri-app exec tsx scripts/generate-llm.ts --check",
     "lint": "oxlint",

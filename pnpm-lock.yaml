@@ -229,6 +229,12 @@ importers:
         specifier: 19.2.15
         version: 19.2.15
 
+  packages/mcp:
+    dependencies:
+      '@package/cli':
+        specifier: workspace:*
+        version: link:../cli
+
   packages/pro:
     dependencies:
       '@package/pro-core':
