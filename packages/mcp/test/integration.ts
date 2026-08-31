@@ -63,7 +63,7 @@ assert(
 
 const find = (await request('tools/call', {
   name: 'find_capabilities',
-  arguments: { query: 'table', framework: 'native' },
+  arguments: { query: 'table', framework: 'native', detail: 'symbols' },
 })) as { content: { text: string }[] };
 assert(
   find.content[0].text.includes('ui.table') && find.content[0].text.includes('TableHead'),
@@ -72,21 +72,37 @@ assert(
 
 const docs = (await request('tools/call', {
   name: 'get_component_docs',
-  arguments: { symbol: 'ProDataTable' },
+  arguments: { symbol: 'ProDataTable', framework: 'react' },
 })) as { content: { text: string }[] };
 assert(
-  docs.content[0].text.includes('Import') || docs.content[0].text.includes('implementations'),
-  'get_component_docs by symbol resolves docs markdown',
+  docs.content[0].text.includes('@package/pro/data-table') &&
+    !docs.content[0].text.includes('pro-vue') &&
+    docs.content[0].text.length < 1200,
+  'get_component_docs returns one compact framework implementation',
 );
+
+const usage = (await request('tools/call', {
+  name: 'get_component_docs',
+  arguments: { symbol: 'ProDataTable', framework: 'react', detail: 'usage' },
+})) as { content: { text: string }[] };
+assert(usage.content[0].text.includes('Client mode'), 'usage detail explicitly returns the focused example');
 
 const recipe = (await request('tools/call', {
   name: 'get_recipe',
-  arguments: { id: 'crud' },
+  arguments: { id: 'crud', framework: 'react' },
 })) as { content: { text: string }[] };
 assert(
-  recipe.content[0].text.includes('Recipe: crud-page') || recipe.content[0].text.includes('verify:'),
-  'get_recipe returns crud recipe with verify command',
+  recipe.content[0].text.includes('apps/tauri-app/src/pages/todos-page.tsx') &&
+    !recipe.content[0].text.includes('vue-playground') &&
+    recipe.content[0].text.length < 1200,
+  'get_recipe returns one compact framework recipe',
 );
+
+const recipeUsage = (await request('tools/call', {
+  name: 'get_recipe',
+  arguments: { id: 'crud', framework: 'react', detail: 'usage' },
+})) as { content: { text: string }[] };
+assert(recipeUsage.content[0].text.includes('defineProResource'), 'recipe usage explicitly returns source');
 
 const unknownTool = (await request('tools/call', {
   name: 'does_not_exist',

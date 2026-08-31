@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 import { useAddTodo } from '../lib/todo-queries';
-import { ProForm } from '@package/pro/src/form/pro-form';
-import { PageContainer } from '@package/pro/src/layout/page-container';
-import { Badge } from '@package/ui/src/components/ui/badge';
+import { ProForm } from '@package/pro/form';
+import { PageContainer } from '@package/pro/page-container';
+import { Badge } from '@package/ui/badge';
 
 const demoSchema = [
   {

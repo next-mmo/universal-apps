@@ -1,5 +1,5 @@
-import { getTodoStore } from '@package/tauri-api/src/todo-storage';
-import type { Todo } from '@package/core/src/todo';
+import { getTodoStore } from '@package/tauri-api/todo-storage';
+import type { Todo } from '@package/core/todo';
 
 /**
  * View model consumed by pro blocks; derived fields keep the table DSL
@@ -11,6 +11,10 @@ export interface TodoRow {
   createdAt: number;
   status: { label: string; variant: 'success' | 'outline' };
   priority: string;
+}
+
+export interface TodoFormValues {
+  text: string;
 }
 
 function toRow(todo: Todo): TodoRow {

@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { router } from './routes';
-import { TooltipProvider } from '@package/ui/src/components/ui/tooltip';
+import { TooltipProvider } from '@package/ui/tooltip';
 
 const queryClient = new QueryClient({
   defaultOptions: {

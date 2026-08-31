@@ -1,4 +1,4 @@
-import type { Todo, TodoStore } from '@package/core/src/todo';
+import type { Todo, TodoStore } from '@package/core/todo';
 import { invoke } from '@tauri-apps/api/core';
 import { isTauri } from './is-tauri';
 

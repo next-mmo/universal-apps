@@ -18,9 +18,11 @@ For each run, record:
 - Attempts before the first successful verification
 - Elapsed time to a green check
 
-Targets after the agent tooling rollout:
+Deterministic release gates are checked by `pnpm agent budget --check`. The React CRUD proof baseline was 108 nonblank lines / about 835 estimated tokens; the gate is 43 lines / 334 tokens.
 
-- At least 50% fewer discovery calls and retrieved-text tokens
+Targets after the token-first rollout:
+
+- At least 60% fewer discovery calls and retrieved-text tokens
 - No more than two files opened before editing a cataloged component
 - First-pass compilation for all complete recipes
 - One verification command selected without searching package scripts

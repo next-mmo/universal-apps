@@ -1,13 +1,13 @@
-import { Badge } from '@package/ui/src/components/ui/badge';
-import { Button } from '@package/ui/src/components/ui/button';
-import { Checkbox } from '@package/ui/src/components/ui/checkbox';
+import { Badge } from '@package/ui/badge';
+import { Button } from '@package/ui/button';
+import { Checkbox } from '@package/ui/checkbox';
 
 import type { ReactNode } from 'react';
 import type {
   BadgeTone,
   ColumnValueType,
   ProColumnDef,
-} from '@package/pro-core/src/table/columns';
+} from '@package/pro-core/table';
 import type { ColumnDef, RowData } from '@tanstack/react-table';
 import type { ProTableFeatures } from './pro-table-features';
 
@@ -75,16 +75,23 @@ export function buildColumnDefs<T extends RowData>(
         enableHiding: false,
         cell: ({ row }) => (
           <div className='flex justify-end gap-1'>
-            {column.actions.map((action) => (
-              <Button
-                key={action.label}
-                size='sm'
-                variant={action.destructive ? 'destructive' : 'outline'}
-                onClick={() => action.onSelect(row.original)}
-              >
-                {action.label}
-              </Button>
-            ))}
+            {column.actions
+              .filter((action) => action.hidden?.(row.original) !== true)
+              .map((action) => (
+                <Button
+                  key={action.label}
+                  size='sm'
+                  variant={action.destructive ? 'destructive' : 'outline'}
+                  disabled={
+                    typeof action.disabled === 'function'
+                      ? action.disabled(row.original)
+                      : action.disabled
+                  }
+                  onClick={() => action.onSelect(row.original)}
+                >
+                  {action.label}
+                </Button>
+              ))}
           </div>
         ),
       });

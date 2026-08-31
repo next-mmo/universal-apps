@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-react';
 
-import { Button } from '@package/ui/src/components/ui/button';
+import { Button } from '@package/ui/button';
 
 export type ThemePreference = 'system' | 'light' | 'dark';
 

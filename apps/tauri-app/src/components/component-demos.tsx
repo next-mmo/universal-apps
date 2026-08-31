@@ -5,10 +5,10 @@
  */
 import {
   Badge,
-} from '@package/ui/src/components/ui/badge';
-import { Button } from '@package/ui/src/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@package/ui/src/components/ui/card';
-import { Checkbox } from '@package/ui/src/components/ui/checkbox';
+} from '@package/ui/badge';
+import { Button } from '@package/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@package/ui/card';
+import { Checkbox } from '@package/ui/checkbox';
 import {
   Dialog,
   DialogContent,
@@ -17,7 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@package/ui/src/components/ui/dialog';
+} from '@package/ui/dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,20 +25,20 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@package/ui/src/components/ui/dropdown-menu';
-import { Input } from '@package/ui/src/components/ui/input';
-import { Label } from '@package/ui/src/components/ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@package/ui/src/components/ui/popover';
+} from '@package/ui/dropdown-menu';
+import { Input } from '@package/ui/input';
+import { Label } from '@package/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@package/ui/popover';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@package/ui/src/components/ui/select';
-import { Separator } from '@package/ui/src/components/ui/separator';
-import { Skeleton } from '@package/ui/src/components/ui/skeleton';
-import { Switch } from '@package/ui/src/components/ui/switch';
+} from '@package/ui/select';
+import { Separator } from '@package/ui/separator';
+import { Skeleton } from '@package/ui/skeleton';
+import { Switch } from '@package/ui/switch';
 import {
   Table,
   TableBody,
@@ -46,10 +46,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@package/ui/src/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@package/ui/src/components/ui/tabs';
-import { Textarea } from '@package/ui/src/components/ui/textarea';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@package/ui/src/components/ui/tooltip';
+} from '@package/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@package/ui/tabs';
+import { Textarea } from '@package/ui/textarea';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@package/ui/tooltip';
 import { InfoIcon, MoreHorizontalIcon, PlusIcon } from 'lucide-react';
 
 const row = 'flex flex-wrap items-center gap-3';

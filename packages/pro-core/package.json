@@ -2,5 +2,17 @@
   "name": "@package/pro-core",
   "private": true,
   "version": "0.1.0",
-  "type": "module"
+  "type": "module",
+  "exports": {
+    "./form": "./src/form/schema.ts",
+    "./query": "./src/query/keys.ts",
+    "./resource": "./src/resource/definition.ts",
+    "./table": "./src/table/columns.ts",
+    "./table-engine": "./src/table/client-engine.ts",
+    "./table-features": "./src/table/features.ts",
+    "./src/form/*": "./src/form/*.ts",
+    "./src/query/*": "./src/query/*.ts",
+    "./src/resource/*": "./src/resource/*.ts",
+    "./src/table/*": "./src/table/*.ts"
+  }
 }

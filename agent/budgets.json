@@ -1,0 +1,13 @@
+{
+  "maxDefaultResponseChars": 1200,
+  "files": {
+    "llms.txt": {
+      "maxBytes": 2475
+    },
+    "apps/tauri-app/src/pages/todos-page.tsx": {
+      "maxBytes": 1336,
+      "maxNonblankLines": 43,
+      "maxEstimatedTokens": 334
+    }
+  }
+}

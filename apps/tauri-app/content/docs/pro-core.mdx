@@ -8,11 +8,11 @@ description: The framework-free contracts behind every pro component — form sc
 There is no package-root entrypoint; import each module by its full path:
 
 ```bash
-@package/pro-core/src/form/schema
-@package/pro-core/src/table/columns
-@package/pro-core/src/table/features
-@package/pro-core/src/table/client-engine
-@package/pro-core/src/query/keys
+@package/pro-core/form
+@package/pro-core/table
+@package/pro-core/table-features
+@package/pro-core/table-engine
+@package/pro-core/query
 ```
 
 ## Form schema
@@ -24,7 +24,7 @@ There is no package-root entrypoint; import each module by its full path:
 - `validateField(schema, raw)` — runs the required check, then every validator, returning the first error.
 
 ```ts
-import { validateField } from '@package/pro-core/src/form/schema';
+import { validateField } from '@package/pro-core/form';
 
 const title = {
   name: 'text',
@@ -49,7 +49,7 @@ validateField(title, ''); // "Task is required"
 Useful members: `ProColumnDef<T>` (the union), `isActionColumn()` (type guard), and `readCellValue(row, column)` which resolves the `accessor` (defaulting to `key`).
 
 ```ts
-import type { ProColumnDef } from '@package/pro-core/src/table/columns';
+import type { ProColumnDef } from '@package/pro-core/table';
 
 const columns: Array<ProColumnDef<TodoRow>> = [
   { key: 'text', header: 'Task', valueType: 'text' },
@@ -76,7 +76,7 @@ const columns: Array<ProColumnDef<TodoRow>> = [
 - `buildTableQuery({ page, pageSize, ... })` — normalizes a query with `undefined` defaults for the optional fields.
 
 ```ts
-import { buildTableQuery } from '@package/pro-core/src/table/features';
+import { buildTableQuery } from '@package/pro-core/table-features';
 
 buildTableQuery({ page: 0, pageSize: 20 });
 // { page: 0, pageSize: 20, sortBy: undefined, sortDir: undefined, search: undefined }
@@ -91,7 +91,7 @@ buildTableQuery({ page: 0, pageSize: 20 });
 `query/keys` provides deterministic cache-key factories shared by every adapter, so mutations invalidate consistently across frameworks:
 
 ```ts
-import { queryKeys } from '@package/pro-core/src/query/keys';
+import { queryKeys } from '@package/pro-core/query';
 
 queryKeys.table('todos', { page: 0 }); // ['pro', 'table', 'todos', { page: 0 }]
 queryKeys.detail('todos', 1); //        ['pro', 'detail', 'todos', 1]

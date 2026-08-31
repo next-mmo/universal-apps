@@ -15,9 +15,11 @@
     "mcp:test": "tsx packages/mcp/test/integration.ts",
     "agent:docs": "pnpm --filter @app/tauri-app exec tsx scripts/generate-llm.ts",
     "agent:docs:check": "pnpm --filter @app/tauri-app exec tsx scripts/generate-llm.ts --check",
+    "agent:test": "tsx packages/cli/test/agent.integration.ts",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "dev:native": "pnpm --filter @app/native-playground dev"
+    "dev:native": "pnpm --filter @app/native-playground dev",
+    "dev:android": "pnpm --filter @app/tauri-app tauri android dev"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.0",

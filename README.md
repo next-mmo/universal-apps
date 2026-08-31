@@ -1,248 +1,52 @@
-<div align="center">
-  <img
-    src="https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/assets/31413093/91cdcd1b-2387-4c01-9710-9b2f44c10329"
-    height="100"
-    alt="Tauri logo"
-  />
-  <img
-    src="https://user-images.githubusercontent.com/31413093/197097625-5b3bd3cf-2bd6-4a3a-8059-a1fe9f28100b.svg"
-    height="100"
-    alt="Vite logo"
-  />
-</div>
+# Tauri Universal
 
-<h1 align="center">template-tauri-vite-react-ts-tailwind</h1>
+Token-first Tauri and web application building blocks for React, Vue, Svelte, and React Native Web. Clone the GitHub template, import shared workspace packages, and upgrade the library in place instead of copying component source into each app.
 
-<p align="center">
-  An opinionated Tauri v2 starter template organized as a pnpm monorepo.
-</p>
+## Quick start
 
-<p align="center">
-  <a href="https://react.dev/">
-    <img src="https://img.shields.io/static/v1?label=React&message=19&style=for-the-badge&labelColor=FFFFFF&logo=react&color=61DAFB" alt="React 19" />
-  </a>
-  <a href="https://www.typescriptlang.org/">
-    <img src="https://img.shields.io/static/v1?label=TypeScript&message=5&style=for-the-badge&labelColor=FFFFFF&logo=typescript&color=3178C6" alt="TypeScript 5" />
-  </a>
-  <a href="https://vite.dev/">
-    <img src="https://img.shields.io/static/v1?label=Vite&message=7&style=for-the-badge&labelColor=FFFFFF&logo=vite&color=646CFF" alt="Vite 7" />
-  </a>
-  <a href="https://tailwindcss.com/">
-    <img src="https://img.shields.io/static/v1?label=Tailwind%20CSS&message=4&style=for-the-badge&labelColor=FFFFFF&logo=tailwindcss&color=06B6D4" alt="Tailwind CSS 4" />
-  </a>
-  <a href="https://tauri.app/">
-    <img src="https://img.shields.io/static/v1?label=Tauri&message=2&style=for-the-badge&labelColor=FFFFFF&logo=tauri&color=FFC131" alt="Tauri 2" />
-  </a>
-</p>
-
-## Overview
-
-This repository provides a practical foundation for building cross-platform
-desktop applications with Tauri. The frontend uses React, TypeScript, Vite,
-and Tailwind CSS, while reusable modules are organized as pnpm workspace
-packages.
-
-The template includes:
-
-- [Tauri 2](https://v2.tauri.app/) for the native desktop application shell
-- [React 19](https://react.dev/) and
-  [TypeScript 5](https://www.typescriptlang.org/) for the frontend
-- [Vite 7](https://vite.dev/) for development and production builds
-- [Tailwind CSS 4](https://tailwindcss.com/) through its Vite integration
-- A [pnpm workspace](https://pnpm.io/workspaces) for application and shared
-  packages
-- [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) and
-  [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) configuration
-- A project renaming script that synchronizes the workspace, Tauri, and Rust
-  package names
-
-## Prerequisites
-
-Before using the template, install the following tools:
-
-- [Node.js](https://nodejs.org/) 20.19 or later, or 22.12 or later, as
-  required by Vite 7
-- [pnpm](https://pnpm.io/installation)
-- [Rust](https://www.rust-lang.org/tools/install)
-- The platform-specific dependencies listed in the
-  [Tauri prerequisites guide](https://v2.tauri.app/start/prerequisites/)
-
-This repository is configured for pnpm. Using npm, Yarn, or another package
-manager requires corresponding changes to the workspace scripts and
-`apps/tauri-app/src-tauri/tauri.conf.json`.
-
-## Getting Started
-
-### Create a repository from the template
-
-The recommended approach is to select **Use this template** on GitHub and
-create a new repository from this template.
-
-Alternatively, download the
-[source archive](https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/archive/refs/heads/main.zip)
-or create a clean local copy with [tiged](https://github.com/tiged/tiged):
-
-```sh
-pnpm dlx tiged royrao2333/template-tauri-vite-react-ts-tailwind my-app
-cd my-app
-```
-
-### Install dependencies
-
-```sh
+```bash
 pnpm install
+pnpm dev:web
 ```
 
-### Rename the project
+Use `pnpm tauri dev` for the desktop shell. The same frontend runs in a browser through typed platform adapters with local fallbacks.
 
-Rename the template before starting application development:
+## React fast path
 
-```sh
-pnpm rename-project --name "My App" --id com.example.my-app
+```tsx
+import { ProCrudPage, defineProResource } from '@package/pro/crud';
+
+const tasks = defineProResource<Task, TaskInput>({
+  id: 'tasks', title: 'Tasks', getRowId: (row) => row.id,
+  columns: [{ key: 'name', header: 'Task', valueType: 'text' }],
+  form: {
+    schema: [{ fields: [{ name: 'name', label: 'Task', type: 'text', required: true }] }],
+    create: { title: 'New task', values: { name: '' } },
+  },
+});
+
+<ProCrudPage resource={tasks} controller={{ rows, create, remove }} />;
 ```
 
-The command updates the application directory, workspace package name, root
-scripts, Tauri product name, window title, bundle identifier, Cargo package,
-Rust library name, Rust entry point, and application README reference.
+Stable subpath exports such as `@package/ui/button`, `@package/pro/data-table`, and `@package/tauri-api/todo-storage` keep imports short. CSS variables and typed slots customize shared components without ejecting their source.
 
-| Argument | Required | Example              | Description                                                                                      |
-| -------- | -------- | -------------------- | ------------------------------------------------------------------------------------------------ |
-| `--name` | Yes      | `"My App"`           | The project name, equivalent to the **Project name** field in `create-tauri-app`.                |
-| `--id`   | Yes      | `com.example.my-app` | The application bundle identifier, equivalent to the **Identifier** field in `create-tauri-app`. |
+## Agent fast path
 
-#### Name normalization
-
-Workspace package names use kebab-case. This name is applied to the
-`apps/<workspace-package-name>` directory, the `@app/<workspace-package-name>`
-package, and the root pnpm filter scripts.
-
-Rust and Tauri package names follow the normalization behavior used by
-`create-tauri-app`:
-
-- Input is converted to lowercase.
-- Colons, semicolons, spaces, and tildes are converted to hyphens.
-- Periods, forward slashes, and backslashes are removed.
-- Leading digits and hyphens are removed.
-- An empty result falls back to `tauri-app`.
-
-| Input              | Workspace package  | Rust package       | Rust library           |
-| ------------------ | ------------------ | ------------------ | ---------------------- |
-| `MyProjectHello`   | `my-project-hello` | `myprojecthello`   | `myprojecthello_lib`   |
-| `myProjectHello`   | `my-project-hello` | `myprojecthello`   | `myprojecthello_lib`   |
-| `my_project_hello` | `my-project-hello` | `my_project_hello` | `my_project_hello_lib` |
-
-### Start the desktop application
-
-```sh
-pnpm tauri dev
+```bash
+pnpm agent find table --framework react
+pnpm agent inspect block.data-table --framework react
+pnpm agent recipe crud-page --framework react
+pnpm agent check --changed
 ```
 
-### Run the same app in the browser
+Start with [llms.txt](llms.txt), which routes agents to one focused capability or recipe. The complete bundle in `llms-full.txt` is opt-in.
 
-The frontend is platform-independent: a runtime check (`isTauri()`) selects a
-storage adapter per platform, so the identical UI code runs in the browser.
+## Workspace
 
-```sh
-pnpm dev:web    # Vite dev server for the browser
-pnpm build:web  # Type-checked production web bundle (deploy dist/ anywhere)
-```
+- `packages/ui`: React primitives and shared design tokens
+- `packages/pro`: React forms, tables, layouts, and config-first CRUD pages
+- `packages/pro-core`: framework-neutral schemas and table contracts
+- `packages/tauri-api`: typed desktop operations with browser fallbacks
+- `packages/pro-vue`, `packages/pro-svelte`, `packages/ui-native`: framework adapters
 
-Desktop builds persist todos through Rust commands backed by a JSON file in
-the app data directory; browser builds fall back to `localStorage`. Platform
-calls are wrapped in `@package/tauri-api` — keep raw `invoke()` calls out of
-UI components and add a web fallback there when introducing new commands.
-
-Note: Tailwind's automatic content detection only scans `apps/`; classes used
-inside `packages/` require the explicit `@source` entries in each app's CSS
-entry file.
-
-### Universal component blocks (shadcn + TanStack only)
-
-An Ant Design Pro-style block library layered on shadcn/ui patterns and
-TanStack libraries, styled after Apple's macOS/iOS design language (system
-colors, SF font stack, hairline separators, translucent sidebars):
-
-- `packages/pro-core` — framework-free logic: typed column DSL, form field
-  schemas + validation, query-key factories, client-side table engine.
-  No React/Vue/Svelte imports.
-- `packages/ui` — shadcn primitives, `cn()` utility, Apple-inspired tokens
-  (`src/styles/tokens.css`).
-- `packages/pro` — React views: DataTable (TanStack Table), ProForm +
-  dialog (TanStack Form), AppShell/PageContainer (TanStack Router-ready).
-- `packages/pro-vue` / `packages/pro-svelte` — Vue 3 and Svelte 5 adapters
-  consuming the same `pro-core` models and tokens (Vue Query / Svelte
-  Query for data states).
-
-Playground apps prove the adapters against the shared storage bridge:
-`pnpm --filter @app/vue-playground dev` (port 1451) and
-`pnpm --filter @app/svelte-playground dev` (port 1452).
-
-E2E smoke tests drive real Edge via `playwright-core` (no browser
-downloads): `node scripts/e2e-smoke.mjs http://localhost:1431` for React,
-and `node scripts/e2e-playground.mjs <url>` per playground.
-
-## Available Scripts
-
-Run these commands from the repository root:
-
-| Command                                                       | Description                                                     |
-| ------------------------------------------------------------- | --------------------------------------------------------------- |
-| `pnpm dev`                                                    | Start the Vite frontend development server.                     |
-| `pnpm dev:web`                                                | Start the Vite development server for the browser.              |
-| `pnpm build`                                                  | Type-check the frontend and create a production frontend build. |
-| `pnpm build:web`                                              | Create the production web bundle for static hosting.            |
-| `pnpm preview`                                                | Preview the production frontend build locally.                  |
-| `pnpm tauri dev`                                              | Start the Tauri application in development mode.                |
-| `pnpm tauri build`                                            | Build platform-specific desktop application bundles.            |
-| `pnpm lint`                                                   | Check the workspace with Oxlint.                                |
-| `pnpm lint:fix`                                               | Apply supported Oxlint fixes.                                   |
-| `pnpm rename-project --name "My App" --id com.example.my-app` | Rename the template and update its application identifiers.     |
-
-Oxfmt behavior is defined in `oxfmt.config.ts`. Oxlint rules are defined in
-`oxlint.config.ts`.
-
-## Project Structure
-
-```text
-.
-├── apps/
-│   ├── tauri-app/          # React frontend and Tauri application
-│   ├── vue-playground/     # Vue 3 demo of the pro blocks
-│   └── svelte-playground/  # Svelte 5 demo of the pro blocks
-├── packages/
-│   ├── core/               # Shared domain + state logic
-│   ├── pro-core/           # Framework-free pro component models
-│   ├── pro/                # React pro blocks (DataTable/Form/Layout)
-│   ├── pro-vue/            # Vue adapters of the pro blocks
-│   ├── pro-svelte/         # Svelte adapters of the pro blocks
-│   ├── tauri-api/          # Platform bridge (desktop/web/mobile)
-│   ├── ui/                 # shadcn primitives + design tokens
-│   └── utils/              # Shared utility modules
-├── scripts/
-│   └── renameProject.ts # Project renaming utility
-├── oxfmt.config.ts      # Oxfmt configuration
-├── oxlint.config.ts     # Oxlint configuration
-└── pnpm-workspace.yaml  # pnpm workspace definition
-```
-
-## Related Projects
-
-- [Tauri](https://github.com/tauri-apps/tauri)
-- [Vite](https://github.com/vitejs/vite)
-- [React](https://github.com/facebook/react)
-- [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
-- [Oxc](https://github.com/oxc-project/oxc)
-
-## Contributing
-
-Contributions are welcome. Before opening a pull request, run the relevant
-build and lint commands and verify the application on the platform affected by
-your changes.
-
-Use the
-[issue tracker](https://github.com/RoyRao2333/template-tauri-vite-react-ts-tailwind/issues/new)
-to report bugs, request features, or propose significant changes.
-
-## License
-
-This project is available under the terms of the [MIT License](LICENSE).
+Detailed setup, architecture, APIs, and platform notes live in [the focused documentation](apps/tauri-app/content/docs/index.mdx). Run `pnpm agent budget --check` to enforce the repository's context and consumer-code budgets.

@@ -3,6 +3,7 @@
   "defaultOpen": true,
   "pages": [
     "index",
+    "pro-crud-page",
     "pro-data-table",
     "pro-form",
     "pro-form-dialog",

@@ -26,13 +26,15 @@ Resolve conflicts in this order: safety and workspace boundaries; the approved p
 
 ## Agent fast paths
 
-- Discover capabilities: `pnpm agent find <query>`.
-- Inspect one API: `pnpm agent inspect <id-or-symbol>`.
-- Find a proven composition: `pnpm agent recipe [id]`.
+- Discover capabilities: `pnpm agent find <query> --framework <name>`.
+- Inspect one API: `pnpm agent inspect <id-or-symbol> --framework <name>`.
+- Find a proven composition: `pnpm agent recipe <id> --framework <name>`.
 - Verify work concisely: `pnpm agent check --changed`.
 - Read `llms.txt` as the documentation map; retrieve only relevant pages.
+- Request `--full` or `--example` only when the compact response is insufficient.
 
 ## Package imports
 
 - Do not add package-root `index.ts` re-export barrels unless technically necessary.
-- Until stable subpath exports are introduced, import cross-package modules by their full file path, for example `@some/pkg/path/to/file`, to avoid package-root cycles.
+- Use declared stable subpath exports such as `@package/ui/button` and `@package/pro/crud`.
+- Legacy `@package/*/src/*` imports remain compatibility-only; do not introduce new ones.

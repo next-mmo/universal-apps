@@ -1,7 +1,7 @@
 import { Link, useLocation } from '@tanstack/react-router';
 
 import type { ComponentType, ReactNode } from 'react';
-import { cn } from '@package/ui/src/lib/cn';
+import { cn } from '@package/ui/cn';
 
 export interface NavItem {
   label: string;

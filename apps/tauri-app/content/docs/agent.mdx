@@ -9,9 +9,10 @@ Read the root `AGENTS.md` first. It is the authoritative operating contract. Thi
 
 ```bash
 pnpm agent find table --framework vue
-pnpm agent inspect ProDataTable      # by exported symbol
-pnpm agent inspect block.data-table  # or by catalog id
+pnpm agent inspect ProDataTable --framework react
+pnpm agent inspect block.data-table --framework react
 pnpm agent recipe crud-page --framework react
+pnpm agent budget --check
 pnpm agent check --changed
 ```
 
@@ -34,7 +35,7 @@ pnpm agent check --changed
 
 ## Hard conventions
 
-1. Use full cross-package file imports until stable subpath exports exist; do not add root barrel files.
+1. Use stable package subpaths such as `@package/ui/button`; legacy `src/*` imports are compatibility-only. Do not add root barrel files.
 2. Put framework-neutral contracts in `pro-core` before adapters.
 3. Keep raw Tauri calls inside `tauri-api` and provide a browser fallback.
 4. Register new Tailwind-scanned package sources in each consuming app stylesheet.

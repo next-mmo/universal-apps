@@ -6,7 +6,7 @@ import DocsPage from './pages/docs-page';
 import FormsDemoPage from './pages/forms-page';
 import TodosPage from './pages/todos-page';
 import { ThemeToggle } from './components/theme-toggle';
-import { AppShell } from '@package/pro/src/layout/app-shell';
+import { AppShell } from '@package/pro/app-shell';
 
 const rootRoute = createRootRoute({
   component: () => (

@@ -1,6 +1,6 @@
 import { SearchIcon, RefreshCwIcon } from 'lucide-react';
 
-import { Button } from '@package/ui/src/components/ui/button';
+import { Button } from '@package/ui/button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -8,11 +8,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@package/ui/src/components/ui/dropdown-menu';
-import { Input } from '@package/ui/src/components/ui/input';
+} from '@package/ui/dropdown-menu';
+import { Input } from '@package/ui/input';
 
 import type { ReactNode } from 'react';
-import type { ProColumnDef } from '@package/pro-core/src/table/columns';
+import type { ProColumnDef } from '@package/pro-core/table';
 
 interface DataTableToolbarProps<T> {
   columns: Array<ProColumnDef<T>>;

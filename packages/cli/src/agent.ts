@@ -41,12 +41,18 @@ interface AgentCatalog {
   recipes: CatalogRecipe[];
 }
 
+interface AgentBudgets {
+  maxDefaultResponseChars: number;
+  files: Record<string, { maxBytes?: number; maxNonblankLines?: number; maxEstimatedTokens?: number }>;
+}
+
 const agentUsage = `usage: pnpm agent <command> [args]
 
 commands:
-  find [query] [--framework <name>] [--kind <kind>] [--json]
-  inspect <id-or-symbol> [--json]
-  recipe [id] [--framework <name>] [--json]
+  find [query] [--framework <name>] [--kind <kind>] [--limit <n> | --all] [--json]
+  inspect <id-or-symbol> [--framework <name>] [--full] [--json]
+  recipe [id] [--framework <name>] [--example] [--json]
+  budget [--check] [--json]
   catalog-check
   check [--changed | --all] [--verbose]
 `;
@@ -69,6 +75,10 @@ function parseFilters(args: string[]) {
     options: {
       framework: { type: 'string' },
       kind: { type: 'string' },
+      limit: { type: 'string' },
+      all: { type: 'boolean', default: false },
+      full: { type: 'boolean', default: false },
+      example: { type: 'boolean', default: false },
       json: { type: 'boolean', default: false },
     },
   });
@@ -87,23 +97,98 @@ function entryMatches(entry: CatalogEntry, query: string, framework?: string, ki
   return query === '' || query.split(/\s+/).every((word) => haystack.includes(word));
 }
 
-function printEntryLine(entry: CatalogEntry): void {
-  const frameworks = Object.keys(entry.implementations).join(',');
-  console.log(`${entry.id} [${entry.kind}; ${frameworks}] — ${entry.summary}`);
+function rankEntry(entry: CatalogEntry, query: string): number {
+  if (entry.id.toLowerCase() === query) return 0;
+  if (entrySymbols(entry).some((symbol) => symbol.toLowerCase() === query)) return 1;
+  if (entry.id.toLowerCase().startsWith(query)) return 2;
+  return 3;
+}
+
+function entryLine(entry: CatalogEntry): string {
+  return `${entry.id} [${entry.kind}; ${Object.keys(entry.implementations).join(',')}] - ${entry.summary}`;
+}
+
+function formatFind(entries: CatalogEntry[], total: number, framework?: string): string {
+  const lines = entries.map(entryLine);
+  if (entries.length < total) lines.push(`${total - entries.length} more; pass --all to show them.`);
+  const first = entries[0];
+  if (first !== undefined) {
+    lines.push(`Inspect one: pnpm agent inspect ${first.id}${framework ? ` --framework ${framework}` : ''}`);
+  }
+  return lines.join('\n');
 }
 
 async function findEntries(config: ScaffoldConfig, args: string[]): Promise<void> {
   const { positionals, values } = parseFilters(args);
+  if (values.all && values.limit !== undefined) fail('choose either --limit or --all');
   const query = positionals.join(' ').trim().toLowerCase();
   const catalog = await loadCatalog(config);
-  const matches = catalog.entries.filter((entry) => entryMatches(entry, query, values.framework, values.kind));
+  const requestedLimit = values.limit === undefined ? 5 : Number(values.limit);
+  if (!Number.isInteger(requestedLimit) || requestedLimit < 1) fail('--limit must be a positive integer');
+  const matches = catalog.entries
+    .filter((entry) => entryMatches(entry, query, values.framework, values.kind))
+    .sort((a, b) => rankEntry(a, query) - rankEntry(b, query) || a.id.localeCompare(b.id));
+  if (matches.length === 0) fail(`no catalog entries match "${query}"`);
+  const visible = values.all ? matches : matches.slice(0, requestedLimit);
   if (values.json) {
-    console.log(JSON.stringify(matches));
+    console.log(
+      JSON.stringify({
+        matches: visible.map((entry) => ({
+          id: entry.id,
+          kind: entry.kind,
+          summary: entry.summary,
+          frameworks: Object.keys(entry.implementations),
+        })),
+        total: matches.length,
+      }),
+    );
     return;
   }
-  if (matches.length === 0) fail(`no catalog entries match "${query}"`);
-  for (const entry of matches) printEntryLine(entry);
-  console.log(`Inspect one: pnpm agent inspect ${matches[0].id}`);
+  console.log(formatFind(visible, matches.length, values.framework));
+}
+
+function resolveEntry(catalog: AgentCatalog, id: string): CatalogEntry | undefined {
+  const exact = catalog.entries.find((candidate) => candidate.id === id);
+  if (exact !== undefined) return exact;
+  const bySymbol = catalog.entries.filter((candidate) => entrySymbols(candidate).includes(id));
+  if (bySymbol.length > 1) {
+    fail(`"${id}" is exported by multiple entries: ${bySymbol.map((candidate) => candidate.id).join(', ')}`);
+  }
+  return bySymbol[0];
+}
+
+function selectedImplementations(entry: CatalogEntry, framework?: string): Array<[string, Implementation]> {
+  if (framework === undefined) return Object.entries(entry.implementations);
+  const implementation = entry.implementations[framework];
+  if (implementation === undefined) fail(`${entry.id} has no ${framework} implementation`);
+  return [[framework, implementation]];
+}
+
+async function formatInspect(
+  config: ScaffoldConfig,
+  entry: CatalogEntry,
+  framework?: string,
+  full = false,
+): Promise<string> {
+  const selected = selectedImplementations(entry, framework);
+  const lines = [`${entry.id} [${entry.kind}] - ${entry.summary}`];
+  if (framework === undefined && selected.length > 1 && !full) {
+    lines.push(`frameworks: ${selected.map(([name]) => name).join(', ')}`);
+    lines.push(`Select one: pnpm agent inspect ${entry.id} --framework <name>`);
+    lines.push(`docs: ${entry.docs}`);
+    return lines.join('\n');
+  }
+  for (const [name, implementation] of selected) {
+    lines.push(`${name}: import { ${implementation.exports.join(', ')} } from '${implementation.import}'`);
+    if (full) {
+      lines.push(`  source: ${implementation.source}`);
+      const source = await readFile(path.join(config.rootDir, implementation.source), 'utf8').catch(() => '');
+      const dependencies = externalDependencies(source);
+      if (dependencies.length > 0) lines.push(`  deps: ${dependencies.join(', ')}`);
+    }
+  }
+  lines.push(`docs: ${entry.docs}`);
+  return lines.join('\n');
 }
 
 async function inspectEntry(config: ScaffoldConfig, args: string[]): Promise<void> {
@@ -111,30 +196,51 @@ async function inspectEntry(config: ScaffoldConfig, args: string[]): Promise<voi
   const [id] = positionals;
   if (id === undefined) fail('missing catalog id. Usage: pnpm agent inspect <id-or-symbol>');
   const catalog = await loadCatalog(config);
-  let entry = catalog.entries.find((candidate) => candidate.id === id);
-  if (entry === undefined) {
-    const bySymbol = catalog.entries.filter((candidate) => entrySymbols(candidate).includes(id));
-    if (bySymbol.length === 1) {
-      entry = bySymbol[0];
-    } else if (bySymbol.length > 1) {
-      fail(`"${id}" is exported by multiple entries: ${bySymbol.map((candidate) => candidate.id).join(', ')}. Inspect one by id.`);
-    }
-  }
+  const entry = resolveEntry(catalog, id);
   if (entry === undefined) fail(`unknown catalog id or symbol "${id}"`);
+  const selected = selectedImplementations(entry, values.framework);
   if (values.json) {
-    console.log(JSON.stringify(entry));
+    console.log(
+      JSON.stringify(
+        values.full
+          ? entry
+          : {
+              id: entry.id,
+              kind: entry.kind,
+              summary: entry.summary,
+              frameworks: selected.map(([name]) => name),
+              implementation: selected.length === 1 ? selected[0][1] : undefined,
+              docs: entry.docs,
+            },
+      ),
+    );
     return;
   }
-  console.log(`${entry.id} [${entry.kind}]`);
-  console.log(entry.summary);
-  for (const [framework, implementation] of Object.entries(entry.implementations)) {
-    console.log(`${framework}: import { ${implementation.exports.join(', ')} } from '${implementation.import}'`);
-    console.log(`  source: ${implementation.source}`);
-    const source = await readFile(path.join(config.rootDir, implementation.source), 'utf8').catch(() => '');
-    const deps = externalDependencies(source);
-    if (deps.length > 0) console.log(`  deps: ${deps.join(', ')}`);
+  console.log(await formatInspect(config, entry, values.framework, values.full));
+}
+
+async function formatRecipe(
+  config: ScaffoldConfig,
+  recipe: CatalogRecipe,
+  framework?: string,
+  includeExample = false,
+): Promise<string> {
+  const lines = [`${recipe.id} [${recipe.frameworks.join(',')}] - ${recipe.summary}`, `uses: ${recipe.uses.join(', ')}`];
+  if (framework === undefined && recipe.frameworks.length > 1) {
+    lines.push(`Select one: pnpm agent recipe ${recipe.id} --framework <name>`);
+  } else {
+    const selected = framework ?? recipe.frameworks[0];
+    const example = recipe.examples[selected];
+    if (example !== undefined) {
+      lines.push(`${selected} example: ${example}`);
+      if (includeExample) {
+        lines.push('--- example ---', await readFile(path.join(config.rootDir, example), 'utf8'));
+      }
+    }
   }
-  console.log(`docs: ${entry.docs}`);
+  if (recipe.command !== undefined) lines.push(`start: ${recipe.command}`);
+  lines.push(`verify: ${recipe.verify}`);
+  return lines.join('\n');
 }
 
 async function showRecipe(config: ScaffoldConfig, args: string[]): Promise<void> {
@@ -146,22 +252,93 @@ async function showRecipe(config: ScaffoldConfig, args: string[]): Promise<void>
       (id === undefined || recipe.id === id) &&
       (values.framework === undefined || recipe.frameworks.includes(values.framework)),
   );
+  if (recipes.length === 0) fail(`unknown recipe "${id ?? ''}"`);
   if (values.json) {
-    console.log(JSON.stringify(recipes));
+    console.log(
+      JSON.stringify(
+        recipes.map((recipe) => ({
+          id: recipe.id,
+          summary: recipe.summary,
+          frameworks: values.framework === undefined ? recipe.frameworks : [values.framework],
+          uses: recipe.uses,
+          examples:
+            values.framework === undefined ? {} : { [values.framework]: recipe.examples[values.framework] },
+          command: recipe.command,
+          verify: recipe.verify,
+        })),
+      ),
+    );
     return;
   }
-  if (recipes.length === 0) fail(`unknown recipe "${id ?? ''}"`);
   for (const recipe of recipes) {
-    console.log(`${recipe.id} [${recipe.frameworks.join(',')}] — ${recipe.summary}`);
-    if (id !== undefined) {
-      console.log(`uses: ${recipe.uses.join(', ')}`);
-      for (const [framework, example] of Object.entries(recipe.examples)) {
-        console.log(`${framework} example: ${example}`);
-      }
-      if (recipe.command !== undefined) console.log(`start: ${recipe.command}`);
-      console.log(`verify: ${recipe.verify}`);
+    console.log(await formatRecipe(config, recipe, values.framework, values.example));
+  }
+}
+
+function textMetrics(text: string) {
+  return {
+    bytes: Buffer.byteLength(text),
+    nonblankLines: text.split(/\r?\n/).filter((line) => line.trim() !== '').length,
+    estimatedTokens: Math.ceil(text.length / 4),
+  };
+}
+
+async function checkBudgets(config: ScaffoldConfig): Promise<Array<{ name: string; actual: number; limit: number; pass: boolean }>> {
+  const budgets = JSON.parse(
+    await readFile(path.join(config.rootDir, 'agent/budgets.json'), 'utf8'),
+  ) as AgentBudgets;
+  const results: Array<{ name: string; actual: number; limit: number; pass: boolean }> = [];
+  for (const [file, limits] of Object.entries(budgets.files)) {
+    const metrics = textMetrics(await readFile(path.join(config.rootDir, file), 'utf8'));
+    const candidates = [
+      ['bytes', metrics.bytes, limits.maxBytes],
+      ['nonblankLines', metrics.nonblankLines, limits.maxNonblankLines],
+      ['estimatedTokens', metrics.estimatedTokens, limits.maxEstimatedTokens],
+    ] as const;
+    for (const [metric, actual, limit] of candidates) {
+      if (limit !== undefined) results.push({ name: `${file}:${metric}`, actual, limit, pass: actual <= limit });
     }
   }
+  const catalog = await loadCatalog(config);
+  const button = resolveEntry(catalog, 'ui.button');
+  const table = resolveEntry(catalog, 'block.data-table');
+  const crud = catalog.recipes.find((recipe) => recipe.id === 'crud-page');
+  if (button !== undefined && table !== undefined && crud !== undefined) {
+    const samples = [
+      formatFind([button], 1, 'react'),
+      await formatInspect(config, table, 'react'),
+      await formatRecipe(config, crud, 'react'),
+    ];
+    const actual = Math.max(...samples.map((sample) => sample.length));
+    results.push({
+      name: 'cli:defaultResponseChars',
+      actual,
+      limit: budgets.maxDefaultResponseChars,
+      pass: actual <= budgets.maxDefaultResponseChars,
+    });
+  }
+  return results;
+}
+
+async function budget(config: ScaffoldConfig, args: string[], exitOnFailure = true): Promise<boolean> {
+  const { values } = parseArgs({
+    args,
+    options: {
+      check: { type: 'boolean', default: false },
+      json: { type: 'boolean', default: false },
+      quiet: { type: 'boolean', default: false },
+    },
+  });
+  const results = await checkBudgets(config);
+  const passed = results.every((result) => result.pass);
+  if (values.json) console.log(JSON.stringify({ results, pass: passed }));
+  else if (!values.quiet || !passed) {
+    for (const result of results) {
+      console.log(`${result.pass ? 'PASS' : 'FAIL'} ${result.name} ${result.actual}/${result.limit}`);
+    }
+  }
+  if (values.check && !passed && exitOnFailure) process.exit(1);
+  return passed;
 }
 
 async function validateCatalog(config: ScaffoldConfig): Promise<string[]> {
@@ -266,6 +443,10 @@ function selectedChecks(files: string[], all: boolean): CheckCommand[] {
   ];
   if (include(['agent', 'packages/cli', 'scaffold.config.json', 'scripts'])) {
     checks.push({ label: 'CLI typecheck', args: ['exec', 'tsc', '-p', 'packages/cli/tsconfig.json'] });
+    checks.push({ label: 'CLI integration', args: ['agent:test'] });
+  }
+  if (include(['agent', 'packages/mcp', 'apps/tauri-app/content/docs'])) {
+    checks.push({ label: 'MCP integration', args: ['mcp:test'] });
   }
   if (include(['apps/tauri-app', 'packages/core', 'packages/tauri-api', 'packages/ui', 'packages/pro', 'packages/pro-core'])) {
     checks.push({ label: 'React app', args: ['--filter', '@app/tauri-app', 'build'] });
@@ -287,7 +468,7 @@ function selectedChecks(files: string[], all: boolean): CheckCommand[] {
 
 function compactFailure(output: string): string {
   const trimmed = output.trim();
-  return trimmed.length <= 12_000 ? trimmed : `…output truncated…\n${trimmed.slice(-12_000)}`;
+  return trimmed.length <= 12_000 ? trimmed : `...output truncated...\n${trimmed.slice(-12_000)}`;
 }
 
 async function runChecks(config: ScaffoldConfig, args: string[]): Promise<void> {
@@ -305,6 +486,7 @@ async function runChecks(config: ScaffoldConfig, args: string[]): Promise<void> 
     await catalogCheck(config);
     process.exit(1);
   }
+  if (!(await budget(config, ['--quiet'], false))) process.exit(1);
 
   const files = values.all ? [] : gitChangedFiles(config.rootDir);
   const checks = selectedChecks(files, values.all);
@@ -323,7 +505,7 @@ async function runChecks(config: ScaffoldConfig, args: string[]): Promise<void> 
     if (values.verbose) console.log(`PASS ${check.label}`);
   }
   const seconds = ((performance.now() - started) / 1000).toFixed(1);
-  console.log(`PASS ${checks.length + 1} checks, ${seconds}s`);
+  console.log(`PASS ${checks.length + 2} checks, ${seconds}s`);
 }
 
 export async function agent(config: ScaffoldConfig, args: string[]): Promise<void> {
@@ -337,6 +519,9 @@ export async function agent(config: ScaffoldConfig, args: string[]): Promise<voi
       break;
     case 'recipe':
       await showRecipe(config, rest);
+      break;
+    case 'budget':
+      await budget(config, rest);
       break;
     case 'catalog-check':
       if (!(await catalogCheck(config))) process.exit(1);

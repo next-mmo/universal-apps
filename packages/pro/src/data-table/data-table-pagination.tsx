@@ -1,15 +1,15 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
-import { Button } from '@package/ui/src/components/ui/button';
+import { Button } from '@package/ui/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@package/ui/src/components/ui/select';
+} from '@package/ui/select';
 
-import { defaultTableFeatures } from '@package/pro-core/src/table/features';
+import { defaultTableFeatures } from '@package/pro-core/table-features';
 
 interface DataTablePaginationProps {
   pageIndex: number;

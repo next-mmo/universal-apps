@@ -34,6 +34,8 @@ export type ActionColumnDef<T> = BaseColumnDef & {
     label: string;
     /** Destructive actions render in red and should confirm before running. */
     destructive?: boolean;
+    hidden?: (row: T) => boolean;
+    disabled?: boolean | ((row: T) => boolean);
     onSelect: (row: T) => void;
   }>;
 };

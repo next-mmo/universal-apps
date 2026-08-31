@@ -3,12 +3,12 @@ title: ProForm
 description: Schema-driven form over TanStack Form with validation, groups, and submit states.
 ---
 
-Renders a complete form from a `ProFormGroup[]` schema (see `@package/pro-core/src/form/schema`): field controls per type, synchronous validators, group titles/descriptions, `stacked` or `grid-2` layouts, pending state on submit. Source: `packages/pro/src/form/pro-form.tsx`, built on TanStack Form.
+Renders a complete form from a `ProFormGroup[]` schema (see `@package/pro-core/form`): field controls per type, synchronous validators, group titles/descriptions, `stacked` or `grid-2` layouts, pending state on submit. Source: `packages/pro/src/form/pro-form.tsx`, built on TanStack Form.
 
 ## Import
 
 ```ts
-import { ProForm } from '@package/pro/src/form/pro-form';
+import { ProForm } from '@package/pro/form';
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ import { ProForm } from '@package/pro/src/form/pro-form';
 <ProFormDemo />
 
 ```tsx title="Schema-driven form"
-import { ProForm } from '@package/pro/src/form/pro-form';
+import { ProForm } from '@package/pro/form';
 
 const schema = [
   {

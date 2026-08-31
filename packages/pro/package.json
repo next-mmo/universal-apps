@@ -3,6 +3,17 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "exports": {
+    "./app-shell": "./src/layout/app-shell.tsx",
+    "./crud": "./src/crud/pro-crud-page.tsx",
+    "./data-table": "./src/data-table/pro-data-table.tsx",
+    "./form": "./src/form/pro-form.tsx",
+    "./form-dialog": "./src/form/pro-form-dialog.tsx",
+    "./page-container": "./src/layout/page-container.tsx",
+    "./src/data-table/*": "./src/data-table/*.tsx",
+    "./src/form/*": "./src/form/*.tsx",
+    "./src/layout/*": "./src/layout/*.tsx"
+  },
   "dependencies": {
     "@package/pro-core": "workspace:*",
     "@package/ui": "workspace:*",

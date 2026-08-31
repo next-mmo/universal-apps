@@ -55,6 +55,10 @@ try {
     .catch(() => false);
   check('bridge: todo persists after reload', persisted);
 
+  await page.getByRole('button', { name: 'Refresh data' }).click();
+  await page.getByRole('row').filter({ hasText: 'E2E smoke task' }).waitFor({ state: 'visible' });
+  check('table: controlled refresh keeps the current data visible', true);
+
   // Search filter narrows the table
   await page.getByLabel('Search table').fill('E2E smoke');
   await page.waitForTimeout(300);
@@ -70,12 +74,30 @@ try {
     (await page.getByRole('columnheader', { name: 'Created' }).count()) === 0;
   check('table: column toggle hides Created column', createdHeaderGone);
 
-  // Delete cleans up
+  // Rejected deletes stay open and expose the mutation error.
+  await page.evaluate(() => {
+    const storagePrototype = Object.getPrototypeOf(localStorage);
+    globalThis.__originalStorageSetItem = storagePrototype.setItem;
+    storagePrototype.setItem = () => {
+      throw new Error('Forced persistence failure');
+    };
+  });
   await page
     .getByRole('row')
     .filter({ hasText: 'E2E smoke task' })
     .getByRole('button', { name: 'Delete' })
     .click();
+  const removeDialog = page.getByRole('dialog');
+  await removeDialog.getByRole('button', { name: 'Delete', exact: true }).click();
+  await removeDialog.getByRole('alert').waitFor({ state: 'visible' });
+  check('mutation: rejected delete stays open with an error', await removeDialog.isVisible());
+
+  await page.evaluate(() => {
+    const storagePrototype = Object.getPrototypeOf(localStorage);
+    storagePrototype.setItem = globalThis.__originalStorageSetItem;
+    delete globalThis.__originalStorageSetItem;
+  });
+  await removeDialog.getByRole('button', { name: 'Delete', exact: true }).click();
   await page.waitForTimeout(400);
   check(
     'table: delete removes the row',

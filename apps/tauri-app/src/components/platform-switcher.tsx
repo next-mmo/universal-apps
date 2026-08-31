@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@package/ui/src/components/ui/dropdown-menu';
+} from '@package/ui/dropdown-menu';
 
 export type Platform = 'react' | 'vue' | 'svelte' | 'react-native';
 

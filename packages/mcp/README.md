@@ -6,11 +6,11 @@ Local stdio MCP server that exposes the tauri-universal capability catalog and g
 
 | Tool | Purpose |
 | --- | --- |
-| `find_capabilities` | Search components/blocks by keyword, exported symbol, id, framework, or kind |
-| `get_component_docs` | Full docs for one capability by catalog id (`ui.button`) or symbol (`Button`) |
-| `get_recipe` | Proven composition recipes with required capabilities and verify commands |
+| `find_capabilities` | Return up to five ranked matches; symbols are an explicit detail level |
+| `get_component_docs` | Return one framework summary by default; `usage` and `full` are opt-in |
+| `get_recipe` | Return one framework recipe; complete example source is opt-in |
 
-The server reads `agent/catalog.json` and the generated `apps/tauri-app/public/docs/*.md` at call time, so it stays current with the checked-in artifacts.
+The server reads `agent/catalog.json` and generated focused Markdown at call time. Normal responses stay below the checked-in 1,200-character budget; callers must request broader context explicitly.
 
 ## Register with an MCP client
 

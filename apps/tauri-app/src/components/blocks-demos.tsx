@@ -2,12 +2,12 @@
  * Live rendered demos for the Blocks docs pages.
  */
 import { useState } from 'react';
-import { ProDataTable } from '@package/pro/src/data-table/pro-data-table';
-import { ProForm } from '@package/pro/src/form/pro-form';
-import { ProFormDialog } from '@package/pro/src/form/pro-form-dialog';
-import { PageContainer } from '@package/pro/src/layout/page-container';
-import { Button } from '@package/ui/src/components/ui/button';
-import type { ProColumnDef } from '@package/pro-core/src/table/columns';
+import { ProDataTable } from '@package/pro/data-table';
+import { ProForm } from '@package/pro/form';
+import { ProFormDialog } from '@package/pro/form-dialog';
+import { PageContainer } from '@package/pro/page-container';
+import { Button } from '@package/ui/button';
+import type { ProColumnDef } from '@package/pro-core/table';
 
 interface DemoTask {
   id: string;

@@ -17,7 +17,7 @@ The repo's cross-framework recipe applies unchanged:
 
 ## Uniwind styling
 
-`apps/native-playground/vite.config.ts` chains `rnw()` (react-native-web resolution + fixes, replaces the manual `react-native` alias), `tailwindcss()`, and `uniwind({ cssEntryFile: './src/index.css' })`. The CSS entry imports `tailwindcss`, `uniwind`, and the shared `@package/ui/src/styles/tokens.css`, and scans `packages/ui-native/src` via `@source` — so both engines read the same design tokens.
+`apps/native-playground/vite.config.ts` chains `rnw()` (react-native-web resolution + fixes, replaces the manual `react-native` alias), `tailwindcss()`, and `uniwind({ cssEntryFile: './src/index.css' })`. The CSS entry imports `tailwindcss`, `uniwind`, and the shared `@package/ui/tokens.css`, and scans `packages/ui-native/src` via `@source` — so both engines read the same design tokens.
 
 Components mirror the DOM siblings' class strings 1:1; color utilities (`bg-primary`, `text-muted-foreground`, `dark:bg-card`, …) resolve the tokens.css variables. Because RN has no style inheritance, container utilities sit on the primitive and text color/size utilities on the inner `Text` — see the `variantClasses` maps in `packages/ui-native/src/components/ui/*`. Web-only utilities (hover, focus rings) are elided; pressed feedback uses `active:`.
 
@@ -66,4 +66,4 @@ New native components follow the DOM siblings' prop APIs so the two stay swappab
 pnpm scaffold add native <kebab-name>   # emits from templates/native/, wires docs
 ```
 
-The scaffold's `native` target writes to `packages/ui-native/src/components/ui/` and rewrites `@/lib/cn` → `@package/ui/src/lib/cn`. Then port the real implementation from the DOM component: the Tailwind classes carry over as-is (Uniwind compiles them for RN), replace Radix behavior with RN primitives, and split text color/size utilities onto the `Text` node.
+The scaffold's `native` target writes to `packages/ui-native/src/components/ui/` and rewrites `@/lib/cn` → `@package/ui/cn`. Then port the real implementation from the DOM component: the Tailwind classes carry over as-is (Uniwind compiles them for RN), replace Radix behavior with RN primitives, and split text color/size utilities onto the `Text` node.

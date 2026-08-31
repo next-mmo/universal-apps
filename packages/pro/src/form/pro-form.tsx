@@ -1,26 +1,26 @@
 import { useForm } from '@tanstack/react-form';
 
-import { Button } from '@package/ui/src/components/ui/button';
-import { Checkbox } from '@package/ui/src/components/ui/checkbox';
-import { Input } from '@package/ui/src/components/ui/input';
-import { Label } from '@package/ui/src/components/ui/label';
+import { Button } from '@package/ui/button';
+import { Checkbox } from '@package/ui/checkbox';
+import { Input } from '@package/ui/input';
+import { Label } from '@package/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@package/ui/src/components/ui/select';
-import { Switch } from '@package/ui/src/components/ui/switch';
-import { Textarea } from '@package/ui/src/components/ui/textarea';
-import { cn } from '@package/ui/src/lib/cn';
+} from '@package/ui/select';
+import { Switch } from '@package/ui/switch';
+import { Textarea } from '@package/ui/textarea';
+import { cn } from '@package/ui/cn';
 
 import type { ReactNode } from 'react';
 import type {
   ProFieldSchema,
   ProFormGroup,
   ProFormValues,
-} from '@package/pro-core/src/form/schema';
+} from '@package/pro-core/form';
 
 export interface ProFormProps {
   schema: Array<ProFormGroup>;
@@ -28,7 +28,8 @@ export interface ProFormProps {
   submitLabel?: string;
   cancelLabel?: string;
   pending?: boolean;
-  onSubmit: (values: ProFormValues) => Promise<void> | void;
+  submitError?: unknown;
+  onSubmit: (values: ProFormValues) => Promise<boolean | void> | boolean | void;
   onCancel?: () => void;
   className?: string;
 }
@@ -139,6 +140,7 @@ export function ProForm({
   submitLabel = 'Save',
   cancelLabel = 'Cancel',
   pending = false,
+  submitError,
   onSubmit,
   onCancel,
   className,
@@ -227,6 +229,12 @@ export function ProForm({
           </div>
         </section>
       ))}
+
+      {submitError !== undefined && (
+        <p className='text-sm font-medium text-destructive' role='alert'>
+          {submitError instanceof Error ? submitError.message : String(submitError)}
+        </p>
+      )}
 
       <div className='flex items-center justify-end gap-2 border-t pt-4'>
         {onCancel !== undefined && (

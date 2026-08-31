@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { queryKeys } from '@package/pro-core/src/query/keys';
+import { queryKeys } from '@package/pro-core/query';
 
 export interface ProListResult<T> {
   rows: T[];

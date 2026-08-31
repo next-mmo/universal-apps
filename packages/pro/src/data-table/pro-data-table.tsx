@@ -4,7 +4,7 @@ import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 import { buildColumnDefs } from './columns';
 import { proTableFeatures } from './pro-table-features';
-import { Button } from '@package/ui/src/components/ui/button';
+import { Button } from '@package/ui/button';
 import {
   Table,
   TableBody,
@@ -12,12 +12,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@package/ui/src/components/ui/table';
-import { Skeleton } from '@package/ui/src/components/ui/skeleton';
+} from '@package/ui/table';
+import { Skeleton } from '@package/ui/skeleton';
 
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { ProColumnDef } from '@package/pro-core/src/table/columns';
+import type { ProColumnDef } from '@package/pro-core/table';
 import type {
   ColumnVisibilityState,
   PaginationState,
@@ -25,7 +25,7 @@ import type {
   RowSelectionState,
   SortingState,
 } from '@tanstack/react-table';
-import type { TableFeatures, TableQuery } from '@package/pro-core/src/table/features';
+import type { TableFeatures, TableQuery } from '@package/pro-core/table-features';
 import { useTable } from '@tanstack/react-table';
 
 export interface ProDataTableProps<T> {
@@ -47,6 +47,7 @@ export interface ProDataTableProps<T> {
 
   searchPlaceholder?: string;
   toolbarExtra?: ReactNode;
+  empty?: ReactNode;
   onRefresh?: () => void;
 }
 
@@ -63,6 +64,7 @@ export function ProDataTable<T extends RowData>({
   onQueryChange,
   searchPlaceholder,
   toolbarExtra,
+  empty,
   onRefresh,
 }: ProDataTableProps<T>) {
   const serverMode = query !== undefined && onQueryChange !== undefined;
@@ -216,7 +218,7 @@ export function ProDataTable<T extends RowData>({
             {error === undefined && !loading && rows.length === 0 && (
               <TableRow>
                 <TableCell colSpan={table.getAllColumns().length} className='h-24 text-center'>
-                  No results.
+                  {empty ?? 'No results.'}
                 </TableCell>
               </TableRow>
             )}

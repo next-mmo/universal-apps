@@ -3,6 +3,11 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "exports": {
+    "./todo": "./src/todo.ts",
+    "./use-todos": "./src/use-todos.ts",
+    "./src/*": "./src/*.ts"
+  },
   "dependencies": {
     "react": "19.2.6"
   },

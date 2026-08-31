@@ -53,6 +53,15 @@ export function useTodos(store: TodoStore) {
     [mutate, todos],
   );
 
+  const updateTodo = useCallback(
+    (id: number, patch: Partial<Pick<Todo, 'text' | 'done'>>) => {
+      const text = patch.text?.trim();
+      if (patch.text !== undefined && !text) return;
+      mutate(todos.map((todo) => (todo.id === id ? { ...todo, ...patch, ...(text ? { text } : {}) } : todo)));
+    },
+    [mutate, todos],
+  );
+
   const removeTodo = useCallback(
     (id: number) => {
       mutate(todos.filter((todo) => todo.id !== id));
@@ -64,5 +73,5 @@ export function useTodos(store: TodoStore) {
     mutate(todos.filter((todo) => !todo.done));
   }, [mutate, todos]);
 
-  return { todos, loaded, addTodo, toggleTodo, removeTodo, clearDone };
+  return { todos, loaded, addTodo, toggleTodo, updateTodo, removeTodo, clearDone };
 }

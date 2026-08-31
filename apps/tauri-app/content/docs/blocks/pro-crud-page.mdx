@@ -1,0 +1,34 @@
+---
+title: ProCrudPage
+description: Config-first React CRUD page with controlled data, forms, actions, and mutation states.
+---
+
+`ProCrudPage` composes the page container, data table, form dialog, and delete confirmation. The app keeps ownership of fetching and mutations through a typed controller.
+
+## Import
+
+```ts
+import { ProCrudPage, defineProResource } from '@package/pro/crud';
+```
+
+## Usage
+
+```tsx
+const tasks = defineProResource<Task, { text: string }>({
+  id: 'tasks', title: 'Tasks', getRowId: (row) => row.id,
+  columns: [{ key: 'text', header: 'Task', valueType: 'text' }],
+  form: {
+    schema: [{ fields: [{ name: 'text', label: 'Task', type: 'text', required: true }] }],
+    create: { title: 'New task', values: { text: '' } },
+  },
+});
+
+<ProCrudPage resource={tasks} controller={{ rows, create, remove }} />;
+```
+
+## Contract
+
+- The controller supplies rows, loading/error state, refresh, and optional create/update/remove callbacks.
+- The block adds actions only for callbacks that exist and confirms destructive deletes.
+- `headerActions`, `toolbar`, `empty`, and `footer` accept React nodes for customization.
+- Rejected mutations stay open and render their error; React Query or another data layer remains app-owned.

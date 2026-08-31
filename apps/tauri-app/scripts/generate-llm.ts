@@ -24,20 +24,6 @@ interface FolderMeta {
   pages: string[];
 }
 
-interface CatalogEntryMeta {
-  id: string;
-  kind: string;
-  implementations: Record<string, unknown>;
-}
-
-async function capabilityMatrix(): Promise<string[]> {
-  const raw = await fs.readFile(path.join(repoRoot, 'agent', 'catalog.json'), 'utf8');
-  const catalog = JSON.parse(raw) as { entries: CatalogEntryMeta[] };
-  return catalog.entries.map(
-    (entry) => `- ${entry.id} (${entry.kind}): ${Object.keys(entry.implementations).join(', ')}`,
-  );
-}
-
 function parseFrontmatter(raw: string): DocMeta {
   const match = /^---\r?\n([\s\S]+?)\r?\n---/.exec(raw);
   const meta: DocMeta = { title: '' };
@@ -116,7 +102,7 @@ async function collectDocs(
   }
 }
 
-function indexDocument(lines: string[], matrix: string[], web: boolean): string {
+function compactIndex(web: boolean): string {
   const agentLinks = web
     ? [
         '- [Agent guide](/docs/agent.md): repository map and task routing',
@@ -132,19 +118,29 @@ function indexDocument(lines: string[], matrix: string[], web: boolean): string 
     '',
     '> Agent-native Tauri and web application building blocks for React, Vue, Svelte, and React Native Web.',
     '',
-    'Use the catalog before searching source. Retrieve only the documentation page needed for the current task.',
+    'Retrieve one capability or recipe at a time. Do not load the complete documentation unless explicitly needed.',
     '',
     '## Agent entry points',
     '',
     ...agentLinks,
     '',
-    '## Capability matrix',
+    '## Fast path',
     '',
-    'Framework support per catalog capability. Query details with `pnpm agent inspect <id-or-symbol>`.',
+    '```bash',
+    'pnpm agent find <intent> --framework react',
+    'pnpm agent inspect <id-or-symbol> --framework react',
+    'pnpm agent recipe <id> --framework react',
+    'pnpm agent check --changed',
+    '```',
     '',
-    ...matrix,
+    'Add `--full` or `--example` only when the compact response is insufficient.',
     '',
-    '## Documentation',
+  ].join('\n');
+}
+
+function documentationIndex(lines: string[]): string {
+  return [
+    '# Tauri Universal documentation index',
     '',
     ...lines,
     '',
@@ -189,8 +185,9 @@ async function main(): Promise<void> {
   const pages: DocPage[] = [];
   await collectDocs(docsDir, '/docs', 'apps/tauri-app/content/docs', '', webLines, sourceLines, pages);
 
-  const rootIndex = indexDocument(sourceLines, await capabilityMatrix(), false);
-  const webIndex = indexDocument(webLines, await capabilityMatrix(), true);
+  const rootIndex = compactIndex(false);
+  const webIndex = compactIndex(true);
+  const docsIndex = documentationIndex(webLines);
   const full = fullDocument(pages);
   const committed = [
     { file: path.join(repoRoot, 'llms.txt'), content: rootIndex },
@@ -205,7 +202,7 @@ async function main(): Promise<void> {
   for (const candidate of committed) await writeIfChanged(candidate.file, candidate.content);
   await writeIfChanged(path.join(publicDir, 'llms.txt'), webIndex);
   await writeIfChanged(path.join(publicDir, 'llms-full.txt'), full);
-  await writeIfChanged(path.join(publicDir, 'docs.txt'), webIndex);
+  await writeIfChanged(path.join(publicDir, 'docs.txt'), docsIndex);
   await writeIfChanged(
     path.join(publicDir, 'agent/catalog.json'),
     await fs.readFile(path.join(repoRoot, 'agent/catalog.json'), 'utf8'),

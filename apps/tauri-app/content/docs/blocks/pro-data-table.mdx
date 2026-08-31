@@ -8,7 +8,7 @@ A complete list view: search toolbar, column sorting, column visibility, page-si
 ## Import
 
 ```ts
-import { ProDataTable } from '@package/pro/src/data-table/pro-data-table';
+import { ProDataTable } from '@package/pro/data-table';
 ```
 
 ## Usage
@@ -16,8 +16,8 @@ import { ProDataTable } from '@package/pro/src/data-table/pro-data-table';
 <ProDataTableDemo />
 
 ```tsx title="Client mode (from src/pages/todos-page.tsx)"
-import { ProDataTable } from '@package/pro/src/data-table/pro-data-table';
-import type { ProColumnDef } from '@package/pro-core/src/table/columns';
+import { ProDataTable } from '@package/pro/data-table';
+import type { ProColumnDef } from '@package/pro-core/table';
 
 const columns: Array<ProColumnDef<TodoRow>> = [
   { key: 'text', header: 'Task', valueType: 'text' },

@@ -15,7 +15,7 @@
       "docs": "apps/tauri-app/content/docs/components/accordion.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/accordion",
+          "import": "@package/ui/accordion",
           "exports": [
             "Accordion",
             "AccordionContent",
@@ -48,7 +48,7 @@
       "docs": "apps/tauri-app/content/docs/components/badge.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/badge",
+          "import": "@package/ui/badge",
           "exports": [
             "Badge",
             "badgeVariants",
@@ -77,7 +77,7 @@
       "docs": "apps/tauri-app/content/docs/components/button.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/button",
+          "import": "@package/ui/button",
           "exports": [
             "Button",
             "buttonVariants",
@@ -107,7 +107,7 @@
       "docs": "apps/tauri-app/content/docs/components/card.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/card",
+          "import": "@package/ui/card",
           "exports": [
             "Card",
             "CardHeader",
@@ -145,7 +145,7 @@
       "docs": "apps/tauri-app/content/docs/components/checkbox.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/checkbox",
+          "import": "@package/ui/checkbox",
           "exports": [
             "Checkbox"
           ],
@@ -172,7 +172,7 @@
       "docs": "apps/tauri-app/content/docs/components/dialog.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/dialog",
+          "import": "@package/ui/dialog",
           "exports": [
             "Dialog",
             "DialogTrigger",
@@ -211,7 +211,7 @@
       "docs": "apps/tauri-app/content/docs/components/dropdown-menu.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/dropdown-menu",
+          "import": "@package/ui/dropdown-menu",
           "exports": [
             "DropdownMenu",
             "DropdownMenuTrigger",
@@ -251,7 +251,7 @@
       "docs": "apps/tauri-app/content/docs/components/input.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/input",
+          "import": "@package/ui/input",
           "exports": [
             "Input"
           ],
@@ -280,7 +280,7 @@
       "docs": "apps/tauri-app/content/docs/components/label.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/label",
+          "import": "@package/ui/label",
           "exports": [
             "Label"
           ],
@@ -307,7 +307,7 @@
       "docs": "apps/tauri-app/content/docs/components/popover.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/popover",
+          "import": "@package/ui/popover",
           "exports": [
             "Popover",
             "PopoverTrigger",
@@ -340,7 +340,7 @@
       "docs": "apps/tauri-app/content/docs/components/select.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/select",
+          "import": "@package/ui/select",
           "exports": [
             "Select",
             "SelectContent",
@@ -378,7 +378,7 @@
       "docs": "apps/tauri-app/content/docs/components/separator.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/separator",
+          "import": "@package/ui/separator",
           "exports": [
             "Separator"
           ],
@@ -405,7 +405,7 @@
       "docs": "apps/tauri-app/content/docs/components/skeleton.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/skeleton",
+          "import": "@package/ui/skeleton",
           "exports": [
             "Skeleton"
           ],
@@ -432,7 +432,7 @@
       "docs": "apps/tauri-app/content/docs/components/switch.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/switch",
+          "import": "@package/ui/switch",
           "exports": [
             "Switch"
           ],
@@ -460,7 +460,7 @@
       "docs": "apps/tauri-app/content/docs/components/table.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/table",
+          "import": "@package/ui/table",
           "exports": [
             "Table",
             "TableHeader",
@@ -499,7 +499,7 @@
       "docs": "apps/tauri-app/content/docs/components/tabs.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/tabs",
+          "import": "@package/ui/tabs",
           "exports": [
             "Tabs",
             "TabsList",
@@ -532,7 +532,7 @@
       "docs": "apps/tauri-app/content/docs/components/textarea.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/textarea",
+          "import": "@package/ui/textarea",
           "exports": [
             "Textarea"
           ],
@@ -559,7 +559,7 @@
       "docs": "apps/tauri-app/content/docs/components/tooltip.mdx",
       "implementations": {
         "react": {
-          "import": "@package/ui/src/components/ui/tooltip",
+          "import": "@package/ui/tooltip",
           "exports": [
             "Tooltip",
             "TooltipTrigger",
@@ -594,7 +594,7 @@
       "docs": "apps/tauri-app/content/docs/blocks/pro-data-table.mdx",
       "implementations": {
         "react": {
-          "import": "@package/pro/src/data-table/pro-data-table",
+          "import": "@package/pro/data-table",
           "exports": [
             "ProDataTable",
             "ProDataTableProps"
@@ -629,7 +629,7 @@
       "docs": "apps/tauri-app/content/docs/blocks/pro-form.mdx",
       "implementations": {
         "react": {
-          "import": "@package/pro/src/form/pro-form",
+          "import": "@package/pro/form",
           "exports": [
             "ProForm",
             "ProFormProps"
@@ -665,7 +665,7 @@
       "docs": "apps/tauri-app/content/docs/blocks/pro-form-dialog.mdx",
       "implementations": {
         "react": {
-          "import": "@package/pro/src/form/pro-form-dialog",
+          "import": "@package/pro/form-dialog",
           "exports": [
             "ProFormDialog",
             "ProFormDialogProps"
@@ -700,7 +700,7 @@
       "docs": "apps/tauri-app/content/docs/blocks/app-shell.mdx",
       "implementations": {
         "react": {
-          "import": "@package/pro/src/layout/app-shell",
+          "import": "@package/pro/app-shell",
           "exports": [
             "AppShell",
             "AppShellProps",
@@ -736,7 +736,7 @@
       "docs": "apps/tauri-app/content/docs/blocks/page-container.mdx",
       "implementations": {
         "react": {
-          "import": "@package/pro/src/layout/page-container",
+          "import": "@package/pro/page-container",
           "exports": [
             "PageContainer",
             "PageContainerProps"
@@ -760,6 +760,30 @@
       }
     },
     {
+      "id": "block.crud-page",
+      "kind": "block",
+      "summary": "Config-first React CRUD page with controlled data and mutation callbacks.",
+      "keywords": [
+        "crud",
+        "resource",
+        "admin",
+        "list form"
+      ],
+      "docs": "apps/tauri-app/content/docs/blocks/pro-crud-page.mdx",
+      "implementations": {
+        "react": {
+          "import": "@package/pro/crud",
+          "exports": [
+            "ProCrudPage",
+            "defineProResource",
+            "ProCrudController",
+            "ProCrudAction"
+          ],
+          "source": "packages/pro/src/crud/pro-crud-page.tsx"
+        }
+      }
+    },
+    {
       "id": "core.form-schema",
       "kind": "contract",
       "summary": "Framework-free field schemas, groups, values, and synchronous validation.",
@@ -771,7 +795,7 @@
       "docs": "apps/tauri-app/content/docs/pro-core.mdx",
       "implementations": {
         "core": {
-          "import": "@package/pro-core/src/form/schema",
+          "import": "@package/pro-core/form",
           "exports": [
             "ProFieldSchema",
             "ProFormGroup",
@@ -795,7 +819,7 @@
       "docs": "apps/tauri-app/content/docs/pro-core.mdx",
       "implementations": {
         "core": {
-          "import": "@package/pro-core/src/table/columns",
+          "import": "@package/pro-core/table",
           "exports": [
             "ProColumnDef",
             "isActionColumn",
@@ -817,7 +841,7 @@
       "docs": "apps/tauri-app/content/docs/pro-core.mdx",
       "implementations": {
         "core": {
-          "import": "@package/pro-core/src/query/keys",
+          "import": "@package/pro-core/query",
           "exports": [
             "queryKeys"
           ],
@@ -838,7 +862,7 @@
       "docs": "apps/tauri-app/content/docs/architecture.mdx",
       "implementations": {
         "universal": {
-          "import": "@package/tauri-api/src/todo-storage",
+          "import": "@package/tauri-api/todo-storage",
           "exports": [
             "todoStorage"
           ],
@@ -852,20 +876,14 @@
       "id": "crud-page",
       "summary": "List, create, update, and delete records with a data table and form dialog.",
       "frameworks": [
-        "react",
-        "vue",
-        "svelte"
+        "react"
       ],
       "uses": [
-        "block.data-table",
-        "block.form-dialog",
-        "core.form-schema",
-        "core.query-keys"
+        "block.crud-page",
+        "bridge.todo-storage"
       ],
       "examples": {
-        "react": "apps/tauri-app/src/pages/todos-page.tsx",
-        "vue": "apps/vue-playground/src/views/todos-view.vue",
-        "svelte": "apps/svelte-playground/src/views/todos-view.svelte"
+        "react": "apps/tauri-app/src/pages/todos-page.tsx"
       },
       "verify": "pnpm agent check --changed"
     },

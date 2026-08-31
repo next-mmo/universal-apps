@@ -5,9 +5,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@package/ui/src/components/ui/dialog';
+} from '@package/ui/dialog';
 
-import type { ProFormGroup, ProFormValues } from '@package/pro-core/src/form/schema';
+import type { ProFormGroup, ProFormValues } from '@package/pro-core/form';
 
 export interface ProFormDialogProps {
   open: boolean;
@@ -18,8 +18,10 @@ export interface ProFormDialogProps {
   /** Key this by the edited record so defaults reset between opens. */
   defaultValues: ProFormValues;
   submitLabel?: string;
+  cancelLabel?: string;
   pending?: boolean;
-  onSubmit: (values: ProFormValues) => Promise<void> | void;
+  submitError?: unknown;
+  onSubmit: (values: ProFormValues) => Promise<boolean | void> | boolean | void;
 }
 
 /** Dialog wrapper around ProForm for create/edit flows. */
@@ -31,7 +33,9 @@ export function ProFormDialog({
   schema,
   defaultValues,
   submitLabel,
+  cancelLabel,
   pending,
+  submitError,
   onSubmit,
 }: ProFormDialogProps) {
   return (
@@ -47,11 +51,13 @@ export function ProFormDialog({
             schema={schema}
             defaultValues={defaultValues}
             submitLabel={submitLabel}
+            cancelLabel={cancelLabel}
             pending={pending}
+            submitError={submitError}
             onCancel={() => onOpenChange(false)}
             onSubmit={async (values) => {
-              await onSubmit(values);
-              onOpenChange(false);
+              const result = await onSubmit(values);
+              if (result !== false) onOpenChange(false);
             }}
           />
         )}

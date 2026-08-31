@@ -9,6 +9,7 @@ description: Ant Design Pro-style feature blocks on shadcn primitives and TanSta
 
 | Block | Purpose |
 | ----- | ------- |
+| `ProCrudPage` | Config-first controlled CRUD page; the shortest path for standard resource screens |
 | `ProDataTable` | Toolbar + table + pagination over TanStack Table, client or server mode |
 | `ProForm` | Schema-driven form over TanStack Form with validation and submit states |
 | `ProFormDialog` | ProForm inside a Dialog for create/edit flows |
@@ -21,6 +22,6 @@ Components (`@package/ui`) are dumb primitives — a Button, an Input. Blocks ow
 
 ## Where they're used
 
-- `/todos` — `ProDataTable` + `ProFormDialog` for task management
+- `/todos` — compact `ProCrudPage` resource definition for task management
 - `/forms` — `ProForm` showcase with validation, groups, and submit states
 - Everywhere — `AppShell` wraps the app (see `src/routes.tsx`), `PageContainer` wraps each page

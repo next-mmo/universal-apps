@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 
 import { useTodos } from '../lib/todo-queries';
-import { PageContainer } from '@package/pro/src/layout/page-container';
+import { PageContainer } from '@package/pro/page-container';
 import {
   Card,
   CardAction,
@@ -9,10 +9,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@package/ui/src/components/ui/card';
-import { Badge } from '@package/ui/src/components/ui/badge';
-import { Button } from '@package/ui/src/components/ui/button';
-import { Skeleton } from '@package/ui/src/components/ui/skeleton';
+} from '@package/ui/card';
+import { Badge } from '@package/ui/badge';
+import { Button } from '@package/ui/button';
+import { Skeleton } from '@package/ui/skeleton';
 
 export default function DashboardPage() {
   const todos = useTodos();
