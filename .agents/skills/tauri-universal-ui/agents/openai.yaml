@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tauri Universal UI"
+  short_description: "Cross-platform UI patterns for Tauri Universal"
+  default_prompt: "Use $tauri-universal-ui to plan or review shared UI work across the repository's platform adapters."
+
+policy:
+  allow_implicit_invocation: true

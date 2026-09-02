@@ -1,5 +1,5 @@
 import { Outlet, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
-import { BookOpenIcon, ListTodoIcon, LayoutDashboardIcon, PenSquareIcon } from 'lucide-react';
+import { BookOpenIcon, ListTodoIcon, LayoutDashboardIcon } from 'lucide-react';
 
 import DashboardPage from './pages/dashboard-page';
 import DocsPage from './pages/docs-page';
@@ -16,7 +16,6 @@ const rootRoute = createRootRoute({
       navItems={[
         { label: 'Dashboard', to: '/', icon: LayoutDashboardIcon },
         { label: 'Todos', to: '/todos', icon: ListTodoIcon },
-        { label: 'Form blocks', to: '/forms', icon: PenSquareIcon },
         { label: 'Docs', to: '/docs', icon: BookOpenIcon },
       ]}
     >

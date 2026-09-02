@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tauri Universal UI Performance"
+  short_description: "Keep shared UI responsive across platforms"
+  default_prompt: "Use $tauri-universal-ui-performance to diagnose or review a UI performance issue at the real consumer boundary."
+
+policy:
+  allow_implicit_invocation: true

@@ -41,6 +41,10 @@ pnpm agent check --changed
 
 Start with [llms.txt](llms.txt), which routes agents to one focused capability or recipe. The complete bundle in `llms-full.txt` is opt-in.
 
+## Delivery workflow
+
+Agent Workflow Scrum keeps requirements, active work, verification evidence, and human acceptance under [`.agents/`](.agents/docs/agent-workflow.md). In an agent session, use `/kb:setup` for the required baseline or `/kb:full-setup` to also generate Claude and Cursor adapters. Start non-trivial work with `pnpm context "<scope>"`; Graphify and OpenViking remain optional.
+
 ## Workspace
 
 - `packages/ui`: React primitives and shared design tokens
@@ -50,3 +54,6 @@ Start with [llms.txt](llms.txt), which routes agents to one focused capability o
 - `packages/pro-vue`, `packages/pro-svelte`, `packages/ui-native`: framework adapters
 
 Detailed setup, architecture, APIs, and platform notes live in [the focused documentation](apps/tauri-app/content/docs/index.mdx). Run `pnpm agent budget --check` to enforce the repository's context and consumer-code budgets.
+
+## Related Plan
+- https://github.com/sanjaysah101/rnstack

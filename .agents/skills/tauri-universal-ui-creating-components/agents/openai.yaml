@@ -1,0 +1,7 @@
+interface:
+  display_name: "Create Tauri Universal Components"
+  short_description: "Design new shared UI components safely"
+  default_prompt: "Use $tauri-universal-ui-creating-components to create a typed, documented component with the right platform adapters."
+
+policy:
+  allow_implicit_invocation: true

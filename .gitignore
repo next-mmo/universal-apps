@@ -213,3 +213,10 @@ apps/tauri-app/public/docs/
 apps/tauri-app/public/llms.txt
 apps/tauri-app/public/llms-full.txt
 apps/tauri-app/public/agent/
+
+# Agent Workflow Scrum local and generated artifacts
+report/
+graphify-out/
+.claude/skills/
+.cursor/rules/*.generated.mdc
+.cursor/commands/*.generated.md

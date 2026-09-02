@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tauri Universal UI Variants"
+  short_description: "Design reusable component variants with CVA"
+  default_prompt: "Use $tauri-universal-ui-variants to add or review a typed, token-safe component variant."
+
+policy:
+  allow_implicit_invocation: true

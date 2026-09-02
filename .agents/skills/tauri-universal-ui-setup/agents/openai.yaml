@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tauri Universal UI Setup"
+  short_description: "Set up UI packages and scaffold components"
+  default_prompt: "Use $tauri-universal-ui-setup to wire a new shared UI component into the correct platform package."
+
+policy:
+  allow_implicit_invocation: true

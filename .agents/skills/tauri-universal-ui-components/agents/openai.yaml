@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tauri Universal UI Components"
+  short_description: "Compose accessible DOM and native primitives"
+  default_prompt: "Use $tauri-universal-ui-components to compose existing primitives with accessible slots and platform-safe imports."
+
+policy:
+  allow_implicit_invocation: true

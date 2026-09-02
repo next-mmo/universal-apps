@@ -38,3 +38,10 @@ Resolve conflicts in this order: safety and workspace boundaries; the approved p
 - Do not add package-root `index.ts` re-export barrels unless technically necessary.
 - Use declared stable subpath exports such as `@package/ui/button` and `@package/pro/crud`.
 - Legacy `@package/*/src/*` imports remain compatibility-only; do not introduce new ones.
+
+## Agent Workflow Scrum
+
+- Humans own outcomes, priority, acceptance, policy, release, and external or destructive authorization; agents never self-approve.
+- Start non-trivial work with `pnpm context "<scope>"`. Keep one active task and synchronize product changes with its PRD, tests, and evidence.
+- Keep workflow artifacts under `.agents/docs/` and canonical skills under `.agents/skills/`. Graphify and OpenViking remain optional; OpenViking is explicit-only.
+- Follow [delivery](.agents/docs/agent-workflow.md), [architecture](.agents/docs/architecture.md), and [development checks](.agents/docs/development.md).

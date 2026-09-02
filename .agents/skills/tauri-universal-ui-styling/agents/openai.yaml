@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tauri Universal UI Styling"
+  short_description: "Apply shared tokens and platform-safe classes"
+  default_prompt: "Use $tauri-universal-ui-styling to review or implement token-first styling across DOM and native UI."
+
+policy:
+  allow_implicit_invocation: true

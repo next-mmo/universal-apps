@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tauri Universal UI Validation"
+  short_description: "Review UI changes against local contracts"
+  default_prompt: "Use $tauri-universal-ui-validation to review a UI change and report evidence-backed findings and checks."
+
+policy:
+  allow_implicit_invocation: true
