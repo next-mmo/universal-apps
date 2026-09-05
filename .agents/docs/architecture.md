@@ -10,7 +10,7 @@
 | UI and feature packages | `packages/ui/`, `packages/pro/` | Stable React subpath exports |
 | Framework adapters | `packages/pro-vue/`, `packages/pro-svelte/`, `packages/ui-native/` | Vue, Svelte, and React Native Web bindings |
 | Desktop boundary | `packages/tauri-api/`, `apps/tauri-app/src-tauri/` | Typed commands, browser fallbacks, Rust capabilities |
-| Agent interfaces | `packages/cli/`, `packages/mcp/`, `llms.txt` | Bounded discovery, documentation, recipes, and MCP tools |
+| Agent interfaces | `packages/cli/`, `packages/agent-workflow/`, `packages/mcp/`, `llms.txt` | Bounded discovery, workflow starters, documentation, recipes, and MCP tools |
 
 Application documentation under `apps/tauri-app/content/docs/` owns public usage guidance. `llms.txt` routes agents to focused material; generated bundles are derived.
 

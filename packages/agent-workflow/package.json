@@ -1,0 +1,9 @@
+{
+  "name": "@package/agent-workflow",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./init": "./src/init.ts"
+  }
+}

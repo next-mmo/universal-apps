@@ -4,6 +4,13 @@ import { performance } from 'node:perf_hooks';
 import { spawnSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
 
+import {
+  listStarters,
+  planStarter,
+  resolveStarter,
+  writeStarter,
+  type StarterPlan,
+} from '@package/agent-workflow/init';
 import type { ScaffoldConfig } from './config';
 import { fail, runPnpm } from './config';
 import { externalDependencies } from './transform';
@@ -52,6 +59,7 @@ commands:
   find [query] [--framework <name>] [--kind <kind>] [--limit <n> | --all] [--json]
   inspect <id-or-symbol> [--framework <name>] [--full] [--json]
   recipe [id] [--framework <name>] [--example] [--json]
+  init [starter] [--out <dir>] [--dry-run] [--json]
   budget [--check] [--json]
   catalog-check
   check [--changed | --all] [--verbose]
@@ -275,6 +283,46 @@ async function showRecipe(config: ScaffoldConfig, args: string[]): Promise<void>
   }
 }
 
+function formatStarterPlan(plan: StarterPlan): string {
+  const lines = [`${plan.id} - ${plan.summary}`, `output: ${plan.output}`];
+  for (const file of plan.files) lines.push(`${file.status.toUpperCase()} ${file.path}`);
+  lines.push(`verify: ${plan.verify.join(' && ')}`);
+  return lines.join('\n');
+}
+
+async function initStarter(config: ScaffoldConfig, args: string[]): Promise<void> {
+  const { positionals, values } = parseArgs({
+    args,
+    allowPositionals: true,
+    options: {
+      out: { type: 'string' },
+      'dry-run': { type: 'boolean', default: false },
+      json: { type: 'boolean', default: false },
+    },
+  });
+  const [id] = positionals;
+  if (id === undefined) {
+    if (values.json) {
+      console.log(JSON.stringify({ starters: listStarters() }));
+      return;
+    }
+    console.log(listStarters().map((starter) => `${starter.id} - ${starter.summary}`).join('\n'));
+    console.log('usage: pnpm agent init <starter> [--out <dir>] [--dry-run] [--json]');
+    return;
+  }
+
+  const starter = resolveStarter(id);
+  if (starter === undefined) fail(`unknown starter "${id}"`);
+  const output = path.resolve(config.rootDir, values.out ?? `starter-${id}`);
+  const plan = values['dry-run'] ? await planStarter(starter, output) : await writeStarter(starter, output);
+  if (values.json) {
+    console.log(JSON.stringify({ ...plan, dryRun: values['dry-run'] }));
+    return;
+  }
+  console.log(formatStarterPlan(plan));
+  if (values['dry-run']) console.log('DRY RUN no files written');
+}
+
 function textMetrics(text: string) {
   return {
     bytes: Buffer.byteLength(text),
@@ -441,8 +489,9 @@ function selectedChecks(files: string[], all: boolean): CheckCommand[] {
     { label: 'agent docs', args: ['agent:docs:check'] },
     { label: 'lint', args: ['lint'] },
   ];
-  if (include(['agent', 'packages/cli', 'scaffold.config.json', 'scripts'])) {
+  if (include(['agent', 'packages/cli', 'packages/agent-workflow', 'scaffold.config.json', 'scripts'])) {
     checks.push({ label: 'CLI typecheck', args: ['exec', 'tsc', '-p', 'packages/cli/tsconfig.json'] });
+    checks.push({ label: 'agent-workflow typecheck', args: ['exec', 'tsc', '-p', 'packages/agent-workflow/tsconfig.json'] });
     checks.push({ label: 'CLI integration', args: ['agent:test'] });
   }
   if (include(['agent', 'packages/mcp', 'apps/tauri-app/content/docs'])) {
@@ -519,6 +568,9 @@ export async function agent(config: ScaffoldConfig, args: string[]): Promise<voi
       break;
     case 'recipe':
       await showRecipe(config, rest);
+      break;
+    case 'init':
+      await initStarter(config, rest);
       break;
     case 'budget':
       await budget(config, rest);

@@ -5,5 +5,8 @@
   "type": "module",
   "bin": {
     "package-cli": "./src/index.ts"
+  },
+  "dependencies": {
+    "@package/agent-workflow": "workspace:*"
   }
 }

@@ -56,7 +56,7 @@ The increment also includes a first-party UI skill family inspired by the struct
 - [x] Eight top-level skills are present under `.agents/skills/` and individually pass the skill validator.
 - [x] Parent routing and focused setup, component creation, composition, styling, variants, performance, and validation guidance match repository ownership.
 - [x] Skill metadata is present and implicit invocation remains enabled.
-- [ ] The repository adapter check passes in the current shell environment; the current run is blocked by pre-existing CRLF handling in `.agents/scripts/skill.sh` and the two existing workflow skills.
+- [x] The repository adapter check passes in the current Git Bash environment: `bash .agents/scripts/skill.sh check` and `check all` both pass.
 
 ### Extension evidence
 
@@ -66,4 +66,52 @@ The increment also includes a first-party UI skill family inspired by the struct
 | Workflow consistency | `pnpm workflow:check --strict-budget` | Passed; existing Scrum skill remains near its documentation budget |
 | Documentation integrity | `pnpm docs:check`; `pnpm agent:docs:check` | Passed; 33 generated agent pages are current |
 | Existing agent checks | `pnpm agent check --changed` | Passed: 12 checks |
-| Canonical adapter check | `bash .agents/scripts/skill.sh check` | Not passed in this Windows/WSL invocation: `set -euo pipefail` and existing frontmatter checks encounter CRLF; no new-skill-specific failure was reported |
+| Canonical adapter check | `bash .agents/scripts/skill.sh check` and `check all` | Passed in this Git Bash environment; the earlier CRLF block was specific to that Windows/WSL invocation |
+
+## Approved scoped extension: Reuse-first token efficiency
+
+User approved the complete implementation plan on 2026-09-05. [Suggestion 0001](../suggestions/0001-reuse-first-token-efficiency.md) records the decision and exact policy targets. This extension changes repository guidance and evaluation instructions only; prior work and human acceptance remain unchanged. Recover by reverting only this extension's hunks and generated copies.
+
+### Token-efficiency acceptance
+
+- [x] Root guidance routes to a reuse-first sequence that preserves requirements and approvals.
+- [x] Context and verification guidance avoid redundant work without losing fresh evidence or required checks.
+- [x] Evaluation guidance covers equivalent reuse, defect, and security tasks with host input/output tokens, calls, repeated reads, and verification outcomes.
+- [x] Standing instruction and entry-point estimates show no net growth; report behavioral savings as unmeasured.
+- [x] Workflow/documentation checks pass and affected existing adapters match canonical sources; record unrelated baseline adapter failures separately.
+
+### Token-efficiency evidence
+
+| Claim | Evidence | Result |
+| --- | --- | --- |
+| Baseline | `pnpm workflow:check --strict-budget`; `pnpm docs:check` | Passed; root ~690 tokens, Scrum entry point ~872 tokens; existing Scrum budget headroom warning |
+| Baseline working tree | `git status --short` | Clean before this extension; prior task evidence above is historical |
+| Reuse-first guidance | `AGENTS.md`; Scrum delivery reference | Passed; root routing and delivery sequence preserve approvals, contracts, and safety boundaries |
+| Bounded context and verification | Scrum context-routing and verification references | Passed; named uncertainty/freshness and meaningful regression/negative-path rules are explicit |
+| Evaluation coverage | `agent/evals.md` | Passed; host input/output, calls, repeated reads, equivalent reuse, defect, and security scenarios are specified |
+| Final workflow/documentation | `pnpm workflow:check --strict-budget`; `pnpm docs:check` | Passed; root ~673/800, Scrum entry point ~872/900 with existing headroom warning |
+| Existing adapters | `bash .agents/scripts/skill.sh check all` | Passed after syncing ignored Claude/Cursor adapters |
+| Changed-scope agent checks | `pnpm agent check --changed`; `pnpm agent:docs:check`; `git diff --check` | Passed: 7 checks, 33 generated pages, clean diff check |
+| Behavioral savings | Paired baseline/revised agent runs | Unmeasured; no percentage claimed |
+
+## Approved scoped extension: Todo workflow starter
+
+User approved the starter package and CLI slice on 2026-09-05. The implementation adds `@package/agent-workflow` and exposes `pnpm agent init todo`; it keeps the starter focused on a product brief and first task so agents can begin with bounded context instead of copying a large application. The existing `apps/web-todo` remains the reference consumer.
+
+### Starter acceptance
+
+- [x] `@package/agent-workflow` exposes a safe starter registry and writer with stable subpath exports.
+- [x] `pnpm agent init todo` supports `--dry-run` and `--json`, refuses directory conflicts, and does not overwrite existing files.
+- [x] The Todo starter creates only concise `AGENTS.md`, `README.md`, PRD, and active-task/evidence files.
+- [x] The agent catalog and `llms.txt` route users to the starter and existing Todo example.
+- [x] Changed-scope checks include both CLI and starter-package typechecks.
+
+### Starter evidence
+
+| Claim | Evidence | Result |
+| --- | --- | --- |
+| Package contracts | `pnpm exec tsc -p packages/agent-workflow/tsconfig.json` | Passed |
+| CLI integration | `pnpm agent:test` | Passed: 13 assertions, including dry-run, creation, and rerun preservation |
+| Catalog route | `pnpm agent recipe todo-starter --framework universal` | Passed; bounded output includes command, example, and verification |
+| Budget | `pnpm agent budget --check` | Passed; default response 248/1200 chars |
+| Changed-scope coverage | `pnpm agent check --changed` | Passed: 13 checks in 108.5s; lockfile scope selected the full consumer build matrix |

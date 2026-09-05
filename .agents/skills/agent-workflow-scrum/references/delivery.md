@@ -1,5 +1,18 @@
 # Risk-Scaled Delivery
 
+## Reuse Before Implementation
+
+Understand the affected code and trace its real flow before choosing a solution:
+
+1. Confirm each proposed change serves the approved outcome; omit speculative additions without dropping requirements.
+2. Discover and reuse repository capabilities through the catalog and recipes.
+3. Consider standard library or native platform features, then installed dependencies, when existing repository capabilities are insufficient.
+4. Implement the smallest maintainable solution that meets the contract; avoid unrelated cleanup and abstractions without a current need.
+
+Preserve shared component, accessibility, cross-platform, security, validation, and data-loss handling contracts. Fewer lines alone do not prove a better solution. Root plan approval and risk-specific authorization still apply, including on the fast path.
+
+Use [context routing](context-routing.md) for bounded reads and [verification](verification.md) for checks. Report decisions, results, validation, and unresolved risks concisely; keep required task evidence and link to its owner instead of repeating it across documents.
+
 ## Fast Path
 
 For an isolated typo, comment, tiny CSS change, or one-line defect: reproduce, make the smallest change, run the narrowest relevant check, and report it. Do not create ceremony that costs more than the risk.

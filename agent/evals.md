@@ -13,10 +13,26 @@ Use these tasks to compare repository guidance or tooling changes. Start each ta
 For each run, record:
 
 - Input tokens reported by the agent host
+- Output tokens reported by the agent host; report unavailable counters as unavailable
 - Shell/tool calls
 - Repository files opened before the first edit
+- Repeated reads of unchanged material, with reasons when freshness was required
 - Attempts before the first successful verification
 - Elapsed time to a green check
+
+## Workflow guidance comparison
+
+Compare baseline and revised guidance on the same starting product commit, exact prompt, acceptance criteria, model/settings, tools, and permissions. Use separate fresh sessions and isolated checkouts; vary only the guidance. Record the model, guidance revisions, cache usage when exposed, run count, and failures. Compare medians across repeated runs without discarding unsuccessful attempts.
+
+| Scenario | Acceptance gate |
+| --- | --- |
+| Existing-component reuse | Compose a requested page from cataloged components; preserve shared tokens, accessibility, and platform contracts; pass the relevant consumer check. |
+| Small defect fix | Reproduce a specific defect, apply a bounded fix, and verify its regression without unrelated cleanup. |
+| Security-sensitive change | Exercise allowed and denied behavior at the affected trust boundary; preserve validation, authorization, and required human approvals. |
+
+Select and freeze each concrete defect or feature and its acceptance checks before either run. Compare token/call savings only alongside task completion, first-pass verification, and retained requirements; an incomplete or unsafe result is not a saving. Do not execute destructive or external scenarios without their required authorization.
+
+Measure standing instructions and skill entry points separately using normalized LF text length divided by four, rounded up per file. Report heuristic text size separately from host token usage, output size, and task cost. Instruction shrinkage or fewer generated lines does not establish behavioral token savings; those require agent runs. Keep results in the owning task evidence rather than claiming an unmeasured percentage.
 
 Deterministic release gates are checked by `pnpm agent budget --check`. The React CRUD proof baseline was 108 nonblank lines / about 835 estimated tokens; the gate is 43 lines / 334 tokens.
 

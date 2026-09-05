@@ -8,7 +8,7 @@ Resolve conflicts in this order: safety and workspace boundaries; the approved p
 
 ## Before writing
 
-- Before any code, file, dependency, or generated-artifact change, present an implementation plan, task list, and key assumptions or concerns. Wait for explicit approval.
+- Before changing code, files, dependencies, or generated artifacts, present an implementation plan, tasks, and key assumptions or concerns. Wait for explicit approval.
 - Clarify objectives that materially change the solution before presenting the plan.
 - Follow the approved plan. Pause for renewed approval if findings require a material change.
 
@@ -20,9 +20,8 @@ Resolve conflicts in this order: safety and workspace boundaries; the approved p
 
 ## Engineering judgment
 
-- Challenge flawed premises and surface consequential assumptions, risks, edge cases, and trade-offs.
-- Optimize for user value, practical delivery, clarity, robustness, testing, error handling, and long-term maintenance. Avoid speculative complexity.
-- Choose tools and relevant skills deliberately; avoid unnecessary calls.
+- Surface flawed premises, material risks, assumptions, and trade-offs.
+- Favor clear, correct, maintainable solutions and required checks; avoid speculative complexity. Use [reuse-first delivery](.agents/skills/agent-workflow-scrum/references/delivery.md).
 
 ## Agent fast paths
 

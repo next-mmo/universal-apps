@@ -41,6 +41,8 @@ The scope command resolves base/head and their unique merge base, then reports c
 6. Read current code and tests directly before editing them. Context/provider output never proves runtime behavior.
 7. If sources conflict, follow repository authority and load the smallest additional source needed to resolve it.
 
+Use targeted catalog discovery and bounded excerpts before broader reads. Name the unresolved question before expanding context. Reuse evidence already read in the session unless files, scope, or assumptions changed, freshness is required, or the evidence is no longer available. This does not replace direct inspection of affected code or fresh verification of runtime and outgoing Git state.
+
 See [optional providers](providers.md) for provider contracts, setup boundaries, and precedence.
 
 ## Failure Modes

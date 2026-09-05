@@ -263,7 +263,13 @@ importers:
         specifier: 7.3.3
         version: 7.3.3(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.0)(tsx@4.22.3)(yaml@2.9.0)
 
-  packages/cli: {}
+  packages/agent-workflow: {}
+
+  packages/cli:
+    dependencies:
+      '@package/agent-workflow':
+        specifier: workspace:*
+        version: link:../agent-workflow
 
   packages/core:
     dependencies:

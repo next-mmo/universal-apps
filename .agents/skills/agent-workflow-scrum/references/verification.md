@@ -2,6 +2,8 @@
 
 Use the narrowest checks that can actually prove the changed behavior, then add broader checks when the affected boundary requires them. Tests are evidence, not automatic authority: reconcile stale or over-constrained tests with current code, approved acceptance criteria, PRDs, and explicit human decisions.
 
+After required checks pass on the current state, repeat or broaden them only for new changes, failures, unresolved risks, or required freshness. Preserve meaningful regression and negative-path coverage; avoid tests that merely restate implementation or match prose to claim behavioral correctness.
+
 ## Scope Before Checks
 
 For committed PR/branch work, verify the live base first and run:

@@ -1,3 +1,7 @@
+import { access, mkdtemp, readFile, rm } from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+
 import { agent } from '../src/agent';
 import { loadConfig } from '../src/config';
 
@@ -35,5 +39,27 @@ assert(recipe.length < 1200, 'recipe default stays inside response budget');
 
 const example = await capture(['recipe', 'crud-page', '--framework', 'react', '--example']);
 assert(example.includes('defineProResource'), 'example source is available explicitly');
+
+const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'tauri-universal-agent-'));
+const starterRoot = path.join(tempRoot, 'todo');
+try {
+  const dryRun = await capture(['init', 'todo', '--out', starterRoot, '--dry-run']);
+  assert(dryRun.includes('CREATE AGENTS.md'), 'init dry-run reports starter files');
+  await access(path.join(starterRoot, 'AGENTS.md')).then(
+    () => {
+      throw new Error('FAIL init dry-run wrote files');
+    },
+    () => undefined,
+  );
+
+  const created = await capture(['init', 'todo', '--out', starterRoot]);
+  assert(created.includes('CREATE .agents/docs/prd/0001-todo.md'), 'init writes the Todo PRD');
+  assert((await readFile(path.join(starterRoot, 'AGENTS.md'), 'utf8')).toLowerCase().includes('reuse'), 'starter includes reuse guidance');
+
+  const rerun = await capture(['init', 'todo', '--out', starterRoot]);
+  assert(rerun.includes('EXISTS AGENTS.md'), 'init preserves existing files on rerun');
+} finally {
+  await rm(tempRoot, { recursive: true, force: true });
+}
 
 console.info('ALL CLI INTEGRATION TESTS PASSED');

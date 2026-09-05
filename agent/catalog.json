@@ -953,6 +953,24 @@
       },
       "command": "pnpm scaffold add ui <name> --dry-run",
       "verify": "pnpm agent check --changed"
+    },
+    {
+      "id": "todo-starter",
+      "summary": "Initialize a bounded Todo product brief and first implementation task.",
+      "frameworks": [
+        "universal"
+      ],
+      "uses": [
+        "bridge.todo-storage",
+        "ui.button",
+        "ui.checkbox",
+        "ui.input"
+      ],
+      "examples": {
+        "universal": "apps/web-todo/src/app.tsx"
+      },
+      "command": "pnpm agent init todo",
+      "verify": "pnpm agent check --changed"
     }
   ]
 }
