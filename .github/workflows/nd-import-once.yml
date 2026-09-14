@@ -1,0 +1,40 @@
+name: Import pinned ND source (migration only)
+
+on:
+  push:
+    branches: [feat/standalone-nd-workflow]
+    paths: [.github/workflows/nd-import-once.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nd-source-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    if: github.repository == 'next-mmo/universal-apps'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/checkout@v6
+        with:
+          repository: next-mmo/nd-workflow
+          ref: 04d875d63c5eac80d35e5c6fb329dcdefd02a393
+          path: .nd-import-source
+          persist-credentials: false
+      - name: Import exact tracked source without nested Git metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C .nd-import-source rev-parse HEAD)" = '04d875d63c5eac80d35e5c6fb329dcdefd02a393'
+          test ! -e packages/nd-workflow
+          mkdir -p packages/nd-workflow
+          git -C .nd-import-source archive HEAD | tar -x -C packages/nd-workflow
+          git add -- packages/nd-workflow
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore(nd): import standalone source at 04d875d' -m 'Preserve the pinned ND source, tests, documentation, examples, and MIT license. No project policy adoption, release, or source repository deletion.'
+          git push origin HEAD:refs/heads/feat/standalone-nd-workflow
