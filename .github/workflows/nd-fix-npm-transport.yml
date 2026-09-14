@@ -24,12 +24,52 @@ jobs:
         with:
           node-version: '20'
       - name: Apply explicit transport mapping
-        run: python .github/nd-fix-npm-transport.py
-      - name: Keep source validation, safety regressions, and installed CLI checks
         run: |
-          python packages/nd-workflow/scripts/validate.py
-          python -m unittest discover -s packages/nd-workflow/tests -p 'test_*.py' -v
-          node --test packages/nd-workflow/tests/launcher.test.mjs
+          python .github/nd-fix-npm-transport.py
+          python - <<'PY'
+          from pathlib import Path
+          import ast
+          root = Path('packages/nd-workflow')
+          file = root / 'scripts/validate.py'
+          text = file.read_text()
+          old = '                or ".gitignore" not in files or "gitignore.template" in files):'
+          new = '''                or ".gitignore" not in files
+                          or any(isinstance(name, str) and name != ".gitignore"
+                                 and name.casefold() in (".gitignore", "gitignore.template")
+                                 for name in files)):'''
+          assert text.count(old) == 1
+          text = text.replace(old, new)
+          ast.parse(text)
+          file.write_text(text)
+          file = root / 'scripts/package_npm.py'
+          text = file.read_text().replace("    if 'gitignore.template' in entries:",
+                                         "    if any(name.casefold() == 'gitignore.template' for name in entries):")
+          ast.parse(text)
+          file.write_text(text)
+          file = root / 'tests/test_standalone_package.py'
+          text = file.read_text()
+          old = "            manifest = json.loads(original)\n            manifest['source_paths'] = {'.gitignore': '../outside'}"
+          new = """            from validate import load_manifest
+                      for collision in ('.GITIGNORE', 'GitIgnore.template'):
+                          manifest = json.loads(original)
+                          manifest['files'].append(collision)
+                          manifest_path.write_text(json.dumps(manifest))
+                          self.assertIn('invalid npm source-path mapping', load_manifest(self.package)[1])
+                      manifest = json.loads(original)
+                      manifest['source_paths'] = {'.gitignore': '../outside'}"""
+          # Dedent the replacement's continuation lines to the method's try block.
+          new = new.replace('\n                      ', '\n            ')
+          assert text.count(old) == 1
+          text = text.replace(old, new)
+          ast.parse(text)
+          file.write_text(text)
+          PY
+      - name: Keep source validation, safety regressions, and installed CLI checks
+        working-directory: packages/nd-workflow
+        run: |
+          python scripts/validate.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+          node --test tests/launcher.test.mjs
       - name: Commit validated fix and remove temporary helpers
         shell: bash
         run: |
