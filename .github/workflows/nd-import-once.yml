@@ -1,4 +1,4 @@
-name: Import pinned ND source (migration only)
+name: Finalize standalone ND package (migration only)
 
 on:
   push:
@@ -13,28 +13,32 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  import:
+  finish:
     if: github.repository == 'next-mmo/universal-apps'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
         with:
           ref: ${{ github.sha }}
-      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
         with:
-          repository: next-mmo/nd-workflow
-          ref: 04d875d63c5eac80d35e5c6fb329dcdefd02a393
-          path: .nd-import-source
-          persist-credentials: false
-      - name: Import exact tracked source without nested Git metadata
+          python-version: '3.11'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+      - name: Wire package without changing its generic core
+        run: python .github/nd-package-migration.py
+      - name: Validate and exercise the independent artifact
+        run: |
+          python packages/nd-workflow/scripts/validate.py
+          node --test packages/nd-workflow/tests/launcher.test.mjs
+          python -m unittest discover -s packages/nd-workflow/tests -p 'test_standalone_package.py' -v
+      - name: Commit scoped wiring and remove migration helpers
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git -C .nd-import-source rev-parse HEAD)" = '04d875d63c5eac80d35e5c6fb329dcdefd02a393'
-          test ! -e packages/nd-workflow
-          mkdir -p packages/nd-workflow
-          git -C .nd-import-source archive HEAD | tar -x -C packages/nd-workflow
-          git add -- packages/nd-workflow
-          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore(nd): import standalone source at 04d875d' -m 'Preserve the pinned ND source, tests, documentation, examples, and MIT license. No project policy adoption, release, or source repository deletion.'
+          git rm -- .github/workflows/nd-import-once.yml .github/nd-package-migration.py
+          git add -- packages/nd-workflow/package.json packages/nd-workflow/IMPORT.json packages/nd-workflow/package-files.json packages/nd-workflow/README.md package.json pnpm-lock.yaml README.md
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'feat(nd): wire independent package and remove import helpers' -m 'Standalone artifact checks passed on the migration runner. Full regression and platform coverage remain the separate ND CI gate. No publication, main merge, or host policy adoption.'
           git push origin HEAD:refs/heads/feat/standalone-nd-workflow
