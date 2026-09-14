@@ -10,7 +10,7 @@ import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / 'scripts'))
+sys.path.insert(0, str(ROOT / 'scripts')))
 from core_export import collect_core
 from package_npm import package_npm
 
@@ -19,7 +19,9 @@ class StandalonePackageTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.sandbox = tempfile.TemporaryDirectory(prefix='nd-standalone-')
-        cls.base = Path(cls.sandbox.name)
+        # macOS tempfile paths may start with the OS alias /var -> /private/var.
+        # Use the real fixture root; do not weaken package output link checks.
+        cls.base = Path(cls.sandbox.name).resolve()
         # A self-contained copy, with no authoring workspace or node_modules.
         cls.source = cls.base / 'independent source'
         for name, data in collect_core(ROOT).items():
