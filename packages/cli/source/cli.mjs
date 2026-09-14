@@ -13,9 +13,9 @@ const help = `universal <command> [items] [options]
   doctor              check for missing files and workspace library dependencies
 
   -c, --cwd <path>          target project (default: current directory)
-  --path <path>            generated source directory (init only)
-  --css <path>             Tailwind v4 stylesheet (init only)
-  --framework <name>       react, vue, svelte or native
+  --path <path>             generated source directory (init only)
+  --css <path>              Tailwind v4 stylesheet (init only)
+  --framework <name>        react, vue, svelte or native
   --all                    add all packages for an explicit --framework
   --overwrite              explicitly replace differing local source files
   --dry-run                show a write plan without changing anything
@@ -73,6 +73,7 @@ export async function main(args = process.argv.slice(2)) {
   }
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+// npm and npx invoke the bin through a symlink; compare real paths, not link paths.
+if (process.argv[1] && fs.existsSync(process.argv[1]) && fs.realpathSync(process.argv[1]) === fs.realpathSync(fileURLToPath(import.meta.url))) {
   main().catch((error) => { console.error(`universal: ${error.message}`); process.exitCode = 1; });
 }
