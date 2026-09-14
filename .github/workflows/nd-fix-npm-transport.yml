@@ -1,0 +1,40 @@
+name: Fix npm resource transport (migration only)
+
+on:
+  push:
+    branches: [feat/standalone-nd-workflow]
+    paths: [.github/workflows/nd-fix-npm-transport.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.repository == 'next-mmo/universal-apps'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+      - name: Apply explicit transport mapping
+        run: python .github/nd-fix-npm-transport.py
+      - name: Keep source validation, safety regressions, and installed CLI checks
+        run: |
+          python packages/nd-workflow/scripts/validate.py
+          python -m unittest discover -s packages/nd-workflow/tests -p 'test_*.py' -v
+          node --test packages/nd-workflow/tests/launcher.test.mjs
+      - name: Commit validated fix and remove temporary helpers
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm -- .github/nd-fix-npm-transport.py .github/workflows/nd-fix-npm-transport.yml
+          git add -- packages/nd-workflow/scripts/validate.py packages/nd-workflow/scripts/core_export.py packages/nd-workflow/scripts/package.py packages/nd-workflow/scripts/package_npm.py packages/nd-workflow/tests/test_standalone_package.py packages/nd-workflow/STANDALONE.md packages/nd-workflow/package.json
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'fix(nd): preserve required ignore resource through npm installation' -m 'Use an explicit and validated transport filename mapping, restore canonical source names on export, and exercise the npm-installed nd init command. Original source manifests still require .gitignore. Full Python and launcher regression suites passed before this commit.'
+          git push origin HEAD:refs/heads/feat/standalone-nd-workflow
