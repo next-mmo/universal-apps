@@ -1,0 +1,31 @@
+test_cli_smoke_report_and_exit_code (test_logstat.CLISmokeTests.test_cli_smoke_report_and_exit_code) ... ok
+test_blank_lines_counted_not_malformed (test_logstat.ClassificationTests.test_blank_lines_counted_not_malformed) ... ok
+test_line_counter_accounting_invariant_holds (test_logstat.ClassificationTests.test_line_counter_accounting_invariant_holds) ... ok
+test_malformed_lines_counted_and_never_crash (test_logstat.ClassificationTests.test_malformed_lines_counted_and_never_crash) ... ok
+test_non_utf8_bytes_decoded_with_replacement_and_no_crash (test_logstat.ClassificationTests.test_non_utf8_bytes_decoded_with_replacement_and_no_crash) ... ok
+test_status_class_buckets_and_other (test_logstat.ClassificationTests.test_status_class_buckets_and_other) ... ok
+test_very_long_line_is_oversize_and_neighbors_still_parse (test_logstat.ClassificationTests.test_very_long_line_is_oversize_and_neighbors_still_parse) ... ok
+test_deterministic_ordering_for_equal_counts (test_logstat.ErrorRateAndOrderingTests.test_deterministic_ordering_for_equal_counts) ... ok
+test_error_rate_is_none_without_parsed_lines (test_logstat.ErrorRateAndOrderingTests.test_error_rate_is_none_without_parsed_lines) ... ok
+test_error_rate_math_exact_and_rendered (test_logstat.ErrorRateAndOrderingTests.test_error_rate_math_exact_and_rendered) ... ok
+test_repeated_analysis_is_byte_identical (test_logstat.ErrorRateAndOrderingTests.test_repeated_analysis_is_byte_identical) ... ok
+test_top_n_limit_respected_by_api_and_cli (test_logstat.ErrorRateAndOrderingTests.test_top_n_limit_respected_by_api_and_cli) ... ok
+test_combined_log_trailing_referrer_and_user_agent_parses (test_logstat.HappyPathTests.test_combined_log_trailing_referrer_and_user_agent_parses) ... ok
+test_happy_path_counts (test_logstat.HappyPathTests.test_happy_path_counts) ... ok
+test_last_line_without_trailing_newline_is_counted (test_logstat.HappyPathTests.test_last_line_without_trailing_newline_is_counted) ... ok
+test_whitespace_only_file_is_all_blank (test_logstat.HappyPathTests.test_whitespace_only_file_is_all_blank) ... ok
+test_directory_argument_raises_and_cli_exits_2 (test_logstat.InputErrorTests.test_directory_argument_raises_and_cli_exits_2) ... ok
+test_invalid_top_value_exits_2 (test_logstat.InputErrorTests.test_invalid_top_value_exits_2) ... ok
+test_missing_file_raises_and_cli_exits_2 (test_logstat.InputErrorTests.test_missing_file_raises_and_cli_exits_2) ... ok
+test_size_cap_exceeded_raises_and_cli_exits_2 (test_logstat.InputErrorTests.test_size_cap_exceeded_raises_and_cli_exits_2) ... ok
+test_unreadable_path_reports_clear_error (test_logstat.InputErrorTests.test_unreadable_path_reports_clear_error) ... ok
+test_source_imports_no_network_modules (test_logstat.PolicyTests.test_source_imports_no_network_modules) ... ok
+test_capped_reader_aborts_when_stream_exceeds_cap (test_logstat.StreamingTests.test_capped_reader_aborts_when_stream_exceeds_cap) ... ok
+test_iter_lines_bounded_read_sizes (test_logstat.StreamingTests.test_iter_lines_bounded_read_sizes) ... ok
+test_iter_lines_cap_boundary_exact (test_logstat.StreamingTests.test_iter_lines_cap_boundary_exact) ... ok
+test_small_chunk_sizes_keep_line_accounting_correct (test_logstat.StreamingTests.test_small_chunk_sizes_keep_line_accounting_correct) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.672s
+
+OK

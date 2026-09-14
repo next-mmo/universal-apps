@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.10', '3.11']
+        node-version: ['20']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Validate workflow starter
+        run: python scripts/validate.py
+
+      - name: Run Python regression tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Test starter packaging
+        run: python scripts/package.py --output artifacts/workflow-starter-ci.zip
+
+      - name: Check and test Todo example app
+        working-directory: example/full-stack-todo-express-vanillajs
+        run: |
+          npm ci --ignore-scripts --no-fund
+          npm run check
+          npm run test:api
+
+      - name: Check and test CMS Portfolio example app
+        working-directory: example/full-stack-nd-workflow-cms-portfolio
+        run: |
+          npm ci --ignore-scripts --no-fund
+          npm run check
+          npm run test:api
+
+      - name: Test hardened Python example apps
+        run: |
+          python -m unittest discover -s example/harden-full-nd/py-expense-cli/tests -p 'test_*.py' -v
+          python -m unittest discover -s example/harden-full-nd/py-logstat/tests -p 'test_*.py' -v
+
+      - name: Test hardened Node example app
+        working-directory: example/harden-full-nd/js-md-links
+        run: node --test

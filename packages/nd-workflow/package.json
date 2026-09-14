@@ -1,0 +1,38 @@
+{
+  "name": "@next-mmo/nd-workflow",
+  "version": "0.1.0-beta.1",
+  "description": "Framework-independent, evidence-driven AI development workflow. Python core with an optional Node launcher.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "nd": "./bin/nd.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "python -m unittest discover -s tests -p \"test_*.py\" -v && node --test tests/launcher.test.mjs",
+    "test:launcher": "node --test tests/launcher.test.mjs",
+    "pack:standalone": "node bin/nd-package.mjs"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    ".agents/",
+    "docs/",
+    "plugins/",
+    "tests/",
+    "package-files.json",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "START-HERE.md",
+    "README.md",
+    "STANDALONE.md",
+    "BENHMARK.md",
+    "LICENSE",
+    ".gitattributes",
+    ".gitignore",
+    "IMPORT.json",
+    "gitignore.template"
+  ]
+}

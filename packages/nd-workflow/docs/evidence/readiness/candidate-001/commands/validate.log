@@ -1,0 +1,15 @@
+Status: PASS
+Root: C:\Users\MT-Staff\Documents\project\workflow-starter
+Manifest: C:\Users\MT-Staff\Documents\project\workflow-starter\package-files.json
+Files in manifest: 91
+
+Checks:
+  manifest_paths: 0 errors
+  hard_required: 0 errors
+  agents_word_count: 0 errors  (words=448 budget=450)
+  utf8_links: 0 errors  (files=42 relative_links=97 fences=44)
+  skill_frontmatter: 0 errors
+
+No errors.
+
+Limitations: link and fence checks are heuristic; not a full Markdown or YAML parser. Frontmatter parser is a strict scalar subset (name + description, single-line unquoted).

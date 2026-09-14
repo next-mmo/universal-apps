@@ -1,0 +1,100 @@
+name: Standalone ND Workflow
+
+on:
+  pull_request:
+    paths: ['packages/nd-workflow/**', '.github/workflows/nd-workflow.yml', 'package.json', 'pnpm-lock.yaml']
+  push:
+    branches: [main]
+    paths: ['packages/nd-workflow/**', '.github/workflows/nd-workflow.yml', 'package.json', 'pnpm-lock.yaml']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: standalone-nd-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  standalone:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ['3.10', '3.11']
+    defaults:
+      run:
+        working-directory: packages/nd-workflow
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+      - name: Validate portable source
+        run: python scripts/validate.py
+      - name: Original regression suite and extracted-package independence
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Optional Node launcher contracts
+        run: node --test tests/launcher.test.mjs
+      - name: Build standalone transports without workspace dependencies
+        run: |
+          python scripts/package.py --output artifacts/nd-workflow-source.zip
+          python scripts/package_npm.py --output artifacts/nd-workflow.tgz
+      - name: Use the npm-installed executable in a plain external project
+        shell: python
+        run: |
+          import json, os, shutil, subprocess, sys, tempfile
+          from pathlib import Path
+          artifact = Path('artifacts/nd-workflow.tgz').resolve()
+          npm = shutil.which('npm')
+          assert npm, 'npm is required for the optional transport smoke test'
+          with tempfile.TemporaryDirectory(prefix='nd-consumer-') as temporary:
+              project = Path(temporary).resolve()
+              env = {**os.environ, 'ND_PYTHON': sys.executable,
+                     'npm_config_cache': str(project / 'npm-cache')}
+              subprocess.run([npm, 'install', '--offline', '--ignore-scripts', '--no-audit',
+                              '--no-fund', '--no-package-lock', str(artifact)],
+                             cwd=project, env=env, check=True, timeout=90)
+              package = project / 'node_modules/@next-mmo/nd-workflow'
+              subprocess.run([sys.executable, str(package / 'scripts/validate.py')],
+                             cwd=project, env=env, check=True, timeout=30)
+              before = (project / 'package.json').read_bytes()
+              subprocess.run([npm, 'exec', '--offline', '--no', '--', 'nd', 'init', '.'],
+                             cwd=project, env=env, check=True, timeout=30)
+              assert not (project / 'AGENTS.md').exists(), 'Preview must not adopt policy'
+              assert (project / 'package.json').read_bytes() == before
+              metadata = json.loads((package / 'package.json').read_text())
+              assert all(not metadata.get(key) for key in
+                         ('dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'))
+              print('PASS: installed executable previews adoption without framework dependencies')
+      - name: Check and test Todo reference
+        working-directory: packages/nd-workflow/example/full-stack-todo-express-vanillajs
+        run: |
+          npm ci --ignore-scripts --no-fund
+          npm run check
+          npm run test:api
+      - name: Check and test CMS reference
+        working-directory: packages/nd-workflow/example/full-stack-nd-workflow-cms-portfolio
+        run: |
+          npm ci --ignore-scripts --no-fund
+          npm run check
+          npm run test:api
+      - name: Hardened Python references
+        run: |
+          python -m unittest discover -s example/harden-full-nd/py-expense-cli/tests -p 'test_*.py' -v
+          python -m unittest discover -s example/harden-full-nd/py-logstat/tests -p 'test_*.py' -v
+      - name: Hardened Node reference
+        working-directory: packages/nd-workflow/example/harden-full-nd/js-md-links
+        run: node --test
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.11'
+        with:
+          name: nd-workflow-standalone
+          path: |
+            packages/nd-workflow/artifacts/nd-workflow.tgz
+            packages/nd-workflow/artifacts/nd-workflow-source.zip
+          if-no-files-found: error

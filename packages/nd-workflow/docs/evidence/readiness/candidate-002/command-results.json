@@ -1,0 +1,150 @@
+{
+  "commands": [
+    {
+      "name": "validate",
+      "command": [
+        "C:\\Users\\MT-Staff\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "scripts/validate.py"
+      ],
+      "cwd": ".",
+      "started_utc": "2026-09-11T10:28:58.893960+00:00",
+      "elapsed_seconds": 0.219,
+      "exit_code": 0,
+      "command_status": "EXIT_ZERO",
+      "log": "commands/validate.log"
+    },
+    {
+      "name": "unit-tests",
+      "command": [
+        "C:\\Users\\MT-Staff\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "started_utc": "2026-09-11T10:28:59.122578+00:00",
+      "elapsed_seconds": 61.281,
+      "exit_code": 0,
+      "command_status": "EXIT_ZERO",
+      "log": "commands/unit-tests.log"
+    },
+    {
+      "name": "expense-tests",
+      "command": [
+        "C:\\Users\\MT-Staff\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "example/harden-full-nd/py-expense-cli/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "started_utc": "2026-09-11T10:30:00.388971+00:00",
+      "elapsed_seconds": 0.594,
+      "exit_code": 0,
+      "command_status": "EXIT_ZERO",
+      "log": "commands/expense-tests.log"
+    },
+    {
+      "name": "logstat-tests",
+      "command": [
+        "C:\\Users\\MT-Staff\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "example/harden-full-nd/py-logstat/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "started_utc": "2026-09-11T10:30:00.987182+00:00",
+      "elapsed_seconds": 0.859,
+      "exit_code": 0,
+      "command_status": "EXIT_ZERO",
+      "log": "commands/logstat-tests.log"
+    },
+    {
+      "name": "links-tests",
+      "command": [
+        "node",
+        "--test"
+      ],
+      "cwd": "example\\harden-full-nd\\js-md-links",
+      "started_utc": "2026-09-11T10:30:01.845874+00:00",
+      "elapsed_seconds": 1.422,
+      "exit_code": 0,
+      "command_status": "EXIT_ZERO",
+      "log": "commands/links-tests.log"
+    },
+    {
+      "name": "todo-check",
+      "command": [
+        "C:\\nvm4w\\nodejs\\npm.cmd",
+        "run",
+        "check"
+      ],
+      "cwd": "example\\full-stack-todo-express-vanillajs",
+      "started_utc": "2026-09-11T10:30:03.272401+00:00",
+      "elapsed_seconds": 0.719,
+      "exit_code": 0,
+      "command_status": "EXIT_ZERO",
+      "log": "commands/todo-check.log"
+    },
+    {
+      "name": "todo-test-api",
+      "command": [
+        "C:\\nvm4w\\nodejs\\npm.cmd",
+        "run",
+        "test:api"
+      ],
+      "cwd": "example\\full-stack-todo-express-vanillajs",
+      "started_utc": "2026-09-11T10:30:03.983370+00:00",
+      "elapsed_seconds": 1.969,
+      "exit_code": 0,
+      "command_status": "EXIT_ZERO",
+      "log": "commands/todo-test-api.log"
+    },
+    {
+      "name": "cms-check",
+      "command": [
+        "C:\\nvm4w\\nodejs\\npm.cmd",
+        "run",
+        "check"
+      ],
+      "cwd": "example\\full-stack-nd-workflow-cms-portfolio",
+      "started_utc": "2026-09-11T10:30:05.961892+00:00",
+      "elapsed_seconds": 0.812,
+      "exit_code": 0,
+      "command_status": "EXIT_ZERO",
+      "log": "commands/cms-check.log"
+    },
+    {
+      "name": "cms-test-api",
+      "command": [
+        "C:\\nvm4w\\nodejs\\npm.cmd",
+        "run",
+        "test:api"
+      ],
+      "cwd": "example\\full-stack-nd-workflow-cms-portfolio",
+      "started_utc": "2026-09-11T10:30:06.765296+00:00",
+      "elapsed_seconds": 1.063,
+      "exit_code": 0,
+      "command_status": "EXIT_ZERO",
+      "log": "commands/cms-test-api.log"
+    }
+  ],
+  "inputs_unchanged": true,
+  "score": null,
+  "release_gate": "BLOCKED",
+  "note": "Exit zero does not mean no required skips or rubric PASS."
+}

@@ -1,0 +1,16 @@
+{
+  "name": "workflow-todo-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "npm run test:api && npm run test:e2e",
+    "test:api": "node --test test/api.test.js",
+    "test:e2e": "playwright test",
+    "check": "node --check src/app.js && node --check src/store.js && node --check src/server.js && node --check public/app.js"
+  },
+  "dependencies": { "express": "5.2.1" },
+  "devDependencies": { "@playwright/test": "1.63.0" }
+}

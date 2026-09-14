@@ -1,0 +1,42 @@
+{
+  "validate": {
+    "exit_code": 0,
+    "elapsed_seconds": 0.256,
+    "status": "PASS"
+  },
+  "package": {
+    "exit_code": 0,
+    "elapsed_seconds": 0.435,
+    "status": "PASS"
+  },
+  "context_check": {
+    "exit_code": 0,
+    "elapsed_seconds": 2.289,
+    "status": "PASS"
+  },
+  "py-expense-cli-tests": {
+    "exit_code": 0,
+    "elapsed_seconds": 6.434,
+    "status": "PASS"
+  },
+  "py-logstat-tests": {
+    "exit_code": 0,
+    "elapsed_seconds": 5.081,
+    "status": "PASS"
+  },
+  "js-md-links-tests": {
+    "exit_code": 0,
+    "elapsed_seconds": 1.861,
+    "status": "PASS"
+  },
+  "cms-portfolio-tests": {
+    "exit_code": 0,
+    "elapsed_seconds": 1.218,
+    "status": "PASS"
+  },
+  "todo-api-tests": {
+    "exit_code": 0,
+    "elapsed_seconds": 2.312,
+    "status": "PASS"
+  }
+}

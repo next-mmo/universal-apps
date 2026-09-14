@@ -1,0 +1,36 @@
+gh run view 34773737906 --repo next-mmo/nd-workflow (revision 299237d)
+
+
+✓ main CI · 34773737906
+Triggered via push about 3 minutes ago
+
+JOBS
+✓ validate-and-test (windows-latest, 3.10, 20) in 1m7s (ID 103767913194)
+✓ validate-and-test (macos-latest, 3.11, 20) in 50s (ID 103767913293)
+✓ validate-and-test (macos-latest, 3.10, 20) in 1m9s (ID 103767913306)
+✓ validate-and-test (ubuntu-latest, 3.10, 20) in 28s (ID 103767913307)
+✓ validate-and-test (ubuntu-latest, 3.11, 20) in 26s (ID 103767913335)
+✓ validate-and-test (windows-latest, 3.11, 20) in 56s (ID 103767913357)
+
+ANNOTATIONS
+! Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (windows-latest, 3.10, 20): .github#2
+
+! Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.11, 20): .github#2
+
+! Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.10, 20): .github#2
+
+! Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (ubuntu-latest, 3.10, 20): .github#2
+
+! Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (ubuntu-latest, 3.11, 20): .github#2
+
+! Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (windows-latest, 3.11, 20): .github#2
+
+
+For more information about a job, try: gh run view --job=<job-id>
+View this run on GitHub: https://github.com/next-mmo/nd-workflow/actions/runs/34773737906

@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "artifacts": [
+    {
+      "status": "PASS",
+      "target": "claude-code",
+      "artifact": "C:\\Users\\MT-Staff\\Documents\\project\\workflow-starter\\artifacts\\workflow-starter-claude-code-0.1.0-beta.1.zip",
+      "entries": 68,
+      "sha256": "a31f73c84647ef9e91ac4c8958109896743aac9417a00763504cece6df3219a9",
+      "size_bytes": 120213,
+      "extracted": "C:\\Users\\MT-Staff\\Documents\\project\\workflow-starter\\.validation\\plugin-acceptance-20260909\\claude-code",
+      "native_validate_exit": 0
+    },
+    {
+      "status": "PASS",
+      "target": "cursor",
+      "artifact": "C:\\Users\\MT-Staff\\Documents\\project\\workflow-starter\\artifacts\\workflow-starter-cursor-0.1.0-beta.1.zip",
+      "entries": 68,
+      "sha256": "8296146160a4e6f091055be81c82aa67ef40212145d8d79732a0b9cd8f6feab8",
+      "size_bytes": 120208,
+      "extracted": "C:\\Users\\MT-Staff\\Documents\\project\\workflow-starter\\.validation\\plugin-acceptance-20260909\\cursor"
+    },
+    {
+      "status": "PASS",
+      "target": "codex",
+      "artifact": "C:\\Users\\MT-Staff\\Documents\\project\\workflow-starter\\artifacts\\workflow-starter-codex-0.1.0-beta.1.zip",
+      "entries": 73,
+      "sha256": "cf45dae9d026b31ebca24ff913d984b2ca01b15f8076d2b6a677ce1f1a5ee1e0",
+      "size_bytes": 121627,
+      "extracted": "C:\\Users\\MT-Staff\\Documents\\project\\workflow-starter\\.validation\\plugin-acceptance-20260909\\codex"
+    }
+  ],
+  "limits": [
+    "Claude manifest validation only, no model invocation",
+    "Cursor/Codex UI install and runtime discovery unverified",
+    "No global install, public submission or publisher claim"
+  ]
+}

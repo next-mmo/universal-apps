@@ -1,0 +1,26 @@
+{
+  "name": "workflow-starter",
+  "version": "0.1.0-beta.1",
+  "displayName": "Workflow Starter",
+  "description": "Handover-first coding workflow: scoped planning, current docs, evidence-backed verification, and durable learnings.",
+  "defaultPrompts": [
+    "Use nd-setup-project to preview fresh, existing, or migration adoption; use nd-workflow-doctor for diagnosis.",
+    "Verify this task against current evidence and integration state.",
+    "Capture durable learnings without duplicating project knowledge."
+  ],
+  "skills": [
+    "nd-setup-project",
+    "nd-workflow-doctor",
+    "nd-doc-lookup",
+    "nd-task-status",
+    "nd-spec-feature",
+    "nd-converge-check",
+    "nd-compound",
+    "nd-bump-version",
+    "nd-skill-creator",
+    "nd-skill-editor",
+    "nd-feedback-collector",
+    "nd-user-testing"
+  ],
+  "sourcesChecked": "2026-09-10"
+}

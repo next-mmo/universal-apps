@@ -1,0 +1,28 @@
+{
+  "status": "READY",
+  "active_tasks": [
+    {
+      "path": "docs/tasks/wip-0007-portable-context-implementation.md",
+      "missing": [],
+      "fields": {
+        "owner": "root mvs_3ff09dcbef3243c5bdd515853158a204. Two other sessions wrote the same files concurrently (see Concurrent-writer record); from the reconciliation point on, one writer owns the deliverable.",
+        "scope_approval": "user approved v0.2 scope (PC-001\u2013PC-010) 2026-09-11 via questionnaire ask_805260986ad34321c514253f; implementation was gated on a separate start instruction, now given.",
+        "authorization": "user start instruction \"ship approved portable-context\" (2026-09-11) in root session mvs_3ff09dcbef3243c5bdd515853158a204, followed by explicit commit approval and then push approval (\"let push code c",
+        "next_action": "none for the approved scope \u2014 implementation is committed on `main` and pushed. Optional follow-ups: Claude Code / Cursor handovers once usable, PC-008 benchmark, multi-process locking for the CLI.",
+        "status": "implementation complete for the approved scope; host-matrix coverage partial and truthfully reported; committed on main. Follow-up release readiness tracked in PRD-0005."
+      },
+      "revision": "MISMATCH"
+    }
+  ],
+  "ambiguous": [],
+  "checkpoint": "COMPLETE",
+  "cache": "OK",
+  "cache_freshness": "FRESH",
+  "stale_or_changed": [],
+  "added_sources": [],
+  "missing_anchors": [],
+  "host_loading": "UNVERIFIED",
+  "limits": "Derived and disposable: rebuild with `nd index build`. Fingerprints detect file changes, not semantic agreement; source files remain authoritative. Host loading, actual token usage and model behavior are not measured here."
+}
+Output footprint: 1716 characters (~429 estimated tokens; budget 500). Estimation is heuristic, not model usage.
+Checkpoint fields, approval and ownership come from task files, never from the index.

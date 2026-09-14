@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio CMS</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/" class="logo">Portfolio</a>
+      <div class="nav-links">
+        <a href="/#projects">Projects</a>
+        <a href="/#blog">Blog</a>
+        <a href="/admin/" id="admin-link">Admin</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Developer Portfolio</h1>
+      <p>Built with Express + Vanilla JS — powered by ND Workflow</p>
+    </section>
+    <section id="projects">
+      <h2>Projects</h2>
+      <div id="projects-grid" class="grid"></div>
+    </section>
+    <section id="blog">
+      <h2>Blog</h2>
+      <div id="posts-list"></div>
+    </section>
+  </main>
+  <footer><p>ND Workflow CMS Portfolio Example &mdash; MIT License</p></footer>
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "protocol": "Candidate-001 AUTOMATED smoke drill; not human onboarding",
+  "human_evidence_valid": false,
+  "stumbles_measurement_valid": false,
+  "score_credit": null,
+  "correction": "Elapsed time is script runtime. Zero stumbles was hard-coded. Saved-byte restoration is not human recovery discovery. Original steps retained as historical automated observations only.",
+  "date": "2026-09-11T16:54:40.861364",
+  "candidate_zip": "C:\\Users\\MT-Staff\\Documents\\project\\workflow-starter\\artifacts\\workflow-starter-candidate-001.zip",
+  "elapsed_seconds": 1.743,
+  "stumbles_count": 0,
+  "recovery_path_verified": true,
+  "all_steps_passed": true,
+  "steps": [
+    {
+      "step": "extract_zip",
+      "status": "PASS",
+      "files_extracted": 91
+    },
+    {
+      "step": "nd_doctor",
+      "exit_code": 1,
+      "status": "PASS",
+      "stdout_snippet": "{\n  \"status\": \"ATTENTION\",\n  \"project_adoption\": \"INCOMPLETE\",\n  \"host_loading\": \"UNVERIFIED\",\n  \"application_baseline\": \"NOT_RUN\",\n  \"context_health\": {\n    \"status\": \"ATTENTION\",\n    \"checkpoint\": \"ABSENT\",\n    \"active_tasks\": [],\n    \"ambiguous\": [],\n    \"cache\": \"MISSING\",\n    \"cache_freshness\":"
+    },
+    {
+      "step": "nd_check",
+      "exit_code": 2,
+      "status": "PASS",
+      "stdout_snippet": "UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.\n"
+    },
+    {
+      "step": "validate_clean",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "step": "error_injection_and_recovery",
+      "error_detected": true,
+      "clean_recovery": true,
+      "status": "PASS"
+    }
+  ]
+}
