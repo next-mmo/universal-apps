@@ -65,9 +65,16 @@ def _check_output_path(
             f"output resolves outside the repo root: {output_resolved}"
         )
     # Reject link/reparse components before dereferencing the destination.
-    for component in (output, *output.parents):
+    for index, component in enumerate((output, *output.parents)):
         if component == root_resolved:
             break
+        # macOS exposes these OS-owned aliases under /private. Tolerate only
+        # ancestors with the expected target, never a requested output link
+        # or a project-created link. Keep the containment check above.
+        if (index and sys.platform == 'darwin'
+                and component in (Path('/tmp'), Path('/var'), Path('/etc'))
+                and component.resolve(strict=False) == Path('/private') / component.name):
+            continue
         reparse = (sys.platform == 'win32' and component.exists()
                    and bool(component.lstat().st_file_attributes & 1024))
         if component.is_symlink() or reparse:
@@ -139,7 +146,7 @@ def package_repo(root: Path, output: Path) -> dict:
             }
 
     # 6. Build the ZIP in exclusive-create mode. If a race creates
-    #    the file between the precheck above and the open, 'x' will
+    #    the file between the precheck and the open, 'x' will
     #    raise FileExistsError and the existing file is preserved.
     file_hashes: dict[str, str] = {}
     try:

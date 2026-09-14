@@ -101,6 +101,7 @@
     "scripts/python-launcher.mjs",
     "scripts/package_npm.py",
     "tests/launcher.test.mjs",
-    "tests/test_standalone_package.py"
+    "tests/test_standalone_package.py",
+    "tests/test_package_paths.py"
   ]
 }
