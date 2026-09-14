@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: standalone-nd-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   standalone:
     runs-on: ${{ matrix.os }}
@@ -40,6 +44,33 @@ jobs:
         run: |
           python scripts/package.py --output artifacts/nd-workflow-source.zip
           python scripts/package_npm.py --output artifacts/nd-workflow.tgz
+      - name: Use the npm-installed executable in a plain external project
+        shell: python
+        run: |
+          import json, os, shutil, subprocess, sys, tempfile
+          from pathlib import Path
+          artifact = Path('artifacts/nd-workflow.tgz').resolve()
+          npm = shutil.which('npm')
+          assert npm, 'npm is required for the optional transport smoke test'
+          with tempfile.TemporaryDirectory(prefix='nd-consumer-') as temporary:
+              project = Path(temporary).resolve()
+              env = {**os.environ, 'ND_PYTHON': sys.executable,
+                     'npm_config_cache': str(project / 'npm-cache')}
+              subprocess.run([npm, 'install', '--offline', '--ignore-scripts', '--no-audit',
+                              '--no-fund', '--no-package-lock', str(artifact)],
+                             cwd=project, env=env, check=True, timeout=90)
+              package = project / 'node_modules/@next-mmo/nd-workflow'
+              subprocess.run([sys.executable, str(package / 'scripts/validate.py')],
+                             cwd=project, env=env, check=True, timeout=30)
+              before = (project / 'package.json').read_bytes()
+              subprocess.run([npm, 'exec', '--offline', '--no', '--', 'nd', 'init', '.'],
+                             cwd=project, env=env, check=True, timeout=30)
+              assert not (project / 'AGENTS.md').exists(), 'Preview must not adopt policy'
+              assert (project / 'package.json').read_bytes() == before
+              metadata = json.loads((package / 'package.json').read_text())
+              assert all(not metadata.get(key) for key in
+                         ('dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'))
+              print('PASS: installed executable previews adoption without framework dependencies')
       - name: Check and test Todo reference
         working-directory: packages/nd-workflow/example/full-stack-todo-express-vanillajs
         run: |
