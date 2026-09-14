@@ -4,34 +4,34 @@ These rules are mandatory unless the user explicitly overrides them.
 
 ## Priorities
 
-Resolve conflicts in this order: safety and workspace boundaries; the approved plan; business value; correctness and maintainability; efficiency.
+Resolve conflicts: safety and workspace boundaries; approved plan; business value; correctness and maintainability; efficiency.
 
 ## Before writing
 
-- Before changing code, files, dependencies, or generated artifacts, present an implementation plan, tasks, and key assumptions or concerns. Wait for explicit approval.
+- Present an implementation plan, tasks, and key assumptions before changing code, files, dependencies, or generated artifacts. Wait for explicit approval.
 - Clarify objectives that materially change the solution before presenting the plan.
 - Follow the approved plan. Pause for renewed approval if findings require a material change.
 
 ## Workspace and permissions
 
-- Write only inside this project workspace. Never change system files, OS settings, shell profiles, or files outside it. Read external files only when necessary.
-- Never run a command that could modify outside the workspace.
-- If a necessary in-scope command is blocked by sandbox permissions, immediately request the required escalation. Do not invent a workaround unless escalation is refused.
+- Write only inside this project workspace. Never change system files, OS settings, shell profiles, or external files.
+- Never run commands modifying outside the workspace.
+- Request escalation if a necessary command is blocked by permissions; do not invent unapproved workarounds.
 
 ## Engineering judgment
 
 - Surface flawed premises, material risks, assumptions, and trade-offs.
-- Favor clear, correct, maintainable solutions and required checks; avoid speculative complexity. Use [reuse-first delivery](.agents/skills/agent-workflow-scrum/references/delivery.md).
+- Favor clear, maintainable solutions and required checks; avoid speculative complexity. Use reuse-first delivery.
 
 ## Agent fast paths
 
 - Discover capabilities: `pnpm agent find <query> --framework <name>`.
-- Inspect one API: `pnpm agent inspect <id-or-symbol> --framework <name>`; add `--detail api` for its public contract.
-- Find a proven composition: `pnpm agent recipe <id> --framework <name>`.
-- Verify work concisely: `pnpm agent check --changed`; use `--base <verified-ref>` for committed branch changes and `--plan` to inspect coverage.
-- For non-CRUD composition, consult [application foundation](agent/app-foundation.md) only when relevant; reuse router-neutral layout and task lifecycles.
-- Read `llms.txt` as the documentation map; retrieve only relevant pages.
-- Request `--full` or `--example` only when the compact response is insufficient.
+- Inspect API: `pnpm agent inspect <id-or-symbol> --framework <name>`; add `--detail api` for contract.
+- Composition recipes: `pnpm agent recipe <id> --framework <name>`.
+- Verify concisely: `pnpm agent check --changed`; use `--base <verified-ref>` for branch changes, `--plan` for coverage.
+- Application foundation: consult [application foundation](agent/app-foundation.md) when relevant; reuse router-neutral layout and tasks.
+- Read `llms.txt` as documentation map; retrieve only relevant pages.
+- Request `--full` or `--example` only when compact response is insufficient.
 
 ## Package imports
 
@@ -39,9 +39,11 @@ Resolve conflicts in this order: safety and workspace boundaries; the approved p
 - Use declared stable subpath exports such as `@package/ui/button` and `@package/pro/crud`.
 - Legacy `@package/*/src/*` imports remain compatibility-only; do not introduce new ones.
 
-## Agent Workflow Scrum
+## ND Workflow
 
-- Humans own outcomes, priority, acceptance, policy, release, and external or destructive authorization; agents never self-approve.
-- Start non-trivial work with `pnpm context "<scope>"`. Keep one active task and synchronize product changes with its PRD, tests, and evidence.
-- Keep workflow artifacts under `.agents/docs/` and canonical skills under `.agents/skills/`. Graphify and OpenViking remain optional; OpenViking is explicit-only.
-- Follow [delivery](.agents/docs/agent-workflow.md), [architecture](.agents/docs/architecture.md), and [development checks](.agents/docs/development.md).
+- Humans own outcomes, priority, acceptance, policy, release, and external/destructive actions; agents never self-approve.
+- Follow ND risk tiers: Low (scoped edit + check), Medium (task + checks), High (plan + proof + recovery), Critical (auth/security/data; positive/negative proof + signoff).
+- Start non-trivial work with `pnpm context "<scope>"` or `pnpm nd task "<desc>"`. Keep one active task under `.agents/docs/tasks/`.
+- Keep workflow artifacts under `.agents/docs/` and canonical skills under `.agents/skills/`. Root `docs/` is not used.
+- Follow [delivery](.agents/docs/WORKFLOW.md), [project facts](.agents/docs/PROJECT.md), [architecture](.agents/docs/ARCHITECTURE.md), and [checks](.agents/docs/development.md).
+- `packages/nd-workflow` is a retained monorepo package; root instructions and `.agents/skills/` govern monorepo delivery.

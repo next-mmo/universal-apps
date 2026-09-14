@@ -12,7 +12,7 @@ const sourceDefinitions = [
   ["Shared context", "CONTEXT.md"],
   ["Workflow documentation rules", ".agents/docs/AGENTS.md"],
   ["Workflow guide", ".agents/docs/agent-workflow.md"],
-  ["Architecture guide", ".agents/docs/architecture.md"],
+  ["Architecture guide", ".agents/docs/ARCHITECTURE.md"],
   ["Development guide", ".agents/docs/development.md"],
   ["Testing guide", ".agents/docs/testing.md"],
   ["Defensive patterns", ".agents/docs/defensive-patterns.md"],

@@ -11,7 +11,7 @@
 - Facts: the repository already provides bounded context, catalog discovery, and an [efficiency baseline](../../../agent/evals.md). Baseline workflow and documentation checks pass; root instructions estimate 690 tokens and the Scrum entry point 872.
 - Inspiration: [Ponytail](https://github.com/DietrichGebert/ponytail) emphasizes understanding the flow and reusing capabilities before adding code. The user's linked fork could not be retrieved; no fork-specific behavior is asserted.
 - Inference: fewer redundant reads, unnecessary changes, and repeated explanations may reduce task tokens. No behavioral savings have been measured.
-- Owning increment: [Scrum adoption task](../tasks/wip-0001-0001-adopt-agent-workflow-scrum.md).
+- Owning increment: [Scrum adoption task](../tasks/done/done-0001-adopt-agent-workflow-scrum.md).
 
 ## Approved Workflow Change
 
@@ -39,7 +39,7 @@ Applies to repository workflow only. Preserve approvals, workspace boundaries, s
 
 ## Application Evidence
 
-Implementation and validation are tracked in the [active task](../tasks/wip-0001-0001-adopt-agent-workflow-scrum.md).
+Implementation and validation are tracked in the [completed task](../tasks/done/done-0001-adopt-agent-workflow-scrum.md).
 
 - Changed canonical files: `AGENTS.md`, the Scrum delivery/context/verification references, and `agent/evals.md`.
 - Synchronized ignored existing adapters with `.agents/scripts/skill.sh init claude cursor`.

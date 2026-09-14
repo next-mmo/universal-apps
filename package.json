@@ -36,7 +36,10 @@
     "source:smoke": "node scripts/check-source-distribution.mjs",
     "source:pack": "npm pack ./dist/universal-cli --ignore-scripts --pack-destination dist",
     "nd": "node packages/nd-workflow/bin/nd.mjs",
-    "nd:pack": "node packages/nd-workflow/bin/nd-package.mjs"
+    "nd:pack": "node packages/nd-workflow/bin/nd-package.mjs",
+    "nd:doctor": "node packages/nd-workflow/bin/nd.mjs doctor .",
+    "nd:check": "node packages/nd-workflow/bin/nd.mjs check .",
+    "nd:tokens": "node packages/nd-workflow/bin/nd.mjs tokens ."
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.0",

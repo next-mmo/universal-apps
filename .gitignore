@@ -220,3 +220,7 @@ graphify-out/
 .claude/skills/
 .cursor/rules/*.generated.mdc
 .cursor/commands/*.generated.md
+
+# ND Workflow adoption recovery journal (private project text) and index cache
+.nd-workflow-adoption/
+.context-index/

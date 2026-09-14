@@ -26,7 +26,7 @@ Shorter text is not better if it loses one of these. Keep non-obvious rationale 
 
 ## One home per fact
 
-Follow the documentation ownership table in [`.agents/docs/AGENTS.md`](../../docs/AGENTS.md). Keep standing instructions compact. Put architecture maps in [`.agents/docs/architecture.md`](../../docs/architecture.md), product requirements in `.agents/docs/prd/`, current increment/evidence in `.agents/docs/tasks/`, reusable workflow rationale in `.agents/docs/suggestions/`, and contributor commands in `.agents/docs/development.md`. Link instead of copying substantial detail.
+Follow the documentation ownership table in [`.agents/docs/AGENTS.md`](../../docs/AGENTS.md). Keep standing instructions compact. Put architecture maps in [`.agents/docs/ARCHITECTURE.md`](../../docs/ARCHITECTURE.md), product requirements in `.agents/docs/prd/`, current increment/evidence in `.agents/docs/tasks/`, reusable workflow rationale in `.agents/docs/suggestions/`, and contributor commands in `.agents/docs/development.md`. Link instead of copying substantial detail.
 
 Durable docs describe current behavior. Put change history and rejected alternatives in suggestions/tasks/commits rather than scattering “previously/now/no longer” through current-state docs.
 

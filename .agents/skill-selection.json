@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "skills": [
+    "nd-bump-version",
+    "nd-compound",
+    "nd-converge-check",
+    "nd-doc-lookup",
+    "nd-feedback-collector",
+    "nd-spec-feature",
+    "nd-task-status",
+    "nd-user-testing",
+    "nd-workflow-doctor"
+  ]
+}
