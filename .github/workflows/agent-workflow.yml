@@ -24,6 +24,8 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Standalone native-package typecheck
+        run: pnpm exec tsc --noEmit -p packages/ui-native/tsconfig.json
       - run: pnpm test
       - name: Preview the actual PR range
         if: github.event_name == 'pull_request'
