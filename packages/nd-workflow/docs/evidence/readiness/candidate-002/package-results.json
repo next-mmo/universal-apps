@@ -1,0 +1,19 @@
+{
+  "packages": [
+    {
+      "path": "artifacts\\readiness-correction\\workflow-starter-candidate-002-evaluation.zip",
+      "sha256": "38ddc0e4224f47b2803d00016fc170d86f865268d7e2ee3730532a74be4f763b",
+      "bytes": 205852,
+      "files": 91
+    },
+    {
+      "path": "artifacts\\readiness-correction\\workflow-starter-candidate-002-repeat.zip",
+      "sha256": "38ddc0e4224f47b2803d00016fc170d86f865268d7e2ee3730532a74be4f763b",
+      "bytes": 205852,
+      "files": 91
+    }
+  ],
+  "two_builds_byte_equal": true,
+  "scope": "Local archive integrity and repeatability only; not protected adoption or readiness.",
+  "release_approved": false
+}

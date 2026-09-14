@@ -1,0 +1,10 @@
+{
+  "status": "CERTIFICATION_WITHDRAWN",
+  "decision": "NOT_APPROVED",
+  "score_certified": null,
+  "independent_review_completed": false,
+  "human_signoff": false,
+  "corrected_at": "2026-09-11",
+  "reason": "Self-authored script checked hashes and log presence. It was not independent review and could not certify a score or authorize release.",
+  "historical_backup": "artifacts/readiness-correction/withdrawn-records-20260911-171433.zip"
+}

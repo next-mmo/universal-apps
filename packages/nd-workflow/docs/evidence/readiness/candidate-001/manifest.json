@@ -1,0 +1,33 @@
+{
+  "candidate_id": "candidate-001",
+  "status": "HISTORICAL_UNVERIFIED_MANIFEST",
+  "release_approved": false,
+  "correction": "Environment values were not measured in the original recording. Candidate archive changed under same ID; old logs are not reliably bound to final archive. Retained fields below are historical claims, not current verified evidence.",
+  "evaluated_at": "2026-09-11",
+  "git_commit_base": "c7dd5c4ddd3ee455ac058d4da8f0fc718e28c96d",
+  "environment": {
+    "os": "Windows 11 (win32)",
+    "python": "3.12.3",
+    "node": "20.18.0"
+  },
+  "package_artifact": {
+    "path": "artifacts/workflow-starter-candidate-001.zip",
+    "sha256": "39d496bc80083ad93a2172189304dcc3f96a078bf3e0746523c27ea34def9c34",
+    "file_count": 91,
+    "size_bytes": 205741,
+    "determinism": "VERIFIED (two independent builds yield identical SHA256)"
+  },
+  "test_suites_summary": {
+    "starter_unit_tests": "168 ran (161 pass, 7 skip on Windows symlinks, 0 fail)",
+    "validate_py": "91 files, 0 errors",
+    "hardened_examples": {
+      "py_expense_cli": "26 pass, 0 fail",
+      "py_logstat": "26 pass, 0 fail",
+      "js_md_links": "19 pass, 0 fail"
+    },
+    "full_stack_examples": {
+      "todo_api": "15 pass, 0 fail",
+      "cms_portfolio_api": "21 pass, 0 fail"
+    }
+  }
+}

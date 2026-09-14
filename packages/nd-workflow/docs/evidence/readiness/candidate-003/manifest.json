@@ -1,0 +1,93 @@
+{
+  "candidate_id": "candidate-003",
+  "status": "OPEN - not frozen, not reviewed, no score",
+  "score": null,
+  "release_gate": "BLOCKED",
+  "created": "2026-09-13",
+  "created_by_session": "mvs_d979509b9ffe42ec927d25e61348faaa",
+  "relationship_to_prior_candidates": "candidate-001 records were withdrawn; candidate-002 was a local evaluation package at revision c7dd5c4. This candidate is the working tree after the 94a4d1c merge plus local changes.",
+  "fingerprint": {
+    "repository": "C:/Users/dila/Documents/GitHub/nd-workflow",
+    "branch": "main",
+    "revision": "94a4d1c25d0b9184fe7045342224f3c588f80410",
+    "dirty": true,
+    "committed_fix": true,
+    "published_revision": "299237d",
+    "published_on": "2026-09-14",
+    "published_content": "three commits: c362e0d (reject_links fix plus regression tests), cab55d6 (candidate-003 evidence and release-doc reconciliation), 299237d (adoption trees, retrieval drafts and example updates). The two Rust trial fixtures remain untracked because they are embedded Git repositories.",
+    "staged_local_edits": [
+      ".agents/docs/PROJECT.md",
+      "START-HERE.md",
+      "example/full-stack-nd-workflow-cms-portfolio/.gitignore",
+      "example/full-stack-todo-express-vanillajs/package-lock.json"
+    ],
+    "unstaged_local_edits": [
+      "scripts/stage_project.py",
+      "tests/test_tooling.py",
+      "docs/tasks/task-0012-internal-release-readiness-spec.md",
+      "docs/RELEASE-READINESS-AND-BENCHMARK-AUDIT.md"
+    ],
+    "file_sha256": {
+      "scripts/stage_project.py": "0b9e10488b00fccf53359e7cc93b1f97b98942068166f6debbf6cbae23394066",
+      "tests/test_tooling.py": "40a0075c1bb89befc3a11889dba40e5da1cf04ac186e86d9a6107539ab2b18ac",
+      "START-HERE.md": "290ad7f71847bf912bd3e6b189281c67e0080d49e3587d81e50f2609ffbaef28"
+    },
+    "package_artifact": {
+      "path": "artifacts/readiness-observations/20260913-local/workflow-starter-candidate-head.zip",
+      "entries": 91,
+      "bytes": 207257,
+      "sha256": "c46c3fc8d39afc50346d2bbb7cb3fe0ac71c0ce5ea42dd2a91ce40f6cae54896"
+    }
+  },
+  "environment": {
+    "host_os": "Windows",
+    "python": "3.11.13",
+    "node": "v24.16.0",
+    "python_symlink_creation": "works (Developer Mode); the earlier 7 Windows symlink skips do not reproduce here"
+  },
+  "local_results": [
+    { "command": "python scripts/validate.py", "exit": 0, "result": "PASS, 91 manifest files, 0 errors", "log": "commands/validate.log" },
+    { "command": "python -m unittest discover -s tests -p 'test_*.py' -v (pre-fix)", "exit": 0, "result": "Ran 188 tests, OK, 0 failures, 0 skips", "log": "commands/unit-tests.log" },
+    { "command": "focused test_tooling after fix", "exit": 0, "result": "Ran 74 tests, OK", "log": "commands/unit-tests-tooling.log" },
+    { "command": "python -m unittest discover -s tests -p 'test_*.py' -v (post-fix)", "exit": 0, "result": "Ran 191 tests, OK, 0 failures, 0 skips", "log": "commands/unit-tests-after-fix.log" },
+    { "command": "python scripts/package.py --output <candidate zip>", "exit": 0, "result": "PASS, 91 entries, 207257 bytes", "log": "commands/package-build.log" },
+    { "command": "python scripts/verify_package_extracted.py --archive <zip> --output-dir <fresh dir>", "exit": 0, "result": "VERIFICATION_COMPLETE_NO_CERTIFICATION_AWARDED; validate 0; doctor 1 and context check 2 are the documented ATTENTION states for an unadopted template", "log": "commands/package-verify.log" }
+  ],
+  "platform_matrix": {
+    "declared": ".github/workflows/ci.yml: ubuntu-latest, windows-latest, macos-latest x Python 3.10, 3.11 x Node 20",
+    "remote_run_for_revision": {
+      "run_id": 34592135038,
+      "result": "failure",
+      "passing": ["ubuntu-latest 3.10", "ubuntu-latest 3.11", "windows-latest 3.10", "windows-latest 3.11"],
+      "failing": ["macos-latest 3.10", "macos-latest 3.11"],
+      "failure": "ValueError: Path contains link/reparse point from scripts/stage_project.py reject_links (OS alias /var -> /private/var)",
+      "log": "commands/ci-failed-macos.log"
+    },
+    "local_fix": "scripts/stage_project.py: top_level_component() boundary in reject_links; regression tests in tests/test_tooling.py::TestStageLinkBoundary",
+    "macos_status": "VERIFIED for revision 299237d - CI run 34773737906 passed all six cells, both macOS cells included, on 2026-09-14. Log: commands/ci-run-34773737906.log.",
+    "python_3_10_status": "UNVERIFIED locally (local runtime is 3.11.13); the ubuntu/windows 3.10 cells passed remotely."
+  },
+  "host_records": {
+    "minimax_code": "hosts/minimax-code-fresh-session.md (OBSERVED)",
+    "codex_cli": "historical only (8 real drills total across Codex and MiniMax Code before this candidate); not candidate-bound",
+    "claude_code": "BLOCKED historically (401 revoked OAuth)",
+    "cursor": "BLOCKED historically (no headless agent entry point)"
+  },
+  "onboarding": {
+    "protocol": "onboarding/protocol.md",
+    "record_template": "onboarding/record-template.md",
+    "status": "NOT RUN - maintainer reports a non-author developer is available; drill package prepared"
+  },
+  "review": {
+    "standard_adopted": "automated agent review is acceptable for this internal ledger; a human maintainer still signs off before release (maintainer decision, 2026-09-13)",
+    "agent_review": "review.md",
+    "agent_review_verdict": "PARTIAL - change review PASS, reproduction PASS, claim integrity PASS with caveats; no darwin execution; documented weaker-than-before case for links at a filesystem-root direct child",
+    "human_signoff": "PENDING"
+  },
+  "limits": [
+    "No score is computed for this candidate and none may be inferred from this directory.",
+    "A local command PASS is scoped to its command and environment, never to the rubric or release.",
+    "macOS, Python 3.10 local, host coverage beyond MiniMax Code, non-author onboarding and human usability observations remain unverified.",
+    "The fix, the merge-conflict resolution and the documentation reconciliation remain uncommitted local work."
+  ]
+}

@@ -1,0 +1,3 @@
+# Keep text checkout bytes portable, including with core.autocrlf=true.
+# Auto detection leaves binary files unchanged.
+* text=auto eol=lf

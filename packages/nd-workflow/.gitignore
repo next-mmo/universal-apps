@@ -1,0 +1,47 @@
+# Local validation scratch and original-file backups
+/.validation/
+
+# Review-only staged adoption copy
+.workflow-starter-review/
+
+# Adoption recovery journal (contains private project text)
+.nd-workflow-adoption/
+
+# Derived, disposable context index (rebuild with `nd index build`)
+.nd-cache/
+
+# Generated delivery archives
+/artifacts/
+
+# Local environment secrets; keep shareable examples
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Python local caches (tooling uses standard library only)
+__pycache__/
+*.py[cod]
+
+# Node example dependencies, runtime data, and test outputs
+node_modules/
+/example/full-stack-todo-express-vanillajs/data/
+/example/full-stack-todo-express-vanillajs/.test-data/
+/example/full-stack-todo-express-vanillajs/test-results/
+/example/full-stack-todo-express-vanillajs/playwright-report/
+/example/full-stack-nd-workflow-cms-portfolio/data/
+/example/full-stack-nd-workflow-cms-portfolio/.test-data/
+/example/full-stack-nd-workflow-cms-portfolio/test-results/
+
+# Rust build artifacts and test scratch
+target/
+**/target/
+example/test_axum/
+example/**/data/
+plan.json
+
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
