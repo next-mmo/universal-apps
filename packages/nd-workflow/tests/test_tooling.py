@@ -122,22 +122,26 @@ def _build_fixture(root: Path) -> list[str]:
     if any required file is missing in the live repo (so the test
     fails loudly, not silently skips).
     """
-    missing = [rel for rel in FIXTURE_REQUIRED if not (REPO_ROOT / rel).exists()]
+    sys.path.insert(0, str(SCRIPTS_DIR))
+    from validate import load_manifest, read_source_file, validate_repo
+    manifest, errors = load_manifest(REPO_ROOT)
+    if errors:
+        raise ValueError(errors)
+    report = validate_repo(REPO_ROOT)
+    if report["status"] != "PASS":
+        raise ValueError(report["errors"])
+    paths = manifest['files']
+    missing = [rel for rel in FIXTURE_REQUIRED if rel not in paths]
     if missing:
         raise FileNotFoundError(
             "Required fixture files missing in live repo: " + ", ".join(missing)
         )
-    sys.path.insert(0, str(SCRIPTS_DIR))
-    from validate import load_manifest, validate_manifest_paths
-    manifest, errors = load_manifest(REPO_ROOT)
-    if errors:
-        raise ValueError(errors)
-    paths = manifest['files']
-    errors = validate_manifest_paths(REPO_ROOT, paths)
-    if errors:
-        raise ValueError(errors)
+    # npm transports store .gitignore under an explicit physical alias. Build
+    # ordinary canonical fixtures instead of assuming the authoring layout.
     for rel in paths:
-        _copy(REPO_ROOT / rel, root / rel)
+        destination = root / rel
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(read_source_file(REPO_ROOT, rel, manifest))
     return list(paths)
 
 

@@ -157,7 +157,7 @@ class StandalonePackageTests(unittest.TestCase):
         self.assertIn('.gitignore', canonical)
         self.assertNotIn('gitignore.template', canonical)
         self.assertNotIn('source_paths', json.loads(canonical['package-files.json']))
-        self.assertEqual(canonical['.gitignore'], (ROOT / '.gitignore').read_bytes())
+        self.assertEqual(canonical['.gitignore'], collect_core(ROOT)['.gitignore'])
         output = self.package / 'artifacts' / 'canonical.zip'
         report = package_repo(self.package, output)
         self.assertEqual(report['status'], 'PASS', report)
@@ -191,6 +191,22 @@ class StandalonePackageTests(unittest.TestCase):
             self.assertEqual(validate_repo(self.package)['status'], 'FAIL')
         finally:
             alias.write_bytes(content)
+
+    def test_shipped_tests_work_from_the_extracted_transport(self):
+        # Run shipped fixture/packaging checks, not just a source-tree test that
+        # invokes the extracted CLI. This catches authoring-only paths.
+        commands = [
+            ['tests/test_tooling.py', 'TestValidatePositive', 'TestPackage', '-v'],
+            ['-m', 'unittest', 'discover', '-s', 'tests', '-p',
+             'test_standalone_package.py', '-k', 'transport_alias', '-v'],
+        ]
+        for command in commands:
+            with self.subTest(command=command):
+                result = subprocess.run([sys.executable, *command], cwd=self.package,
+                                        capture_output=True, text=True, timeout=90)
+                output = result.stdout + result.stderr
+                self.assertEqual(result.returncode, 0, output)
+                self.assertNotIn('Ran 0 tests', output)
 
     def test_reproducible_archive(self):
         second = self.source / 'artifacts' / 'second.tgz'
