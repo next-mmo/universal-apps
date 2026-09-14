@@ -1,0 +1,37 @@
+name: Source distribution
+on:
+  pull_request:
+    paths:
+      - 'packages/**'
+      - 'scripts/*source*'
+      - 'package.json'
+      - '.github/workflows/source-distribution.yml'
+  push:
+    branches: ['main', 'feat/source-owned-distribution']
+    paths:
+      - 'packages/**'
+      - 'scripts/*source*'
+      - 'package.json'
+      - '.github/workflows/source-distribution.yml'
+permissions:
+  contents: read
+jobs:
+  source-distribution:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install build-only TypeScript without installing runtime workspace packages
+        run: |
+          npm install --prefix .source-ci --ignore-scripts --no-audit --no-fund typescript@5.8.3
+          mkdir -p node_modules
+          ln -s ../.source-ci/node_modules/typescript node_modules/typescript
+      - run: node --test packages/cli/test/source.test.mjs packages/cli/test/source-regressions.test.mjs
+      - run: node scripts/build-source-registry.mjs
+      - run: node scripts/check-source-distribution.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: universal-source-cli
+          path: dist/universal-cli

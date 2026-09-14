@@ -1,59 +1,52 @@
-# Tauri Universal
+# Universal Apps
 
-Token-first Tauri and web application building blocks for React, Vue, Svelte, and React Native Web. Clone the GitHub template, import shared workspace packages, and upgrade the library in place instead of copying component source into each app.
+Source-owned Tauri and web application building blocks for React, Vue, Svelte, and React Native Web. Companies generate the implementation into their own project, edit it locally, and do not install an `@package/*` runtime library. The monorepo packages remain the authoring source and power the development playgrounds.
 
-## Quick start
+## Source-first consumer workflow
 
-```bash
+Build and pack the standalone CLI from this repository before its first release:
+
+```sh
 pnpm install
-pnpm dev:web
+pnpm source:build
+pnpm source:pack
 ```
 
-Use `pnpm tauri dev` for the desktop shell. The same frontend runs in a browser through typed platform adapters with local fallbacks.
+Then run the packed CLI against an existing company project:
 
-## React fast path
+```sh
+node /absolute/path/to/universal-apps/dist/universal-cli/cli.mjs init --cwd /path/to/company-app --css src/index.css
+node /absolute/path/to/universal-apps/dist/universal-cli/cli.mjs add button pro-crud --cwd /path/to/company-app
+```
+
+After an owner publishes `@next-mmo/universal-cli`, the same flow is available through `npx @next-mmo/universal-cli init` and `npx @next-mmo/universal-cli add button pro-crud`. Publication is not implied by this repository change.
+
+Generated applications import their local implementation:
 
 ```tsx
-import { ProCrudPage, defineProResource } from '@package/pro/crud';
-
-const tasks = defineProResource<Task, TaskInput>({
-  id: 'tasks', title: 'Tasks', getRowId: (row) => row.id,
-  columns: [{ key: 'name', header: 'Task', valueType: 'text' }],
-  form: {
-    schema: [{ fields: [{ name: 'name', label: 'Task', type: 'text', required: true }] }],
-    create: { title: 'New task', values: { name: '' } },
-  },
-});
-
-<ProCrudPage resource={tasks} controller={{ rows, create, remove }} />;
+import { Button } from '@/lib/universal/ui/components/ui/button';
+import { ProCrudPage, defineProResource } from '@/lib/universal/pro/crud/pro-crud-page';
 ```
 
-Stable subpath exports such as `@package/ui/button`, `@package/pro/data-table`, and `@package/tauri-api/todo-storage` keep imports short. CSS variables and typed slots customize shared components without ejecting their source.
+The CLI copies transitive helpers, types, and styles; rewrites workspace imports; declares required third-party dependencies; and protects existing edits. `diff`, `--dry-run`, and `doctor` support review. Read the [consumer and release guide](packages/cli/source/README.md) for framework prerequisites, official shadcn registry use, naming, customization, and verification limits.
 
-## Agent fast path
+## Maintainer development
 
-```bash
-pnpm agent find table --framework react
-pnpm agent inspect block.data-table --framework react
-pnpm agent recipe crud-page --framework react
-pnpm agent check --changed
+```sh
+pnpm dev:web
+pnpm tauri dev
+pnpm source:test
+pnpm source:build
+pnpm source:smoke
 ```
 
-Start with [llms.txt](llms.txt), which routes agents to one focused capability or recipe. The complete bundle in `llms-full.txt` is opt-in.
-
-## Delivery workflow
-
-Agent Workflow Scrum keeps requirements, active work, verification evidence, and human acceptance under [`.agents/`](.agents/docs/agent-workflow.md). In an agent session, use `/kb:setup` for the required baseline or `/kb:full-setup` to also generate Claude and Cursor adapters. Start non-trivial work with `pnpm context "<scope>"`; Graphify and OpenViking remain optional.
+The development apps still use internal workspace imports. This authoring arrangement does not become a dependency of generated consumer apps. The existing `pnpm scaffold` command remains a maintainer-only template/agent tool; `pnpm source` is the consumer generator.
 
 ## Workspace
 
-- `packages/ui`: React primitives and shared design tokens
-- `packages/pro`: React forms, tables, layouts, and config-first CRUD pages
-- `packages/pro-core`: framework-neutral schemas and table contracts
-- `packages/tauri-api`: typed desktop operations with browser fallbacks
-- `packages/pro-vue`, `packages/pro-svelte`, `packages/ui-native`: framework adapters
+- `packages/ui`, `packages/pro`: React primitives, tokens, forms, tables, layouts, and CRUD pages.
+- `packages/core`, `packages/utils`, `packages/pro-core`, `packages/tauri-api`: shared contracts, utilities, and platform adapters.
+- `packages/pro-vue`, `packages/pro-svelte`, `packages/ui-native`: framework adapters.
+- `packages/cli/source`: standalone consumer CLI and source-registry build graph.
 
-Detailed setup, architecture, APIs, and platform notes live in [the focused documentation](apps/tauri-app/content/docs/index.mdx). Run `pnpm agent budget --check` to enforce the repository's context and consumer-code budgets.
-
-## Related Plan
-- https://github.com/sanjaysah101/rnstack
+Existing agent catalogs describe maintainer workspace imports. For generated projects, use the source CLI's `list` output and local paths instead. Agent Workflow Scrum and verification evidence remain under [`.agents/`](.agents/docs/agent-workflow.md).
