@@ -29,7 +29,7 @@
     "dev:native": "pnpm --filter @app/native-playground dev",
     "dev:android": "pnpm --filter @app/tauri-app tauri android dev",
     "foundation:typecheck": "tsc -p packages/agent-workflow/tsconfig.json",
-    "foundation:test": "tsx --test packages/agent-workflow/test/foundation.test.ts packages/mcp/test/foundation.integration.ts"
+    "foundation:test": "tsx --test packages/agent-workflow/test/foundation.test.ts packages/agent-workflow/test/review-regressions.test.mjs packages/mcp/test/foundation.integration.ts"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.0",

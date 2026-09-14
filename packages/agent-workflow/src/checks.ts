@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { readFile, realpath, access } from 'node:fs/promises';
+import { readFile, realpath, access, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 export interface Command {
@@ -12,9 +12,12 @@ export interface Workspace {
     scripts: Record<string, string>;
     dependencies: string[];
     tsconfig?: boolean;
+    /** Verified filesystem classification, not a user-supplied skip flag. */
+    metadataOnly?: boolean;
 }
 export interface CheckPlan {
     mode: 'all' | 'worktree' | 'range';
+    metadataOnly: string[];
     paths: string[];
     affected: string[];
     commands: Command[];
@@ -54,12 +57,16 @@ export async function runCommand(executable: string, args: string[], cwd: string
         let stdoutTruncated = false;
         let timedOut = false;
         let error: string | undefined;
+        let closed = false;
+        let cleanupComplete = false;
+        let settled = false;
+        let exitCode: number | null = null;
+        let exitSignal: NodeJS.Signals | null = null;
         let force: ReturnType<typeof setTimeout> | undefined;
+        let cleanupDeadline: ReturnType<typeof setTimeout> | undefined;
         const child = spawn(executable, args, {
             cwd, shell: false, windowsHide: true, detached: process.platform !== 'win32',
-            stdio: ['ignore', 'pipe', 'pipe'], env: {
-                ...process.env, CI: '1'
-            },
+            stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, CI: '1' },
         });
         const append = (data: string) => { output = (output + data).slice(-32000); };
         child.stdout.setEncoding('utf8');
@@ -70,36 +77,73 @@ export async function runCommand(executable: string, args: string[], cwd: string
             stdout = (stdout + data).slice(-1000000);
         });
         child.stderr.on('data', append);
-        function stop(signal: NodeJS.Signals) {
-            if (!child.pid)
-                return;
-            try {
-                if (process.platform === 'win32') {
-                    const killer = spawn('taskkill', ['/pid', String(child.pid), '/t', '/f'], {
-                        stdio: 'ignore', windowsHide: true
-                    });
-                    killer.on('error', () => child.kill());
-                }
-                else
-                    process.kill(-child.pid, signal);
+
+        function finish(forceClose = false): void {
+            if (settled || (!forceClose && (!closed || (timedOut && !cleanupComplete)))) return;
+            settled = true;
+            clearTimeout(timer);
+            if (force) clearTimeout(force);
+            if (cleanupDeadline) clearTimeout(cleanupDeadline);
+            if (forceClose) {
+                child.stdout.destroy();
+                child.stderr.destroy();
             }
-            catch {
-                child.kill(signal);
+            resolve({
+                code: timedOut ? 124 : exitCode ?? 1, output, stdout, stdoutTruncated, timedOut,
+                error: error ?? (exitSignal ? `terminated by ${exitSignal}` : undefined),
+            });
+        }
+        function signalGroup(signal: NodeJS.Signals): void {
+            if (!child.pid) return;
+            try {
+                process.kill(-child.pid, signal);
+            } catch (cause) {
+                // ESRCH means the entire group has already gone away. Do not fall
+                // back to a potentially reused PID after the original parent exits.
+                if ((cause as NodeJS.ErrnoException).code !== 'ESRCH') {
+                    error = `Process-group cleanup failed: ${String(cause)}`;
+                    if (!closed) child.kill(signal);
+                }
             }
         }
         const timer = setTimeout(() => {
             timedOut = true;
-            stop('SIGTERM');
-            force = setTimeout(() => stop('SIGKILL'), 500);
+            // The parent may close before its children. Do not resolve/clear the
+            // escalation until tree cleanup completes, even if close fires first.
+            cleanupDeadline = setTimeout(() => {
+                error ??= 'Timed out waiting for process-tree cleanup';
+                if (process.platform !== 'win32') signalGroup('SIGKILL');
+                else if (!closed) child.kill('SIGKILL');
+                finish(true);
+            }, 2000);
+            if (process.platform === 'win32' && child.pid) {
+                const killer = spawn('taskkill', ['/pid', String(child.pid), '/t', '/f'], {
+                    stdio: 'ignore', windowsHide: true,
+                });
+                killer.on('error', (cause) => { error = `taskkill failed: ${cause.message}`; });
+                killer.on('close', (code) => {
+                    if (code !== 0) {
+                        error ??= `taskkill exited with ${code}; process-tree cleanup not confirmed`;
+                        if (!closed) child.kill('SIGKILL');
+                    }
+                    cleanupComplete = true;
+                    finish();
+                });
+            } else {
+                signalGroup('SIGTERM');
+                force = setTimeout(() => {
+                    signalGroup('SIGKILL');
+                    cleanupComplete = true;
+                    finish();
+                }, 500);
+            }
         }, timeoutMs);
         child.on('error', (cause) => { error = cause.message; });
         child.on('close', (code, signal) => {
-            clearTimeout(timer);
-            if (force)
-                clearTimeout(force);
-            resolve({
-                code: timedOut ? 124 : code ?? 1, output, stdout, stdoutTruncated, timedOut, error: error ?? (signal ? `terminated by ${signal}` : undefined)
-            });
+            closed = true;
+            exitCode = code;
+            exitSignal = signal;
+            finish();
         });
     });
 }
@@ -140,8 +184,18 @@ export async function discoverWorkspaces(root: string): Promise<Workspace[]> {
         if (typeof manifest.name !== 'string' || names.has(manifest.name))
             throw new Error(`Missing or duplicate workspace name: ${directory}`);
         names.add(manifest.name);
+        // A private metadata-only placeholder is not an untested implementation.
+        // Verify this on every discovery: adding source, scripts, dependencies,
+        // export maps or symlinks makes it an ordinary package requiring checks.
+        const metadataFields = new Set(['name', 'private', 'version', 'type', 'description', 'license', 'author', 'repository', 'keywords']);
+        const metadataFiles = new Set(['package.json', 'README.md', 'LICENSE', 'LICENSE.md', 'NOTICE', 'CHANGELOG.md', '.gitignore']);
+        const entries = await readdir(absolute, { withFileTypes: true });
+        const metadataOnly = manifest.private === true
+            && Object.keys(manifest).every((key) => metadataFields.has(key))
+            && entries.every((entry) => (entry.name === 'node_modules' && entry.isDirectory())
+                || (metadataFiles.has(entry.name) && entry.isFile()));
         workspaces.push({
-            name: manifest.name, directory, scripts: manifest.scripts ?? {},
+            name: manifest.name, directory, scripts: manifest.scripts ?? {}, metadataOnly,
             dependencies: [...new Set<string>([manifest.dependencies, manifest.devDependencies, manifest.peerDependencies, manifest.optionalDependencies].flatMap((group) => Object.keys(group ?? {})))],
             tsconfig: await access(path.join(absolute, 'tsconfig.json')).then(() => true, () => false),
         });
@@ -195,7 +249,8 @@ export function planChecks(workspaces: Workspace[], files: string[], all = false
         if (count)
             runnable.add(pkg.name);
     }
-    const covered = new Set(runnable);
+    const metadataOnly = workspaces.filter((pkg) => affected.has(pkg.name) && pkg.metadataOnly === true).map((pkg) => pkg.name).sort();
+    const covered = new Set([...runnable, ...metadataOnly]);
     if (commands.some((command) => command.args[0] === 'mcp:test'))
         covered.add('@package/mcp');
     if (commands.some((command) => command.args[0] === 'agent:test'))
@@ -220,7 +275,7 @@ export function planChecks(workspaces: Workspace[], files: string[], all = false
             unresolved.push(`Desktop change requires explicit Rust/Tauri validation: ${file}`);
     }
     return {
-        paths: files, affected: [...affected].sort(), commands, unresolved: [...new Set(unresolved)]
+        paths: files, affected: [...affected].sort(), metadataOnly, commands, unresolved: [...new Set(unresolved)]
     };
 }
 export async function workspacePlan(root: string, options: {

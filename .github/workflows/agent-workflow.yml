@@ -11,8 +11,11 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v6
         with:
           version: 10
@@ -22,8 +25,33 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
-      - run: pnpm lint
-      - run: pnpm build
+      - name: Preview the actual PR range
+        if: github.event_name == 'pull_request'
+        env:
+          REVIEW_BASE: ${{ github.event.pull_request.base.sha }}
+        run: pnpm agent check --base "$REVIEW_BASE" --plan --json
+      - name: Verify all discovered workspace consumers
+        run: pnpm agent check --all --timeout 180000
       - run: pnpm workflow:check --strict-budget
       - run: pnpm docs:check
       - run: bash .agents/scripts/skill.sh check
+
+  windows-foundation:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm foundation:typecheck
+      - run: pnpm foundation:test
+      - name: Real Windows workspace discovery
+        run: pnpm agent check --all --plan --json
