@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "type": "module",
   "exports": {
-    "./init": "./src/init.ts"
+    "./init": "./src/init.ts",
+    "./catalog": "./src/catalog.ts",
+    "./checks": "./src/checks.ts"
   }
 }

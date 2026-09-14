@@ -26,9 +26,10 @@ Resolve conflicts in this order: safety and workspace boundaries; the approved p
 ## Agent fast paths
 
 - Discover capabilities: `pnpm agent find <query> --framework <name>`.
-- Inspect one API: `pnpm agent inspect <id-or-symbol> --framework <name>`.
+- Inspect one API: `pnpm agent inspect <id-or-symbol> --framework <name>`; add `--detail api` for its public contract.
 - Find a proven composition: `pnpm agent recipe <id> --framework <name>`.
-- Verify work concisely: `pnpm agent check --changed`.
+- Verify work concisely: `pnpm agent check --changed`; use `--base <verified-ref>` for committed branch changes and `--plan` to inspect coverage.
+- For non-CRUD composition, consult [application foundation](agent/app-foundation.md) only when relevant; reuse router-neutral layout and task lifecycles.
 - Read `llms.txt` as the documentation map; retrieve only relevant pages.
 - Request `--full` or `--example` only when the compact response is insufficient.
 
