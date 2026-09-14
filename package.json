@@ -23,11 +23,13 @@
     "agent:docs": "pnpm --filter @app/tauri-app exec tsx scripts/generate-llm.ts",
     "agent:docs:check": "pnpm --filter @app/tauri-app exec tsx scripts/generate-llm.ts --check",
     "agent:test": "tsx packages/cli/test/agent.integration.ts",
-    "test": "pnpm agent:test && pnpm mcp:test",
+    "test": "pnpm foundation:typecheck && pnpm foundation:test && pnpm agent catalog-check && pnpm agent:test && pnpm mcp:test",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "dev:native": "pnpm --filter @app/native-playground dev",
-    "dev:android": "pnpm --filter @app/tauri-app tauri android dev"
+    "dev:android": "pnpm --filter @app/tauri-app tauri android dev",
+    "foundation:typecheck": "tsc -p packages/agent-workflow/tsconfig.json",
+    "foundation:test": "tsx --test packages/agent-workflow/test/foundation.test.ts packages/mcp/test/foundation.integration.ts"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.0",

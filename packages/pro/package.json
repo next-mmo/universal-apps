@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     "./app-shell": "./src/layout/app-shell.tsx",
+    "./app-frame": "./src/layout/app-frame.tsx",
     "./crud": "./src/crud/pro-crud-page.tsx",
     "./data-table": "./src/data-table/pro-data-table.tsx",
     "./form": "./src/form/pro-form.tsx",

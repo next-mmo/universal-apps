@@ -6,6 +6,7 @@
   "exports": {
     "./todo": "./src/todo.ts",
     "./use-todos": "./src/use-todos.ts",
+    "./async-task": "./src/async-task.ts",
     "./src/*": "./src/*.ts"
   },
   "dependencies": {
