@@ -32,7 +32,7 @@
     "foundation:test": "tsx --test packages/agent-workflow/test/foundation.test.ts packages/agent-workflow/test/review-regressions.test.mjs packages/mcp/test/foundation.integration.ts",
     "source": "node packages/cli/source/cli.mjs",
     "source:build": "node scripts/build-source-registry.mjs",
-    "source:test": "node --test packages/cli/test/source.test.mjs",
+    "source:test": "node --test packages/cli/test/source.test.mjs packages/cli/test/source-regressions.test.mjs",
     "source:smoke": "node scripts/check-source-distribution.mjs",
     "source:pack": "npm pack ./dist/universal-cli --ignore-scripts --pack-destination dist"
   },

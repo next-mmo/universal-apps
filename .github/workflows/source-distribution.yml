@@ -28,7 +28,7 @@ jobs:
           npm install --prefix .source-ci --ignore-scripts --no-audit --no-fund typescript@5.8.3
           mkdir -p node_modules
           ln -s ../.source-ci/node_modules/typescript node_modules/typescript
-      - run: node --test packages/cli/test/source.test.mjs
+      - run: node --test packages/cli/test/source.test.mjs packages/cli/test/source-regressions.test.mjs
       - run: node scripts/build-source-registry.mjs
       - run: node scripts/check-source-distribution.mjs
       - uses: actions/upload-artifact@v4

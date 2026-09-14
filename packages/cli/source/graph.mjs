@@ -29,6 +29,7 @@ function exportTarget(value) {
   if (typeof value === 'string') return value;
   if (value && typeof value === 'object' && !Array.isArray(value)) {
     for (const key of ['import', 'browser', 'default', 'types', 'require']) {
+      if (value[key] === undefined) continue;
       const target = exportTarget(value[key]);
       if (target) return target;
     }
@@ -81,7 +82,10 @@ export function buildRegistry(root, options = {}) {
     const directory = path.join(root, 'packages', folder);
     const manifest = readJson(path.join(directory, 'package.json'));
     const source = path.join(directory, 'src');
-    const files = walk(source).filter((file) => sourceExtensions.includes(path.extname(file)) && !/(?:^|\/)(?:__tests__|test|tests)\//.test(slash(file)) && !/\.(?:test|spec|stories)\./.test(file));
+    // A manifest-only reserved package is part of the inventory, not an installable item.
+    // Declared entry points must still resolve; never silently ignore a broken package.
+    const files = (fs.existsSync(source) ? walk(source) : []).filter((file) => sourceExtensions.includes(path.extname(file)) && !/(?:^|\/)(?:__tests__|test|tests)\//.test(slash(file)) && !/\.(?:test|spec|stories)\./.test(file));
+    if (!fs.existsSync(source) && (manifest.exports || manifest.main || manifest.module)) throw new Error(`Missing source directory for declared entry points: ${folder}`);
     return { folder, directory, source, manifest, files };
   });
   const byName = new Map(packages.map((pkg) => [pkg.manifest.name, pkg]));
@@ -135,8 +139,13 @@ export function buildRegistry(root, options = {}) {
           publicEntries.push({ pkg, name: key === '.' ? `${pkg.folder}-index` : `${pkg.folder}-${slug(key)}`, file });
         }
       }
+    } else if (exports) {
+      const file = resolveExport(pkg, '.');
+      if (!file) throw new Error(`Missing public export ${pkg.manifest.name}`);
+      publicEntries.push({ pkg, name: `${pkg.folder}-index`, file });
     } else {
       // Framework adapters without an exports map are still fully source-distributable.
+      if ((pkg.manifest.main || pkg.manifest.module) && !resolveExport(pkg, '.')) throw new Error(`Missing public export ${pkg.manifest.name}`);
       for (const file of pkg.files.filter((file) => !file.endsWith('.d.ts'))) {
         publicEntries.push({ pkg, name: `${pkg.folder}-${slug(slash(path.relative(pkg.source, file)).replace(/\.[^.]+$/, ''))}`, file });
       }
@@ -212,11 +221,16 @@ export function buildRegistry(root, options = {}) {
     };
   }
   const items = publicEntries.map(({ pkg, name, file }) => item(name, pkg, [file]));
+  const emptyPackages = [];
   for (const pkg of packages) {
     const entries = publicEntries.filter((entry) => entry.pkg === pkg).map((entry) => entry.file);
-    if (!entries.length) throw new Error(`No distributable entry points in ${pkg.folder}`);
+    if (!entries.length) {
+      if (pkg.files.length || pkg.manifest.exports || pkg.manifest.main || pkg.manifest.module) throw new Error(`No distributable entry points in ${pkg.folder}`);
+      emptyPackages.push(pkg.manifest.name);
+      continue;
+    }
     items.push(item(pkg.folder, pkg, entries));
   }
   if (new Set(items.map((item) => item.name)).size !== items.length) throw new Error('Registry item name collision');
-  return { schemaVersion: 1, version: rootManifest.version ?? '0.1.0', packages: packages.map((pkg) => pkg.manifest.name), publicEntryCount: publicEntries.length, items: items.sort((a, b) => a.name.localeCompare(b.name)) };
+  return { schemaVersion: 1, version: rootManifest.version ?? '0.1.0', packages: packages.map((pkg) => pkg.manifest.name), emptyPackages, publicEntryCount: publicEntries.length, items: items.sort((a, b) => a.name.localeCompare(b.name)) };
 }
