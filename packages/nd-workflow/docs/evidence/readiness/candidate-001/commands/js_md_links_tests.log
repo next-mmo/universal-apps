@@ -1,0 +1,27 @@
+✔ clean fixture: no issues, external links counted, CLI exits 0 (264.0122ms)
+✔ broken relative link is reported grouped by file and CLI exits 1 (100.0198ms)
+✔ traversal outside root is a violation and the outside path is never touched (11.2939ms)
+✔ absolute path target is a violation and is never touched (3.0993ms)
+✔ skipped directories are not walked (104.7561ms)
+✔ oversized file is skipped with an explicit note (93.7854ms)
+✔ directory named *.md is reported as an unreadable error, not a crash (87.1423ms)
+✔ injected read failure (EACCES) is reported as an unreadable error (3.389ms)
+✔ same-file anchor links verify headings when present (4.9427ms)
+✔ missing same-file anchor is reported as broken (88.0832ms)
+✔ external links are counted but never checked (101.218ms)
+✔ usage errors exit 2 and --help exits 0 (443.7731ms)
+✔ output is deterministic: files and issues are sorted (194.8973ms)
+✔ fenced code, inline code, and reference definitions are handled (7.1252ms)
+✔ extractLinks reports line numbers and parses inline, image, title, and paren targets (0.3342ms)
+✔ headingSlugs approximates GitHub slugs and numbers duplicates (0.1819ms)
+✔ isInsideRoot rejects siblings with a shared path prefix (0.1503ms)
+✔ CLI smoke: report text is printed from a fixture in a temp directory (97.9276ms)
+✔ fixtures are readable and rows stay untouched after a run (4.4988ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1767.293

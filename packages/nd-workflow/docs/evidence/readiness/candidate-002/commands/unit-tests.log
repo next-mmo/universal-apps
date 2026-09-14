@@ -1,0 +1,212 @@
+test_catalog_parses_routes_and_skips_external (test_context_index.TestCatalogAndClassification.test_catalog_parses_routes_and_skips_external) ... ok
+test_classification_is_deterministic (test_context_index.TestCatalogAndClassification.test_classification_is_deterministic) ... ok
+test_classify_accepts_path_objects_and_backslashes (test_context_index.TestCatalogAndClassification.test_classify_accepts_path_objects_and_backslashes) ... ok
+test_ignored_and_secret_trees_never_indexed (test_context_index.TestCatalogAndClassification.test_ignored_and_secret_trees_never_indexed) ... ok
+test_oversized_source_recorded_not_indexed (test_context_index.TestCatalogAndClassification.test_oversized_source_recorded_not_indexed) ... ok
+test_symlinked_directory_not_traversed (test_context_index.TestCatalogAndClassification.test_symlinked_directory_not_traversed) ... skipped 'OS does not permit symlink creation'
+test_complete_checkpoint_reported (test_context_index.TestContextCheck.test_complete_checkpoint_reported) ... ok
+test_incomplete_and_ambiguous_checkpoints (test_context_index.TestContextCheck.test_incomplete_and_ambiguous_checkpoints) ... ok
+test_missing_catalog_anchor_reported (test_context_index.TestContextCheck.test_missing_catalog_anchor_reported) ... ok
+test_symbol_extraction_and_ast_lookup (test_context_index.TestContextCheck.test_symbol_extraction_and_ast_lookup) ... ok
+test_edit_delete_add_detected (test_context_index.TestFreshness.test_edit_delete_add_detected) ... ok
+test_interrupted_write_keeps_previous_cache (test_context_index.TestFreshness.test_interrupted_write_keeps_previous_cache) ... ok
+test_missing_and_corrupted_cache_states (test_context_index.TestFreshness.test_missing_and_corrupted_cache_states) ... ok
+test_non_git_project_still_fingerprints (test_context_index.TestFreshness.test_non_git_project_still_fingerprints) ... ok
+test_bounded_results_and_excerpts (test_context_index.TestLocate.test_bounded_results_and_excerpts) ... ok
+test_changed_entry_not_served_as_current (test_context_index.TestLocate.test_changed_entry_not_served_as_current) ... ok
+test_corrupted_cache_never_served (test_context_index.TestLocate.test_corrupted_cache_never_served) ... ok
+test_empty_topic_rejected (test_context_index.TestLocate.test_empty_topic_rejected) ... ok
+test_history_excluded_until_opted_in (test_context_index.TestLocate.test_history_excluded_until_opted_in) ... ok
+test_missing_cache_falls_back_to_live_search (test_context_index.TestLocate.test_missing_cache_falls_back_to_live_search) ... ok
+test_nested_source_warns_without_moving (test_end_user_adoption.EndUserAdoptionTests.test_nested_source_warns_without_moving) ... ok
+test_source_and_plugin_profile (test_end_user_adoption.EndUserAdoptionTests.test_source_and_plugin_profile) ... ok
+test_18_fresh_session_handovers_happy_path (test_handover_suite.TestHandoverSuite.test_18_fresh_session_handovers_happy_path) ... ok
+test_edge_case_draft_only_protection (test_handover_suite.TestHandoverSuite.test_edge_case_draft_only_protection) ... ok
+test_edge_case_missing_checkpoint_fields_flagged (test_handover_suite.TestHandoverSuite.test_edge_case_missing_checkpoint_fields_flagged) ... ok
+test_edge_case_stale_evidence_detected (test_handover_suite.TestHandoverSuite.test_edge_case_stale_evidence_detected) ... ok
+test_check_propagates_failure_without_shell (test_nd_cli.TestNdCli.test_check_propagates_failure_without_shell) ... Project code execution: cargo test (source: Cargo.toml). Trust project scripts before running.
+ok
+test_cli_resources_in_distribution_manifest (test_nd_cli.TestNdCli.test_cli_resources_in_distribution_manifest) ... ok
+test_context_locate_and_check_cli (test_nd_cli.TestNdCli.test_context_locate_and_check_cli) ... ok
+test_doctor_import_and_truthful_incomplete (test_nd_cli.TestNdCli.test_doctor_import_and_truthful_incomplete) ... ok
+test_init_empty_preview_no_files_created (test_nd_cli.TestNdCli.test_init_empty_preview_no_files_created) ... Command exit=7; elapsed=0.000s. Check test counts and coverage; exit 0 alone does not prove acceptance.
+Reviewed adoption: preview only unless --apply-plan is supplied. Host loading remains unverified.
+ok
+test_init_preview_preserves_project_and_selection (test_nd_cli.TestNdCli.test_init_preview_preserves_project_and_selection) ... ok
+test_invalid_node_metadata_rejected (test_nd_cli.TestNdCli.test_invalid_node_metadata_rejected) ... ok
+test_link_target_rejected (test_nd_cli.TestNdCli.test_link_target_rejected) ... skipped 'OS does not permit symlink creation'
+test_missing_executable_does_not_install (test_nd_cli.TestNdCli.test_missing_executable_does_not_install) ... ok
+test_missing_root_is_unknown_not_zero_cost (test_nd_cli.TestNdCli.test_missing_root_is_unknown_not_zero_cost) ... ok
+test_node_script_and_manager_provenance (test_nd_cli.TestNdCli.test_node_script_and_manager_provenance) ... ok
+test_node_without_script_not_invented (test_nd_cli.TestNdCli.test_node_without_script_not_invented) ... ok
+test_python_not_assumed_unittest (test_nd_cli.TestNdCli.test_python_not_assumed_unittest) ... ok
+test_rust_command_preserved (test_nd_cli.TestNdCli.test_rust_command_preserved) ... ok
+test_source_target_rejected (test_nd_cli.TestNdCli.test_source_target_rejected) ... ok
+test_task_collision_preserves_checkpoint (test_nd_cli.TestNdCli.test_task_collision_preserves_checkpoint) ... ok
+test_task_title_invalid_no_write (test_nd_cli.TestNdCli.test_task_title_invalid_no_write) ... ok
+test_token_estimate_only_actual_files (test_nd_cli.TestNdCli.test_token_estimate_only_actual_files) ... ok
+test_unknown_stack_fails_closed (test_nd_cli.TestNdCli.test_unknown_stack_fails_closed) ... ok
+test_context_check_output_stays_bounded (test_nd_context.NdContextCli.test_context_check_output_stays_bounded) ... ok
+test_context_check_ready_only_when_truthful (test_nd_context.NdContextCli.test_context_check_ready_only_when_truthful) ... ok
+test_context_subcommands_reachable_via_argparse (test_nd_context.NdContextCli.test_context_subcommands_reachable_via_argparse) ... ok
+test_handover_command_and_prompt (test_nd_context.NdContextCli.test_handover_command_and_prompt) ... ok
+test_index_build_then_check_exit_codes (test_nd_context.NdContextCli.test_index_build_then_check_exit_codes) ... ok
+test_index_check_without_cache_explains_and_fails (test_nd_context.NdContextCli.test_index_check_without_cache_explains_and_fails) ... ok
+test_locate_absent_topic_exits_two_without_fabrication (test_nd_context.NdContextCli.test_locate_absent_topic_exits_two_without_fabrication) ... ok
+test_locate_history_opt_in (test_nd_context.NdContextCli.test_locate_history_opt_in) ... ok
+test_locate_returns_bounded_routes_and_footprint (test_nd_context.NdContextCli.test_locate_returns_bounded_routes_and_footprint) ... ok
+test_bundle_and_source_profile_and_cli (test_onboarding.OnboardingTests.test_bundle_and_source_profile_and_cli) ... ok
+test_case_collision_and_non_directory_ancestor (test_onboarding.OnboardingTests.test_case_collision_and_non_directory_ancestor) ... ok
+test_completed_apply_refuses_repeat (test_onboarding.OnboardingTests.test_completed_apply_refuses_repeat) ... ok
+test_doctor_read_only_and_migration_indicators (test_onboarding.OnboardingTests.test_doctor_read_only_and_migration_indicators) ... ok
+test_doctor_token_efficiency_evaluation (test_onboarding.OnboardingTests.test_doctor_token_efficiency_evaluation) ... ok
+test_duplicate_json_keys (test_onboarding.OnboardingTests.test_duplicate_json_keys) ... ok
+test_existing_conflict_preserves_dirty_work (test_onboarding.OnboardingTests.test_existing_conflict_preserves_dirty_work) ... ok
+test_malformed_unsafe_and_duplicate_plans (test_onboarding.OnboardingTests.test_malformed_unsafe_and_duplicate_plans) ... ok
+test_preview_no_write_and_fresh_apply (test_onboarding.OnboardingTests.test_preview_no_write_and_fresh_apply) ... ok
+test_repeat_and_interrupted_apply (test_onboarding.OnboardingTests.test_repeat_and_interrupted_apply) ... ok
+test_reviewed_merge_backs_up_exact_bytes (test_onboarding.OnboardingTests.test_reviewed_merge_backs_up_exact_bytes) ... ok
+test_skip_and_reuse (test_onboarding.OnboardingTests.test_skip_and_reuse) ... ok
+test_stale_target_and_source (test_onboarding.OnboardingTests.test_stale_target_and_source) ... ok
+test_symlink_rejected (test_onboarding.OnboardingTests.test_symlink_rejected) ... skipped 'Symlink privilege unavailable'
+test_wrong_target_and_removed_entry (test_onboarding.OnboardingTests.test_wrong_target_and_removed_entry) ... ok
+test_all_resources_match_hashes (test_plugins.PluginTests.test_all_resources_match_hashes) ... ok
+test_bundle_windows_unsafe_names_rejected_before_reads (test_plugins.PluginTests.test_bundle_windows_unsafe_names_rejected_before_reads) ... ok
+test_chatgpt_instructions_and_presentation (test_plugins.PluginTests.test_chatgpt_instructions_and_presentation) ... ok
+test_codex_schema_and_presentation (test_plugins.PluginTests.test_codex_schema_and_presentation) ... ok
+test_core_export_is_closed_and_validates (test_plugins.PluginTests.test_core_export_is_closed_and_validates) ... ok
+test_deterministic_zip_and_collision (test_plugins.PluginTests.test_deterministic_zip_and_collision) ... ok
+test_extracted_staging_cli_works_outside_repository (test_plugins.PluginTests.test_extracted_staging_cli_works_outside_repository) ... ok
+test_malformed_bundle_fails_closed (test_plugins.PluginTests.test_malformed_bundle_fails_closed) ... ok
+test_preview_and_apply_preserve_live_project (test_plugins.PluginTests.test_preview_and_apply_preserve_live_project) ... ok
+test_skills_toggle_and_cli_override (test_plugins.PluginTests.test_skills_toggle_and_cli_override) ... ok
+test_source_link_rejected_before_content_reads (test_plugins.PluginTests.test_source_link_rejected_before_content_reads) ... skipped 'Symlink privilege unavailable'
+test_source_preview_and_apply_match_plugin (test_plugins.PluginTests.test_source_preview_and_apply_match_plugin) ... ok
+test_source_unsafe_paths_rejected_before_content_read (test_plugins.PluginTests.test_source_unsafe_paths_rejected_before_content_read) ... ok
+test_tampered_bundle_rejected_before_write (test_plugins.PluginTests.test_tampered_bundle_rejected_before_write) ... ok
+test_three_manifest_formats_and_shared_bodies (test_plugins.PluginTests.test_three_manifest_formats_and_shared_bodies) ... ok
+test_unknown_target_and_outside_destination (test_plugins.PluginTests.test_unknown_target_and_outside_destination) ... ok
+test_unsafe_path_rejected_before_write (test_plugins.PluginTests.test_unsafe_path_rejected_before_write) ... ok
+test_windsurf_and_continue_targets (test_plugins.PluginTests.test_windsurf_and_continue_targets) ... ok
+test_deprecated_script_message_explains_why (test_readiness_helpers.DeprecatedEntryPointTests.test_deprecated_script_message_explains_why) ... ok
+test_no_arg_invocation_exits_nonzero (test_readiness_helpers.DeprecatedEntryPointTests.test_no_arg_invocation_exits_nonzero) ... ok
+test_no_arg_invocation_never_awards_score_or_release_credit (test_readiness_helpers.DeprecatedEntryPointTests.test_no_arg_invocation_never_awards_score_or_release_credit) ... ok
+test_no_arg_invocation_writes_no_files (test_readiness_helpers.DeprecatedEntryPointTests.test_no_arg_invocation_writes_no_files) ... ok
+test_full_run_asserts_source_backed_structured_states (test_readiness_helpers.VerifyPackageExtractedBehaviourTests.test_full_run_asserts_source_backed_structured_states) ... ok
+test_negative_verification_propagates_exit_code (test_readiness_helpers.VerifyPackageExtractedBehaviourTests.test_negative_verification_propagates_exit_code) ... ok
+test_skip_tool_runs_extracts_and_reports_structured_keys (test_readiness_helpers.VerifyPackageExtractedBehaviourTests.test_skip_tool_runs_extracts_and_reports_structured_keys) ... ok
+test_running_against_synthesized_zip_does_not_touch_real_candidate (test_readiness_helpers.VerifyPackageExtractedNoCandidateMutationTests.test_running_against_synthesized_zip_does_not_touch_real_candidate) ... ok
+test_corrupt_zip_crc_is_refused_before_extraction (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_corrupt_zip_crc_is_refused_before_extraction) ... ok
+test_existing_output_dir_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_existing_output_dir_is_refused) ... ok
+test_malformed_archive_exits_nonzero (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_malformed_archive_exits_nonzero) ... ok
+test_missing_archive_exits_nonzero (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_missing_archive_exits_nonzero) ... ok
+test_no_arg_invocation_exits_nonzero_and_does_not_touch_candidate (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_no_arg_invocation_exits_nonzero_and_does_not_touch_candidate) ... ok
+test_out_of_workspace_archive_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_out_of_workspace_archive_is_refused) ... ok
+test_summary_path_does_not_overwrite_existing_file (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_summary_path_does_not_overwrite_existing_file) ... ok
+test_zip_with_absolute_entry_is_refused_before_extraction (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_absolute_entry_is_refused_before_extraction) ... ok
+test_zip_with_backslash_entry_is_rejected_or_sanitized (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_backslash_entry_is_rejected_or_sanitized) ... ok
+test_zip_with_drive_prefix_entry_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_drive_prefix_entry_is_refused) ... ok
+test_zip_with_symlink_mode_entry_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_symlink_mode_entry_is_refused) ... ok
+test_zip_with_traversal_entry_is_refused_before_extraction (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_traversal_entry_is_refused_before_extraction) ... ok
+test_filtered_starter_and_doctor_selection (test_review_regressions.ReviewRegressionTests.test_filtered_starter_and_doctor_selection) ... ok
+test_invalid_utf8_is_unknown (test_review_regressions.ReviewRegressionTests.test_invalid_utf8_is_unknown) ... ok
+test_oversize_audit_is_unknown_without_read_text (test_review_regressions.ReviewRegressionTests.test_oversize_audit_is_unknown_without_read_text) ... ok
+test_linked_existing_file_must_be_packaged (test_tooling.TestDistributionLinks.test_linked_existing_file_must_be_packaged) ... ok
+test_alias_rejected (test_tooling.TestFrontmatterParser.test_alias_rejected) ... ok
+test_block_scalar_gt_rejected (test_tooling.TestFrontmatterParser.test_block_scalar_gt_rejected) ... ok
+test_block_scalar_pipe_rejected (test_tooling.TestFrontmatterParser.test_block_scalar_pipe_rejected) ... ok
+test_brace_container_rejected (test_tooling.TestFrontmatterParser.test_brace_container_rejected) ... ok
+test_bracket_container_rejected (test_tooling.TestFrontmatterParser.test_bracket_container_rejected) ... ok
+test_duplicate_key (test_tooling.TestFrontmatterParser.test_duplicate_key) ... ok
+test_empty_value (test_tooling.TestFrontmatterParser.test_empty_value) ... ok
+test_list_marker_rejected (test_tooling.TestFrontmatterParser.test_list_marker_rejected) ... ok
+test_missing_closing_delimiter (test_tooling.TestFrontmatterParser.test_missing_closing_delimiter) ... ok
+test_missing_required_key_description_reported (test_tooling.TestFrontmatterParser.test_missing_required_key_description_reported) ... ok
+test_missing_required_key_name_reported (test_tooling.TestFrontmatterParser.test_missing_required_key_name_reported) ... ok
+test_no_frontmatter_at_all (test_tooling.TestFrontmatterParser.test_no_frontmatter_at_all) ... ok
+test_quoted_value_rejected (test_tooling.TestFrontmatterParser.test_quoted_value_rejected) ... ok
+test_tag_rejected (test_tooling.TestFrontmatterParser.test_tag_rejected) ... ok
+test_unsupported_key_rejected (test_tooling.TestFrontmatterParser.test_unsupported_key_rejected) ... ok
+test_unterminated_quote_rejected (test_tooling.TestFrontmatterParser.test_unterminated_quote_rejected) ... ok
+test_valid_unquoted_with_punctuation (test_tooling.TestFrontmatterParser.test_valid_unquoted_with_punctuation) ... ok
+test_value_with_internal_double_quotes (test_tooling.TestFrontmatterParser.test_value_with_internal_double_quotes) ... ok
+test_existing_output_is_preserved (test_tooling.TestPackage.test_existing_output_is_preserved) ... ok
+test_package_reports_required_fields (test_tooling.TestPackage.test_package_reports_required_fields) ... ok
+test_package_succeeds_and_zip_is_well_formed (test_tooling.TestPackage.test_package_succeeds_and_zip_is_well_formed) ... ok
+test_package_validates_before_create (test_tooling.TestPackage.test_package_validates_before_create) ... ok
+test_extracted_package_runs_safe_subset (test_tooling.TestPackageExtractionSubset.test_extracted_package_runs_safe_subset) ... ok
+test_extracted_package_validates (test_tooling.TestPackageExtractionSubset.test_extracted_package_validates) ... ok
+test_exclusive_create_race_preserves_existing (test_tooling.TestPackageOutputPath.test_exclusive_create_race_preserves_existing) ... ok
+test_output_collides_with_source_file (test_tooling.TestPackageOutputPath.test_output_collides_with_source_file) ... ok
+test_output_is_existing_symlink_preserved (test_tooling.TestPackageOutputPath.test_output_is_existing_symlink_preserved) ... skipped 'symlink creation not supported on this platform'
+test_output_parent_dir_created_safely_after_validation (test_tooling.TestPackageOutputPath.test_output_parent_dir_created_safely_after_validation) ... ok
+test_output_under_repo_root (test_tooling.TestPackageOutputPath.test_output_under_repo_root) ... ok
+test_gitignore_is_independently_required (test_tooling.TestParentRegressions.test_gitignore_is_independently_required) ... ok
+test_output_symlink_not_resolved_away (test_tooling.TestParentRegressions.test_output_symlink_not_resolved_away) ... ok
+test_windows_device_extension_and_wildcard_rejected (test_tooling.TestParentRegressions.test_windows_device_extension_and_wildcard_rejected) ... ok
+test_approval_provenance_and_execution_are_separate (test_tooling.TestSpecificationApprovalContract.test_approval_provenance_and_execution_are_separate) ... ok
+test_drafting_checkpoint_is_not_an_implementation_task (test_tooling.TestSpecificationApprovalContract.test_drafting_checkpoint_is_not_an_implementation_task) ... ok
+test_resume_checks_authorization (test_tooling.TestSpecificationApprovalContract.test_resume_checks_authorization) ... ok
+test_spec_only_persists_draft_and_stops (test_tooling.TestSpecificationApprovalContract.test_spec_only_persists_draft_and_stops) ... ok
+test_workflow_preserves_direct_fixes_and_reapproval (test_tooling.TestSpecificationApprovalContract.test_workflow_preserves_direct_fixes_and_reapproval) ... ok
+test_markdown_with_broken_relative_link (test_tooling.TestValidateBrokenLink.test_markdown_with_broken_relative_link) ... ok
+test_agents_word_budget_exceeded_rejected (test_tooling.TestValidateCorruptedSource.test_agents_word_budget_exceeded_rejected) ... ok
+test_cr_line_endings_rejected (test_tooling.TestValidateCorruptedSource.test_cr_line_endings_rejected) ... ok
+test_utf8_bom_rejected (test_tooling.TestValidateCorruptedSource.test_utf8_bom_rejected) ... ok
+test_missing_frontmatter_block (test_tooling.TestValidateInvalidFrontmatter.test_missing_frontmatter_block) ... ok
+test_invalid_utf8_manifest_fails_before_content_reads (test_tooling.TestValidateMalformedManifest.test_invalid_utf8_manifest_fails_before_content_reads) ... ok
+test_missing_files_list_rejected (test_tooling.TestValidateMalformedManifest.test_missing_files_list_rejected) ... ok
+test_non_dict_manifest_rejected (test_tooling.TestValidateMalformedManifest.test_non_dict_manifest_rejected) ... ok
+test_required_hard_file_absent_from_manifest_and_disk (test_tooling.TestValidateMissingFile.test_required_hard_file_absent_from_manifest_and_disk) ... ok
+test_required_skill_absent_from_manifest (test_tooling.TestValidateMissingFile.test_required_skill_absent_from_manifest) ... ok
+test_agents_word_count_reported (test_tooling.TestValidatePositive.test_agents_word_count_reported) ... ok
+test_clean_fixture_passes (test_tooling.TestValidatePositive.test_clean_fixture_passes) ... ok
+test_fixture_writer_preserves_utf8_lf_bytes (test_tooling.TestValidatePositive.test_fixture_writer_preserves_utf8_lf_bytes) ... ok
+test_line_ending_policy_is_distributed (test_tooling.TestValidatePositive.test_line_ending_policy_is_distributed) ... ok
+test_line_ending_policy_is_independently_required (test_tooling.TestValidatePositive.test_line_ending_policy_is_independently_required) ... ok
+test_validate_does_not_write (test_tooling.TestValidatePositive.test_validate_does_not_write) ... ok
+test_absolute_unix_path_rejected (test_tooling.TestValidateUnsafeManifest.test_absolute_unix_path_rejected) ... ok
+test_backslash_path_rejected (test_tooling.TestValidateUnsafeManifest.test_backslash_path_rejected) ... ok
+test_case_fold_duplicate_rejected (test_tooling.TestValidateUnsafeManifest.test_case_fold_duplicate_rejected) ... ok
+test_colon_in_path_rejected (test_tooling.TestValidateUnsafeManifest.test_colon_in_path_rejected) ... ok
+test_directory_entry_rejected (test_tooling.TestValidateUnsafeManifest.test_directory_entry_rejected) ... ok
+test_dot_segment_rejected (test_tooling.TestValidateUnsafeManifest.test_dot_segment_rejected) ... ok
+test_double_slash_empty_segment_rejected (test_tooling.TestValidateUnsafeManifest.test_double_slash_empty_segment_rejected) ... ok
+test_drive_letter_prefix_rejected (test_tooling.TestValidateUnsafeManifest.test_drive_letter_prefix_rejected) ... ok
+test_drive_letter_with_slash_rejected (test_tooling.TestValidateUnsafeManifest.test_drive_letter_with_slash_rejected) ... ok
+test_duplicate_path_rejected (test_tooling.TestValidateUnsafeManifest.test_duplicate_path_rejected) ... ok
+test_reserved_device_name_rejected (test_tooling.TestValidateUnsafeManifest.test_reserved_device_name_rejected) ... ok
+test_secret_path_rejected (test_tooling.TestValidateUnsafeManifest.test_secret_path_rejected) ... ok
+test_symlink_ancestor_escape_rejected (test_tooling.TestValidateUnsafeManifest.test_symlink_ancestor_escape_rejected) ... skipped 'symlink creation not supported on this platform'
+test_symlink_rejected (test_tooling.TestValidateUnsafeManifest.test_symlink_rejected) ... skipped 'symlink creation not supported on this platform'
+test_trailing_dot_segment_rejected (test_tooling.TestValidateUnsafeManifest.test_trailing_dot_segment_rejected) ... ok
+test_trailing_space_segment_rejected (test_tooling.TestValidateUnsafeManifest.test_trailing_space_segment_rejected) ... ok
+test_traversal_path_rejected (test_tooling.TestValidateUnsafeManifest.test_traversal_path_rejected) ... ok
+test_all_plugin_providers_include_reference_and_template (test_user_testing.UserTestingContractTests.test_all_plugin_providers_include_reference_and_template) ... ok
+test_frontmatter_budget_and_reference (test_user_testing.UserTestingContractTests.test_frontmatter_budget_and_reference) ... ok
+test_project_profile_initialization_and_proposal_contract (test_user_testing.UserTestingContractTests.test_project_profile_initialization_and_proposal_contract) ... ok
+test_report_and_scenario_coverage (test_user_testing.UserTestingContractTests.test_report_and_scenario_coverage) ... ok
+test_safety_and_required_surface_contract (test_user_testing.UserTestingContractTests.test_safety_and_required_surface_contract) ... ok
+test_scope_and_completion_contract (test_user_testing.UserTestingContractTests.test_scope_and_completion_contract) ... ok
+test_status_events_and_developer_fields (test_user_testing.UserTestingContractTests.test_status_events_and_developer_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 188 tests in 61.063s
+
+OK (skipped=7)
+{"status": "PREVIEW", "target": "C:\\Users\\MT-Staff\\Documents\\project\\workflow-starter\\.validation\\cli-re7l3uy9", "counts": {"add": 28, "reuse": 0, "conflict": 0}, "conflicts": []}
+No files applied. Save full plan with --plan outside target; review before --apply-plan.
+UNVERIFIED: cargo missing. No software installed.
+{
+  "status": "UNKNOWN",
+  "method": "ceil(Unicode character count / 4), not a tokenizer or runtime measurement",
+  "root_instruction_files": [],
+  "root_estimated_tokens": 0,
+  "available_skill_bodies": [],
+  "available_skill_body_estimated_tokens": 0,
+  "limits": "Host imports, skill metadata/index, referenced docs, nested policies, caching, repeated inputs, tool outputs and actual context loading are unmeasured. No competitor ranking or per-session savings inferred."
+}
+UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.
+UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.
+Created draft checkpoint: docs/tasks/wip-20260911-add-search.md
+UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.

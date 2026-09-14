@@ -1,0 +1,43 @@
+
+> nd-workflow-cms-portfolio@0.1.0 test:api
+> node --test test/api.test.js
+
+▶ Auth and security
+  ✔ rejects login with wrong password (38.3511ms)
+  ✔ logs in with correct credentials (3.9235ms)
+  ✔ returns user info with valid session (10.0449ms)
+  ✔ rejects admin endpoints without auth (4.3ms)
+  ✔ sets security headers (2.7745ms)
+  ✔ cookie logout revokes replay of the same session (43.6517ms)
+  ✔ logs out and invalidates session (21.3326ms)
+✔ Auth and security (154.4078ms)
+▶ Projects CRUD
+  ✔ creates a project (6.1447ms)
+  ✔ lists projects publicly (4.1377ms)
+  ✔ updates a project (17.2405ms)
+  ✔ deletes a project (14.4376ms)
+  ✔ rejects project without title (2.282ms)
+✔ Projects CRUD (63.2739ms)
+▶ Blog posts CRUD
+  ✔ creates a draft post (6.1836ms)
+  ✔ draft not visible in public API or direct lookup (29.9644ms)
+  ✔ publishes a post (16.0857ms)
+  ✔ published post visible in public API (3.2567ms)
+  ✔ deletes a post (24.9092ms)
+✔ Blog posts CRUD (93.7882ms)
+▶ Persistence shutdown
+  ✔ creates a missing directory and drains concurrent queued writes before reload (24.2028ms)
+✔ Persistence shutdown (24.4824ms)
+▶ Edge cases
+  ✔ returns 404 for unknown routes (4.4115ms)
+  ✔ returns 404 for nonexistent project (4.7277ms)
+  ✔ returns 404 for nonexistent post (1.1207ms)
+✔ Edge cases (14.0128ms)
+ℹ tests 21
+ℹ suites 5
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 620.5281

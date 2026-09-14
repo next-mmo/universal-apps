@@ -1,0 +1,1067 @@
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	﻿2026-09-11T11:03:01.9711880Z Current runner version: '2.337.0'
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9727520Z ##[group]Runner Image Provisioner
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9728000Z Hosted Compute Agent
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9728340Z Version: 20260828.587
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9728710Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9729150Z Build Date: 2026-08-28T16:44:25Z
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9729560Z Worker ID: {e623cb5b-6e52-4731-91d8-0f8f9f853dca}
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9729980Z Azure Region: westus
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9730320Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9731120Z ##[group]Operating System
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9731480Z macOS
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9731770Z 26.6.2
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9732070Z 25G83
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9732380Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9732720Z ##[group]Runner Image
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9733070Z Image: macos-26-arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9733420Z Version: 20260907.0351.1
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9734190Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260907.0351/images/macos/macos-26-arm64-Readme.md
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9735140Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260907.0351
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9735770Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9736500Z ##[group]GITHUB_TOKEN Permissions
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9737400Z Contents: read
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9737740Z Metadata: read
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9738080Z Packages: read
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9738410Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9739650Z Secret source: Actions
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9740180Z Cache mode: write
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9740600Z Prepare workflow directory
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9940480Z Prepare all required actions
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:01.9970990Z Getting action download info
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.3043990Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.5494070Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.6567220Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8046350Z Complete job name: validate-and-test (macos-latest, 3.10, 20)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8463600Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8469940Z ##[group]Run actions/checkout@v4
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8470410Z with:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8470730Z   repository: next-mmo/nd-workflow
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8473460Z   token: ***
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8473770Z   ssh-strict: true
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8474180Z   ssh-user: git
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8474520Z   persist-credentials: true
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8474870Z   clean: true
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8475190Z   sparse-checkout-cone-mode: true
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8475560Z   fetch-depth: 1
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8475870Z   fetch-tags: false
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8476240Z   show-progress: true
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8476570Z   lfs: false
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8476900Z   submodules: false
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8477230Z   set-safe-directory: true
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8477590Z   allow-unsafe-pr-checkout: false
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:02.8478180Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.1643510Z Syncing repository: next-mmo/nd-workflow
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.1644930Z ##[group]Getting Git version info
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.1645510Z Working directory is '/Users/runner/work/nd-workflow/nd-workflow'
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.1646270Z [command]/opt/homebrew/bin/git version
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2162360Z git version 2.55.0
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2176050Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2182610Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/97bb3fc2-40d4-457b-ae00-3c2715d42fe6/.gitconfig'
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2188970Z Temporarily overriding HOME='/Users/runner/work/_temp/97bb3fc2-40d4-457b-ae00-3c2715d42fe6' before making global git config changes
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2194630Z Adding repository directory to the temporary git global config as a safe directory
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2238190Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/nd-workflow/nd-workflow
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2312410Z Deleting the contents of '/Users/runner/work/nd-workflow/nd-workflow'
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2315670Z ##[group]Initializing the repository
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2319160Z [command]/opt/homebrew/bin/git init /Users/runner/work/nd-workflow/nd-workflow
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2569760Z hint: Using 'master' as the name for the initial branch. This default branch name
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2586100Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2587070Z hint: to use in all of your new repositories, which will suppress this warning,
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2593940Z hint: call:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2594480Z hint:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2595040Z hint: 	git config --global init.defaultBranch <name>
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2595660Z hint:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2596200Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2596970Z hint: 'development'. The just-created branch can be renamed via this command:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2597580Z hint:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2598170Z hint: 	git branch -m <name>
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2598980Z hint:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2599580Z hint: Disable this message with "git config set advice.defaultBranchName false"
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2600410Z Initialized empty Git repository in /Users/runner/work/nd-workflow/nd-workflow/.git/
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2601860Z [command]/opt/homebrew/bin/git remote add origin https://github.com/next-mmo/nd-workflow
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2669350Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2669980Z ##[group]Disabling automatic garbage collection
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2672000Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2755430Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2756150Z ##[group]Setting up auth
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2759680Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.2850760Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.3981100Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.4046180Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.4799140Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.4862390Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.6103930Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.6189660Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.6190720Z ##[group]Fetching the repository
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:03.6191990Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +94a4d1c25d0b9184fe7045342224f3c588f80410:refs/remotes/origin/main
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.4561660Z From https://github.com/next-mmo/nd-workflow
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.4563000Z  * [new ref]         94a4d1c25d0b9184fe7045342224f3c588f80410 -> origin/main
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.4565930Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.4566980Z ##[group]Determining the checkout info
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.4568130Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.4568870Z [command]/opt/homebrew/bin/git sparse-checkout disable
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.4662590Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.4724010Z ##[group]Checking out the ref
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.4726010Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5031580Z Switched to a new branch 'main'
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5034090Z branch 'main' set up to track 'origin/main'.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5039050Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5126410Z [command]/opt/homebrew/bin/git log -1 --format=%H
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5189550Z 94a4d1c25d0b9184fe7045342224f3c588f80410
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5447470Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5451170Z ##[group]Run actions/setup-python@v5
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5451880Z with:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5452420Z   python-version: 3.10
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5453030Z   check-latest: false
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5459440Z   token: ***
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5460010Z   update-environment: true
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5460670Z   allow-prereleases: false
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5461290Z   freethreaded: false
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.5461860Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.6554210Z ##[group]Installed versions
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.6609720Z Version 3.10 was not found in the local cache
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.6725970Z (node:27461) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:04.6728450Z (Use `node --trace-deprecation ...` to show where the warning was created)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:05.5510860Z Version 3.10 is available for downloading
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:05.5511660Z Download from "https://github.com/actions/python-versions/releases/download/3.10.11-11114431484/python-3.10.11-darwin-arm64.tar.gz"
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:06.0812010Z Extract downloaded archive
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:06.0913580Z [command]/usr/bin/tar xz -C /Users/runner/work/_temp/069a4aa7-bb4b-48ec-9ed1-af57ee0da0ea -f /Users/runner/work/_temp/bda61a82-4f97-4f6d-9158-90cd5227c829
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:06.1625000Z Execute installation script
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:06.1854390Z Check if Python hostedtoolcache folder exist...
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:06.1952100Z Install Python binaries from prebuilt package
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:18.0282170Z installer: Package name is Python
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:18.0282700Z installer: Upgrading at base path /
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:18.0283030Z installer: The upgrade was successful.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:18.0296570Z Create hostedtoolcach symlinks (Required for the backward compatibility)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:18.0297400Z Create Python 3.10.11 folder
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:18.0407990Z Create additional symlinks (Required for the UsePythonVersion Azure Pipelines task and the setup-python GitHub Action)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:18.0485600Z Upgrading pip...
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.2599220Z Looking in links: /var/folders/36/tjdph2t965j8snz9_vkdnw0r0000gn/T/tmpy03vwlyf
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.2601170Z Requirement already satisfied: setuptools in /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages (65.5.0)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.2602700Z Requirement already satisfied: pip in /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages (23.0.1)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.6984280Z Collecting pip
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.7651080Z Downloading pip-26.2.1-py3-none-any.whl (1.8 MB)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.8394600Z ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 25.3 MB/s eta 0:00:00
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.8493570Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.8645630Z Installing collected packages: pip
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.8646790Z Attempting uninstall: pip
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.8647900Z Found existing installation: pip 23.0.1
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9564700Z Uninstalling pip-23.0.1:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:20.1236190Z Successfully uninstalled pip-23.0.1
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6496300Z Successfully installed pip-26.2.1
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6826200Z Install OpenSSL certificates
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1217800Z Collecting certifi
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1246660Z Using cached certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1284650Z Using cached certifi-2026.7.22-py3-none-any.whl (136 kB)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1489360Z Installing collected packages: certifi
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1554100Z Successfully installed certifi-2026.7.22
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1894180Z -- pip install --upgrade certifi
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1894720Z  -- removing any existing file or link
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1895620Z  -- creating symlink to certifi certificate bundle
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1895940Z  -- setting permissions
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1896160Z  -- update complete
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1932560Z Create complete file
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1990250Z Successfully set up CPython (3.10.11)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.1990850Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2151960Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2152930Z ##[group]Run actions/setup-node@v4
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2153100Z with:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2153230Z   node-version: 20
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2153360Z   always-auth: false
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2153500Z   check-latest: false
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2155320Z   token: ***
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2155440Z env:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2155650Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2156040Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.10.11/arm64/lib/pkgconfig
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2156420Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2156790Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2157120Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2157370Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.3697550Z Attempting to download 20...
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.3776860Z (node:28186) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:21.3778540Z (Use `node --trace-deprecation ...` to show where the warning was created)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:22.1915150Z Acquiring 20.20.2 - arm64 from https://github.com/actions/node-versions/releases/download/20.20.2-23521894959/node-20.20.2-darwin-arm64.tar.gz
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:22.4536320Z Extracting ...
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:22.4636250Z [command]/usr/bin/tar xz --strip 1 -C /Users/runner/work/_temp/4d278778-7974-4686-8d4b-61e6deb95fe6 -f /Users/runner/work/_temp/8431da1c-e248-42f7-b526-4165b4522793
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:23.4077850Z Adding to the cache ...
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.0873540Z ##[group]Environment details
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.3860590Z node: v20.20.2
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.3905240Z npm: 10.8.2
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.3905770Z yarn: 1.22.22
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.3910000Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4037210Z ##[group]Run python scripts/validate.py
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4037650Z ^[[36;1mpython scripts/validate.py^[[0m
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4097770Z shell: /bin/bash -e {0}
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4098130Z env:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4098400Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4098820Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.10.11/arm64/lib/pkgconfig
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4099300Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4099830Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4100240Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.4100530Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5195250Z Status: PASS
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5195920Z Root: /Users/runner/work/nd-workflow/nd-workflow
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5196530Z Manifest: /Users/runner/work/nd-workflow/nd-workflow/package-files.json
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5197030Z Files in manifest: 91
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5197220Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5197350Z Checks:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5197620Z   manifest_paths: 0 errors
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5198540Z   hard_required: 0 errors
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5198910Z   agents_word_count: 0 errors  (words=448 budget=450)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5199280Z   utf8_links: 0 errors  (files=42 relative_links=97 fences=44)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5199640Z   skill_frontmatter: 0 errors
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5199820Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5199890Z No errors.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5199990Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5200760Z Limitations: link and fence checks are heuristic; not a full Markdown or YAML parser. Frontmatter parser is a strict scalar subset (name + description, single-line unquoted).
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5259110Z ##[group]Run python -m unittest discover -s tests -p 'test_*.py' -v
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5259550Z ^[[36;1mpython -m unittest discover -s tests -p 'test_*.py' -v^[[0m
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5295020Z shell: /bin/bash -e {0}
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5295360Z env:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5295670Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5296230Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.10.11/arm64/lib/pkgconfig
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5296670Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5297050Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5297510Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.10.11/arm64
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.5297850Z ##[endgroup]
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.6799070Z test_catalog_parses_routes_and_skips_external (test_context_index.TestCatalogAndClassification) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.7428180Z test_classification_is_deterministic (test_context_index.TestCatalogAndClassification) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.7430540Z test_classify_accepts_path_objects_and_backslashes (test_context_index.TestCatalogAndClassification) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.7486790Z test_ignored_and_secret_trees_never_indexed (test_context_index.TestCatalogAndClassification) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.7850990Z test_oversized_source_recorded_not_indexed (test_context_index.TestCatalogAndClassification) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.7903740Z test_symlinked_directory_not_traversed (test_context_index.TestCatalogAndClassification) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.8204870Z test_complete_checkpoint_reported (test_context_index.TestContextCheck) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.8514640Z test_incomplete_and_ambiguous_checkpoints (test_context_index.TestContextCheck) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.8801630Z test_missing_catalog_anchor_reported (test_context_index.TestContextCheck) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:25.9782620Z test_symbol_extraction_and_ast_lookup (test_context_index.TestContextCheck) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.1054640Z test_edit_delete_add_detected (test_context_index.TestFreshness) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.1362020Z test_interrupted_write_keeps_previous_cache (test_context_index.TestFreshness) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.1389250Z test_missing_and_corrupted_cache_states (test_context_index.TestFreshness) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.1934700Z test_non_git_project_still_fingerprints (test_context_index.TestFreshness) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.2661730Z test_bounded_results_and_excerpts (test_context_index.TestLocate) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.3333280Z test_changed_entry_not_served_as_current (test_context_index.TestLocate) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.3411400Z test_corrupted_cache_never_served (test_context_index.TestLocate) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.3434950Z test_empty_topic_rejected (test_context_index.TestLocate) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4352320Z test_history_excluded_until_opted_in (test_context_index.TestLocate) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4416540Z test_missing_cache_falls_back_to_live_search (test_context_index.TestLocate) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4424780Z test_nested_source_warns_without_moving (test_end_user_adoption.EndUserAdoptionTests) ... ERROR
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4611300Z test_source_and_plugin_profile (test_end_user_adoption.EndUserAdoptionTests) ... ERROR
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4627060Z test_18_fresh_session_handovers_happy_path (test_handover_suite.TestHandoverSuite) ... ERROR
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4640780Z test_edge_case_draft_only_protection (test_handover_suite.TestHandoverSuite) ... ERROR
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4653590Z test_edge_case_missing_checkpoint_fields_flagged (test_handover_suite.TestHandoverSuite) ... ERROR
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4666420Z test_edge_case_stale_evidence_detected (test_handover_suite.TestHandoverSuite) ... ERROR
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4674130Z Project code execution: cargo test (source: Cargo.toml). Trust project scripts before running.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4675060Z test_check_propagates_failure_without_shell (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.4677850Z test_cli_resources_in_distribution_manifest (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.5719280Z test_context_locate_and_check_cli (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.5983230Z test_doctor_import_and_truthful_incomplete (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.6083760Z Command exit=7; elapsed=0.000s. Check test counts and coverage; exit 0 alone does not prove acceptance.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.6185410Z Reviewed adoption: preview only unless --apply-plan is supplied. Host loading remains unverified.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.6686870Z test_init_empty_preview_no_files_created (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7570350Z test_init_preview_preserves_project_and_selection (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7585500Z test_invalid_node_metadata_rejected (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7588960Z test_link_target_rejected (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7597460Z test_missing_executable_does_not_install (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7604960Z test_missing_root_is_unknown_not_zero_cost (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7653760Z test_node_script_and_manager_provenance (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7654520Z test_node_without_script_not_invented (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7656880Z test_python_not_assumed_unittest (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7657560Z test_rust_command_preserved (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.8297460Z test_source_target_rejected (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.8310890Z test_task_collision_preserves_checkpoint (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.8314470Z test_task_title_invalid_no_write (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.8329470Z test_token_estimate_only_actual_files (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.8334500Z test_unknown_stack_fails_closed (test_nd_cli.TestNdCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:26.8966900Z test_context_check_output_stays_bounded (test_nd_context.NdContextCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.0234130Z test_context_check_ready_only_when_truthful (test_nd_context.NdContextCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.0654060Z test_context_subcommands_reachable_via_argparse (test_nd_context.NdContextCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.1306240Z test_handover_command_and_prompt (test_nd_context.NdContextCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.1979830Z test_index_build_then_check_exit_codes (test_nd_context.NdContextCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.1989540Z test_index_check_without_cache_explains_and_fails (test_nd_context.NdContextCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.2012620Z test_locate_absent_topic_exits_two_without_fabrication (test_nd_context.NdContextCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.2059810Z test_locate_history_opt_in (test_nd_context.NdContextCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.2527350Z test_locate_returns_bounded_routes_and_footprint (test_nd_context.NdContextCli) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.5640830Z test_bundle_and_source_profile_and_cli (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.5652040Z test_case_collision_and_non_directory_ancestor (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.5705730Z test_completed_apply_refuses_repeat (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.5969260Z test_doctor_read_only_and_migration_indicators (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.6511010Z test_doctor_token_efficiency_evaluation (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.6518140Z test_duplicate_json_keys (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.6535630Z test_existing_conflict_preserves_dirty_work (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.6557160Z test_malformed_unsafe_and_duplicate_plans (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.6598870Z test_preview_no_write_and_fresh_apply (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.6921380Z test_repeat_and_interrupted_apply (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.6967670Z test_reviewed_merge_backs_up_exact_bytes (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.6987000Z test_skip_and_reuse (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.7011100Z test_stale_target_and_source (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.7019450Z test_symlink_rejected (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.7032870Z test_wrong_target_and_removed_entry (test_onboarding.OnboardingTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.7298450Z test_all_resources_match_hashes (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.7328080Z test_bundle_windows_unsafe_names_rejected_before_reads (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.7585990Z test_chatgpt_instructions_and_presentation (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.7837110Z test_codex_schema_and_presentation (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.8582870Z test_core_export_is_closed_and_validates (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:27.9415510Z test_deterministic_zip_and_collision (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.1264090Z test_extracted_staging_cli_works_outside_repository (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.1285030Z test_malformed_bundle_fails_closed (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.2245650Z test_preview_and_apply_preserve_live_project (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.2627480Z test_skills_toggle_and_cli_override (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.2640180Z test_source_link_rejected_before_content_reads (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3919740Z test_source_preview_and_apply_match_plugin (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3928170Z test_source_unsafe_paths_rejected_before_content_read (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.4573460Z test_tampered_bundle_rejected_before_write (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.6214960Z test_three_manifest_formats_and_shared_bodies (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.6316140Z test_unknown_target_and_outside_destination (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.6972910Z test_unsafe_path_rejected_before_write (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.7492820Z test_windsurf_and_continue_targets (test_plugins.PluginTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.8230770Z test_deprecated_script_message_explains_why (test_readiness_helpers.DeprecatedEntryPointTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:28.9233780Z test_no_arg_invocation_exits_nonzero (test_readiness_helpers.DeprecatedEntryPointTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.0138400Z test_no_arg_invocation_never_awards_score_or_release_credit (test_readiness_helpers.DeprecatedEntryPointTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.1040540Z test_no_arg_invocation_writes_no_files (test_readiness_helpers.DeprecatedEntryPointTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.3487030Z test_full_run_asserts_source_backed_structured_states (test_readiness_helpers.VerifyPackageExtractedBehaviourTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.6089760Z test_negative_verification_propagates_exit_code (test_readiness_helpers.VerifyPackageExtractedBehaviourTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.6592150Z test_skip_tool_runs_extracts_and_reports_structured_keys (test_readiness_helpers.VerifyPackageExtractedBehaviourTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.7055270Z test_running_against_synthesized_zip_does_not_touch_real_candidate (test_readiness_helpers.VerifyPackageExtractedNoCandidateMutationTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.7502400Z test_corrupt_zip_crc_is_refused_before_extraction (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.7952470Z test_existing_output_dir_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.8381710Z test_malformed_archive_exits_nonzero (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.8807630Z test_missing_archive_exits_nonzero (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.9236660Z test_no_arg_invocation_exits_nonzero_and_does_not_touch_candidate (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:29.9653430Z test_out_of_workspace_archive_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.0101930Z test_summary_path_does_not_overwrite_existing_file (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.0526770Z test_zip_with_absolute_entry_is_refused_before_extraction (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.0961350Z test_zip_with_backslash_entry_is_rejected_or_sanitized (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.1380170Z test_zip_with_drive_prefix_entry_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.1784880Z test_zip_with_symlink_mode_entry_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.2197760Z test_zip_with_traversal_entry_is_refused_before_extraction (test_readiness_helpers.VerifyPackageExtractedSafetyTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.3308650Z test_filtered_starter_and_doctor_selection (test_review_regressions.ReviewRegressionTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.3312470Z test_invalid_utf8_is_unknown (test_review_regressions.ReviewRegressionTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.3318540Z test_oversize_audit_is_unknown_without_read_text (test_review_regressions.ReviewRegressionTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4042570Z test_linked_existing_file_must_be_packaged (test_tooling.TestDistributionLinks) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4043240Z test_alias_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4043810Z test_block_scalar_gt_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4044450Z test_block_scalar_pipe_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4045020Z test_brace_container_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4045570Z test_bracket_container_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4046060Z test_duplicate_key (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4046650Z test_empty_value (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4047160Z test_list_marker_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4047690Z test_missing_closing_delimiter (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4048320Z test_missing_required_key_description_reported (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4048930Z test_missing_required_key_name_reported (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4049480Z test_no_frontmatter_at_all (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4049980Z test_quoted_value_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4050430Z test_tag_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4050920Z test_unsupported_key_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4051460Z test_unterminated_quote_rejected (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4052010Z test_valid_unquoted_with_punctuation (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4052590Z test_value_with_internal_double_quotes (test_tooling.TestFrontmatterParser) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.4826050Z test_existing_output_is_preserved (test_tooling.TestPackage) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.5822620Z test_package_reports_required_fields (test_tooling.TestPackage) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.7030490Z test_package_succeeds_and_zip_is_well_formed (test_tooling.TestPackage) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:30.8101200Z test_package_validates_before_create (test_tooling.TestPackage) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:31.0791670Z test_extracted_package_runs_safe_subset (test_tooling.TestPackageExtractionSubset) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:31.3726990Z test_extracted_package_validates (test_tooling.TestPackageExtractionSubset) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:31.5198880Z test_exclusive_create_race_preserves_existing (test_tooling.TestPackageOutputPath) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:31.6315070Z test_output_collides_with_source_file (test_tooling.TestPackageOutputPath) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:31.7475350Z test_output_is_existing_symlink_preserved (test_tooling.TestPackageOutputPath) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:31.8806790Z test_output_parent_dir_created_safely_after_validation (test_tooling.TestPackageOutputPath) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0194900Z test_output_under_repo_root (test_tooling.TestPackageOutputPath) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0198390Z test_gitignore_is_independently_required (test_tooling.TestParentRegressions) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0204960Z test_output_symlink_not_resolved_away (test_tooling.TestParentRegressions) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0206120Z test_windows_device_extension_and_wildcard_rejected (test_tooling.TestParentRegressions) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0208340Z test_approval_provenance_and_execution_are_separate (test_tooling.TestSpecificationApprovalContract) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0209560Z test_drafting_checkpoint_is_not_an_implementation_task (test_tooling.TestSpecificationApprovalContract) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0210580Z test_resume_checks_authorization (test_tooling.TestSpecificationApprovalContract) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0211370Z test_spec_only_persists_draft_and_stops (test_tooling.TestSpecificationApprovalContract) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0212240Z test_workflow_preserves_direct_fixes_and_reapproval (test_tooling.TestSpecificationApprovalContract) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.1171240Z test_markdown_with_broken_relative_link (test_tooling.TestValidateBrokenLink) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.2087140Z test_agents_word_budget_exceeded_rejected (test_tooling.TestValidateCorruptedSource) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.3392680Z test_cr_line_endings_rejected (test_tooling.TestValidateCorruptedSource) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.4442520Z test_utf8_bom_rejected (test_tooling.TestValidateCorruptedSource) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.6026410Z test_missing_frontmatter_block (test_tooling.TestValidateInvalidFrontmatter) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.7294500Z test_invalid_utf8_manifest_fails_before_content_reads (test_tooling.TestValidateMalformedManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.8215580Z test_missing_files_list_rejected (test_tooling.TestValidateMalformedManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.8988250Z test_non_dict_manifest_rejected (test_tooling.TestValidateMalformedManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:32.9873870Z test_required_hard_file_absent_from_manifest_and_disk (test_tooling.TestValidateMissingFile) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.0783720Z test_required_skill_absent_from_manifest (test_tooling.TestValidateMissingFile) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.2108270Z test_agents_word_count_reported (test_tooling.TestValidatePositive) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.3343420Z test_clean_fixture_passes (test_tooling.TestValidatePositive) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.3924070Z test_fixture_writer_preserves_utf8_lf_bytes (test_tooling.TestValidatePositive) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.4428400Z test_line_ending_policy_is_distributed (test_tooling.TestValidatePositive) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.5474320Z test_line_ending_policy_is_independently_required (test_tooling.TestValidatePositive) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.6440640Z test_validate_does_not_write (test_tooling.TestValidatePositive) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.7211380Z test_absolute_unix_path_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.8034780Z test_backslash_path_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.8870350Z test_case_fold_duplicate_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:33.9637910Z test_colon_in_path_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.0341470Z test_directory_entry_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.1031370Z test_dot_segment_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.1814820Z test_double_slash_empty_segment_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.2531190Z test_drive_letter_prefix_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.3217900Z test_drive_letter_with_slash_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.3881850Z test_duplicate_path_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.6583640Z test_reserved_device_name_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.7308960Z test_secret_path_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.7979900Z test_symlink_ancestor_escape_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.8690370Z test_symlink_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:34.9404930Z test_trailing_dot_segment_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.0162500Z test_trailing_space_segment_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.1008140Z test_traversal_path_rejected (test_tooling.TestValidateUnsafeManifest) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3006720Z test_all_plugin_providers_include_reference_and_template (test_user_testing.UserTestingContractTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3108500Z test_frontmatter_budget_and_reference (test_user_testing.UserTestingContractTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3109640Z {"status": "PREVIEW", "target": "/Users/runner/work/nd-workflow/nd-workflow/.validation/cli-tjpoaz39", "counts": {"add": 28, "reuse": 0, "conflict": 0}, "conflicts": []}
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3211730Z test_project_profile_initialization_and_proposal_contract (test_user_testing.UserTestingContractTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3212520Z No files applied. Save full plan with --plan outside target; review before --apply-plan.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3315020Z test_report_and_scenario_coverage (test_user_testing.UserTestingContractTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3315850Z UNVERIFIED: cargo missing. No software installed.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3416520Z test_safety_and_required_surface_contract (test_user_testing.UserTestingContractTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3416990Z {
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3518390Z test_scope_and_completion_contract (test_user_testing.UserTestingContractTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3519500Z   "status": "UNKNOWN",
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3618160Z test_status_events_and_developer_fields (test_user_testing.UserTestingContractTests) ... ok
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3619080Z   "method": "ceil(Unicode character count / 4), not a tokenizer or runtime measurement",
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3718180Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3719200Z   "root_instruction_files": [],
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3819510Z ======================================================================
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3820710Z   "root_estimated_tokens": 0,
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3922540Z ERROR: test_nested_source_warns_without_moving (test_end_user_adoption.EndUserAdoptionTests)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.3923730Z   "available_skill_bodies": [],
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4022480Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4022880Z   "available_skill_body_estimated_tokens": 0,
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4122860Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4123920Z   "limits": "Host imports, skill metadata/index, referenced docs, nested policies, caching, repeated inputs, tool outputs and actual context loading are unmeasured. No competitor ranking or per-session savings inferred."
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4224380Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_end_user_adoption.py", line 52, in test_nested_source_warns_without_moving
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4225010Z }
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4325010Z     warn_nested_source(source, target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4326880Z UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4427760Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 102, in warn_nested_source
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4430040Z UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4527130Z     source = safe_target(source)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4527660Z Created draft checkpoint: docs/tasks/wip-20260911-add-search.md
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4627300Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4628180Z UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4694870Z     reject_links(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4796560Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.4922130Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5028540Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5129000Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5230200Z ======================================================================
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5330640Z ERROR: test_source_and_plugin_profile (test_end_user_adoption.EndUserAdoptionTests)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5420140Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5522320Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5588120Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_end_user_adoption.py", line 34, in test_source_and_plugin_profile
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5671000Z     result = inspect_project(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5772580Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/workflow_doctor.py", line 96, in inspect_project
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5848670Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5894420Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5895060Z     reject_links(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5895670Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5898210Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5899570Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5900010Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5900370Z ======================================================================
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5901130Z ERROR: test_18_fresh_session_handovers_happy_path (test_handover_suite.TestHandoverSuite)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5901900Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5903030Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5904390Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 90, in test_18_fresh_session_handovers_happy_path
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5905090Z     self.setup_project_fixture(task_content)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5905750Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 63, in setup_project_fixture
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5916780Z     idx = build_index(self.target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5917290Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/context_index.py", line 323, in build_index
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5917720Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5918170Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5918550Z     reject_links(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5919510Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5920660Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5921580Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5921780Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5921990Z ======================================================================
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5922470Z ERROR: test_edge_case_draft_only_protection (test_handover_suite.TestHandoverSuite)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5923250Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5923610Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5924440Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 132, in test_edge_case_draft_only_protection
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5924970Z     self.setup_project_fixture(draft_task)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5925540Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 63, in setup_project_fixture
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5926040Z     idx = build_index(self.target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5926610Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/context_index.py", line 323, in build_index
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5927030Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5927480Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5927860Z     reject_links(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5928290Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5929050Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5929810Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5929990Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5930180Z ======================================================================
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5930710Z ERROR: test_edge_case_missing_checkpoint_fields_flagged (test_handover_suite.TestHandoverSuite)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5931240Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5931620Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5932260Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 166, in test_edge_case_missing_checkpoint_fields_flagged
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5932870Z     self.setup_project_fixture(incomplete_task)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5933640Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 63, in setup_project_fixture
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5934160Z     idx = build_index(self.target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5934660Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/context_index.py", line 323, in build_index
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5935130Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5935640Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5936040Z     reject_links(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5936480Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5937150Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5937910Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5938080Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5938270Z ======================================================================
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5938750Z ERROR: test_edge_case_stale_evidence_detected (test_handover_suite.TestHandoverSuite)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5939250Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5939610Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5940210Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 150, in test_edge_case_stale_evidence_detected
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5940720Z     self.setup_project_fixture(task_content)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5941370Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 63, in setup_project_fixture
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5942090Z     idx = build_index(self.target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5942590Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/context_index.py", line 323, in build_index
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5943010Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5943450Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5943880Z     reject_links(target)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5944510Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5945340Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5946060Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5946360Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5946620Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5947000Z Ran 188 tests in 9.632s
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5947150Z 
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5947250Z FAILED (errors=6)
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5950980Z ##[error]Process completed with exit code 1.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6070030Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6071090Z Post job cleanup.
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.7472610Z [command]/opt/homebrew/bin/git version
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.7627280Z git version 2.55.0
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.7650410Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/b61b2330-a003-4525-919b-8512e8c8632d/.gitconfig'
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.7657830Z Temporarily overriding HOME='/Users/runner/work/_temp/b61b2330-a003-4525-919b-8512e8c8632d' before making global git config changes
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.7659050Z Adding repository directory to the temporary git global config as a safe directory
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.7668720Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/nd-workflow/nd-workflow
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.7811540Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.7930560Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9194170Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9289210Z http.https://github.com/.extraheader
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9300180Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9382070Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:36.0627950Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:36.0829770Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:36.2761150Z Cleaning up orphan processes
+validate-and-test (macos-latest, 3.10, 20)	UNKNOWN STEP	2026-09-11T11:03:37.0426950Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	﻿2026-09-11T11:03:04.1809930Z Current runner version: '2.337.0'
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1840330Z ##[group]Runner Image Provisioner
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1841010Z Hosted Compute Agent
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1841390Z Version: 20260828.587
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1841790Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1843850Z Build Date: 2026-08-28T16:44:25Z
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1845540Z Worker ID: {a7f9d536-b6e2-4a92-bbc6-bce623d1ed1a}
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1846080Z Azure Region: westus
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1846460Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1847840Z ##[group]Operating System
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1848260Z macOS
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1848690Z 26.6.2
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1849030Z 25G83
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1849410Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1849810Z ##[group]Runner Image
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1850510Z Image: macos-26-arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1851080Z Version: 20260831.0337.3
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1852220Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260831.0337/images/macos/macos-26-arm64-Readme.md
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1853600Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260831.0337
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1854440Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1855430Z ##[group]GITHUB_TOKEN Permissions
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1857320Z Contents: read
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1857700Z Metadata: read
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1858050Z Packages: read
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1858410Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1861920Z Secret source: Actions
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1862700Z Cache mode: write
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.1863360Z Prepare workflow directory
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.2234900Z Prepare all required actions
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.2315950Z Getting action download info
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:04.6866750Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.1494780Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.3203980Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.6234740Z Complete job name: validate-and-test (macos-latest, 3.11, 20)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7165470Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7184120Z ##[group]Run actions/checkout@v4
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7187150Z with:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7187620Z   repository: next-mmo/nd-workflow
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7190790Z   token: ***
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7191220Z   ssh-strict: true
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7191670Z   ssh-user: git
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7192120Z   persist-credentials: true
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7192540Z   clean: true
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7192910Z   sparse-checkout-cone-mode: true
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7193330Z   fetch-depth: 1
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7193700Z   fetch-tags: false
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7194260Z   show-progress: true
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7194610Z   lfs: false
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7195010Z   submodules: false
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7195420Z   set-safe-directory: true
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7195830Z   allow-unsafe-pr-checkout: false
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:05.7196790Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3268320Z Syncing repository: next-mmo/nd-workflow
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3270760Z ##[group]Getting Git version info
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3271900Z Working directory is '/Users/runner/work/nd-workflow/nd-workflow'
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3276200Z [command]/opt/homebrew/bin/git version
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3798840Z git version 2.55.0
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3815970Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3823980Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/9ae666d1-deda-47b7-92e8-2c871641fec2/.gitconfig'
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3832070Z Temporarily overriding HOME='/Users/runner/work/_temp/9ae666d1-deda-47b7-92e8-2c871641fec2' before making global git config changes
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3840750Z Adding repository directory to the temporary git global config as a safe directory
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.3847000Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/nd-workflow/nd-workflow
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4201410Z Deleting the contents of '/Users/runner/work/nd-workflow/nd-workflow'
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4207580Z ##[group]Initializing the repository
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4211630Z [command]/opt/homebrew/bin/git init /Users/runner/work/nd-workflow/nd-workflow
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4479390Z hint: Using 'master' as the name for the initial branch. This default branch name
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4481630Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4483700Z hint: to use in all of your new repositories, which will suppress this warning,
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4485540Z hint: call:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4486430Z hint:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4487680Z hint: 	git config --global init.defaultBranch <name>
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4488930Z hint:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4490230Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4493080Z hint: 'development'. The just-created branch can be renamed via this command:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4495060Z hint:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4496110Z hint: 	git branch -m <name>
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4497170Z hint:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4498490Z hint: Disable this message with "git config set advice.defaultBranchName false"
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4501620Z Initialized empty Git repository in /Users/runner/work/nd-workflow/nd-workflow/.git/
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4505470Z [command]/opt/homebrew/bin/git remote add origin https://github.com/next-mmo/nd-workflow
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4705320Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4707280Z ##[group]Disabling automatic garbage collection
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4709040Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4758550Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4760160Z ##[group]Setting up auth
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4775660Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.4962020Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.6653850Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.6757780Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.8616110Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:06.8924410Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.0760780Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.1064130Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.1148660Z ##[group]Fetching the repository
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.1155470Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +94a4d1c25d0b9184fe7045342224f3c588f80410:refs/remotes/origin/main
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.8475980Z From https://github.com/next-mmo/nd-workflow
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.8481150Z  * [new ref]         94a4d1c25d0b9184fe7045342224f3c588f80410 -> origin/main
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.8484730Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.8486630Z ##[group]Determining the checkout info
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.8488030Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.8495090Z [command]/opt/homebrew/bin/git sparse-checkout disable
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.8718940Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.8832690Z ##[group]Checking out the ref
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.8837940Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.9398240Z Switched to a new branch 'main'
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.9425990Z branch 'main' set up to track 'origin/main'.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.9550440Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.9658240Z [command]/opt/homebrew/bin/git log -1 --format=%H
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:07.9747880Z 94a4d1c25d0b9184fe7045342224f3c588f80410
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0283550Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0295480Z ##[group]Run actions/setup-python@v5
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0297380Z with:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0299130Z   python-version: 3.11
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0300750Z   check-latest: false
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0317120Z   token: ***
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0318770Z   update-environment: true
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0320540Z   allow-prereleases: false
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0322370Z   freethreaded: false
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.0323960Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3151270Z ##[group]Installed versions
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3307640Z (node:1192) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3317710Z (Use `node --trace-deprecation ...` to show where the warning was created)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3320690Z Successfully set up CPython (3.11.9)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3345570Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3712890Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3716540Z ##[group]Run actions/setup-node@v4
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3719280Z with:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3720590Z   node-version: 20
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3721400Z   always-auth: false
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3722570Z   check-latest: false
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3728830Z   token: ***
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3729580Z env:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3730580Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3732250Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3733690Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3735190Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3736480Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.3738310Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.6547570Z Attempting to download 20...
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.6782450Z (node:1193) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:08.6791840Z (Use `node --trace-deprecation ...` to show where the warning was created)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:09.6291830Z Acquiring 20.20.2 - arm64 from https://github.com/actions/node-versions/releases/download/20.20.2-23521894959/node-20.20.2-darwin-arm64.tar.gz
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:10.3649070Z Extracting ...
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:10.3930900Z [command]/usr/bin/tar xz --strip 1 -C /Users/runner/work/_temp/425e5ab5-543d-4523-9938-b1640eb2037d -f /Users/runner/work/_temp/5fde1f4f-3d47-441a-9946-cff061937194
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:12.1828620Z Adding to the cache ...
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.2760340Z ##[group]Environment details
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9139590Z node: v20.20.2
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9239010Z npm: 10.8.2
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9264730Z yarn: 1.22.22
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9274510Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9647450Z ##[group]Run python scripts/validate.py
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9648840Z ^[[36;1mpython scripts/validate.py^[[0m
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9773820Z shell: /bin/bash -e {0}
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9774300Z env:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9782100Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9782940Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9783470Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9784890Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9785650Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:16.9786090Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4903790Z Status: PASS
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4905550Z Root: /Users/runner/work/nd-workflow/nd-workflow
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4907150Z Manifest: /Users/runner/work/nd-workflow/nd-workflow/package-files.json
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4908560Z Files in manifest: 91
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4909030Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4909430Z Checks:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4910040Z   manifest_paths: 0 errors
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4910990Z   hard_required: 0 errors
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4912040Z   agents_word_count: 0 errors  (words=448 budget=450)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4913230Z   utf8_links: 0 errors  (files=42 relative_links=97 fences=44)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4914390Z   skill_frontmatter: 0 errors
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4914970Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4915220Z No errors.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4915710Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.4917830Z Limitations: link and fence checks are heuristic; not a full Markdown or YAML parser. Frontmatter parser is a strict scalar subset (name + description, single-line unquoted).
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5044360Z ##[group]Run python -m unittest discover -s tests -p 'test_*.py' -v
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5044980Z ^[[36;1mpython -m unittest discover -s tests -p 'test_*.py' -v^[[0m
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5092030Z shell: /bin/bash -e {0}
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5092430Z env:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5092880Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5093360Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.11.9/arm64/lib/pkgconfig
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5093940Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5094430Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5094960Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.11.9/arm64
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:17.5095300Z ##[endgroup]
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.1189810Z test_catalog_parses_routes_and_skips_external (test_context_index.TestCatalogAndClassification.test_catalog_parses_routes_and_skips_external) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.2400210Z test_classification_is_deterministic (test_context_index.TestCatalogAndClassification.test_classification_is_deterministic) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.2405210Z test_classify_accepts_path_objects_and_backslashes (test_context_index.TestCatalogAndClassification.test_classify_accepts_path_objects_and_backslashes) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.2579390Z test_ignored_and_secret_trees_never_indexed (test_context_index.TestCatalogAndClassification.test_ignored_and_secret_trees_never_indexed) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.4299150Z test_oversized_source_recorded_not_indexed (test_context_index.TestCatalogAndClassification.test_oversized_source_recorded_not_indexed) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.4506100Z test_symlinked_directory_not_traversed (test_context_index.TestCatalogAndClassification.test_symlinked_directory_not_traversed) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.5673670Z test_complete_checkpoint_reported (test_context_index.TestContextCheck.test_complete_checkpoint_reported) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.6314190Z test_incomplete_and_ambiguous_checkpoints (test_context_index.TestContextCheck.test_incomplete_and_ambiguous_checkpoints) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.6838270Z test_missing_catalog_anchor_reported (test_context_index.TestContextCheck.test_missing_catalog_anchor_reported) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:18.8995590Z test_symbol_extraction_and_ast_lookup (test_context_index.TestContextCheck.test_symbol_extraction_and_ast_lookup) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.2637740Z test_edit_delete_add_detected (test_context_index.TestFreshness.test_edit_delete_add_detected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.3734640Z test_interrupted_write_keeps_previous_cache (test_context_index.TestFreshness.test_interrupted_write_keeps_previous_cache) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.3798590Z test_missing_and_corrupted_cache_states (test_context_index.TestFreshness.test_missing_and_corrupted_cache_states) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.4789560Z test_non_git_project_still_fingerprints (test_context_index.TestFreshness.test_non_git_project_still_fingerprints) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.5798030Z test_bounded_results_and_excerpts (test_context_index.TestLocate.test_bounded_results_and_excerpts) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.6837270Z test_changed_entry_not_served_as_current (test_context_index.TestLocate.test_changed_entry_not_served_as_current) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.6962120Z test_corrupted_cache_never_served (test_context_index.TestLocate.test_corrupted_cache_never_served) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.6995050Z test_empty_topic_rejected (test_context_index.TestLocate.test_empty_topic_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.8802990Z test_history_excluded_until_opted_in (test_context_index.TestLocate.test_history_excluded_until_opted_in) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9140390Z test_missing_cache_falls_back_to_live_search (test_context_index.TestLocate.test_missing_cache_falls_back_to_live_search) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9242610Z test_nested_source_warns_without_moving (test_end_user_adoption.EndUserAdoptionTests.test_nested_source_warns_without_moving) ... ERROR
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9449830Z test_source_and_plugin_profile (test_end_user_adoption.EndUserAdoptionTests.test_source_and_plugin_profile) ... ERROR
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9463200Z test_18_fresh_session_handovers_happy_path (test_handover_suite.TestHandoverSuite.test_18_fresh_session_handovers_happy_path) ... ERROR
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9481960Z test_edge_case_draft_only_protection (test_handover_suite.TestHandoverSuite.test_edge_case_draft_only_protection) ... ERROR
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9509240Z test_edge_case_missing_checkpoint_fields_flagged (test_handover_suite.TestHandoverSuite.test_edge_case_missing_checkpoint_fields_flagged) ... ERROR
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9536260Z test_edge_case_stale_evidence_detected (test_handover_suite.TestHandoverSuite.test_edge_case_stale_evidence_detected) ... ERROR
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9553450Z Project code execution: cargo test (source: Cargo.toml). Trust project scripts before running.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9556230Z test_check_propagates_failure_without_shell (test_nd_cli.TestNdCli.test_check_propagates_failure_without_shell) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:19.9563850Z test_cli_resources_in_distribution_manifest (test_nd_cli.TestNdCli.test_cli_resources_in_distribution_manifest) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.1960020Z test_context_locate_and_check_cli (test_nd_cli.TestNdCli.test_context_locate_and_check_cli) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.3181020Z test_doctor_import_and_truthful_incomplete (test_nd_cli.TestNdCli.test_doctor_import_and_truthful_incomplete) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.3183160Z Command exit=7; elapsed=0.000s. Check test counts and coverage; exit 0 alone does not prove acceptance.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.3284970Z Reviewed adoption: preview only unless --apply-plan is supplied. Host loading remains unverified.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.4455530Z test_init_empty_preview_no_files_created (test_nd_cli.TestNdCli.test_init_empty_preview_no_files_created) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6269440Z test_init_preview_preserves_project_and_selection (test_nd_cli.TestNdCli.test_init_preview_preserves_project_and_selection) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6318340Z test_invalid_node_metadata_rejected (test_nd_cli.TestNdCli.test_invalid_node_metadata_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6322040Z test_link_target_rejected (test_nd_cli.TestNdCli.test_link_target_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6350030Z test_missing_executable_does_not_install (test_nd_cli.TestNdCli.test_missing_executable_does_not_install) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6377270Z test_missing_root_is_unknown_not_zero_cost (test_nd_cli.TestNdCli.test_missing_root_is_unknown_not_zero_cost) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6392060Z test_node_script_and_manager_provenance (test_nd_cli.TestNdCli.test_node_script_and_manager_provenance) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6399940Z test_node_without_script_not_invented (test_nd_cli.TestNdCli.test_node_without_script_not_invented) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6412530Z test_python_not_assumed_unittest (test_nd_cli.TestNdCli.test_python_not_assumed_unittest) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.6416790Z test_rust_command_preserved (test_nd_cli.TestNdCli.test_rust_command_preserved) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.7840810Z test_source_target_rejected (test_nd_cli.TestNdCli.test_source_target_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.7911640Z test_task_collision_preserves_checkpoint (test_nd_cli.TestNdCli.test_task_collision_preserves_checkpoint) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.7913290Z test_task_title_invalid_no_write (test_nd_cli.TestNdCli.test_task_title_invalid_no_write) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.8211990Z test_token_estimate_only_actual_files (test_nd_cli.TestNdCli.test_token_estimate_only_actual_files) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.8218070Z test_unknown_stack_fails_closed (test_nd_cli.TestNdCli.test_unknown_stack_fails_closed) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:20.9695110Z test_context_check_output_stays_bounded (test_nd_context.NdContextCli.test_context_check_output_stays_bounded) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:21.2546300Z test_context_check_ready_only_when_truthful (test_nd_context.NdContextCli.test_context_check_ready_only_when_truthful) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:21.3443760Z test_context_subcommands_reachable_via_argparse (test_nd_context.NdContextCli.test_context_subcommands_reachable_via_argparse) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:21.4632120Z test_handover_command_and_prompt (test_nd_context.NdContextCli.test_handover_command_and_prompt) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:21.6059380Z test_index_build_then_check_exit_codes (test_nd_context.NdContextCli.test_index_build_then_check_exit_codes) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:21.6091320Z test_index_check_without_cache_explains_and_fails (test_nd_context.NdContextCli.test_index_check_without_cache_explains_and_fails) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:21.6162680Z test_locate_absent_topic_exits_two_without_fabrication (test_nd_context.NdContextCli.test_locate_absent_topic_exits_two_without_fabrication) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:21.6236090Z test_locate_history_opt_in (test_nd_context.NdContextCli.test_locate_history_opt_in) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:21.7222890Z test_locate_returns_bounded_routes_and_footprint (test_nd_context.NdContextCli.test_locate_returns_bounded_routes_and_footprint) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.4734800Z test_bundle_and_source_profile_and_cli (test_onboarding.OnboardingTests.test_bundle_and_source_profile_and_cli) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.4826670Z test_case_collision_and_non_directory_ancestor (test_onboarding.OnboardingTests.test_case_collision_and_non_directory_ancestor) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.5249540Z test_completed_apply_refuses_repeat (test_onboarding.OnboardingTests.test_completed_apply_refuses_repeat) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.5742360Z test_doctor_read_only_and_migration_indicators (test_onboarding.OnboardingTests.test_doctor_read_only_and_migration_indicators) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.6926890Z test_doctor_token_efficiency_evaluation (test_onboarding.OnboardingTests.test_doctor_token_efficiency_evaluation) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.6942910Z test_duplicate_json_keys (test_onboarding.OnboardingTests.test_duplicate_json_keys) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.6974510Z test_existing_conflict_preserves_dirty_work (test_onboarding.OnboardingTests.test_existing_conflict_preserves_dirty_work) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.7023660Z test_malformed_unsafe_and_duplicate_plans (test_onboarding.OnboardingTests.test_malformed_unsafe_and_duplicate_plans) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.7093770Z test_preview_no_write_and_fresh_apply (test_onboarding.OnboardingTests.test_preview_no_write_and_fresh_apply) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.7615580Z test_repeat_and_interrupted_apply (test_onboarding.OnboardingTests.test_repeat_and_interrupted_apply) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.7707760Z test_reviewed_merge_backs_up_exact_bytes (test_onboarding.OnboardingTests.test_reviewed_merge_backs_up_exact_bytes) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.7729060Z test_skip_and_reuse (test_onboarding.OnboardingTests.test_skip_and_reuse) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.7753810Z test_stale_target_and_source (test_onboarding.OnboardingTests.test_stale_target_and_source) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.7770700Z test_symlink_rejected (test_onboarding.OnboardingTests.test_symlink_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.7785860Z test_wrong_target_and_removed_entry (test_onboarding.OnboardingTests.test_wrong_target_and_removed_entry) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.8225570Z test_all_resources_match_hashes (test_plugins.PluginTests.test_all_resources_match_hashes) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.8314720Z test_bundle_windows_unsafe_names_rejected_before_reads (test_plugins.PluginTests.test_bundle_windows_unsafe_names_rejected_before_reads) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.8931490Z test_chatgpt_instructions_and_presentation (test_plugins.PluginTests.test_chatgpt_instructions_and_presentation) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:22.9553120Z test_codex_schema_and_presentation (test_plugins.PluginTests.test_codex_schema_and_presentation) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:23.1239760Z test_core_export_is_closed_and_validates (test_plugins.PluginTests.test_core_export_is_closed_and_validates) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:23.3181830Z test_deterministic_zip_and_collision (test_plugins.PluginTests.test_deterministic_zip_and_collision) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:23.5280660Z test_extracted_staging_cli_works_outside_repository (test_plugins.PluginTests.test_extracted_staging_cli_works_outside_repository) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:23.5305490Z test_malformed_bundle_fails_closed (test_plugins.PluginTests.test_malformed_bundle_fails_closed) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:23.6567040Z test_preview_and_apply_preserve_live_project (test_plugins.PluginTests.test_preview_and_apply_preserve_live_project) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:23.7096400Z test_skills_toggle_and_cli_override (test_plugins.PluginTests.test_skills_toggle_and_cli_override) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:23.7141240Z test_source_link_rejected_before_content_reads (test_plugins.PluginTests.test_source_link_rejected_before_content_reads) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:23.8910980Z test_source_preview_and_apply_match_plugin (test_plugins.PluginTests.test_source_preview_and_apply_match_plugin) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:23.8948980Z test_source_unsafe_paths_rejected_before_content_read (test_plugins.PluginTests.test_source_unsafe_paths_rejected_before_content_read) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:24.0102350Z test_tampered_bundle_rejected_before_write (test_plugins.PluginTests.test_tampered_bundle_rejected_before_write) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:24.3561470Z test_three_manifest_formats_and_shared_bodies (test_plugins.PluginTests.test_three_manifest_formats_and_shared_bodies) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:24.3665140Z test_unknown_target_and_outside_destination (test_plugins.PluginTests.test_unknown_target_and_outside_destination) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:24.5268200Z test_unsafe_path_rejected_before_write (test_plugins.PluginTests.test_unsafe_path_rejected_before_write) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:24.6261500Z test_windsurf_and_continue_targets (test_plugins.PluginTests.test_windsurf_and_continue_targets) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:24.7977490Z test_deprecated_script_message_explains_why (test_readiness_helpers.DeprecatedEntryPointTests.test_deprecated_script_message_explains_why) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:24.9456270Z test_no_arg_invocation_exits_nonzero (test_readiness_helpers.DeprecatedEntryPointTests.test_no_arg_invocation_exits_nonzero) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:25.0977200Z test_no_arg_invocation_never_awards_score_or_release_credit (test_readiness_helpers.DeprecatedEntryPointTests.test_no_arg_invocation_never_awards_score_or_release_credit) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:25.2468960Z test_no_arg_invocation_writes_no_files (test_readiness_helpers.DeprecatedEntryPointTests.test_no_arg_invocation_writes_no_files) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:25.9156790Z test_full_run_asserts_source_backed_structured_states (test_readiness_helpers.VerifyPackageExtractedBehaviourTests.test_full_run_asserts_source_backed_structured_states) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:26.5479720Z test_negative_verification_propagates_exit_code (test_readiness_helpers.VerifyPackageExtractedBehaviourTests.test_negative_verification_propagates_exit_code) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:26.6402910Z test_skip_tool_runs_extracts_and_reports_structured_keys (test_readiness_helpers.VerifyPackageExtractedBehaviourTests.test_skip_tool_runs_extracts_and_reports_structured_keys) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:26.7477550Z test_running_against_synthesized_zip_does_not_touch_real_candidate (test_readiness_helpers.VerifyPackageExtractedNoCandidateMutationTests.test_running_against_synthesized_zip_does_not_touch_real_candidate) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:26.8588230Z test_corrupt_zip_crc_is_refused_before_extraction (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_corrupt_zip_crc_is_refused_before_extraction) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:26.9525730Z test_existing_output_dir_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_existing_output_dir_is_refused) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.0560280Z test_malformed_archive_exits_nonzero (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_malformed_archive_exits_nonzero) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.1617970Z test_missing_archive_exits_nonzero (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_missing_archive_exits_nonzero) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.2665230Z test_no_arg_invocation_exits_nonzero_and_does_not_touch_candidate (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_no_arg_invocation_exits_nonzero_and_does_not_touch_candidate) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.3602850Z test_out_of_workspace_archive_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_out_of_workspace_archive_is_refused) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.4617690Z test_summary_path_does_not_overwrite_existing_file (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_summary_path_does_not_overwrite_existing_file) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.5604420Z test_zip_with_absolute_entry_is_refused_before_extraction (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_absolute_entry_is_refused_before_extraction) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.6532490Z test_zip_with_backslash_entry_is_rejected_or_sanitized (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_backslash_entry_is_rejected_or_sanitized) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.7321610Z test_zip_with_drive_prefix_entry_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_drive_prefix_entry_is_refused) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.8161070Z test_zip_with_symlink_mode_entry_is_refused (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_symlink_mode_entry_is_refused) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:27.8979100Z test_zip_with_traversal_entry_is_refused_before_extraction (test_readiness_helpers.VerifyPackageExtractedSafetyTests.test_zip_with_traversal_entry_is_refused_before_extraction) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.1083570Z test_filtered_starter_and_doctor_selection (test_review_regressions.ReviewRegressionTests.test_filtered_starter_and_doctor_selection) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.1104240Z test_invalid_utf8_is_unknown (test_review_regressions.ReviewRegressionTests.test_invalid_utf8_is_unknown) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.1208690Z test_oversize_audit_is_unknown_without_read_text (test_review_regressions.ReviewRegressionTests.test_oversize_audit_is_unknown_without_read_text) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3210680Z test_linked_existing_file_must_be_packaged (test_tooling.TestDistributionLinks.test_linked_existing_file_must_be_packaged) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3212860Z test_alias_rejected (test_tooling.TestFrontmatterParser.test_alias_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3213940Z test_block_scalar_gt_rejected (test_tooling.TestFrontmatterParser.test_block_scalar_gt_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3215250Z test_block_scalar_pipe_rejected (test_tooling.TestFrontmatterParser.test_block_scalar_pipe_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3216420Z test_brace_container_rejected (test_tooling.TestFrontmatterParser.test_brace_container_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3228590Z test_bracket_container_rejected (test_tooling.TestFrontmatterParser.test_bracket_container_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3231400Z test_duplicate_key (test_tooling.TestFrontmatterParser.test_duplicate_key) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3233120Z test_empty_value (test_tooling.TestFrontmatterParser.test_empty_value) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3235120Z test_list_marker_rejected (test_tooling.TestFrontmatterParser.test_list_marker_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3237480Z test_missing_closing_delimiter (test_tooling.TestFrontmatterParser.test_missing_closing_delimiter) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3240100Z test_missing_required_key_description_reported (test_tooling.TestFrontmatterParser.test_missing_required_key_description_reported) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3242990Z test_missing_required_key_name_reported (test_tooling.TestFrontmatterParser.test_missing_required_key_name_reported) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3245230Z test_no_frontmatter_at_all (test_tooling.TestFrontmatterParser.test_no_frontmatter_at_all) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3247350Z test_quoted_value_rejected (test_tooling.TestFrontmatterParser.test_quoted_value_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3249030Z test_tag_rejected (test_tooling.TestFrontmatterParser.test_tag_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3250000Z test_unsupported_key_rejected (test_tooling.TestFrontmatterParser.test_unsupported_key_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3252540Z test_unterminated_quote_rejected (test_tooling.TestFrontmatterParser.test_unterminated_quote_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3253860Z test_valid_unquoted_with_punctuation (test_tooling.TestFrontmatterParser.test_valid_unquoted_with_punctuation) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.3255170Z test_value_with_internal_double_quotes (test_tooling.TestFrontmatterParser.test_value_with_internal_double_quotes) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.6144470Z test_existing_output_is_preserved (test_tooling.TestPackage.test_existing_output_is_preserved) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:28.8090500Z test_package_reports_required_fields (test_tooling.TestPackage.test_package_reports_required_fields) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:29.0263740Z test_package_succeeds_and_zip_is_well_formed (test_tooling.TestPackage.test_package_succeeds_and_zip_is_well_formed) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:29.2133080Z test_package_validates_before_create (test_tooling.TestPackage.test_package_validates_before_create) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:29.6131520Z test_extracted_package_runs_safe_subset (test_tooling.TestPackageExtractionSubset.test_extracted_package_runs_safe_subset) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:29.9454880Z test_extracted_package_validates (test_tooling.TestPackageExtractionSubset.test_extracted_package_validates) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.1529020Z test_exclusive_create_race_preserves_existing (test_tooling.TestPackageOutputPath.test_exclusive_create_race_preserves_existing) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.3149850Z test_output_collides_with_source_file (test_tooling.TestPackageOutputPath.test_output_collides_with_source_file) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.5066930Z test_output_is_existing_symlink_preserved (test_tooling.TestPackageOutputPath.test_output_is_existing_symlink_preserved) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.7665150Z test_output_parent_dir_created_safely_after_validation (test_tooling.TestPackageOutputPath.test_output_parent_dir_created_safely_after_validation) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.9471280Z test_output_under_repo_root (test_tooling.TestPackageOutputPath.test_output_under_repo_root) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.9475350Z test_gitignore_is_independently_required (test_tooling.TestParentRegressions.test_gitignore_is_independently_required) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.9482320Z test_output_symlink_not_resolved_away (test_tooling.TestParentRegressions.test_output_symlink_not_resolved_away) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.9484260Z test_windows_device_extension_and_wildcard_rejected (test_tooling.TestParentRegressions.test_windows_device_extension_and_wildcard_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.9487340Z test_approval_provenance_and_execution_are_separate (test_tooling.TestSpecificationApprovalContract.test_approval_provenance_and_execution_are_separate) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.9489870Z test_drafting_checkpoint_is_not_an_implementation_task (test_tooling.TestSpecificationApprovalContract.test_drafting_checkpoint_is_not_an_implementation_task) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.9491150Z test_resume_checks_authorization (test_tooling.TestSpecificationApprovalContract.test_resume_checks_authorization) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.9507810Z test_spec_only_persists_draft_and_stops (test_tooling.TestSpecificationApprovalContract.test_spec_only_persists_draft_and_stops) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:30.9510380Z test_workflow_preserves_direct_fixes_and_reapproval (test_tooling.TestSpecificationApprovalContract.test_workflow_preserves_direct_fixes_and_reapproval) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:31.0818280Z test_markdown_with_broken_relative_link (test_tooling.TestValidateBrokenLink.test_markdown_with_broken_relative_link) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:31.2190990Z test_agents_word_budget_exceeded_rejected (test_tooling.TestValidateCorruptedSource.test_agents_word_budget_exceeded_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:31.3631370Z test_cr_line_endings_rejected (test_tooling.TestValidateCorruptedSource.test_cr_line_endings_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:31.4984980Z test_utf8_bom_rejected (test_tooling.TestValidateCorruptedSource.test_utf8_bom_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:31.6271480Z test_missing_frontmatter_block (test_tooling.TestValidateInvalidFrontmatter.test_missing_frontmatter_block) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:31.7272130Z test_invalid_utf8_manifest_fails_before_content_reads (test_tooling.TestValidateMalformedManifest.test_invalid_utf8_manifest_fails_before_content_reads) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:31.8497810Z test_missing_files_list_rejected (test_tooling.TestValidateMalformedManifest.test_missing_files_list_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:31.9474140Z test_non_dict_manifest_rejected (test_tooling.TestValidateMalformedManifest.test_non_dict_manifest_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:32.0901200Z test_required_hard_file_absent_from_manifest_and_disk (test_tooling.TestValidateMissingFile.test_required_hard_file_absent_from_manifest_and_disk) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:32.2299370Z test_required_skill_absent_from_manifest (test_tooling.TestValidateMissingFile.test_required_skill_absent_from_manifest) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:32.3778320Z test_agents_word_count_reported (test_tooling.TestValidatePositive.test_agents_word_count_reported) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:32.5239390Z test_clean_fixture_passes (test_tooling.TestValidatePositive.test_clean_fixture_passes) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:32.5810260Z test_fixture_writer_preserves_utf8_lf_bytes (test_tooling.TestValidatePositive.test_fixture_writer_preserves_utf8_lf_bytes) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:32.6301510Z test_line_ending_policy_is_distributed (test_tooling.TestValidatePositive.test_line_ending_policy_is_distributed) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:32.7756630Z test_line_ending_policy_is_independently_required (test_tooling.TestValidatePositive.test_line_ending_policy_is_independently_required) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:32.9154930Z test_validate_does_not_write (test_tooling.TestValidatePositive.test_validate_does_not_write) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:33.0178230Z test_absolute_unix_path_rejected (test_tooling.TestValidateUnsafeManifest.test_absolute_unix_path_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:33.1389010Z test_backslash_path_rejected (test_tooling.TestValidateUnsafeManifest.test_backslash_path_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:33.2574350Z test_case_fold_duplicate_rejected (test_tooling.TestValidateUnsafeManifest.test_case_fold_duplicate_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:33.3967880Z test_colon_in_path_rejected (test_tooling.TestValidateUnsafeManifest.test_colon_in_path_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:33.5503950Z test_directory_entry_rejected (test_tooling.TestValidateUnsafeManifest.test_directory_entry_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:33.6749050Z test_dot_segment_rejected (test_tooling.TestValidateUnsafeManifest.test_dot_segment_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:33.8073300Z test_double_slash_empty_segment_rejected (test_tooling.TestValidateUnsafeManifest.test_double_slash_empty_segment_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:33.9221560Z test_drive_letter_prefix_rejected (test_tooling.TestValidateUnsafeManifest.test_drive_letter_prefix_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:34.0343810Z test_drive_letter_with_slash_rejected (test_tooling.TestValidateUnsafeManifest.test_drive_letter_with_slash_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:34.1654510Z test_duplicate_path_rejected (test_tooling.TestValidateUnsafeManifest.test_duplicate_path_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:34.5401070Z test_reserved_device_name_rejected (test_tooling.TestValidateUnsafeManifest.test_reserved_device_name_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:34.6445370Z test_secret_path_rejected (test_tooling.TestValidateUnsafeManifest.test_secret_path_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:34.7668600Z test_symlink_ancestor_escape_rejected (test_tooling.TestValidateUnsafeManifest.test_symlink_ancestor_escape_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:34.8733590Z test_symlink_rejected (test_tooling.TestValidateUnsafeManifest.test_symlink_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:34.9913100Z test_trailing_dot_segment_rejected (test_tooling.TestValidateUnsafeManifest.test_trailing_dot_segment_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.1092580Z test_trailing_space_segment_rejected (test_tooling.TestValidateUnsafeManifest.test_trailing_space_segment_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.2295770Z test_traversal_path_rejected (test_tooling.TestValidateUnsafeManifest.test_traversal_path_rejected) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5595000Z test_all_plugin_providers_include_reference_and_template (test_user_testing.UserTestingContractTests.test_all_plugin_providers_include_reference_and_template) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5822990Z test_frontmatter_budget_and_reference (test_user_testing.UserTestingContractTests.test_frontmatter_budget_and_reference) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5831170Z test_project_profile_initialization_and_proposal_contract (test_user_testing.UserTestingContractTests.test_project_profile_initialization_and_proposal_contract) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5834890Z test_report_and_scenario_coverage (test_user_testing.UserTestingContractTests.test_report_and_scenario_coverage) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5837750Z test_safety_and_required_surface_contract (test_user_testing.UserTestingContractTests.test_safety_and_required_surface_contract) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5839160Z {"status": "PREVIEW", "target": "/Users/runner/work/nd-workflow/nd-workflow/.validation/cli-4li9wesz", "counts": {"add": 28, "reuse": 0, "conflict": 0}, "conflicts": []}
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5840680Z test_scope_and_completion_contract (test_user_testing.UserTestingContractTests.test_scope_and_completion_contract) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5841580Z No files applied. Save full plan with --plan outside target; review before --apply-plan.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5843340Z test_status_events_and_developer_fields (test_user_testing.UserTestingContractTests.test_status_events_and_developer_fields) ... ok
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5844260Z UNVERIFIED: cargo missing. No software installed.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5847140Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5847650Z {
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5849150Z ======================================================================
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5849980Z   "status": "UNKNOWN",
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5852410Z ERROR: test_nested_source_warns_without_moving (test_end_user_adoption.EndUserAdoptionTests.test_nested_source_warns_without_moving)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5854450Z   "method": "ceil(Unicode character count / 4), not a tokenizer or runtime measurement",
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5856550Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5858530Z   "root_instruction_files": [],
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5859820Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5860540Z   "root_estimated_tokens": 0,
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5862850Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_end_user_adoption.py", line 52, in test_nested_source_warns_without_moving
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5868770Z   "available_skill_bodies": [],
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5869360Z     warn_nested_source(source, target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5869960Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 102, in warn_nested_source
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5870550Z     source = safe_target(source)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5870820Z              ^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5871450Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5871980Z     reject_links(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5872520Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5914790Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5921680Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5921870Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5922120Z ======================================================================
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5922890Z ERROR: test_source_and_plugin_profile (test_end_user_adoption.EndUserAdoptionTests.test_source_and_plugin_profile)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5923640Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5924150Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5924830Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_end_user_adoption.py", line 34, in test_source_and_plugin_profile
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5925510Z     result = inspect_project(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5938280Z              ^^^^^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5940710Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/workflow_doctor.py", line 96, in inspect_project
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5942170Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5942980Z              ^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5944400Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5945590Z     reject_links(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5946990Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5950770Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5953300Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5953840Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5954430Z ======================================================================
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5956430Z ERROR: test_18_fresh_session_handovers_happy_path (test_handover_suite.TestHandoverSuite.test_18_fresh_session_handovers_happy_path)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5958150Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5959080Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5960800Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 90, in test_18_fresh_session_handovers_happy_path
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5962280Z     self.setup_project_fixture(task_content)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5963830Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 63, in setup_project_fixture
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5965180Z     idx = build_index(self.target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5965960Z           ^^^^^^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5967320Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/context_index.py", line 323, in build_index
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5968540Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5969290Z              ^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5970570Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5971710Z     reject_links(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5973020Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5975780Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5978370Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5978900Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5980650Z ======================================================================
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5982450Z ERROR: test_edge_case_draft_only_protection (test_handover_suite.TestHandoverSuite.test_edge_case_draft_only_protection)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5984220Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5985600Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5987460Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 132, in test_edge_case_draft_only_protection
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5988990Z     self.setup_project_fixture(draft_task)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5990490Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 63, in setup_project_fixture
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5991860Z     idx = build_index(self.target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5992630Z           ^^^^^^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5993900Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/context_index.py", line 323, in build_index
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5995170Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5995850Z              ^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5997200Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5998390Z     reject_links(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.5999630Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6004480Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6007310Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6007860Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6008450Z ======================================================================
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6010590Z ERROR: test_edge_case_missing_checkpoint_fields_flagged (test_handover_suite.TestHandoverSuite.test_edge_case_missing_checkpoint_fields_flagged)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6012480Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6013420Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6015160Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 166, in test_edge_case_missing_checkpoint_fields_flagged
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6016900Z     self.setup_project_fixture(incomplete_task)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6018490Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 63, in setup_project_fixture
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6019910Z     idx = build_index(self.target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6020580Z           ^^^^^^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6022040Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/context_index.py", line 323, in build_index
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6023270Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6024020Z              ^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6025340Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6026590Z     reject_links(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6027880Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6030630Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6033200Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6033750Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6034310Z ======================================================================
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6036250Z ERROR: test_edge_case_stale_evidence_detected (test_handover_suite.TestHandoverSuite.test_edge_case_stale_evidence_detected)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6037970Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6039190Z Traceback (most recent call last):
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6041160Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 150, in test_edge_case_stale_evidence_detected
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6042780Z     self.setup_project_fixture(task_content)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6044380Z   File "/Users/runner/work/nd-workflow/nd-workflow/tests/test_handover_suite.py", line 63, in setup_project_fixture
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6047270Z     idx = build_index(self.target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6048070Z           ^^^^^^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6049410Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/context_index.py", line 323, in build_index
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6050600Z     target = safe_target(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6051340Z              ^^^^^^^^^^^^^^^^^^^
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6052880Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/setup_project.py", line 23, in safe_target
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6054200Z     reject_links(target)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6055570Z   File "/Users/runner/work/nd-workflow/nd-workflow/scripts/stage_project.py", line 20, in reject_links
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6058380Z ##[error]    raise ValueError('Path contains link/reparse point')
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6061260Z ValueError: Path contains link/reparse point
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6061540Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6061810Z ----------------------------------------------------------------------
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6062260Z Ran 188 tests in 17.462s
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6062440Z 
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6062580Z FAILED (errors=6)
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6062890Z   "available_skill_body_estimated_tokens": 0,
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6064650Z   "limits": "Host imports, skill metadata/index, referenced docs, nested policies, caching, repeated inputs, tool outputs and actual context loading are unmeasured. No competitor ranking or per-session savings inferred."
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6065690Z }
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6066320Z UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6067260Z UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6067890Z Created draft checkpoint: docs/tasks/wip-20260911-add-search.md
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6068600Z UNVERIFIED: no unambiguous supported test command. Inspect project manifests/docs and run approved checks explicitly.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6220250Z ##[error]Process completed with exit code 1.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6525440Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.6526760Z Post job cleanup.
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.8879600Z [command]/opt/homebrew/bin/git version
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.8988060Z git version 2.55.0
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9018150Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/40bbe2cc-9d2d-4722-b595-ca750869a75f/.gitconfig'
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9035430Z Temporarily overriding HOME='/Users/runner/work/_temp/40bbe2cc-9d2d-4722-b595-ca750869a75f' before making global git config changes
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9036590Z Adding repository directory to the temporary git global config as a safe directory
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9040170Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/nd-workflow/nd-workflow
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9190150Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:35.9329380Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:36.0592930Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:36.0654880Z http.https://github.com/.extraheader
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:36.0663460Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:36.0741200Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:36.2097030Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:36.2205620Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:36.4058030Z Cleaning up orphan processes
+validate-and-test (macos-latest, 3.11, 20)	UNKNOWN STEP	2026-09-11T11:03:36.6631520Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

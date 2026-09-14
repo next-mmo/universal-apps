@@ -1,0 +1,4 @@
+
+> workflow-todo-example@0.0.0 check
+> node --check src/app.js && node --check src/store.js && node --check src/server.js && node --check public/app.js
+

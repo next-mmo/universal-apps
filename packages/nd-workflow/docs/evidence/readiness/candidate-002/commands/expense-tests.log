@@ -1,0 +1,31 @@
+test_add_then_list_happy_path (test_expense.ExpenseCliTestCase.test_add_then_list_happy_path) ... ok
+test_atomic_replace_failure_preserves_store_and_cleans_temp (test_expense.ExpenseCliTestCase.test_atomic_replace_failure_preserves_store_and_cleans_temp) ... ok
+test_category_length_cap (test_expense.ExpenseCliTestCase.test_category_length_cap) ... ok
+test_control_characters_are_stripped (test_expense.ExpenseCliTestCase.test_control_characters_are_stripped) ... ok
+test_corrupt_store_is_rejected_and_not_overwritten (test_expense.ExpenseCliTestCase.test_corrupt_store_is_rejected_and_not_overwritten) ... ok
+test_data_dir_env_var_fallback (test_expense.ExpenseCliTestCase.test_data_dir_env_var_fallback) ... ok
+test_decimal_sum_is_exact (test_expense.ExpenseCliTestCase.test_decimal_sum_is_exact) ... ok
+test_empty_store_file_is_corrupt (test_expense.ExpenseCliTestCase.test_empty_store_file_is_corrupt) ... ok
+test_float_free_amount_round_trip (test_expense.ExpenseCliTestCase.test_float_free_amount_round_trip) ... ok
+test_invalid_invocation_exits_two (test_expense.ExpenseCliTestCase.test_invalid_invocation_exits_two) ... ok
+test_list_category_filter (test_expense.ExpenseCliTestCase.test_list_category_filter) ... ok
+test_list_is_deterministically_ordered (test_expense.ExpenseCliTestCase.test_list_is_deterministically_ordered) ... ok
+test_note_length_cap (test_expense.ExpenseCliTestCase.test_note_length_cap) ... ok
+test_reject_absurdly_large_amount (test_expense.ExpenseCliTestCase.test_reject_absurdly_large_amount) ... ok
+test_reject_category_empty_after_strip (test_expense.ExpenseCliTestCase.test_reject_category_empty_after_strip) ... ok
+test_reject_nan_and_infinity (test_expense.ExpenseCliTestCase.test_reject_nan_and_infinity) ... ok
+test_reject_negative_and_zero_amount (test_expense.ExpenseCliTestCase.test_reject_negative_and_zero_amount) ... ok
+test_reject_non_numeric_amount (test_expense.ExpenseCliTestCase.test_reject_non_numeric_amount) ... ok
+test_reject_sub_cent_precision (test_expense.ExpenseCliTestCase.test_reject_sub_cent_precision) ... ok
+test_reject_unknown_month_formats (test_expense.ExpenseCliTestCase.test_reject_unknown_month_formats) ... ok
+test_source_has_no_network_imports (test_expense.ExpenseCliTestCase.test_source_has_no_network_imports) ... ok
+test_store_size_cap (test_expense.ExpenseCliTestCase.test_store_size_cap) ... ok
+test_store_with_invalid_record_shape_is_rejected (test_expense.ExpenseCliTestCase.test_store_with_invalid_record_shape_is_rejected) ... ok
+test_successful_write_leaves_no_temp_files (test_expense.ExpenseCliTestCase.test_successful_write_leaves_no_temp_files) ... ok
+test_total_month_filter (test_expense.ExpenseCliTestCase.test_total_month_filter) ... ok
+test_unreadable_store_is_reported (test_expense.ExpenseCliTestCase.test_unreadable_store_is_reported) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.317s
+
+OK

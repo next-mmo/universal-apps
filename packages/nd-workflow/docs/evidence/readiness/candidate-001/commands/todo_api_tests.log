@@ -1,0 +1,23 @@
+
+> workflow-todo-example@0.0.0 test:api
+> node --test test/api.test.js
+
+✔ CRUD contract, timestamps, trim, and restart persistence (148.4171ms)
+✔ strict create validation rejects bad types and unknown fields (116.302ms)
+✔ patch rejects empty unknown and non-boolean fields; missing IDs have explicit status (131.6559ms)
+✔ JSON parser, body limit, content type, and unknown endpoints (63.0847ms)
+✔ local origin/host guards, CSP, no data exposure (93.1429ms)
+✔ 30 simultaneous writes remain unique and survive reload (216.5618ms)
+✔ failed persistence does not publish memory changes or lose deletion; queue recovers (42.0632ms)
+✔ corrupt JSON and invalid stored schema fail closed without replacing bytes (15.725ms)
+✔ failure after temp fsync preserves previous bytes and removes owned temp file (34.9245ms)
+✔ list returns defensive copies (13.5911ms)
+✔ real server process restart preserves created todo (548.9033ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1715.1295
