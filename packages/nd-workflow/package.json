@@ -32,6 +32,7 @@
     "LICENSE",
     ".gitattributes",
     ".gitignore",
-    "IMPORT.json"
+    "IMPORT.json",
+    "gitignore.template"
   ]
 }

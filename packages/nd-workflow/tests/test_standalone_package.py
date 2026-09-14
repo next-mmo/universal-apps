@@ -48,7 +48,8 @@ class StandalonePackageTests(unittest.TestCase):
                               cwd=cwd or self.base, capture_output=True, text=True, timeout=30)
 
     def test_closed_inventory_and_license(self):
-        entries = json.loads((self.package / 'package-files.json').read_text())['files']
+        manifest = json.loads((self.package / 'package-files.json').read_text())
+        entries = [manifest.get('source_paths', {}).get(name, name) for name in manifest['files']]
         actual = sorted(p.relative_to(self.package).as_posix() for p in self.package.rglob('*')
                         if p.is_file() and '__pycache__' not in p.parts)
         self.assertEqual(actual, sorted(entries))
@@ -117,6 +118,15 @@ class StandalonePackageTests(unittest.TestCase):
                                 cwd=consumer, env=env, capture_output=True, text=True, timeout=60)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         installed = consumer / 'node_modules/@next-mmo/nd-workflow'
+        validated = subprocess.run([sys.executable, str(installed / 'scripts/validate.py')],
+                                   cwd=consumer, env=env, capture_output=True, text=True, timeout=30)
+        self.assertEqual(validated.returncode, 0, validated.stdout + validated.stderr)
+        before = (consumer / 'package.json').read_bytes()
+        preview = subprocess.run([shutil.which('npm'), 'exec', '--offline', '--no', '--', 'nd', 'init', '.'],
+                                 cwd=consumer, env=env, capture_output=True, text=True, timeout=30)
+        self.assertEqual(preview.returncode, 0, preview.stdout + preview.stderr)
+        self.assertFalse((consumer / 'AGENTS.md').exists())
+        self.assertEqual((consumer / 'package.json').read_bytes(), before)
         result = subprocess.run([shutil.which('node'), str(installed / 'bin/nd.mjs'), '--help'],
                                 cwd=consumer, env=env, capture_output=True, text=True, timeout=30)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
@@ -138,6 +148,49 @@ class StandalonePackageTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             package_npm(self.source, self.base / 'outside.tgz')
         self.assertFalse((self.base / 'outside.tgz').exists())
+
+    def test_transport_alias_is_explicit_and_canonical_export_restores_it(self):
+        from validate import validate_repo
+        from package import package_repo
+        import zipfile
+        canonical = collect_core(self.package)
+        self.assertIn('.gitignore', canonical)
+        self.assertNotIn('gitignore.template', canonical)
+        self.assertNotIn('source_paths', json.loads(canonical['package-files.json']))
+        self.assertEqual(canonical['.gitignore'], (ROOT / '.gitignore').read_bytes())
+        output = self.package / 'artifacts' / 'canonical.zip'
+        report = package_repo(self.package, output)
+        self.assertEqual(report['status'], 'PASS', report)
+        with zipfile.ZipFile(output) as archive:
+            self.assertEqual(archive.read('.gitignore'), canonical['.gitignore'])
+            self.assertNotIn('source_paths', json.loads(archive.read('package-files.json')))
+        manifest_path = self.package / 'package-files.json'
+        original = manifest_path.read_bytes()
+        try:
+            from validate import load_manifest
+            for collision in ('.GITIGNORE', 'GitIgnore.template'):
+                manifest = json.loads(original)
+                manifest['files'].append(collision)
+                manifest_path.write_text(json.dumps(manifest))
+                self.assertIn('invalid npm source-path mapping', load_manifest(self.package)[1])
+            manifest = json.loads(original)
+            manifest['source_paths'] = {'.gitignore': '../outside'}
+            manifest_path.write_text(json.dumps(manifest))
+            self.assertEqual(validate_repo(self.package)['status'], 'FAIL')
+            manifest.pop('source_paths')
+            manifest.pop('transport')
+            manifest_path.write_text(json.dumps(manifest))
+            # An ordinary manifest never accepts a missing .gitignore.
+            self.assertEqual(validate_repo(self.package)['status'], 'FAIL')
+        finally:
+            manifest_path.write_bytes(original)
+        alias = self.package / 'gitignore.template'
+        content = alias.read_bytes()
+        try:
+            alias.unlink()
+            self.assertEqual(validate_repo(self.package)['status'], 'FAIL')
+        finally:
+            alias.write_bytes(content)
 
     def test_reproducible_archive(self):
         second = self.source / 'artifacts' / 'second.tgz'

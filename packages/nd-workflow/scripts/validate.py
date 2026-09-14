@@ -243,7 +243,35 @@ def load_manifest(root: Path) -> tuple[dict, list[str]]:
     files = data.get("files")
     if not isinstance(files, list):
         return {}, ["manifest must contain a 'files' list"]
+    # npm removes .gitignore during extraction. Only the explicit npm
+    # transport may store this logical resource under a non-special name.
+    # Ordinary source manifests still require the real .gitignore file.
+    if "source_paths" in data or "transport" in data:
+        if (data.get("transport") != "npm"
+                or data.get("source_paths") != {".gitignore": "gitignore.template"}
+                or ".gitignore" not in files
+                or any(isinstance(name, str) and name != ".gitignore"
+                       and name.casefold() in (".gitignore", "gitignore.template")
+                       for name in files)):
+            return {}, ["invalid npm source-path mapping"]
+        logical = root / ".gitignore"
+        if logical.exists() or logical.is_symlink():
+            return {}, ["npm transport must have one unambiguous ignore resource"]
     return data, []
+
+
+def source_path(root: Path, name: str, manifest: dict) -> Path:
+    """Resolve a logical resource after full manifest/path validation."""
+    return root / manifest.get("source_paths", {}).get(name, name)
+
+
+def read_source_file(root: Path, name: str, manifest: dict) -> bytes:
+    """Read a validated source, normalizing transport metadata for export."""
+    if name == MANIFEST_FILENAME and "source_paths" in manifest:
+        canonical = {key: value for key, value in manifest.items()
+                     if key not in ("transport", "source_paths")}
+        return (json.dumps(canonical, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    return source_path(root, name, manifest).read_bytes()
 
 
 def _is_under(child: Path, parent: Path) -> bool:
@@ -362,7 +390,7 @@ def check_agents_word_budget(root: Path) -> tuple[list[str], int]:
 
 # --- UTF-8 / LF / fence / link heuristics --------------------------------
 
-def check_utf8_and_links(root: Path, files: list) -> tuple[list[str], dict]:
+def check_utf8_and_links(root: Path, files: list, source_paths=None) -> tuple[list[str], dict]:
     errors: list[str] = []
     counts = {"files": 0, "relative_links": 0, "fences": 0}
     root_resolved = root.resolve()
@@ -410,9 +438,11 @@ def check_utf8_and_links(root: Path, files: list) -> tuple[list[str], dict]:
                 if not _is_under(link_path, root_resolved):
                     errors.append(f"{rel}:{n}: link escapes repo: {target}")
                     continue
+                logical_target = link_path.relative_to(root_resolved).as_posix()
+                link_path = root_resolved / (source_paths or {}).get(logical_target, logical_target)
                 if not link_path.exists():
                     errors.append(f"{rel}:{n}: missing link target: {target}")
-                elif link_path.is_file() and link_path.relative_to(root_resolved).as_posix() not in files:
+                elif link_path.is_file() and logical_target not in files:
                     errors.append(f"{rel}:{n}: linked file omitted from distribution manifest: {target}")
         if in_fence:
             errors.append(f"{rel}: unclosed code fence")
@@ -465,7 +495,9 @@ def validate_repo(root: Path) -> dict:
         report["status"] = "FAIL"
         return report
     files = data["files"]
-    path_errors = validate_manifest_paths(root, files)
+    paths = data.get("source_paths", {})
+    physical_files = [paths.get(name, name) if isinstance(name, str) else name for name in files]
+    path_errors = validate_manifest_paths(root, physical_files)
     hard_errors = check_hard_required(files)
     # Bail before content reads if manifest entries are unsafe.
     if path_errors:
@@ -478,7 +510,7 @@ def validate_repo(root: Path) -> dict:
         return report
 
     agents_errors, agents_words = check_agents_word_budget(root)
-    link_errors, link_counts = check_utf8_and_links(root, files)
+    link_errors, link_counts = check_utf8_and_links(root, files, paths)
     fm_errors = check_skill_frontmatter(root, files)
     report["checks"]["manifest_paths"] = {"errors": len(path_errors)}
     report["checks"]["hard_required"] = {"errors": len(hard_errors)}

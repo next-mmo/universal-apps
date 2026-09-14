@@ -29,7 +29,7 @@ node --test tests/launcher.test.mjs
 python scripts/package_npm.py --output artifacts/nd-workflow.tgz
 ```
 
-The tarball builder uses the validated, example-free core export, preserves dotfiles and the MIT notice, and verifies inventory and bytes. It requires neither npm nor a workspace install. Outputs are exclusive-create; choose a new filename for subsequent builds. The existing `scripts/package.py` still builds the full source ZIP, including examples.
+The tarball builder uses the validated, example-free core export, preserves workflow resources and the MIT notice, and verifies inventory and bytes. npm removes `.gitignore` during extraction, so this transport stores it as `gitignore.template` with an explicit, validated manifest mapping. Native source and ZIP exports retain `.gitignore`; there is no install hook or silent missing-file fallback. It requires neither npm nor a workspace install. Outputs are exclusive-create; choose a new filename for subsequent builds. The existing `scripts/package.py` still builds the full source ZIP, including examples.
 
 For an optional local development-tool install, from an unrelated project:
 

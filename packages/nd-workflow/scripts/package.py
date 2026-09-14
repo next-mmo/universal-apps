@@ -31,7 +31,7 @@ import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from validate import load_manifest, validate_repo  # noqa: E402
+from validate import load_manifest, read_source_file, source_path, validate_repo  # noqa: E402
 
 
 def _sha256_bytes(data: bytes) -> str:
@@ -106,7 +106,7 @@ def package_repo(root: Path, output: Path) -> dict:
     files = list(data["files"])
 
     # 3. Output path safety: under root, not a symlink, no source collision.
-    output_path_errors = _check_output_path(root, output, files)
+    output_path_errors = _check_output_path(root, output, files + list(data.get("source_paths", {}).values()))
     if output_path_errors:
         return {
             "status": "FAIL",
@@ -145,14 +145,14 @@ def package_repo(root: Path, output: Path) -> dict:
     try:
         with zipfile.ZipFile(output, "x", compression=zipfile.ZIP_DEFLATED) as zf:
             for rel in files:
-                src = root / rel
+                src = source_path(root, rel, data)
                 if not src.exists() or src.is_symlink():
                     return {
                         "status": "FAIL",
                         "stage": "create",
                         "errors": [f"source missing or is symlink: {rel}"],
                     }
-                data_bytes = src.read_bytes()
+                data_bytes = read_source_file(root, rel, data)
                 file_hashes[rel] = _sha256_bytes(data_bytes)
                 info = zipfile.ZipInfo(rel)
                 info.compress_type = zipfile.ZIP_DEFLATED
@@ -185,7 +185,7 @@ def package_repo(root: Path, output: Path) -> dict:
                 "errors": ["ZIP entries differ from manifest allowlist"],
             }
         for rel in files:
-            if zf.read(rel) != (root / rel).read_bytes():
+            if zf.read(rel) != read_source_file(root, rel, data):
                 return {
                     "status": "FAIL",
                     "stage": "verify",
@@ -208,7 +208,7 @@ def package_repo(root: Path, output: Path) -> dict:
             "Output parent dir created only after successful validation",
             "ZIP CRC verified",
             "Exact allowlist match",
-            "Byte-identical to source files",
+            "Canonical bytes; npm transport aliases normalized" if data.get("source_paths") else "Byte-identical to source files",
         ],
     }
 

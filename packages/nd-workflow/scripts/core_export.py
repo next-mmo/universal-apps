@@ -4,7 +4,7 @@ import json
 import posixpath
 import re
 
-from validate import load_manifest, validate_repo
+from validate import load_manifest, read_source_file, validate_repo
 
 EXAMPLE_PREFIXES = ('example/', 'examples/')
 LINK = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
@@ -25,7 +25,7 @@ def collect_core(root: Path) -> dict[str, bytes]:
     files = [name for name in manifest['files'] if not name.startswith(EXAMPLE_PREFIXES)]
     entries = {}
     for name in files:
-        data = (root / name).read_bytes()
+        data = read_source_file(root, name, manifest)
         if name.endswith('.md'):
             def replace_link(match):
                 target = match.group(2).split('#', 1)[0]
@@ -36,5 +36,6 @@ def collect_core(root: Path) -> dict[str, bytes]:
             data = LINK.sub(replace_link, data.decode('utf-8')).encode('utf-8')
         entries[name] = data
     # Generate the exact export inventory; never leave missing example entries.
-    entries['package-files.json'] = encode({**manifest, 'files': files})
+    canonical = json.loads(entries['package-files.json'])
+    entries['package-files.json'] = encode({**canonical, 'files': files})
     return entries

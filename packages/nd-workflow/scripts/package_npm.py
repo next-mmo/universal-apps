@@ -19,6 +19,15 @@ from package import _check_output_path
 def package_npm(root, output):
     root, output = Path(root).absolute(), Path(output).absolute()
     entries = collect_core(root)
+    # npm always renames or drops .gitignore on extraction. Store its bytes
+    # under an explicit transport alias; canonical source/ZIP exports restore
+    # the logical name without postinstall hooks or writes during validation.
+    if any(name.casefold() == 'gitignore.template' for name in entries):
+        raise ValueError('Reserved npm transport resource already exists')
+    entries['gitignore.template'] = entries.pop('.gitignore')
+    manifest = json.loads(entries['package-files.json'])
+    manifest.update(transport='npm', source_paths={'.gitignore': 'gitignore.template'})
+    entries['package-files.json'] = (json.dumps(manifest, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
     metadata = json.loads(entries['package.json'])
     if metadata.get('name') != '@next-mmo/nd-workflow':
         raise ValueError('Unexpected standalone package name')
