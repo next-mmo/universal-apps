@@ -50,3 +50,7 @@ The development apps still use internal workspace imports. This authoring arrang
 - `packages/cli/source`: standalone consumer CLI and source-registry build graph.
 
 Existing agent catalogs describe maintainer workspace imports. For generated projects, use the source CLI's `list` output and local paths instead. Agent Workflow Scrum and verification evidence remain under [`.agents/`](.agents/docs/agent-workflow.md).
+
+## Standalone ND Workflow
+
+`packages/nd-workflow` is an independently distributable, general-purpose workflow package. It has no Universal Apps or workspace dependencies. `pnpm nd` exposes its optional Node launcher; Python users can invoke its scripts directly. `pnpm nd:pack` builds an example-free standalone tarball without installing the framework. See [standalone ND usage](packages/nd-workflow/STANDALONE.md). This does not replace this repository's agent policy, task board, or framework-specific discovery tools.

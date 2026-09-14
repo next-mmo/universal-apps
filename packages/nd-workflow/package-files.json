@@ -92,6 +92,15 @@
     "tests/test_handover_suite.py",
     "tests/test_onboarding.py",
     "tests/test_user_testing.py",
-    "tests/test_end_user_adoption.py"
+    "tests/test_end_user_adoption.py",
+    "package.json",
+    "IMPORT.json",
+    "STANDALONE.md",
+    "bin/nd.mjs",
+    "bin/nd-package.mjs",
+    "scripts/python-launcher.mjs",
+    "scripts/package_npm.py",
+    "tests/launcher.test.mjs",
+    "tests/test_standalone_package.py"
   ]
 }

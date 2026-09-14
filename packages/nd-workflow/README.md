@@ -1,5 +1,7 @@
 # ND Workflow: AI Agent Workflow Starter
 
+Standalone package maintained in a monorepo, with no framework dependency. See [standalone usage and distribution](STANDALONE.md).
+
 Lightweight, evidence-driven delivery workflow for AI-assisted software development.
 
 `AGENTS.md` holds shared policy; local skills hold task-specific procedures. Historical fresh-session checks were recorded on OpenAI Codex and MiniMax Code; current-candidate host verification remains incomplete. Setup routes and generated package targets have distinct coverage (see [START-HERE.md](START-HERE.md) and [docs/PLUGINS.md](docs/PLUGINS.md)).

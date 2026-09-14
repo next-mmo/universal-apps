@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "source": "https://github.com/next-mmo/nd-workflow",
+  "revision": "04d875d63c5eac80d35e5c6fb329dcdefd02a393",
+  "tree": "5bc838ce31cf54a85e241f49cc5468568c1cdcff",
+  "method": "Pinned tracked-source import; no nested Git repository or runtime synchronization.",
+  "license": "MIT",
+  "canonical_path_after_acceptance": "packages/nd-workflow"
+}

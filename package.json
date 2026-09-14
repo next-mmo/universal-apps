@@ -34,7 +34,9 @@
     "source:build": "node scripts/build-source-registry.mjs",
     "source:test": "node --test packages/cli/test/source.test.mjs packages/cli/test/source-regressions.test.mjs",
     "source:smoke": "node scripts/check-source-distribution.mjs",
-    "source:pack": "npm pack ./dist/universal-cli --ignore-scripts --pack-destination dist"
+    "source:pack": "npm pack ./dist/universal-cli --ignore-scripts --pack-destination dist",
+    "nd": "node packages/nd-workflow/bin/nd.mjs",
+    "nd:pack": "node packages/nd-workflow/bin/nd-package.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.0",
