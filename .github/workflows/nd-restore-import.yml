@@ -1,0 +1,35 @@
+name: Preserve ND source evidence (migration only)
+
+on:
+  push:
+    branches: [feat/standalone-nd-workflow]
+    paths: [.github/workflows/nd-restore-import.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  preserve:
+    if: github.repository == 'next-mmo/universal-apps'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/checkout@v6
+        with:
+          repository: next-mmo/nd-workflow
+          ref: 04d875d63c5eac80d35e5c6fb329dcdefd02a393
+          path: .nd-import-source
+          persist-credentials: false
+      - name: Preserve tracked historical logs, not generated local logs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C .nd-import-source archive HEAD docs/evidence | tar -x -C packages/nd-workflow
+          git add -f -- packages/nd-workflow/docs/evidence
+          test "$(git write-tree | xargs -I{} git rev-parse '{}:packages/nd-workflow/docs/evidence')" = '3528fd5aff6934e1c44115c7de6b0e78906753e3'
+          git rm -- .github/workflows/nd-restore-import.yml
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore(nd): retain exact pinned historical evidence tree' -m 'Restore source-tracked logs skipped by generic ignore rules and verify the evidence tree SHA. Standalone distributions still use their original explicit allowlist.'
+          git push origin HEAD:refs/heads/feat/standalone-nd-workflow
