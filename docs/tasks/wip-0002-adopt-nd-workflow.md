@@ -3,7 +3,7 @@
 > **Status:** wip  
 > **Type:** workflow adoption increment  
 > **Created:** 2026-09-15  
-> **PRD:** `.agents/docs/prd/0001-tauri-universal-platform.md` (context baseline; no product behavior change authorized)
+> **PRD:** `docs/prd/0001-tauri-universal-platform.md` (context baseline; no product behavior change authorized)
 
 ## Checkpoint Fields (ND)
 
@@ -79,3 +79,7 @@ Scope approved via questionnaire `ask_a086a3ab13de83224b091311`. Retired `.agent
 | Workflow naming cleanup | `.agents/docs` titles, task-board/suggestions guides, and `report.mjs` branding renamed to ND Workflow; `workflow:check --strict-budget` + `docs:check` exit 0; ND `context check` `READY`/`COMPLETE`/`FRESH` | Verified |
 | nd task routing aligned | `cmd_task` prefers `.agents/docs/tasks/` when present; scratch smoke created `.agents/docs/tasks/wip-20260915-smoke-check.md`; package unittest + launcher suites exit 0 | Verified |
 | Scrum-era doc retired | `.agents/docs/agent-workflow.md` trashed; 4 consumers pruned; dead `model-recommend.md` entry removed; report regenerated (17 documents); `workflow:check --strict-budget` + `docs:check` exit 0 | Verified |
+| Host adapters reconciled | Stale `.claude/skills/{agent-workflow-scrum,agent-workflow-prose}`, `.cursor/rules/*scrum|prose*.generated.mdc`, and all 29 `/kb:*` `.cursor/commands/*.generated.md` moved to `.nd-workflow-adoption/backups/stale-workflow-adapters-*`; adapters regenerated to 17 skills (9 ND + 8 UI), 0 `/kb:` commands; `skill.sh init` now removes orphan adapters on regenerate | Verified |
+| ND skill paths aligned | Installed `nd-spec-feature`, `nd-task-status`, `nd-doc-lookup`, `nd-user-testing` (+qa-handoff/project-profiles) now route to `.agents/docs/` instead of bare `docs/`; adapters re-synced | Verified |
+| Legacy Scrum scripts removed | `context.mjs`, `context-core.mjs`, `context-benchmark.mjs`, `context/providers/{common,graphify,openviking}.mjs`, `verify-plan{,-core}.mjs`, `report.mjs` moved to `.nd-workflow-adoption/backups/legacy-scrum-scripts-*`; package.json dropped `context`, `context:benchmark`, `verify:plan`, `workflow:report`; AGENTS.md/CONTEXT.md/development.md/ARCHITECTURE.md/.gitignore updated to ND routes; `change-scope` retained (workflow-check dependency) | Verified |
+| Doc root migrated to `docs/` | `.agents/docs/{prd,tasks,suggestions,evidence,development,testing,defensive-patterns}` moved to root `docs/`; `.agents/docs/` retains context (PROJECT/ARCHITECTURE/WORKFLOW) + AGENTS.md + doc-budgets.json; tooling `DOCS_ROOT` flipped to `docs`, legacy-path flags trimmed, skills reverted to `docs/`, reference + relative links repaired; index now classifies PRDs as `draft` (4) not `current_behavior` | Verified |

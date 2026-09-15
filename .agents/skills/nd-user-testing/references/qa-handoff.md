@@ -5,7 +5,7 @@ Use with nd-user-testing. This is a local Markdown record contract, not an event
 ## Storage and ownership
 
 - Default report: `docs/qa/round-<UTC timestamp>-<unique-id>.md`; evidence in a sibling round-specific folder only when needed. Use filesystem-safe IDs, create without overwrite, and redact before saving. Do not fabricate screenshot paths.
-- Link the report from the existing docs catalog; record report-write or catalog permission failures as handoff blockers. For report-only/read-only-document requests, follow the narrower write scope and return unsaved findings explicitly.
+- Link the report from the existing `docs` catalog; record report-write or catalog permission failures as handoff blockers. For report-only/read-only-document requests, follow the narrower write scope and return unsaved findings explicitly.
 - Local triage requests authorize drafting task/PRD records, not application changes. No external issue creation, notifications, commits or publication without separate authorization.
 - Before creating IDs, inspect `docs/tasks/` including archived tasks and `docs/prd/`. Coordinate unique numeric IDs with the current owner. Do not rename or take ownership of someone else's active WIP. If a collision occurs, reserve a new ID and update links.
 - Existing bug/task found: append new evidence or link it with owner coordination. Same symptoms are not proof of same root cause. Uncertain duplicates stay linked candidates, not silently merged.

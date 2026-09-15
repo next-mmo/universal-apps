@@ -4,20 +4,14 @@ import { fileURLToPath } from "node:url";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const defaultRoot = path.resolve(scriptDirectory, "..");
-const DOCS_ROOT = ".agents/docs";
-const DEFAULT_BUDGET_FILE = `${DOCS_ROOT}/doc-budgets.json`;
+const DOCS_ROOT = "docs";
+const DEFAULT_BUDGET_FILE = ".agents/docs/doc-budgets.json";
 const LEGACY_WORKFLOW_PATHS = [
   "docs/AGENTS.md",
   "docs/agent-workflow.md",
   "docs/architecture.md",
-  "docs/defensive-patterns.md",
-  "docs/development.md",
   "docs/doc-budgets.json",
   "docs/model-recommend.md",
-  "docs/testing.md",
-  "docs/prd",
-  "docs/tasks",
-  "docs/suggestions",
 ];
 
 function parseArgs(argv) {
@@ -142,7 +136,7 @@ async function run(options) {
   }
 
   const sources = new Set(["README.md", "AGENTS.md", "CONTEXT.md"]);
-  for (const directory of [DOCS_ROOT, ".agents/skills", "scripts", "tests"]) {
+  for (const directory of [DOCS_ROOT, ".agents/docs", ".agents/skills", ".agents/scripts"]) {
     for (const file of await markdownFiles(options.root, directory)) sources.add(file);
   }
 

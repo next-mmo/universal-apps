@@ -1,6 +1,6 @@
 ---
 name: nd-spec-feature
-description: Feature specification and planning skill. Guides drafting a new Delta PRD in docs/prd/ and breaking it down into actionable tasks in docs/tasks/. Use when asked to "spec a new feature", "create PRD", "write spec for X", or when unresolved product scope needs definition. Skip for bug fixes or straightforward tasks.
+description: Feature specification and planning skill. Guides drafting a new Delta PRD in `docs/prd/` and breaking it down into actionable tasks in `docs/tasks/`. Use when asked to "spec a new feature", "create PRD", "write spec for X", or when unresolved product scope needs definition. Skip for bug fixes or straightforward tasks.
 ---
 
 # Spec Feature: Product Requirement & Planning

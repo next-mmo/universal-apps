@@ -21,4 +21,4 @@
 
 ## Authority
 
-PRDs define intended behavior after human approval; they do not prove implementation. Use [`CONTEXT.md`](../../../CONTEXT.md) to reconcile requirements with current code, checks, and task evidence.
+PRDs define intended behavior after human approval; they do not prove implementation. Use [`CONTEXT.md`](../../CONTEXT.md) to reconcile requirements with current code, checks, and task evidence.

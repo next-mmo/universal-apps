@@ -3,7 +3,7 @@
 > **Status:** done (superseded by Task 0002: ND Workflow adoption)  
 > **Scrum Artifact:** sprint increment  
 > **Created:** 2026-09-03  
-> **PRD:** `.agents/docs/prd/0001-tauri-universal-platform.md` (context baseline only; no product behavior change authorized)
+> **PRD:** `docs/prd/0001-tauri-universal-platform.md` (context baseline only; no product behavior change authorized)
 
 ## Outcome
 

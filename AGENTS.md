@@ -43,7 +43,7 @@ Resolve conflicts: safety and workspace boundaries; approved plan; business valu
 
 - Humans own outcomes, priority, acceptance, policy, release, and external/destructive actions; agents never self-approve.
 - Follow ND risk tiers: Low (scoped edit + check), Medium (task + checks), High (plan + proof + recovery), Critical (auth/security/data; positive/negative proof + signoff).
-- Start non-trivial work with `pnpm context "<scope>"` or `pnpm nd task "<desc>"`. Keep one active task under `.agents/docs/tasks/`.
+- Start non-trivial work with `pnpm nd task "<desc>"` or `pnpm nd context locate "<topic>"`. Keep one active task under `docs/tasks/`.
 - Keep workflow artifacts under `.agents/docs/` and canonical skills under `.agents/skills/`. Root `docs/` is not used.
-- Follow [delivery](.agents/docs/WORKFLOW.md), [project facts](.agents/docs/PROJECT.md), [architecture](.agents/docs/ARCHITECTURE.md), and [checks](.agents/docs/development.md).
+- Follow [delivery](.agents/docs/WORKFLOW.md), [project facts](.agents/docs/PROJECT.md), [architecture](.agents/docs/ARCHITECTURE.md), and [checks](docs/development.md).
 - `packages/nd-workflow` is a retained monorepo package; root instructions and `.agents/skills/` govern monorepo delivery.

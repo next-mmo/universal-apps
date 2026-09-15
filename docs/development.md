@@ -11,7 +11,7 @@ Use the committed `pnpm-lock.yaml`; install with `pnpm install --frozen-lockfile
 
 ## Setup modes
 
-In an agent session, `/kb:setup` verifies Node.js, pnpm, Git, locked dependencies, and required checks. `/kb:full-setup` additionally generates and validates Claude/Cursor adapters. Neither mode installs Graphify, OpenViking, remote services, Rust, or platform SDKs.
+In an agent session, run the baseline checks below before starting. Skill adapters are generated and validated with `bash .agents/scripts/skill.sh init` and `check` (see below).
 
 Required baseline:
 
@@ -43,22 +43,16 @@ pnpm tauri dev
 
 The first command runs the browser boundary; the second requires a working Rust/Tauri platform toolchain.
 
-## Smart context
+## Context and lookup
+
+Retrieve bounded context and document routes through ND:
 
 ```bash
-pnpm context "change table sorting"
-pnpm context "change table sorting" --level 1
-pnpm context "review table sorting" --base origin/main --level 1
+pnpm nd context locate "<topic>"
+pnpm nd task "<desc>"
 ```
 
-Default L0 output is approximately 1,500 heuristic tokens. Current code, tasks, PRDs, tests, and human decisions remain authoritative in their respective roles.
-
-Graphify can be selected when a current local graph exists. OpenViking is read-only, explicit-only, and optional:
-
-```bash
-pnpm context "component impact" --provider graphify --level 1
-pnpm context "prior architecture decision" --provider openviking
-```
+Current code, tasks, PRDs, tests, and human decisions remain authoritative in their respective roles.
 
 ## Scope and verification
 
@@ -66,9 +60,6 @@ Verify the live PR base or stack parent; never infer it from a branch name:
 
 ```bash
 pnpm change:scope --base <verified-ref>
-pnpm verify:plan --base <verified-ref>
 ```
-
-Use `pnpm workflow:report` for an ignored local HTML/JSON snapshot.
 
 ND Workflow artifacts belong under `.agents/docs/`. Existing application documentation remains under `apps/tauri-app/content/docs/`.

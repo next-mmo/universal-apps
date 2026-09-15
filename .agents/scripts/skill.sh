@@ -74,6 +74,14 @@ init_claude_target() {
   local skill_dir skill_name destination
 
   mkdir -p "$CLAUDE_DIR"
+  for destination in "$CLAUDE_DIR"/*/; do
+    [ -d "$destination" ] || continue
+    skill_name="$(basename "$destination")"
+    if [ ! -f "$BASE_DIR/$skill_name/SKILL.md" ]; then
+      rm -rf "$destination"
+      printf 'claude: removed stale adapter %s\n' ".claude/skills/$skill_name"
+    fi
+  done
   while IFS= read -r skill_dir; do
     skill_name="$(basename "$skill_dir")"
     destination="$CLAUDE_DIR/$skill_name"
@@ -92,9 +100,17 @@ strip_skill_frontmatter() {
 }
 
 init_cursor_rule() {
-  local skill_dir skill_name output
+  local skill_dir skill_name output output_name
 
   mkdir -p "$CURSOR_RULES_DIR"
+  for output in "$CURSOR_RULES_DIR"/*.generated.mdc; do
+    [ -f "$output" ] || continue
+    output_name="$(basename "$output" .generated.mdc)"
+    if [ ! -f "$BASE_DIR/$output_name/SKILL.md" ]; then
+      rm -f "$output"
+      printf 'cursor: removed stale rule %s\n' ".cursor/rules/$(basename "$output")"
+    fi
+  done
   while IFS= read -r skill_dir; do
     skill_name="$(basename "$skill_dir")"
     output="$CURSOR_RULES_DIR/${skill_name}.generated.mdc"
@@ -126,9 +142,26 @@ render_cursor_command() {
 }
 
 init_cursor_commands() {
-  local skill_dir skill_name skill_file command command_name output commands
+  local skill_dir skill_name skill_file command command_name output commands output_name token
 
   mkdir -p "$CURSOR_COMMANDS_DIR"
+  for output in "$CURSOR_COMMANDS_DIR"/*.generated.md; do
+    [ -f "$output" ] || continue
+    output_name="$(basename "$output" .generated.md)"
+    case "$output_name" in
+      kb-*)
+        token="/kb:${output_name#kb-}"
+        if ! canonical_has_command "$token"; then
+          rm -f "$output"
+          printf 'cursor: removed stale command %s\n' ".cursor/commands/$(basename "$output")"
+        fi
+        ;;
+      *)
+        rm -f "$output"
+        printf 'cursor: removed unsupported command %s\n' ".cursor/commands/$(basename "$output")"
+        ;;
+    esac
+  done
   while IFS= read -r skill_dir; do
     skill_name="$(basename "$skill_dir")"
     skill_file="$skill_dir/SKILL.md"

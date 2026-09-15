@@ -1,6 +1,6 @@
 # Workflow Suggestions
 
-Suggestions are durable ND Workflow policy records and live only under `.agents/docs/suggestions/`.
+Suggestions are durable ND Workflow policy records and live only under `docs/suggestions/`.
 
 ## Purpose
 

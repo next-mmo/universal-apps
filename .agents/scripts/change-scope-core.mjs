@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const FORMAT_VERSION = 2;
 const MAX_BUFFER = 32 * 1024 * 1024;
-const DOCS_ROOT = ".agents/docs";
+const DOCS_ROOT = "docs";
 
 function runGit(cwd, args, { binary = false, context = "git command failed" } = {}) {
   const result = spawnSync("git", ["-C", cwd, "-c", "core.fsmonitor=false", ...args], {
@@ -92,8 +92,7 @@ function pathLayers(file) {
   if (new RegExp(`^${docsPrefix}prd/`).test(value)) layers.add("prd");
   if (new RegExp(`^${docsPrefix}tasks/`).test(value)) layers.add("tasks");
   if (new RegExp(`^${docsPrefix}suggestions/`).test(value)) layers.add("governance");
-  if (/^(AGENTS\.md$|CONTEXT\.md$|\.agents\/|scripts\/(?:context|workflow-check|change-scope|verify-plan|doc-check))/.test(value)) layers.add("workflow");
-  if (/^scripts\/context\/providers\//.test(value)) layers.add("providers");
+  if (/^(AGENTS\.md$|CONTEXT\.md$|\.agents\/)/.test(value)) layers.add("workflow");
   if (/^\.github\//.test(value)) layers.add("ci");
   if (/^(package(?:-lock)?\.json$|pnpm-workspace\.yaml$|pnpm-lock\.yaml$|yarn\.lock$|Cargo\.(?:toml|lock)$|apps\/[^/]+\/src-tauri\/Cargo\.(?:toml|lock)$|go\.(?:mod|sum)$|pyproject\.toml$)/.test(value)) layers.add("dependencies");
   if (/^(vite\.config\.|tsconfig|eslint|biome|Dockerfile|docker-compose)/.test(value)) layers.add("build");

@@ -6,7 +6,7 @@ import { collectChangeScope } from "./change-scope.mjs";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const defaultRoot = path.resolve(scriptDirectory, "..");
-const DOCS_ROOT = ".agents/docs";
+const DOCS_ROOT = "docs";
 const DEFAULT_BUDGETS = {
   "AGENTS.md": 800,
   "CONTEXT.md": 1400,
@@ -236,9 +236,9 @@ async function run(options) {
     "README.md",
     "AGENTS.md",
     "CONTEXT.md",
-    `${DOCS_ROOT}/AGENTS.md`,
+    ".agents/docs/AGENTS.md",
     `${DOCS_ROOT}/development.md`,
-    `${DOCS_ROOT}/ARCHITECTURE.md`,
+    ".agents/docs/ARCHITECTURE.md",
     `${tasksRoot}/README.md`,
     `${suggestionsRoot}/README.md`,
     ...suggestionFiles,

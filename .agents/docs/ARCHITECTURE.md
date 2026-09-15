@@ -33,13 +33,13 @@ Do not use tests or retrieved context to override a requirement. Do not use a re
 | `CONTEXT.md` | Durable context, authority, and recovery map | Task implementation detail |
 | `.agents/skills/` | Canonical agent workflows | Product requirements |
 | `.agents/scripts/` | Context, scope, verification, checks, adapters | Human approval |
-| `.agents/docs/prd/` | Current product requirements | Implementation evidence |
-| `.agents/docs/tasks/` | Current increment and recovery state | Reusable global policy |
-| `.agents/docs/tasks/done/` | Completed evidence | Current authority |
-| `.agents/docs/suggestions/` | Workflow proposals and decisions | Product requirements |
+| `docs/prd/` | Current product requirements | Implementation evidence |
+| `docs/tasks/` | Current increment and recovery state | Reusable global policy |
+| `docs/tasks/done/` | Completed evidence | Current authority |
+| `docs/suggestions/` | Workflow proposals and decisions | Product requirements |
 
 ## Verification boundaries
 
-`change:scope` reports committed, staged, unstaged, and untracked paths from an explicit base. `verify:plan` maps those facts to pnpm checks for this monorepo, but path mapping cannot prove dynamic imports, generated docs, subprocesses, MCP protocol behavior, Tauri commands, or native capabilities. Add the narrowest owning boundary check.
+`change:scope` reports committed, staged, unstaged, and untracked paths from an explicit base. Verification planning maps those facts to the narrowest owning boundary check; path mapping cannot prove dynamic imports, generated docs, subprocesses, MCP protocol behavior, Tauri commands, or native capabilities.
 
 The context and workflow checkers treat `apps/`, `packages/`, and `apps/tauri-app/src-tauri/` as product paths. Product changes therefore require one active task plus a referenced PRD and evidence ledger.

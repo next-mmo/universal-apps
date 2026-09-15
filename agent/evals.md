@@ -45,5 +45,5 @@ Targets after the token-first rollout:
 
 ## Tooling measurements
 
-- ND `context locate` (nd-doc-lookup) vs plain keyword search, 2026-09-15: ~5.2× fewer retrieved bytes (bounded ≤5 ranked routes vs 77–192 raw matches per query) at ~0.9 s/call versus millisecond-scale raw scan. Method, numbers, and limits: [.agents/docs/evidence/locate-vs-search-benchmark.md](../.agents/docs/evidence/locate-vs-search-benchmark.md).
-- Coding round, ND flow vs baseline (Alert component, 2026-09-15, n=1): −20% calls, −42% files opened, −37% transcript bytes at equal outcome. Method and limits: [.agents/docs/evidence/coding-round-alert-nd-vs-baseline.md](../.agents/docs/evidence/coding-round-alert-nd-vs-baseline.md).
+- ND `context locate` (nd-doc-lookup) vs plain keyword search, 2026-09-15: ~5.2× fewer retrieved bytes (bounded ≤5 ranked routes vs 77–192 raw matches per query) at ~0.9 s/call versus millisecond-scale raw scan. Method, numbers, and limits: [docs/evidence/locate-vs-search-benchmark.md](../docs/evidence/locate-vs-search-benchmark.md).
+- Coding round, ND flow vs baseline (Alert component, 2026-09-15, n=1): −20% calls, −42% files opened, −37% transcript bytes at equal outcome. Method and limits: [docs/evidence/coding-round-alert-nd-vs-baseline.md](../docs/evidence/coding-round-alert-nd-vs-baseline.md).

@@ -8,18 +8,18 @@
 
 ## Observation and Evidence
 
-- Facts: the repository already provides bounded context, catalog discovery, and an [efficiency baseline](../../../agent/evals.md). Baseline workflow and documentation checks pass; root instructions estimate 690 tokens and the Scrum entry point 872.
+- Facts: the repository already provides bounded context, catalog discovery, and an [efficiency baseline](../../agent/evals.md). Baseline workflow and documentation checks pass; root instructions estimate 690 tokens and the Scrum entry point 872.
 - Inspiration: [Ponytail](https://github.com/DietrichGebert/ponytail) emphasizes understanding the flow and reusing capabilities before adding code. The user's linked fork could not be retrieved; no fork-specific behavior is asserted.
 - Inference: fewer redundant reads, unnecessary changes, and repeated explanations may reduce task tokens. No behavioral savings have been measured.
 - Owning increment: [Scrum adoption task](../tasks/done/done-0001-adopt-agent-workflow-scrum.md).
 
 ## Approved Workflow Change
 
-- In [root judgment](../../../AGENTS.md), route to the delivery sequence: understand the flow, confirm necessity, reuse repository capabilities, consider standard/platform features and installed dependencies, then implement the smallest maintainable solution.
+- In [root judgment](../../AGENTS.md), route to the delivery sequence: understand the flow, confirm necessity, reuse repository capabilities, consider standard/platform features and installed dependencies, then implement the smallest maintainable solution.
 - In context routing, expand reads for a named uncertainty and reuse available evidence unless changed or freshness is required.
 - In verification, avoid repeating successful checks without a reason; retain meaningful regression and negative-path coverage.
 - The Agent Workflow Scrum skills were retired 2026-09-15 in favor of ND Workflow; their reference links were removed with them.
-- Keep reports concise and facts in their existing owners. Extend [evaluation guidance](../../../agent/evals.md) with comparable reuse, defect, and security scenarios.
+- Keep reports concise and facts in their existing owners. Extend [evaluation guidance](../../agent/evals.md) with comparable reuse, defect, and security scenarios.
 
 ## Expected Benefit, Scope, and Risks
 

@@ -1,7 +1,7 @@
 # Coding round — ND flow vs baseline (Alert component)
 
 > Status: evidence · Date: 2026-09-15 · n=1 per arm · Both arms: default worker agent settings
-> Related: [Agent-efficiency baseline](../../../agent/evals.md) · [locate vs search benchmark](locate-vs-search-benchmark.md)
+> Related: [Agent-efficiency baseline](../../agent/evals.md) · [locate vs search benchmark](locate-vs-search-benchmark.md)
 
 ## Question
 

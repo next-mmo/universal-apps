@@ -16,7 +16,7 @@ A one-line auth fix is critical. Prose about auth is not automatically critical;
 ## Specification and execution authorization
 
 - Direct implementation requests authorize their stated work, subject to risk and safety gates; clear fixes do not need a duplicate PRD or repeated permission. A specification-only request authorizes discovery, draft documents and drafting checkpoints, not implementation permission.
-- Before waiting for scope approval, save the draft PRD with open questions and a specification-only task checkpoint under `.agents/docs/tasks/`. A session checklist does not replace files. Record exact paths and verify they exist before reporting delivery; do not claim a complete draft if blocked inputs remain.
+- Before waiting for scope approval, save the draft PRD with open questions and a specification-only task checkpoint under `docs/tasks/`. A session checklist does not replace files. Record exact paths and verify they exist before reporting delivery; do not claim a complete draft if blocked inputs remain.
 - Questionnaire answers select requirements, not approval. Present the saved draft, identify its version, and stop for explicit scope approval. Silence, an ambiguous "continue", and an agent-written status label are not approval evidence.
 - Record approver, date, exact approved scope/version, decision evidence and exclusions. Scope approval permits task breakdown but not execution. An explicit approval and start instruction may authorize both; record each separately. Installs, destructive changes and publication retain their own gates.
 - Material scope changes invalidate affected approval: return proposal to draft, identify changed requirements and seek renewed approval before affected implementation. Non-semantic corrections retain approval with a recorded version mapping. On resume, verify approval evidence and execution authorization instead of trusting a task's next-command field.
@@ -41,7 +41,7 @@ A one-line auth fix is critical. Prose about auth is not automatically critical;
 
 ## Current documentation and change history
 
-- Small projects: update the existing canonical feature/API documentation directly; use a PRD only for unresolved requirements. Larger projects designate capability specs under `.agents/docs/prd/`.
+- Small projects: update the existing canonical feature/API documentation directly; use a PRD only for unresolved requirements. Larger projects designate capability specs under `docs/prd/`.
 - Every change proposal names its canonical target(s), baseline revision/section, and stable requirement identifiers. New capability: name intended target and explicitly mark baseline absent.
 - At integration, compare target with baseline. Stop on conflicting concurrent edits; integration owner resolves intent before applying additions, full replacements, or removals. Record removal/migration effects.
 - Rewrite canonical content to describe current behavior, not merely "changed from X". Link source and tests, mark implementation/deployment state, and update catalog routes. A proposed requirement is not current behavior.
