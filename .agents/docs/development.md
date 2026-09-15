@@ -71,4 +71,4 @@ pnpm verify:plan --base <verified-ref>
 
 Use `pnpm workflow:report` for an ignored local HTML/JSON snapshot.
 
-Agent Workflow Scrum artifacts belong under `.agents/docs/`. Existing application documentation remains under `apps/tauri-app/content/docs/`.
+ND Workflow artifacts belong under `.agents/docs/`. Existing application documentation remains under `apps/tauri-app/content/docs/`.

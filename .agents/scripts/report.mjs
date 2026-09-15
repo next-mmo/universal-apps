@@ -11,17 +11,13 @@ const sourceDefinitions = [
   ["Repository instructions", "AGENTS.md"],
   ["Shared context", "CONTEXT.md"],
   ["Workflow documentation rules", ".agents/docs/AGENTS.md"],
-  ["Workflow guide", ".agents/docs/agent-workflow.md"],
   ["Architecture guide", ".agents/docs/ARCHITECTURE.md"],
   ["Development guide", ".agents/docs/development.md"],
   ["Testing guide", ".agents/docs/testing.md"],
   ["Defensive patterns", ".agents/docs/defensive-patterns.md"],
-  ["Model recommendations", ".agents/docs/model-recommend.md"],
   ["PRD index", ".agents/docs/prd/0000-prd-index.md"],
   ["Task board guide", ".agents/docs/tasks/README.md"],
   ["Suggestions guide", ".agents/docs/suggestions/README.md"],
-  ["Canonical workflow skill", ".agents/skills/agent-workflow-scrum/SKILL.md"],
-  ["Prose skill", ".agents/skills/agent-workflow-prose/SKILL.md"],
 ];
 
 const projectDocDefinitions = [
@@ -535,9 +531,6 @@ async function collectDocuments() {
   for (const filePath of suggestions) {
     add(`Suggestion ${taskId(filePath)}`, filePath, "Proposals");
   }
-  for (const filePath of await markdownFiles(".agents/skills/agent-workflow-scrum/references")) {
-    add(`Workflow reference: ${path.basename(filePath, ".md")}`, filePath, "Workflow references");
-  }
 
   const docBySlug = {};
   const documents = definitions.map(({ label, relativePath, group }) => {
@@ -580,7 +573,7 @@ function renderSidebar(documents) {
 
   return `
     <nav class="sidebar">
-      <a class="brand" href="#doc-dashboard">Agent Workflow Scrum</a>
+      <a class="brand" href="#doc-dashboard">ND Workflow</a>
       <div class="nav-scroll">
         <div class="nav-group">
           <div class="nav-title">Overview</div>
@@ -625,7 +618,7 @@ function renderDashboard(report, documents, taskSlugs, prdSlugs) {
     <section id="doc-dashboard" class="doc-view">
       <header>
         <p class="muted">Generated ${escapeHtml(generatedDate)}</p>
-        <h1>Agent Workflow Scrum Report</h1>
+        <h1>ND Workflow Report</h1>
         <p class="muted">A navigable snapshot of the repository's Git state, PRDs, tasks, and workflow sources. Use the sidebar to read any tracked markdown document in place.</p>
       </header>
 
@@ -686,7 +679,7 @@ function renderHtml(report, documents, taskSlugs, prdSlugs) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agent Workflow Scrum Report</title>
+    <title>ND Workflow Report</title>
     <style>
       :root {
         color-scheme: light dark;
@@ -859,7 +852,7 @@ async function main() {
     writeFile(jsonPath, `${JSON.stringify(report, null, 2)}\n`, "utf8"),
   ]);
 
-  console.log(`Generated Agent Workflow Scrum report for ${report.repository}`);
+  console.log(`Generated ND Workflow report for ${report.repository}`);
   console.log(`- HTML: ${displayPath(htmlPath)}`);
   console.log(`- JSON: ${displayPath(jsonPath)}`);
   console.log(`- Active tasks: ${report.summary.activeTasks}`);

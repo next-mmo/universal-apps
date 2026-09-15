@@ -1,6 +1,6 @@
 # Workflow Suggestions
 
-Suggestions are durable Agent Workflow Scrum policy records and live only under `.agents/docs/suggestions/`.
+Suggestions are durable ND Workflow policy records and live only under `.agents/docs/suggestions/`.
 
 ## Purpose
 

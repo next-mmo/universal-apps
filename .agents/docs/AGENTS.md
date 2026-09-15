@@ -1,6 +1,6 @@
 # AGENTS.md — Workflow Documentation
 
-These rules apply under `.agents/docs/` and supplement the root standing orders. Use the prose skill for editorial judgment; keep this file as compact placement/ownership policy.
+These rules apply under `.agents/docs/` and supplement the root standing orders. Keep this file as compact placement/ownership policy.
 
 ## One home per fact
 
@@ -9,7 +9,6 @@ Put each durable fact in the document whose job owns it; elsewhere, link rather 
 | Home | Owns | Does not own |
 | :--- | :--- | :--- |
 | `architecture.md` | composition, ownership, data/control flow, extension points | decision history, task checklists |
-| `agent-workflow.md` | universal delivery/risk process | product requirements |
 | `prd/` | current product requirements and precedence | implementation evidence |
 | `tasks/` | current increment, acceptance, recovery state | reusable workflow policy |
 | `tasks/done/` | completed evidence | current task authority |
@@ -31,7 +30,7 @@ Put each durable fact in the document whose job owns it; elsewhere, link rather 
 - Keep root/subtree standing orders short and link to the owning detailed document.
 - Use relative Markdown links for repository references so workflow/documentation checks can verify them.
 - Do not hand-maintain an inventory when source or a generated report is the real authority.
-- Do not recreate a root `docs/` directory for Agent Workflow Scrum artifacts; `.agents/docs/` is the canonical workflow-document root.
+- Do not recreate a root `docs/` directory for workflow artifacts; `.agents/docs/` is the canonical workflow-document root.
 
 ## Budget discipline
 

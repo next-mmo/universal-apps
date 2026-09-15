@@ -1,6 +1,6 @@
-# Agent Workflow Scrum Task Board
+# ND Workflow Task Board
 
-Task files implement the Agent Workflow Scrum backlog and delivery states. The filename prefix and directory control the board column.
+Task files implement the ND Workflow backlog and delivery states. The filename prefix and directory control the board column.
 
 | Prefix | Location | Column | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -9,9 +9,9 @@ Task files implement the Agent Workflow Scrum backlog and delivery states. The f
 | `blocked-` | `.agents/docs/tasks/` | BLOCKED | Waiting on an external dependency or decision |
 | `done-` | `.agents/docs/tasks/done/` | DONE | Implemented, verified, and retained as increment evidence |
 
-## Scrum Mapping
+## Lifecycle Mapping
 
-| Scrum concept | Repository artifact |
+| Concept | Repository artifact |
 | :--- | :--- |
 | Product Backlog | PRDs and `todo-*` tasks |
 | Sprint Backlog | Current `wip-*` task and checklist |

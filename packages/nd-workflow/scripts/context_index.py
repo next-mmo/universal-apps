@@ -94,6 +94,16 @@ def classify_path(rel, text=None):
         return CURRENT_POLICY
     if rel.startswith('.agents/skills/'):
         return CURRENT_POLICY
+    # Monorepo parity: workflow artifacts may relocate under .agents/docs (project AGENTS.md policy).
+    if rel.startswith('.agents/docs/tasks/done/'):
+        return HISTORICAL
+    if rel.startswith('.agents/docs/tasks/'):
+        name = rel.rsplit('/', 1)[-1]
+        if name.startswith(('wip-', 'blocked-')):
+            return ACTIVE_TASK
+        if name == 'README.md':
+            return CURRENT_POLICY
+        return DRAFT
     if rel.startswith('.agents/docs/'):
         return CURRENT_POLICY if rel.endswith('WORKFLOW.md') else CURRENT_BEHAVIOR
     if rel.startswith('docs/'):

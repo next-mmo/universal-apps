@@ -91,6 +91,14 @@ class TestCatalogAndClassification(ContextIndexBase):
         self.assertEqual(classify_path(Path('docs/tasks/wip-0002-beta.md')), context_index.ACTIVE_TASK)
         self.assertEqual(classify_path('docs\\tasks\\done\\done-0009-x.md'), context_index.HISTORICAL)
 
+    def test_relocated_agents_docs_task_space_classified(self):
+        self.assertEqual(classify_path('.agents/docs/tasks/wip-0003-gamma.md'), context_index.ACTIVE_TASK)
+        self.assertEqual(classify_path('.agents/docs/tasks/blocked-0004-delta.md'), context_index.ACTIVE_TASK)
+        self.assertEqual(classify_path('.agents/docs/tasks/done/done-0005-old.md'), context_index.HISTORICAL)
+        self.assertEqual(classify_path('.agents/docs/tasks/README.md'), context_index.CURRENT_POLICY)
+        self.assertEqual(classify_path('.agents/docs/tasks/todo-0006-next.md'), context_index.DRAFT)
+        self.assertEqual(classify_path('.agents/docs/PROJECT.md'), context_index.CURRENT_BEHAVIOR)
+
     def test_ignored_and_secret_trees_never_indexed(self):
         self.fixture()
         self.put('docs/node_modules/pkg/readme.md', '# Vendored\n')
@@ -262,6 +270,22 @@ class TestContextCheck(ContextIndexBase):
         self.assertEqual(report['checkpoint'], 'INCOMPLETE')  # any incomplete active task counts
         self.assertIn('docs/tasks/wip-0002-beta.md', report['ambiguous'])
         self.assertEqual(report['status'], 'ATTENTION')
+
+    def test_relocated_agents_docs_checkpoint_detected(self):
+        self.fixture()
+        self.put('.agents/docs/tasks/wip-0003-relocated.md',
+                 '# Task: Relocated\n\n- Owner: maintainers\n'
+                 '- Scope approval: approved 2026-09-15\n'
+                 '- Execution authorization: authorized\n'
+                 '- Next action: verify relocation\n')
+        report = context_check(self.target)
+        paths = [item['path'] for item in report['active_tasks']]
+        self.assertIn('.agents/docs/tasks/wip-0003-relocated.md', paths)
+        self.assertEqual(report['checkpoint'], 'COMPLETE')
+        self.assertIn('.agents/docs/tasks/wip-0003-relocated.md', report['ambiguous'])
+        located = next(item for item in report['active_tasks']
+                       if item['path'] == '.agents/docs/tasks/wip-0003-relocated.md')
+        self.assertEqual(located['missing'], [])
 
     def test_missing_catalog_anchor_reported(self):
         self.fixture()

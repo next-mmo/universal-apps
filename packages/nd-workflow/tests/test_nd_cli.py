@@ -112,6 +112,13 @@ class TestNdCli(unittest.TestCase):
             cmd_task('Add search', str(self.target))
         self.assertEqual(path.read_bytes(), content)
 
+    def test_task_prefers_relocated_agents_docs_board(self):
+        self.put('.agents/docs/tasks/README.md', '# ND Workflow Task Board\n')
+        self.assertEqual(cmd_task('Relocated work', str(self.target)), 0)
+        tasks = list((self.target / '.agents/docs/tasks').glob('wip-*.md'))
+        self.assertEqual(len(tasks), 1)
+        self.assertFalse((self.target / 'docs/tasks').exists())
+
     def test_task_title_invalid_no_write(self):
         for title in ('', '   ', 'x\n- Mode: implementation', 'a' * 121):
             with self.subTest(title=title), self.assertRaises(ValueError):

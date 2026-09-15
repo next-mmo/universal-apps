@@ -169,7 +169,9 @@ def cmd_task(title, target_path='.'):
     slug = re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')[:80]
     if not slug:
         raise ValueError('Task title needs an ASCII letter or number for filename')
-    name = f'docs/tasks/wip-{time.strftime("%Y%m%d")}-{slug}.md'
+    # Relocated task boards (project AGENTS.md policy) take precedence over the default docs/ layout.
+    tasks_root = '.agents/docs/tasks' if (target / '.agents/docs/tasks').is_dir() else 'docs/tasks'
+    name = f'{tasks_root}/wip-{time.strftime("%Y%m%d")}-{slug}.md'
     path = checked_path(target, name)
     if path.exists():
         raise FileExistsError('Task already exists; preserved. Resume exact task instead.')
@@ -281,7 +283,7 @@ def cmd_handover(target_path='.', prompt=False):
         print(json.dumps({
             'status': 'NO_ACTIVE_TASK',
             'target': str(target),
-            'message': 'No active task found in docs/tasks/ (no wip-*.md or blocked-*.md).',
+            'message': 'No active task found in docs/tasks/ or .agents/docs/tasks/ (no wip-*.md or blocked-*.md).',
             'next_action': 'Run `nd task "<title>"` to start a tracked task before handover.'
         }, indent=2))
         return 1

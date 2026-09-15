@@ -15,9 +15,10 @@
 
 ## Approved Workflow Change
 
-- In [root judgment](../../../AGENTS.md), route to the [delivery sequence](../../skills/agent-workflow-scrum/references/delivery.md): understand the flow, confirm necessity, reuse repository capabilities, consider standard/platform features and installed dependencies, then implement the smallest maintainable solution.
-- In [context routing](../../skills/agent-workflow-scrum/references/context-routing.md), expand reads for a named uncertainty and reuse available evidence unless changed or freshness is required.
-- In [verification](../../skills/agent-workflow-scrum/references/verification.md), avoid repeating successful checks without a reason; retain meaningful regression and negative-path coverage.
+- In [root judgment](../../../AGENTS.md), route to the delivery sequence: understand the flow, confirm necessity, reuse repository capabilities, consider standard/platform features and installed dependencies, then implement the smallest maintainable solution.
+- In context routing, expand reads for a named uncertainty and reuse available evidence unless changed or freshness is required.
+- In verification, avoid repeating successful checks without a reason; retain meaningful regression and negative-path coverage.
+- The Agent Workflow Scrum skills were retired 2026-09-15 in favor of ND Workflow; their reference links were removed with them.
 - Keep reports concise and facts in their existing owners. Extend [evaluation guidance](../../../agent/evals.md) with comparable reuse, defect, and security scenarios.
 
 ## Expected Benefit, Scope, and Risks

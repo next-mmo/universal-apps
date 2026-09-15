@@ -70,7 +70,7 @@ The increment also includes a first-party UI skill family inspired by the struct
 
 ## Approved scoped extension: Reuse-first token efficiency
 
-User approved the complete implementation plan on 2026-09-05. [Suggestion 0001](../suggestions/0001-reuse-first-token-efficiency.md) records the decision and exact policy targets. This extension changes repository guidance and evaluation instructions only; prior work and human acceptance remain unchanged. Recover by reverting only this extension's hunks and generated copies.
+User approved the complete implementation plan on 2026-09-05. [Suggestion 0001](../../suggestions/0001-reuse-first-token-efficiency.md) records the decision and exact policy targets. This extension changes repository guidance and evaluation instructions only; prior work and human acceptance remain unchanged. Recover by reverting only this extension's hunks and generated copies.
 
 ### Token-efficiency acceptance
 

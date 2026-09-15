@@ -223,4 +223,7 @@ graphify-out/
 
 # ND Workflow adoption recovery journal (private project text) and index cache
 .nd-workflow-adoption/
+.nd-cache/
 .context-index/
+# Paired-run evaluation checkouts (throwaway worktrees)
+.eval-wt/

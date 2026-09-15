@@ -10,7 +10,6 @@ const DOCS_ROOT = ".agents/docs";
 const DEFAULT_BUDGETS = {
   "AGENTS.md": 800,
   "CONTEXT.md": 1400,
-  ".agents/skills/agent-workflow-scrum/SKILL.md": 900,
 };
 
 function parseArgs(argv) {
@@ -239,11 +238,9 @@ async function run(options) {
     "CONTEXT.md",
     `${DOCS_ROOT}/AGENTS.md`,
     `${DOCS_ROOT}/development.md`,
-    `${DOCS_ROOT}/agent-workflow.md`,
     `${DOCS_ROOT}/ARCHITECTURE.md`,
     `${tasksRoot}/README.md`,
     `${suggestionsRoot}/README.md`,
-    ".agents/skills/agent-workflow-scrum/SKILL.md",
     ...suggestionFiles,
     ...lifecycleTasks,
   ];
@@ -268,15 +265,6 @@ async function run(options) {
       const message = `${file}: estimated ${tokens} tokens exceeds budget ${budget}`;
       if (options.strictBudget) errors.push(message);
       else warnings.push(message);
-    }
-  }
-
-  const skill = await readText(root, ".agents/skills/agent-workflow-scrum/SKILL.md");
-  if (skill !== null) {
-    for (const href of relativeMarkdownLinks(skill)) {
-      if (href.startsWith("references/") && !await exists(path.join(root, ".agents/skills/agent-workflow-scrum", href))) {
-        errors.push(`SKILL.md references missing file: ${href}`);
-      }
     }
   }
 

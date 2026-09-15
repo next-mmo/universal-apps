@@ -49,7 +49,7 @@ The development apps still use internal workspace imports. This authoring arrang
 - `packages/pro-vue`, `packages/pro-svelte`, `packages/ui-native`: framework adapters.
 - `packages/cli/source`: standalone consumer CLI and source-registry build graph.
 
-Existing agent catalogs describe maintainer workspace imports. For generated projects, use the source CLI's `list` output and local paths instead. Agent Workflow Scrum and verification evidence remain under [`.agents/`](.agents/docs/agent-workflow.md).
+Existing agent catalogs describe maintainer workspace imports. For generated projects, use the source CLI's `list` output and local paths instead. ND Workflow policy and verification evidence live under [`.agents/docs/`](.agents/docs/WORKFLOW.md).
 
 ## Standalone ND Workflow
 

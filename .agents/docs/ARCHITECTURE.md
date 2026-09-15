@@ -16,7 +16,7 @@ Application documentation under `apps/tauri-app/content/docs/` owns public usage
 
 ## Workflow planes
 
-Agent Workflow Scrum separates four information classes:
+ND Workflow separates four information classes:
 
 1. **Decision:** human approval, active task, affected PRD, and applied policy define intended behavior.
 2. **Observation:** current source, direct runtime evidence, checks, and exact Git scope establish current behavior.

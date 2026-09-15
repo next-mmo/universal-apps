@@ -39,7 +39,7 @@ Verified project facts and entry points for Tauri Universal monorepo.
 - Canonical skills: `.agents/skills/` (ND skills + Universal UI skills).
 - Skill selection: `.agents/skill-selection.json`.
 - Instruction loading: root `AGENTS.md` and `CLAUDE.md`.
-- Workspace boundary: `C:/Users/dila/Documents/projects/tauri-universal`.
+- Workspace boundary: this repository's root directory (`universal-apps` checkout); writes stay inside the project.
 
 ## Durable knowledge and open risks
 - Retained package `packages/nd-workflow`: contains package-internal instructions and tests; root instructions govern the monorepo.

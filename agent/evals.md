@@ -42,3 +42,8 @@ Targets after the token-first rollout:
 - No more than two files opened before editing a cataloged component
 - First-pass compilation for all complete recipes
 - One verification command selected without searching package scripts
+
+## Tooling measurements
+
+- ND `context locate` (nd-doc-lookup) vs plain keyword search, 2026-09-15: ~5.2× fewer retrieved bytes (bounded ≤5 ranked routes vs 77–192 raw matches per query) at ~0.9 s/call versus millisecond-scale raw scan. Method, numbers, and limits: [.agents/docs/evidence/locate-vs-search-benchmark.md](../.agents/docs/evidence/locate-vs-search-benchmark.md).
+- Coding round, ND flow vs baseline (Alert component, 2026-09-15, n=1): −20% calls, −42% files opened, −37% transcript bytes at equal outcome. Method and limits: [.agents/docs/evidence/coding-round-alert-nd-vs-baseline.md](../.agents/docs/evidence/coding-round-alert-nd-vs-baseline.md).
