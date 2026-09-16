@@ -46,7 +46,8 @@ export async function main(args = process.argv.slice(2)) {
     else names.push(arg);
   }
   if (!['create', 'init', 'list', 'add', 'diff', 'doctor'].includes(command)) throw new Error(`Unknown command: ${command}`);
-  if (options.framework && !['react', 'vue', 'svelte', 'native'].includes(options.framework)) throw new Error('Invalid --framework');
+  const supportedFrameworks = ['react', 'vue', 'svelte', 'native', 'go-echo', 'go', 'echo'];
+  if (options.framework && !supportedFrameworks.includes(options.framework)) throw new Error('Invalid --framework');
   if (command !== 'init' && (options.path || options.css)) throw new Error('--path and --css configure init only; edit universal.json for existing projects');
   if (!['create', 'add', 'diff'].includes(command) && names.length) throw new Error(`Unexpected arguments for ${command}`);
   const cwd = path.resolve(options.cwd ?? process.cwd());

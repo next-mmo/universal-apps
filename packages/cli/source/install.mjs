@@ -281,15 +281,20 @@ export function createProject(cwd, name, registry, options = {}) {
     fs.writeFileSync(full, content, 'utf8');
   }
 
-  // Initialize universal.json
-  const config = initialize(projectDir, {
-    framework,
-    css: 'src/index.css',
-  });
+  const isGo = ['go-echo', 'go', 'echo'].includes(framework);
 
-  // If registry is provided, add default starter components
+  // Initialize universal.json for frontend projects
+  let config = null;
+  if (!isGo) {
+    config = initialize(projectDir, {
+      framework,
+      css: 'src/index.css',
+    });
+  }
+
+  // If registry is provided, add default starter components for supported frontends
   let added = [];
-  if (registry) {
+  if (registry && !isGo) {
     const starterItem = framework === 'react' ? 'button' : framework === 'native' ? 'ui-native-components-ui-button' : 'core';
     try {
       const plan = planInstall(projectDir, registry, [starterItem], { noInstall: true });
@@ -300,15 +305,28 @@ export function createProject(cwd, name, registry, options = {}) {
     }
   }
 
-  // Run package manager install if requested
-  const manager = detectManager(projectDir, readJson(path.join(projectDir, 'package.json')), options.packageManager);
-  if (!options.noInstall) {
-    const windows = process.platform === 'win32';
-    const executable = windows ? (process.env.ComSpec ?? 'cmd.exe') : manager;
-    const args = windows ? ['/d', '/s', '/c', `${manager} install`] : ['install'];
-    const result = (options.spawn ?? spawnSync)(executable, args, { cwd: projectDir, stdio: 'inherit', shell: false });
-    if (result.error || result.status !== 0) {
-      throw new Error(`Project created, but ${manager} install failed: ${result.error?.message ?? ''}`);
+  // Run package manager install if requested (for Node.js projects)
+  let manager = null;
+  if (!isGo) {
+    manager = detectManager(projectDir, readJson(path.join(projectDir, 'package.json')), options.packageManager);
+    if (!options.noInstall) {
+      const windows = process.platform === 'win32';
+      const executable = windows ? (process.env.ComSpec ?? 'cmd.exe') : manager;
+      const args = windows ? ['/d', '/s', '/c', `${manager} install`] : ['install'];
+      const result = (options.spawn ?? spawnSync)(executable, args, { cwd: projectDir, stdio: 'inherit', shell: false });
+      if (result.error || result.status !== 0) {
+        throw new Error(`Project created, but ${manager} install failed: ${result.error?.message ?? ''}`);
+      }
+    }
+  } else if (!options.noInstall) {
+    // Optionally run go mod tidy for Go starter if go is present
+    try {
+      const result = (options.spawn ?? spawnSync)('go', ['mod', 'tidy'], { cwd: projectDir, stdio: 'pipe', shell: false });
+      if (result.status === 0) {
+        manager = 'go';
+      }
+    } catch {
+      // go executable not present or network offline; skip tidy
     }
   }
 

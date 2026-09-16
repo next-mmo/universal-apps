@@ -152,6 +152,7 @@ test('packed-style CLI runs from outside the workspace using only its embedded r
   const f = fixture(t), r = f.build();
   const packed = path.join(f.root, 'packed'); fs.mkdirSync(packed);
   for (const name of ['cli.mjs', 'install.mjs', 'templates.mjs']) fs.copyFileSync(path.join(here, '../source', name), path.join(packed, name));
+  fs.cpSync(path.join(here, '../source/templates'), path.join(packed, 'templates'), { recursive: true });
   f.put('packed/registry/index.json', r);
   const run = (...args) => spawnSync(process.execPath, [path.join(packed, 'cli.mjs'), ...args], { cwd: f.cwd, encoding: 'utf8' });
   assert.equal(run('init').status, 0);
@@ -169,6 +170,7 @@ test('all nine catalogs build into an actual standalone npm tarball', (t) => {
   for (const name of ['cli.mjs', 'install.mjs', 'templates.mjs', 'README.md']) {
     f.put(`packages/cli/source/${name}`, fs.readFileSync(path.join(here, '../source', name), 'utf8'));
   }
+  fs.cpSync(path.join(here, '../source/templates'), path.join(f.root, 'packages/cli/source/templates'), { recursive: true });
   const output = buildDistribution(f.root);
   const isWindows = process.platform === 'win32';
   const npmCmd = isWindows ? (process.env.ComSpec || 'cmd.exe') : 'npm';
@@ -205,4 +207,13 @@ test('all nine catalogs build into an actual standalone npm tarball', (t) => {
   assert.equal(tauriRes.status, 0, tauriRes.stderr);
   assert.ok(fs.existsSync(path.join(cwd, 'starter-tauri/src-tauri/tauri.conf.json')));
   assert.ok(fs.existsSync(path.join(cwd, 'starter-tauri/src-tauri/Cargo.toml')));
+
+  const goRes = run('create', 'starter-go', '--framework', 'go-echo', '--no-install');
+  assert.equal(goRes.status, 0, goRes.stderr);
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-go/go.mod')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-go/cmd/api/main.go')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-go/internal/app/app.go')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-go/internal/httpapi/router.go')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-go/Dockerfile')));
 });
+
