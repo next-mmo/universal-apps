@@ -13,7 +13,7 @@ export function buildDistribution(root) {
   for (const entry of fs.readdirSync(path.join(output, 'registry'))) {
     if (entry.endsWith('.json')) fs.unlinkSync(path.join(output, 'registry', entry));
   }
-  for (const name of ['cli.mjs', 'install.mjs']) fs.copyFileSync(path.join(root, 'packages/cli/source', name), path.join(output, name));
+  for (const name of ['cli.mjs', 'install.mjs', 'templates.mjs']) fs.copyFileSync(path.join(root, 'packages/cli/source', name), path.join(output, name));
   fs.chmodSync(path.join(output, 'cli.mjs'), 0o755);
   fs.copyFileSync(path.join(root, 'LICENSE'), path.join(output, 'LICENSE'));
   fs.copyFileSync(path.join(root, 'packages/cli/source/README.md'), path.join(output, 'README.md'));
@@ -21,7 +21,7 @@ export function buildDistribution(root) {
     name: '@next-mmo/universal-cli', version: registry.version, type: 'module',
     description: 'Copy editable Universal Apps source into your own project. No Universal Apps runtime library.',
     license: 'Unlicense', engines: { node: '>=20.10.0' },
-    bin: { universal: './cli.mjs' }, files: ['cli.mjs', 'install.mjs', 'registry', 'LICENSE', 'README.md'],
+    bin: { universal: './cli.mjs' }, files: ['cli.mjs', 'install.mjs', 'templates.mjs', 'registry', 'LICENSE', 'README.md'],
     publishConfig: { access: 'public' },
   });
   writeJson(path.join(output, 'registry/index.json'), registry);

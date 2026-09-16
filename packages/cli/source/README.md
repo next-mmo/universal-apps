@@ -15,7 +15,21 @@ Use the resulting `dist/next-mmo-universal-cli-0.1.0.tgz` with `npm exec --packa
 
 ## Consumer flow
 
-The following `npx` form applies after the package has been published:
+### 1. Scaffold a new starter application from scratch
+
+To generate a complete, runnable starter application with Vite, Tailwind CSS v4, TypeScript, and pre-configured Universal components:
+
+```sh
+# Web starter (React, Vue, Svelte, or React Native Web)
+npx @next-mmo/universal-cli create my-app --framework react
+
+# Desktop starter (Tauri 2 + React + Vite + Tailwind v4)
+npx @next-mmo/universal-cli create my-desktop-app --framework react --tauri
+```
+
+### 2. Add to an existing project
+
+The following `npx` form applies to configure an existing project:
 
 ```sh
 npx @next-mmo/universal-cli init --css src/index.css

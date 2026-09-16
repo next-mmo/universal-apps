@@ -45,6 +45,12 @@ try {
     }
     console.log(`${framework}: packed CLI generated all matching source items without a workspace library`);
   }
+  run(process.execPath, [cli, 'create', 'smoke-starter', '--framework', 'react', '--tauri', '--no-install'], scratch);
+  const starter = path.join(scratch, 'smoke-starter');
+  assert.ok(fs.existsSync(path.join(starter, 'universal.json')));
+  assert.ok(fs.existsSync(path.join(starter, 'src/App.tsx')));
+  assert.ok(fs.existsSync(path.join(starter, 'src-tauri/tauri.conf.json')));
+  console.log('create: packed CLI generated complete starter project with Tauri desktop configuration');
   console.log(`PASS: ${registry.publicEntryCount} public entries across ${registry.packages.length} runtime packages. Framework compilation is a separate release check.`);
 } finally {
   fs.rmSync(scratch, { recursive: true, force: true });

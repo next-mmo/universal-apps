@@ -151,7 +151,7 @@ test('generated framework-neutral code compiles and runs without the CLI or work
 test('packed-style CLI runs from outside the workspace using only its embedded registry', (t) => {
   const f = fixture(t), r = f.build();
   const packed = path.join(f.root, 'packed'); fs.mkdirSync(packed);
-  for (const name of ['cli.mjs', 'install.mjs']) fs.copyFileSync(path.join(here, '../source', name), path.join(packed, name));
+  for (const name of ['cli.mjs', 'install.mjs', 'templates.mjs']) fs.copyFileSync(path.join(here, '../source', name), path.join(packed, name));
   f.put('packed/registry/index.json', r);
   const run = (...args) => spawnSync(process.execPath, [path.join(packed, 'cli.mjs'), ...args], { cwd: f.cwd, encoding: 'utf8' });
   assert.equal(run('init').status, 0);
@@ -166,7 +166,7 @@ test('all nine catalogs build into an actual standalone npm tarball', (t) => {
     f.put(`packages/${folder}/package.json`, { name: `@package/${folder}` });
     f.put(`packages/${folder}/src/value.ts`, 'export const ready = true;\n');
   }
-  for (const name of ['cli.mjs', 'install.mjs', 'README.md']) {
+  for (const name of ['cli.mjs', 'install.mjs', 'templates.mjs', 'README.md']) {
     f.put(`packages/cli/source/${name}`, fs.readFileSync(path.join(here, '../source', name), 'utf8'));
   }
   const output = buildDistribution(f.root);
@@ -192,5 +192,17 @@ test('all nine catalogs build into an actual standalone npm tarball', (t) => {
     const add = run('add', '--all', '--framework', framework, '--no-install');
     assert.equal(add.status, 0, add.stderr);
     assert.equal(run('doctor').status, 0);
+
+    const createRes = run('create', `starter-${framework}`, '--framework', framework, '--no-install');
+    assert.equal(createRes.status, 0, createRes.stderr);
+    assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/universal.json`)));
+    assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/package.json`)));
+    assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/src/index.css`)));
   }
+  const cwd = path.join(f.root, 'company-react');
+  const run = (...args) => spawnSync(process.execPath, [cli, ...args], { cwd, encoding: 'utf8' });
+  const tauriRes = run('create', 'starter-tauri', '--framework', 'react', '--tauri', '--no-install');
+  assert.equal(tauriRes.status, 0, tauriRes.stderr);
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-tauri/src-tauri/tauri.conf.json')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-tauri/src-tauri/Cargo.toml')));
 });

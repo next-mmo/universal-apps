@@ -2,10 +2,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { initialize, validateRegistry, planInstall, applyPlan, diffItems, doctor } from './install.mjs';
+import { createProject, initialize, validateRegistry, planInstall, applyPlan, diffItems, doctor } from './install.mjs';
 
 const help = `universal <command> [items] [options]
 
+  create <name>       scaffold a new starter application from scratch
   init                configure local source generation in an existing project
   list                list available source items
   add <items...>      copy source, helpers, types and styles into your project
@@ -16,13 +17,14 @@ const help = `universal <command> [items] [options]
   --path <path>             generated source directory (init only)
   --css <path>              Tailwind v4 stylesheet (init only)
   --framework <name>        react, vue, svelte or native
-  --all                    add all packages for an explicit --framework
-  --overwrite              explicitly replace differing local source files
-  --dry-run                show a write plan without changing anything
-  --no-install             write dependency declarations but do not run install
+  --tauri                   include Tauri 2 desktop shell configuration (create only)
+  --all                     add all packages for an explicit --framework
+  --overwrite               explicitly replace differing local source files
+  --dry-run                 show a write plan without changing anything
+  --no-install              write dependency declarations but do not run install
   --package-manager <name>  npm, pnpm, yarn or bun
   --registry <file>         use a local registry bundle instead of the packed one
-  --help                   display this help
+  --help                    display this help
 
 Generated applications do not import or require this CLI at runtime.
 `;
@@ -33,7 +35,7 @@ export async function main(args = process.argv.slice(2)) {
   const options = {};
   const names = [];
   const values = new Map([['--cwd', 'cwd'], ['-c', 'cwd'], ['--path', 'path'], ['--css', 'css'], ['--framework', 'framework'], ['--package-manager', 'packageManager'], ['--registry', 'registry']]);
-  const flags = new Map([['--all', 'all'], ['--overwrite', 'overwrite'], ['--dry-run', 'dryRun'], ['--no-install', 'noInstall'], ['--yes', 'yes'], ['-y', 'yes']]);
+  const flags = new Map([['--all', 'all'], ['--overwrite', 'overwrite'], ['--dry-run', 'dryRun'], ['--no-install', 'noInstall'], ['--yes', 'yes'], ['-y', 'yes'], ['--tauri', 'tauri']]);
   for (let index = 0; index < rest.length; index++) {
     const arg = rest[index];
     if (values.has(arg)) {
@@ -43,18 +45,25 @@ export async function main(args = process.argv.slice(2)) {
     else if (arg.startsWith('-')) throw new Error(`Unknown option: ${arg}`);
     else names.push(arg);
   }
-  if (!['init', 'list', 'add', 'diff', 'doctor'].includes(command)) throw new Error(`Unknown command: ${command}`);
+  if (!['create', 'init', 'list', 'add', 'diff', 'doctor'].includes(command)) throw new Error(`Unknown command: ${command}`);
   if (options.framework && !['react', 'vue', 'svelte', 'native'].includes(options.framework)) throw new Error('Invalid --framework');
   if (command !== 'init' && (options.path || options.css)) throw new Error('--path and --css configure init only; edit universal.json for existing projects');
-  if (!['add', 'diff'].includes(command) && names.length) throw new Error(`Unexpected arguments for ${command}`);
+  if (!['create', 'add', 'diff'].includes(command) && names.length) throw new Error(`Unexpected arguments for ${command}`);
   const cwd = path.resolve(options.cwd ?? process.cwd());
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  const candidates = options.registry ? [path.resolve(options.registry)] : [path.join(here, 'registry/index.json'), path.resolve(here, '../../../dist/universal-cli/registry/index.json')];
+  const registryPath = candidates.find((file) => fs.existsSync(file));
+
+  if (command === 'create') {
+    if (!names[0]) throw new Error('Specify a project name: universal create <name>');
+    const registry = registryPath ? validateRegistry(JSON.parse(fs.readFileSync(registryPath, 'utf8'))) : null;
+    console.log(JSON.stringify(createProject(cwd, names[0], registry, options), null, 2));
+    return;
+  }
   if (command === 'init') {
     console.log(JSON.stringify(initialize(cwd, options), null, 2));
     return;
   }
-  const here = path.dirname(fileURLToPath(import.meta.url));
-  const candidates = options.registry ? [path.resolve(options.registry)] : [path.join(here, 'registry/index.json'), path.resolve(here, '../../../dist/universal-cli/registry/index.json')];
-  const registryPath = candidates.find((file) => fs.existsSync(file));
   if (!registryPath) throw new Error('Registry bundle is missing. Maintainers: run pnpm source:build before using pnpm source.');
   const registry = validateRegistry(JSON.parse(fs.readFileSync(registryPath, 'utf8')));
   if (command === 'list') {

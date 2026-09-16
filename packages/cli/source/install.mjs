@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import { getTemplateFiles } from './templates.mjs';
 
 const CONFIG = 'universal.json';
 const RECEIPT = 'universal.lock.json';
@@ -248,4 +249,77 @@ export function doctor(cwd, registry) {
     if (/\.(?:[cm]?[jt]sx?|vue|svelte|css)$/.test(file) && /(?:from\s*|import\s*(?:\(\s*)?|require\s*\(\s*)["']@package\//.test(fs.readFileSync(target, 'utf8'))) problems.push(`Workspace import remains: ${file}`);
   }
   return { ok: problems.length === 0, sourceDir: config.sourceDir, problems, note: 'This checks source ownership, not framework compilation or third-party license compliance.' };
+}
+
+export function createProject(cwd, name, registry, options = {}) {
+  if (typeof name !== 'string' || !name || /[\/\\:]/.test(name) || name === '.' || name === '..') {
+    throw new Error(`Invalid project name: ${name}`);
+  }
+  cwd = fs.realpathSync(cwd);
+  const projectDir = path.resolve(cwd, name);
+  if (fs.existsSync(projectDir) && fs.readdirSync(projectDir).length > 0) {
+    throw new Error(`Target directory already exists and is not empty: ${name}`);
+  }
+
+  const framework = options.framework ?? 'react';
+  const templateFiles = getTemplateFiles(name, options);
+
+  if (options.dryRun) {
+    return {
+      dryRun: true,
+      projectDir,
+      framework,
+      files: [...templateFiles.keys()],
+      tauri: !!options.tauri,
+    };
+  }
+
+  fs.mkdirSync(projectDir, { recursive: true });
+  for (const [relPath, content] of templateFiles.entries()) {
+    const full = path.join(projectDir, relPath);
+    fs.mkdirSync(path.dirname(full), { recursive: true });
+    fs.writeFileSync(full, content, 'utf8');
+  }
+
+  // Initialize universal.json
+  const config = initialize(projectDir, {
+    framework,
+    css: 'src/index.css',
+  });
+
+  // If registry is provided, add default starter components
+  let added = [];
+  if (registry) {
+    const starterItem = framework === 'react' ? 'button' : framework === 'native' ? 'ui-native-components-ui-button' : 'core';
+    try {
+      const plan = planInstall(projectDir, registry, [starterItem], { noInstall: true });
+      applyPlan(plan, { noInstall: true });
+      added.push(starterItem);
+    } catch {
+      // If starter item fails to plan, continue with base template
+    }
+  }
+
+  // Run package manager install if requested
+  const manager = detectManager(projectDir, readJson(path.join(projectDir, 'package.json')), options.packageManager);
+  if (!options.noInstall) {
+    const windows = process.platform === 'win32';
+    const executable = windows ? (process.env.ComSpec ?? 'cmd.exe') : manager;
+    const args = windows ? ['/d', '/s', '/c', `${manager} install`] : ['install'];
+    const result = (options.spawn ?? spawnSync)(executable, args, { cwd: projectDir, stdio: 'inherit', shell: false });
+    if (result.error || result.status !== 0) {
+      throw new Error(`Project created, but ${manager} install failed: ${result.error?.message ?? ''}`);
+    }
+  }
+
+  return {
+    name,
+    projectDir,
+    framework,
+    tauri: !!options.tauri,
+    manager,
+    filesCount: templateFiles.size,
+    added,
+    config,
+  };
 }
