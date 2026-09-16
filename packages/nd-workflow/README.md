@@ -26,7 +26,7 @@ Lightweight, evidence-driven delivery workflow for AI-assisted software developm
 
 **Why choose ND?** Keep low-risk work lightweight, raise verification with risk, and leave clear handover checkpoints. Built for small teams that want a shared delivery policy without a mandatory full execution loop for every change.
 
-See [tradeoffs, evidence limits and the 9.7 challenge checklist](BENHMARK.md). Earlier score, speed and competitor-token claims are withdrawn; no measured superiority is established.
+Earlier score, speed, and competitor-token claims are withdrawn; no measured superiority is established.
 
 ---
 

@@ -119,7 +119,7 @@ async function validateProductSynchronization({ root, changedPaths, active, erro
   info.push(`product synchronization: ${productPaths.length} product path(s) require task/PRD/evidence metadata`);
 
   const changedDone = changedPaths
-    .filter((file) => /^\.agents\/docs\/tasks\/done\/done-[^/]+\.md$/.test(file))
+    .filter((file) => /^docs\/tasks\/done\/done-[^/]+\.md$/.test(file))
     .sort();
   let taskFile = "";
   if (active.length === 1) taskFile = active[0];

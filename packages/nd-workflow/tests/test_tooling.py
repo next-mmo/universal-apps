@@ -40,7 +40,6 @@ FIXTURE_REQUIRED = [
     ".gitattributes",
     ".gitignore",
     "AGENTS.md",
-    "BENHMARK.md",
     "CLAUDE.md",
     "LICENSE",
     "README.md",

@@ -18,14 +18,6 @@ Read the matching topic, not every document. Search relevant source/docs if an e
 | Larger plans | [plans/README.md](plans/README.md) | Complex design or integration phases |
 | Plan template | [PLAN.md](../.agents/templates/PLAN.md) | Multi-phase architectural transitions or refactoring |
 | Operations template | [RUNBOOK.md](../.agents/templates/RUNBOOK.md) | Adopted system deploys or owns persistent data |
-| Benchmark tradeoffs and limits | [BENHMARK.md](../BENHMARK.md) | Policy fit, competitor comparisons, evidence boundaries and 9.7 challenge checklist |
-| Context indexing benchmark | `INDEXING-BENHMARK.md` | Repository-level retrieval comparison, protocol and cross-IDE handover evidence |
-| Top-2 competitive benchmark | `docs/TOP2-COMPETITIVE-BENCHMARK-AND-HARDENING.md` | Historical ND measurements and comparison notes requiring revalidation; not current-candidate release evidence |
-| Release readiness audit | `docs/RELEASE-READINESS-AND-BENCHMARK-AUDIT.md` | Repository-level benchmark audit, verified claims matrix, unverified limits and release gates |
-| Internal readiness target | `docs/prd/prd-0005-internal-release-readiness.md` | Evidence-first 9.7 internal readiness scope, phased gates and authorization record; not an earned score or competitor ranking |
-| Release readiness scorecard | `docs/RELEASE-READINESS-SCORECARD.md` | Withdrawn certification, current evidence limits and unresolved release gates; no earned score |
-| Candidate-002 evaluation report | `docs/evidence/readiness/candidate-002/EVALUATION-REPORT.md` | Fresh local evaluation results, byte-identical package hash, and explicit blockers |
-
 ## Project-specific routes
 
 At adoption, add canonical feature/API documents, relevant operations runbook, and significant decision records here. Reuse existing locations; no mandatory empty directories. For small systems, feature behavior can live in existing docs; larger systems may use capability specs.

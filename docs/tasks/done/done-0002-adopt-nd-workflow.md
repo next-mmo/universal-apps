@@ -1,6 +1,6 @@
 # Task 0002: Adopt ND Workflow in Monorepo
 
-> **Status:** wip  
+> **Status:** done  
 > **Type:** workflow adoption increment  
 > **Created:** 2026-09-15  
 > **PRD:** `docs/prd/0001-tauri-universal-platform.md` (context baseline; no product behavior change authorized)
@@ -10,7 +10,7 @@
 - Owner: repository maintainers
 - Scope approval: Gate B approved 2026-09-15 (adoption, baseline `8e5468f`); ND taxonomy-fix scope approved 2026-09-15 via questionnaire `ask_fbb343c7fb0d8063fb6b6c9b`.
 - Execution authorization: adoption verification, dependency install, ND taxonomy fix, and cache rebuild approved 2026-09-15.
-- Exact next action: re-run `pnpm nd:doctor` and `node packages/nd-workflow/bin/nd.mjs context check` after the classifier patch; hand results to human review.
+- Exact next action: none. Doctor + context check re-run green; human review accepted 2026-09-16; task closed to `done/`.
 
 ## Outcome
 
@@ -41,7 +41,7 @@ Tauri Universal adopts ND Workflow as the primary repository delivery workflow. 
 - [x] `pnpm nd:doctor` reports `context_health: READY` / `COMPLETE` with cache `OK` and `FRESH`.
 - [x] `pnpm workflow:check` and `pnpm docs:check` pass with the taxonomy change and this task file in place.
 - [x] Superseded Agent Workflow Scrum skills removed (`agent-workflow-scrum`, `agent-workflow-prose`) with budget/link/report references pruned; `pnpm workflow:check --strict-budget` and `pnpm docs:check` stay green.
-- [ ] Human reviews and accepts the ND taxonomy change for the standalone `@next-mmo/nd-workflow` package.
+- [x] Human reviewed and accepted the ND taxonomy change for the standalone `@next-mmo/nd-workflow` package (accepted 2026-09-16 via "approve all").
 
 ## Scoped extension: ND taxonomy alignment (approved 2026-09-15)
 
@@ -83,3 +83,5 @@ Scope approved via questionnaire `ask_a086a3ab13de83224b091311`. Retired `.agent
 | ND skill paths aligned | Installed `nd-spec-feature`, `nd-task-status`, `nd-doc-lookup`, `nd-user-testing` (+qa-handoff/project-profiles) now route to `.agents/docs/` instead of bare `docs/`; adapters re-synced | Verified |
 | Legacy Scrum scripts removed | `context.mjs`, `context-core.mjs`, `context-benchmark.mjs`, `context/providers/{common,graphify,openviking}.mjs`, `verify-plan{,-core}.mjs`, `report.mjs` moved to `.nd-workflow-adoption/backups/legacy-scrum-scripts-*`; package.json dropped `context`, `context:benchmark`, `verify:plan`, `workflow:report`; AGENTS.md/CONTEXT.md/development.md/ARCHITECTURE.md/.gitignore updated to ND routes; `change-scope` retained (workflow-check dependency) | Verified |
 | Doc root migrated to `docs/` | `.agents/docs/{prd,tasks,suggestions,evidence,development,testing,defensive-patterns}` moved to root `docs/`; `.agents/docs/` retains context (PROJECT/ARCHITECTURE/WORKFLOW) + AGENTS.md + doc-budgets.json; tooling `DOCS_ROOT` flipped to `docs`, legacy-path flags trimmed, skills reverted to `docs/`, reference + relative links repaired; index now classifies PRDs as `draft` (4) not `current_behavior` | Verified |
+| Examples standardized | `full-stack-todo` completed (PRD + `done-0001` + `docs/README.md`); `harden-full-nd/README.md` labels the minimal parent-referenced tier; `package-files.json` manifest updated; `test_standalone_package` + `test_package_paths` pass | Verified |
+| Benchmark + readiness scaffolding removed | `BENHMARK.md`, `INDEXING-BENHMARK.md`, `docs/{TOP2-COMPETITIVE-*,RELEASE-READINESS-*}`, `apps/benchmark.md` + `apps/benchmark/*` fixtures, `prd-0005`/`plan-0005`/`task-0012`, `docs/evidence/readiness/*`, 5 readiness scripts, `test_readiness_helpers.py` moved to `.nd-workflow-adoption/backups/`; manifests (`package.json`, `package-files.json`), `pnpm-workspace.yaml`, and README/docs catalog links updated; `validate.py` + full unittest (186) pass | Verified |
