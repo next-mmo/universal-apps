@@ -8,8 +8,15 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const parent = path.join(root, '.source-test-tmp');
 fs.mkdirSync(parent, { recursive: true });
 const scratch = fs.mkdtempSync(path.join(parent, 'packed-'));
+const isWindows = process.platform === 'win32';
 const run = (command, args, cwd = root) => {
-  const result = spawnSync(command, args, { cwd, encoding: 'utf8', shell: false });
+  let executable = command;
+  let commandArgs = args;
+  if (isWindows && command === 'npm') {
+    executable = process.env.ComSpec || 'cmd.exe';
+    commandArgs = ['/d', '/s', '/c', 'npm', ...args];
+  }
+  const result = spawnSync(executable, commandArgs, { cwd, encoding: 'utf8', shell: false });
   assert.equal(result.status, 0, `${command} ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
   return result.stdout;
 };

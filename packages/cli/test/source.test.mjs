@@ -120,7 +120,8 @@ test('package manager detection supports each lockfile', (t) => {
 test('mixed lockfiles require explicit selection', (t) => { const f = fixture(t); initialize(f.cwd); f.put('consumer/yarn.lock', ''); f.put('consumer/pnpm-lock.yaml', ''); assert.throws(() => planInstall(f.cwd, f.build(), ['button']), /Multiple lockfiles/); });
 test('install uses argument arrays, reports failure, and retains generated files for retry', (t) => {
   const f = fixture(t); initialize(f.cwd); const plan = planInstall(f.cwd, f.build(), ['button']);
-  assert.throws(() => applyPlan(plan, { spawn: (cmd, args, options) => { assert.equal(options.shell, false); assert.deepEqual(args, ['install']); return { status: 1 }; } }), /Source files were generated/);
+  const expectedArgs = process.platform === 'win32' ? ['/d', '/s', '/c', 'npm install'] : ['install'];
+  assert.throws(() => applyPlan(plan, { spawn: (cmd, args, options) => { assert.equal(options.shell, false); assert.deepEqual(args, expectedArgs); return { status: 1 }; } }), /Source files were generated/);
   assert.ok(fs.existsSync(path.join(f.cwd, 'src/lib/universal/core/value.ts')));
 });
 test('registry traversal and hidden library dependencies are rejected', (t) => {
@@ -169,7 +170,12 @@ test('all nine catalogs build into an actual standalone npm tarball', (t) => {
     f.put(`packages/cli/source/${name}`, fs.readFileSync(path.join(here, '../source', name), 'utf8'));
   }
   const output = buildDistribution(f.root);
-  const result = spawnSync('npm', ['pack', output, '--ignore-scripts', '--json', '--pack-destination', f.root, '--cache', path.join(f.root, '.npm-cache')], { cwd: f.root, encoding: 'utf8' });
+  const isWindows = process.platform === 'win32';
+  const npmCmd = isWindows ? (process.env.ComSpec || 'cmd.exe') : 'npm';
+  const npmArgs = isWindows
+    ? ['/d', '/s', '/c', 'npm', 'pack', output, '--ignore-scripts', '--json', '--pack-destination', f.root, '--cache', path.join(f.root, '.npm-cache')]
+    : ['pack', output, '--ignore-scripts', '--json', '--pack-destination', f.root, '--cache', path.join(f.root, '.npm-cache')];
+  const result = spawnSync(npmCmd, npmArgs, { cwd: f.root, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stdout + result.stderr);
   const archive = JSON.parse(result.stdout)[0];
   assert.ok(archive.files.some((file) => file.path === 'registry/index.json'));
