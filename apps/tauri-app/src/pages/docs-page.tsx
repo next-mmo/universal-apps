@@ -92,7 +92,12 @@ export default function DocsRoute() {
   return (
     <RootProvider>
       <PlatformProvider>
-        <DocsLayout tree={source.getPageTree()} sidebar={{ banner: <PlatformSwitcher /> }}>
+        <DocsLayout
+          tree={source.getPageTree()}
+          nav={{ enabled: false }}
+          containerProps={{ style: { minHeight: 'calc(100vh - var(--app-header-height, 3.5rem))' } }}
+          sidebar={{ banner: <PlatformSwitcher /> }}
+        >
           <DocsPage toc={data.toc}>
             <div className='flex flex-row items-center gap-2 border-b pb-2'>
               <DocsTitle className='flex-1'>{data.title}</DocsTitle>
