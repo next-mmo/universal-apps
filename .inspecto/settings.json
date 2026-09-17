@@ -3,5 +3,8 @@
   "prompt.includeSnippet": false,
   "prompt.autoSend": false,
   "prompt.runtimeContext": true,
+  "prompt.runtimeContextPreview": true,
+  "prompt.runtimeContextMaxErrors": 5,
+  "prompt.runtimeContextMaxRequests": 5,
   "server.host": "127.0.0.1"
 }

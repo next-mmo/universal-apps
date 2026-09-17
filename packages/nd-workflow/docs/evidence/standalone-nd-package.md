@@ -23,4 +23,4 @@ The installed-command smoke caught npm's removal of the mandatory ignore resourc
 
 ## Deferred integration
 
-No implicit adoption into Universal Apps is attempted. ND's generic task defaults remain unchanged; the host continues using `.agents/docs/tasks`. See [standalone ND usage](../../packages/nd-workflow/STANDALONE.md) for the package-owned conventions. Optional host integration must explicitly reconcile paths, document casing, and policies. Standalone capability is not a claim of complete host adoption, production certification, or token savings.
+No implicit adoption into Universal Apps is attempted. ND's generic task defaults remain unchanged; the host continues using `.agents/docs/tasks`. See [standalone ND usage](../../STANDALONE.md) for the package-owned conventions. Optional host integration must explicitly reconcile paths, document casing, and policies. Standalone capability is not a claim of complete host adoption, production certification, or token savings.

@@ -18,7 +18,7 @@ export default defineConfig(async ({ mode }) => ({
         include: ['**/*.{js,jsx,ts,tsx}'],
         exclude: ['node_modules/**', 'dist/**'],
       }),
-  ],
+  ].filter(Boolean),
   clearScreen: false,
   server: {
     port: 1430,

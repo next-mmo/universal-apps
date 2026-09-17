@@ -2,7 +2,7 @@
 
 > Status: evidence · Date: 2026-09-15 · n=1 per arm · Both arms: default worker agent settings
 > Host token counters added 2026-09-17 — recovered from the same two sessions, no re-run
-> Related: [Agent-efficiency baseline](../../agent/evals.md) · [locate vs search benchmark](locate-vs-search-benchmark.md)
+> Related: [Agent-efficiency baseline](../../../../agent/evals.md) · [locate vs search benchmark](locate-vs-search-benchmark.md)
 
 ## Question
 

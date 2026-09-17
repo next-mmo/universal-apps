@@ -4,7 +4,7 @@ This workspace combines **Chrome DevTools MCP** and **Inspecto** for Cursor-like
 
 ## What is wired
 
-- `.agents/mcp_config.json` exposes `chrome-devtools` and `inspecto` to Antigravity.
+- `.agents/mcp_config.json` exposes `chrome-devtools` (connected to Antigravity's internal browser on `http://127.0.0.1:9222`) and `inspecto` to Antigravity.
 - `.inspecto/settings.json` uses MCP delivery and runtime evidence.
 - `.inspecto/prompts.json` adds `Fix + Browser Verify` and `Debug in Browser` workflows.
 - `.vscode/extensions.json` recommends the `inspecto.inspecto` extension.

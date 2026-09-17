@@ -1,7 +1,7 @@
 # ND `context locate` vs plain keyword search — lookup benchmark
 
 > Status: evidence · Date: 2026-09-15 · Host: win32, Node v24.19.0, pnpm 10.32.1 · ND cache FRESH (`.nd-cache/context-index.json`)
-> Related: [Agent-efficiency baseline](../../agent/evals.md) · [nd-doc-lookup skill](../../.agents/skills/nd-doc-lookup/SKILL.md)
+> Related: [Agent-efficiency baseline](../../../../agent/evals.md) · [nd-doc-lookup skill](../../../../.agents/skills/nd-doc-lookup/SKILL.md)
 
 ## Question
 
