@@ -331,8 +331,8 @@ importers:
         specifier: ^0.81.4
         version: 0.81.6(@babel/core@7.29.7)
       '@react-native/gradle-plugin':
-        specifier: ^0.87.1
-        version: 0.87.1
+        specifier: ^0.81.4
+        version: 0.81.4
       '@react-native/metro-config':
         specifier: ^0.81.4
         version: 0.81.6(@babel/core@7.29.7)
@@ -2135,13 +2135,13 @@ packages:
     resolution: {integrity: sha512-mK2M3gJ25LtgtqxS1ZXe1vHrz8APOA79Ot/MpbLeovFgLu6YJki0kbO5MRpJagTd+HbesVYSZb/BhAsGN7QAXA==}
     engines: {node: '>= 20.19.4'}
 
+  '@react-native/gradle-plugin@0.81.4':
+    resolution: {integrity: sha512-T7fPcQvDDCSusZFVSg6H1oVDKb/NnVYLnsqkcHsAF2C2KGXyo3J7slH/tJAwNfj/7EOA2OgcWxfC1frgn9TQvw==}
+    engines: {node: '>= 20.19.4'}
+
   '@react-native/gradle-plugin@0.81.6':
     resolution: {integrity: sha512-atUItC5MZ6yaNaI0sbsoDwUdF+KMNZcMKBIrNhXlUyIj3x1AQ6Cf8CHHv6Qokn8ZFw+uU6GWmQSiOWYUbmi8Ag==}
     engines: {node: '>= 20.19.4'}
-
-  '@react-native/gradle-plugin@0.87.1':
-    resolution: {integrity: sha512-bZ5X2BNxaSlfp2KlDtUM910QqW9G1yTIeZXghuv4ag8SAQLzm5Mf9j5GjJfT6ax2Qo2aRT15Vi3Tro/yLGJstA==}
-    engines: {node: ^22.13.0 || ^24.3.0 || >= 26.0.0}
 
   '@react-native/js-polyfills@0.81.6':
     resolution: {integrity: sha512-P5MWH/9vM24XkJ1TasCq42DMLoCUjZVSppTn6VWv/cI65NDjuYEy7bUSaXbYxGTnqiKyPG5Y+ADymqlIkdSAcw==}
@@ -7478,9 +7478,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@react-native/gradle-plugin@0.81.6': {}
+  '@react-native/gradle-plugin@0.81.4': {}
 
-  '@react-native/gradle-plugin@0.87.1': {}
+  '@react-native/gradle-plugin@0.81.6': {}
 
   '@react-native/js-polyfills@0.81.6': {}
 

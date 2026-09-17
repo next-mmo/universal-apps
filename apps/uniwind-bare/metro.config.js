@@ -17,7 +17,12 @@ const config = mergeConfig(getDefaultConfig(projectRoot), {
     path.resolve(monorepoRoot, 'node_modules'),
   ],
   resolver: {
-    blockList: [/.*\/apps\/(?!uniwind-bare).*/, /.*\.vite.*/],
+    blockList: [
+      /.*[/\\]android[/\\].*/,
+      /.*[/\\]ios[/\\].*/,
+      /.*[/\\]apps[/\\](?!uniwind-bare).*/,
+      /.*\.vite.*/,
+    ],
     nodeModulesPaths: [
       path.resolve(projectRoot, 'node_modules'),
       path.resolve(monorepoRoot, 'node_modules'),

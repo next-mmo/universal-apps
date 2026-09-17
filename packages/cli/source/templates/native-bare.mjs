@@ -20,6 +20,7 @@ export function getNativeBareTemplateFiles(name, options = {}) {
     },
     devDependencies: {
       '@react-native-community/cli': '^20.2.0',
+      '@react-native/gradle-plugin': '^0.81.4',
       '@react-native/babel-preset': '^0.81.4',
       '@react-native/metro-config': '^0.81.4',
       '@react-native/typescript-config': '^0.81.4',
