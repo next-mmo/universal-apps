@@ -1,3 +1,4 @@
+import { vitePlugin as inspecto } from '@inspecto-dev/plugin';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { fumadocsMdx } from 'fumadocs-mdx/vite';
@@ -6,8 +7,18 @@ import { defineConfig } from 'vite';
 // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
-export default defineConfig(async () => ({
-  plugins: [fumadocsMdx(), react(), tailwindcss()],
+export default defineConfig(async ({ mode }) => ({
+  plugins: [
+    fumadocsMdx(),
+    react(),
+    tailwindcss(),
+    mode !== 'production' &&
+      inspecto({
+        pathType: 'absolute',
+        include: ['**/*.{js,jsx,ts,tsx}'],
+        exclude: ['node_modules/**', 'dist/**'],
+      }),
+  ],
   clearScreen: false,
   server: {
     port: 1430,

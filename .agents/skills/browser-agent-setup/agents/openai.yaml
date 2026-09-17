@@ -1,0 +1,3 @@
+interface:
+  display_name: "Browser Agent Setup"
+  short_description: "Set up Chrome DevTools MCP + Inspecto for Antigravity projects"

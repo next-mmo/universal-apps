@@ -1,0 +1,7 @@
+{
+  "delivery.mode": "mcp",
+  "prompt.includeSnippet": false,
+  "prompt.autoSend": false,
+  "prompt.runtimeContext": true,
+  "server.host": "127.0.0.1"
+}
