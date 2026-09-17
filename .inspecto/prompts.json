@@ -1,0 +1,16 @@
+[
+  {
+    "id": "browser-fix-verify",
+    "kind": "workflow",
+    "label": "Fix + Browser Verify",
+    "prompt": "Process the selected Inspecto annotations as a scoped UI task. Use Inspecto context to locate the exact source component, make the smallest maintainable change, then use the chrome-devtools MCP server against the running app to reload and verify the result. Check the relevant interaction, console errors, and failed network requests before resolving the Inspecto session. Do not claim success without browser evidence.",
+    "confirm": true
+  },
+  {
+    "id": "browser-debug",
+    "kind": "workflow",
+    "label": "Debug in Browser",
+    "prompt": "Use the chrome-devtools MCP server to reproduce the browser issue first. Capture the relevant DOM state, console errors, and failed network requests. Use Inspecto source context when available to map the visible element to source, implement the smallest safe fix, reload, reproduce the original path, and report verification evidence before resolving the session.",
+    "confirm": true
+  }
+]
