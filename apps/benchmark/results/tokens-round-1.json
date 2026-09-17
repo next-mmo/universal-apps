@@ -1,0 +1,114 @@
+{
+  "tool": "capture-tokens.mjs",
+  "generatedAt": "2026-09-17T10:47:59.720Z",
+  "dataDir": "C:\\Users\\MT-Staff\\.minimax",
+  "sessionsRoot": "C:\\Users\\MT-Staff\\.minimax\\v2\\sessions",
+  "round": 1,
+  "model": "custom_provider:9route/ocg/deepseek-v4.1-flash",
+  "effort": "off",
+  "manifest": "C:\\Users\\MT-Staff\\Documents\\GitHub\\universal-apps\\apps\\benchmark\\results\\runs.json",
+  "runs": [
+    {
+      "run": 1,
+      "arm": "our",
+      "sessionId": "mvs_27404a51ddde4683bb519b509e5d27b2",
+      "sessionDirHint": "2026/09/17/10-04-31-255",
+      "found": true,
+      "sessionDir": "C:\\Users\\MT-Staff\\.minimax\\v2\\sessions\\2026\\09\\17\\10-04-31-255-session_bXZzXzI3NDA0YTUxZGRkZTQ2ODNiYjUxOWI1MDllNWQyN2Iy",
+      "records": 138,
+      "turns": 46,
+      "input": 1225736,
+      "output": 50278,
+      "cacheRead": 1638016,
+      "cacheWrite": 0,
+      "totalTokens": 2914030,
+      "durationMs": 0,
+      "contextWindowMax": 0,
+      "unparsable": 0,
+      "anyCostNonZero": false,
+      "coldTurns": 13,
+      "coldInput": 1073185,
+      "firstColdInput": 16290,
+      "models": [
+        "ocg/deepseek-v4.1-flash"
+      ],
+      "providers": [
+        "custom_provider:9route"
+      ],
+      "fresh": 1276014,
+      "cacheReadShare": 0.5621,
+      "coldInputShare": 0.8755,
+      "excessColdTurns": 12,
+      "excessColdInput": 1056895,
+      "excessColdShare": 0.8623
+    },
+    {
+      "run": 1,
+      "arm": "tailwind",
+      "sessionId": "mvs_71e9b1ededcf4391bb7c5074ac7b3e81",
+      "sessionDirHint": "2026/09/17/10-33-09-265",
+      "found": true,
+      "sessionDir": "C:\\Users\\MT-Staff\\.minimax\\v2\\sessions\\2026\\09\\17\\10-33-09-265-session_bXZzXzcxZTliMWVkZWRjZjQzOTFiYjdjNTA3NGFjN2IzZTgx",
+      "records": 27,
+      "turns": 9,
+      "input": 37363,
+      "output": 4227,
+      "cacheRead": 128000,
+      "cacheWrite": 0,
+      "totalTokens": 169590,
+      "durationMs": 0,
+      "contextWindowMax": 0,
+      "unparsable": 0,
+      "anyCostNonZero": false,
+      "coldTurns": 1,
+      "coldInput": 15435,
+      "firstColdInput": 15435,
+      "models": [
+        "ocg/deepseek-v4.1-flash"
+      ],
+      "providers": [
+        "custom_provider:9route"
+      ],
+      "fresh": 41590,
+      "cacheReadShare": 0.7548,
+      "coldInputShare": 0.4131,
+      "excessColdTurns": 0,
+      "excessColdInput": 0,
+      "excessColdShare": 0
+    },
+    {
+      "run": 1,
+      "arm": "shadcn",
+      "sessionId": "mvs_cc5d2c69932341cca9f59fa24791b577",
+      "sessionDirHint": "2026/09/17/10-34-36-875",
+      "found": true,
+      "sessionDir": "C:\\Users\\MT-Staff\\.minimax\\v2\\sessions\\2026\\09\\17\\10-34-36-875-session_bXZzX2NjNWQyYzY5OTMyMzQxY2NhOWY1OWZhMjQ3OTFiNTc3",
+      "records": 45,
+      "turns": 16,
+      "input": 59361,
+      "output": 6159,
+      "cacheRead": 320384,
+      "cacheWrite": 0,
+      "totalTokens": 385904,
+      "durationMs": 0,
+      "contextWindowMax": 0,
+      "unparsable": 0,
+      "anyCostNonZero": false,
+      "coldTurns": 1,
+      "coldInput": 16197,
+      "firstColdInput": 16197,
+      "models": [
+        "ocg/deepseek-v4.1-flash"
+      ],
+      "providers": [
+        "custom_provider:9route"
+      ],
+      "fresh": 65520,
+      "cacheReadShare": 0.8302,
+      "coldInputShare": 0.2729,
+      "excessColdTurns": 0,
+      "excessColdInput": 0,
+      "excessColdShare": 0
+    }
+  ]
+}

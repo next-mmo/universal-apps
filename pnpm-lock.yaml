@@ -36,6 +36,117 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
+  apps/benchmark/todo-full-stack-our:
+    dependencies:
+      '@package/core':
+        specifier: workspace:*
+        version: link:../../../packages/core
+      '@package/pro':
+        specifier: workspace:*
+        version: link:../../../packages/pro
+      '@package/tauri-api':
+        specifier: workspace:*
+        version: link:../../../packages/tauri-api
+      '@tanstack/react-query':
+        specifier: ^5.90.0
+        version: 5.102.3(react@19.2.6)
+      react:
+        specifier: 19.2.6
+        version: 19.2.6
+      react-dom:
+        specifier: 19.2.6
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@types/react':
+        specifier: 19.2.15
+        version: 19.2.15
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.15)
+      '@vitejs/plugin-react':
+        specifier: 4.7.0
+        version: 4.7.0(vite@7.3.6(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.0)(tsx@4.22.3)(yaml@2.9.0))
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 7.3.6
+        version: 7.3.6(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.0)(tsx@4.22.3)(yaml@2.9.0)
+
+  apps/benchmark/todo-full-stack-shadcn:
+    dependencies:
+      '@package/core':
+        specifier: workspace:*
+        version: link:../../../packages/core
+      '@package/tauri-api':
+        specifier: workspace:*
+        version: link:../../../packages/tauri-api
+      react:
+        specifier: 19.2.6
+        version: 19.2.6
+      react-dom:
+        specifier: 19.2.6
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: 4.3.0
+        version: 4.3.0(vite@7.3.6(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.0)(tsx@4.22.3)(yaml@2.9.0))
+      '@types/react':
+        specifier: 19.2.15
+        version: 19.2.15
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.15)
+      '@vitejs/plugin-react':
+        specifier: 4.7.0
+        version: 4.7.0(vite@7.3.6(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.0)(tsx@4.22.3)(yaml@2.9.0))
+      tailwindcss:
+        specifier: 4.3.0
+        version: 4.3.0
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 7.3.6
+        version: 7.3.6(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.0)(tsx@4.22.3)(yaml@2.9.0)
+
+  apps/benchmark/todo-full-stack-tailwind:
+    dependencies:
+      '@package/core':
+        specifier: workspace:*
+        version: link:../../../packages/core
+      '@package/tauri-api':
+        specifier: workspace:*
+        version: link:../../../packages/tauri-api
+      react:
+        specifier: 19.2.6
+        version: 19.2.6
+      react-dom:
+        specifier: 19.2.6
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: 4.3.0
+        version: 4.3.0(vite@7.3.6(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.0)(tsx@4.22.3)(yaml@2.9.0))
+      '@types/react':
+        specifier: 19.2.15
+        version: 19.2.15
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.15)
+      '@vitejs/plugin-react':
+        specifier: 4.7.0
+        version: 4.7.0(vite@7.3.6(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.0)(tsx@4.22.3)(yaml@2.9.0))
+      tailwindcss:
+        specifier: 4.3.0
+        version: 4.3.0
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 7.3.6
+        version: 7.3.6(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.0)(tsx@4.22.3)(yaml@2.9.0)
+
   apps/native-playground:
     dependencies:
       '@package/ui-native':

@@ -1,0 +1,31 @@
+{
+  "round": 1,
+  "date": "2026-09-17",
+  "kind": "smoke",
+  "model": "custom_provider:9route/ocg/deepseek-v4.1-flash",
+  "effort": "off",
+  "agent": "worker",
+  "note": "Round 1 smoke: one fresh session per arm, run sequentially, identical brief except the strategy section. Verified substrate: all three arms passed test + build with the original fixture UI before the UI files were removed. Session directories are discovered by sessionId; sessionDirHint is documentation only.",
+  "arms": {
+    "our": {
+      "deliverable": ["src/app.tsx"],
+      "deliverableBytes": { "src/app.tsx": 6966 },
+      "orchestratorVerified": true
+    },
+    "tailwind": {
+      "deliverable": ["src/app.tsx"],
+      "deliverableBytes": { "src/app.tsx": 7477 },
+      "orchestratorVerified": true
+    },
+    "shadcn": {
+      "deliverable": ["src/components.tsx", "src/app.tsx"],
+      "deliverableBytes": { "src/components.tsx": 3109, "src/app.tsx": 9191 },
+      "orchestratorVerified": true
+    }
+  },
+  "runs": [
+    { "run": 1, "arm": "our", "sessionId": "mvs_27404a51ddde4683bb519b509e5d27b2", "sessionDirHint": "2026/09/17/10-04-31-255" },
+    { "run": 1, "arm": "tailwind", "sessionId": "mvs_71e9b1ededcf4391bb7c5074ac7b3e81", "sessionDirHint": "2026/09/17/10-33-09-265" },
+    { "run": 1, "arm": "shadcn", "sessionId": "mvs_cc5d2c69932341cca9f59fa24791b577", "sessionDirHint": "2026/09/17/10-34-36-875" }
+  ]
+}

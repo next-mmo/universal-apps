@@ -19,6 +19,7 @@
 | **0001** | [Tauri Universal Platform](0001-tauri-universal-platform.md) | **draft** | Existing product goal and public boundaries imported from the repository README for human confirmation |
 | **0002** | [Source-owned distribution](0002-source-owned-distribution.md) | **review** | Generate editable consumer source without Universal Apps runtime libraries; owner acceptance and release remain pending |
 | **0003** | [Counter app token measurement](0003-counter-app-token-measurement.md) | **draft** | Defines how to capture host-reported token usage for one frozen counter app with and without the stack; no result exists until an authorized run |
+| **0004** | [Agent-token benchmark: three UI strategies](0004-agent-token-benchmark.md) | **approved** | Measures host-reported agent tokens for one matched todo app built three ways; round 1 smoke is n=1 per arm and its ordering is provisional |
 
 ## Authority
 

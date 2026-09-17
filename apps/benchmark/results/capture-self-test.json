@@ -1,0 +1,46 @@
+{
+  "tool": "capture-tokens.mjs",
+  "generatedAt": "2026-09-17T10:02:47.977Z",
+  "dataDir": "C:\\Users\\MT-Staff\\.minimax",
+  "sessionsRoot": "C:\\Users\\MT-Staff\\.minimax\\v2\\sessions",
+  "runs": [
+    {
+      "sessionId": "session_bXZzX2YzYTY3Nzk2OWMxMzRkZTM4NTYzNGJkNWUxYTBmYjFm",
+      "label": "nd-arm",
+      "found": true,
+      "sessionDir": "C:\\Users\\MT-Staff\\.minimax\\v2\\sessions\\2026\\09\\15\\10-28-49-047-session_bXZzX2YzYTY3Nzk2OWMxMzRkZTM4NTYzNGJkNWUxYTBmYjFm",
+      "records": 52,
+      "turns": 16,
+      "input": 73929,
+      "output": 11377,
+      "cacheRead": 398080,
+      "cacheWrite": 0,
+      "totalTokens": 483386,
+      "durationMs": 0,
+      "contextWindowMax": 0,
+      "unparsable": 0,
+      "anyCostNonZero": false,
+      "fresh": 85306,
+      "cacheReadShare": 0.8235
+    },
+    {
+      "sessionId": "session_bXZzXzk2M2QzZWE4ZGMwYTRjMzdhZjE3MjFjNTM1MDhjOWQw",
+      "label": "baseline",
+      "found": true,
+      "sessionDir": "C:\\Users\\MT-Staff\\.minimax\\v2\\sessions\\2026\\09\\15\\10-28-50-620-session_bXZzXzk2M2QzZWE4ZGMwYTRjMzdhZjE3MjFjNTM1MDhjOWQw",
+      "records": 65,
+      "turns": 20,
+      "input": 79740,
+      "output": 16297,
+      "cacheRead": 679552,
+      "cacheWrite": 0,
+      "totalTokens": 775589,
+      "durationMs": 0,
+      "contextWindowMax": 0,
+      "unparsable": 0,
+      "anyCostNonZero": false,
+      "fresh": 96037,
+      "cacheReadShare": 0.8762
+    }
+  ]
+}
