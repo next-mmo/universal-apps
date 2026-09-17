@@ -79,6 +79,18 @@ AppRegistry.registerComponent(appName, () => App);
 
   files.set('src/index.css', `@import "tailwindcss";
 @import "uniwind";
+
+@theme inline {
+  --color-primary: #007aff;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #2c2c2e;
+  --color-secondary-foreground: #f5f5f7;
+  --color-destructive: #ff453a;
+  --color-destructive-foreground: #ffffff;
+  --color-card: #1c1c1e;
+  --color-card-foreground: #f5f5f7;
+  --color-border: rgba(255, 255, 255, 0.12);
+}
 `);
 
   files.set('src/uniwind-env.d.ts', `/// <reference types="uniwind/types" />
