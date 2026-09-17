@@ -60,7 +60,7 @@ workload, instrumented with host-reported counters, then execute the authorized 
 - [x] PRD 0004 written and indexed in `docs/prd/0000-prd-index.md`; evidence recorded in `docs/evidence/token-benchmark-three-ui-strategies.md`.
 - [ ] Owner decision recorded on PRD 0004 Open question 1: repair the Our-arm frame before the repeats, and whether round 1 is invalidated.
 - [ ] Repeat runs executed to reach three paired runs per arm, reported as median with range — **not authorized**; requires a new owner decision.
-- [ ] Repository gates pass on the increment.
+- [x] Repository gates pass on the increment: `pnpm workflow:check`, `pnpm docs:check`, and `pnpm nd:check` (which runs all seven test stages) all exit 0.
 
 ## Evidence Ledger
 
@@ -76,7 +76,7 @@ workload, instrumented with host-reported counters, then execute the authorized 
 | The Our arm's figure is artifact-inflated | `results/breakdown` series: 12 turns beyond warm-up report no cache read, re-sending a 54–118 k context uncached — 1,056,895 tokens, 86% of that arm's uncached input. tailwind and shadcn each lose the cache only on the shared warm-up turn | Verified 2026-09-17 |
 | The Our arm's stylesheet contains no Tailwind utilities | Built `our` CSS contains `@theme default` variables and preflight but no `.justify-between`, `.items-center`, `.rounded-md`, or `.text-sm` rules, while `packages/pro/src` uses utilities in 37 places across 8 files; the arm's `vite.config.ts` registers only `react()` and its `package.json` omits `@tailwindcss/vite` | Verified 2026-09-17 |
 | No monetary claim is supported | Every recovered `cost` object is zero (`anyCostNonZero: false` in all three runs) | Verified 2026-09-17 |
-| Repository gates | `pnpm workflow:check`, `pnpm docs:check` | Pending — run at the end of this increment |
+| Repository gates | `pnpm workflow:check` exit 0; `pnpm docs:check` exit 0; `pnpm nd:check` exit 0, running all seven stages: foundation 44 pass / 0 fail / 1 skip, agent catalog-check PASS, agent integration all PASSED, MCP integration all PASSED, source 34 pass / 0 fail / 1 skip, source:build exit 0 | Verified 2026-09-17 (`fdd8b78`) |
 
 ## Carried forward
 
@@ -105,5 +105,5 @@ workload, instrumented with host-reported counters, then execute the authorized 
 - Optional durable learning updated, corrected, retired, or no-op: the host-counter mechanics remain in agent memory; the round-specific findings live in the PRD, the evidence file, and this task rather than in standing instructions.
 - Failed / skipped / unverified checks and reasons: the repeat runs are skipped by design — not authorized. Repository gates are listed as pending and must pass before this task closes. `model_verdict` is unavailable from the host and is substituted by per-record model evidence.
 - Recovery plan / operations reference if relevant: the round is additive under `apps/benchmark/**`; reverting is deleting that directory plus the two additive shared-config lines and this task's doc set. No destructive operation, publish, or release step is part of this scope.
-- Implemented / integrated / deployed state and evidence: implemented on the working tree at base `ec942a5`; not yet committed; not integrated; not deployed.
+- Implemented / integrated / deployed state and evidence: implemented and committed as `fdd8b78` (52 files, base `ec942a5`); not pushed — pushing is the owner's action; not integrated; not deployed.
 - Status: wip — the authorized increment is complete and verified; closure awaits the gates and the owner's frame-repair decision.
