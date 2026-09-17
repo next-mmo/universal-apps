@@ -1,7 +1,7 @@
 # PRD-0000: Product Requirement Index
 
 > Status: living document  
-> Updated: 2026-09-14
+> Updated: 2026-09-17
 
 ## Product architecture
 
@@ -18,6 +18,7 @@
 | :--- | :--- | :--- | :--- |
 | **0001** | [Tauri Universal Platform](0001-tauri-universal-platform.md) | **draft** | Existing product goal and public boundaries imported from the repository README for human confirmation |
 | **0002** | [Source-owned distribution](0002-source-owned-distribution.md) | **review** | Generate editable consumer source without Universal Apps runtime libraries; owner acceptance and release remain pending |
+| **0003** | [Counter app token measurement](0003-counter-app-token-measurement.md) | **draft** | Defines how to capture host-reported token usage for one frozen counter app with and without the stack; no result exists until an authorized run |
 
 ## Authority
 
