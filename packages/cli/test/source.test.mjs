@@ -76,7 +76,10 @@ test('unsafe output paths and CSS collisions are rejected', (t) => {
   assert.throws(() => initialize(f.cwd, { css: 'src/lib/universal/ui/styles/tokens.css' }), /stylesheet/);
 });
 test('symlink output escapes are rejected', (t) => {
-  const f = fixture(t); fs.symlinkSync(f.root, path.join(f.cwd, 'escape'), 'dir');
+  const f = fixture(t);
+  // Windows only allows 'dir' links with elevation; junctions are unprivileged and lstat still reports a symlink.
+  try { fs.symlinkSync(f.root, path.join(f.cwd, 'escape'), process.platform === 'win32' ? 'junction' : 'dir'); }
+  catch (error) { t.skip(`symlinks are unsupported here: ${error.code ?? error.message}`); return; }
   assert.throws(() => safePath(f.cwd, 'escape/owned.ts'), /symlink/);
 });
 test('generation installs complete source but no library or CLI dependency', (t) => {
