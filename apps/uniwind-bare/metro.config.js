@@ -12,8 +12,12 @@ const monorepoRoot = path.resolve(projectRoot, '../..');
  * @type {import('@react-native/metro-config').MetroConfig}
  */
 const config = mergeConfig(getDefaultConfig(projectRoot), {
-  watchFolders: [monorepoRoot],
+  watchFolders: [
+    path.resolve(monorepoRoot, 'packages'),
+    path.resolve(monorepoRoot, 'node_modules'),
+  ],
   resolver: {
+    blockList: [/.*\/apps\/(?!uniwind-bare).*/, /.*\.vite.*/],
     nodeModulesPaths: [
       path.resolve(projectRoot, 'node_modules'),
       path.resolve(monorepoRoot, 'node_modules'),
