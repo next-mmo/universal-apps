@@ -1,4 +1,4 @@
-package com.example.tauri_app
+package com.nextmmo.tauri_app
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

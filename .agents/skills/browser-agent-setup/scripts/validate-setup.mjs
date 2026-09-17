@@ -58,6 +58,9 @@ if (pkg) {
   deps['@inspecto-dev/plugin']
     ? pass('@inspecto-dev/plugin declared in frontend package')
     : fail('@inspecto-dev/plugin missing from frontend package');
+  deps['@inspecto-dev/core']
+    ? pass('@inspecto-dev/core declared in frontend package')
+    : fail('@inspecto-dev/core missing from frontend package');
 }
 
 const viteCandidates = ['vite.config.ts', 'vite.config.js', 'vite.config.mts', 'vite.config.mjs'];

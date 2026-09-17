@@ -79,16 +79,16 @@ If prompts already exist, merge by `id` rather than replacing unrelated workflow
 
 ## Vite integration
 
-Install the Inspecto plugin in the frontend package using the repo's package manager. Example for pnpm workspace package:
+Install the Inspecto plugin and core client runtime in the frontend package using the repo's package manager. Example for pnpm workspace package:
 
 ```bash
-pnpm --filter <frontend-package> add -D @inspecto-dev/plugin
+pnpm --filter <frontend-package> add -D @inspecto-dev/plugin @inspecto-dev/core
 ```
 
 For a plain package directory:
 
 ```bash
-pnpm add -D @inspecto-dev/plugin
+pnpm add -D @inspecto-dev/plugin @inspecto-dev/core
 ```
 
 Use the Vite plugin only in development mode:

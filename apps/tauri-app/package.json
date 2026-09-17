@@ -29,6 +29,7 @@
     "react-dom": "19.2.6"
   },
   "devDependencies": {
+    "@inspecto-dev/core": "^0.3.18",
     "@inspecto-dev/plugin": "^0.3.18",
     "@tauri-apps/cli": "2.11.2",
     "@types/react": "19.2.15",
