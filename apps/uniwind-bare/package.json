@@ -20,6 +20,7 @@
   "devDependencies": {
     "@react-native-community/cli": "^20.2.0",
     "@react-native/babel-preset": "^0.81.4",
+    "@react-native/gradle-plugin": "^0.87.1",
     "@react-native/metro-config": "^0.81.4",
     "@react-native/typescript-config": "^0.81.4",
     "@types/react": "^19.0.0",
