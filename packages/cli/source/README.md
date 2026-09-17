@@ -23,6 +23,9 @@ To generate a complete, runnable starter application with Vite, Tailwind CSS v4,
 # Web starter (React, Vue, Svelte, or React Native Web)
 npx @next-mmo/universal-cli create my-app --framework react
 
+# Mobile starter (Bare React Native + Uniwind + Metro + Tailwind v4)
+npx @next-mmo/universal-cli create my-mobile-app --framework uniwind-bare
+
 # Desktop starter (Tauri 2 + React + Vite + Tailwind v4)
 npx @next-mmo/universal-cli create my-desktop-app --framework react --tauri
 ```

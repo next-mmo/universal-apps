@@ -23,6 +23,7 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "dev:native": "pnpm --filter @app/native-playground dev",
+    "start:bare": "pnpm --filter uniwind-bare start",
     "dev:android": "pnpm --filter @app/tauri-app tauri android dev",
     "foundation:typecheck": "tsc -p packages/agent-workflow/tsconfig.json",
     "foundation:test": "tsx --test packages/agent-workflow/test/foundation.test.ts packages/agent-workflow/test/review-regressions.test.mjs packages/mcp/test/foundation.integration.ts",

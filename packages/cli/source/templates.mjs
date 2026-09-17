@@ -2,6 +2,7 @@ import { getReactTemplateFiles } from './templates/react.mjs';
 import { getVueTemplateFiles } from './templates/vue.mjs';
 import { getSvelteTemplateFiles } from './templates/svelte.mjs';
 import { getNativeTemplateFiles } from './templates/native.mjs';
+import { getNativeBareTemplateFiles } from './templates/native-bare.mjs';
 import { getTauriTemplateFiles } from './templates/tauri.mjs';
 import { getGoEchoTemplateFiles } from './templates/go-echo.mjs';
 
@@ -11,6 +12,11 @@ export function getTemplateFiles(name, options = {}) {
   // Backend Go Echo starter
   if (['go-echo', 'go', 'echo'].includes(framework)) {
     return getGoEchoTemplateFiles(name, options);
+  }
+
+  // Bare React Native starter (Metro + Uniwind)
+  if (['uniwind-bare', 'native-bare'].includes(framework)) {
+    return getNativeBareTemplateFiles(name, options);
   }
 
   const files = new Map();

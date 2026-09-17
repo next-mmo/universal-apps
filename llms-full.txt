@@ -1243,3 +1243,96 @@ pnpm scaffold add native <kebab-name>   # emits from templates/native/, wires do
 
 The scaffold's `native` target writes to `packages/ui-native/src/components/ui/` and rewrites `@/lib/cn` → `@package/ui/cn`. Then port the real implementation from the DOM component: the Tailwind classes carry over as-is (Uniwind compiles them for RN), replace Radix behavior with RN primitives, and split text color/size utilities onto the `Text` node.
 
+## Bare React Native (Uniwind)
+
+Source: `apps/tauri-app/content/docs/platforms/uniwind-bare.mdx`
+
+In addition to React Native Web (`apps/native-playground`), the same Apple-inspired design system powers **Bare React Native** applications running directly on Android and iOS devices. Bare React Native bundles through **Metro** and compiles Tailwind CSS v4 utilities for native view trees using **Uniwind**.
+
+## Architecture comparison
+
+| Layer | React Native Web (RNW) | Bare React Native (Mobile) |
+| ----- | ---------------------- | -------------------------- |
+| Bundler | Vite (`vite-plugin-rnw`, `uniwind/vite`) | Metro (`@react-native/metro-config`, `uniwind/metro`) |
+| Runtime | Browser DOM (simulated primitives) | Native Android & iOS view hierarchies |
+| Tokens | `@package/ui/tokens.css` (CSS variables) | Same `@package/ui/tokens.css`, compiled by Uniwind at build time |
+| Components | `@package/ui-native` (`Pressable`, `View`, `Text`) | Same `@package/ui-native` primitives and source exports |
+| Scaffolding | `universal create <name> --framework native` | `universal create <name> --framework uniwind-bare` |
+
+## Scaffolding a new bare project
+
+Create a runnable bare React Native project configured with Metro, Uniwind, and Tailwind CSS v4:
+
+```bash
+npx @next-mmo/universal-cli create my-mobile-app --framework uniwind-bare
+```
+
+Or using the alias:
+
+```bash
+npx @next-mmo/universal-cli create my-mobile-app --framework native-bare
+```
+
+This scaffolds:
+- `metro.config.js` configured with `withUniwindConfig`
+- `babel.config.js` with standard React Native presets
+- `src/index.css` importing Tailwind v4 and Uniwind
+- `index.js` registering the root component with `AppRegistry`
+- `src/App.tsx` rendering styled native components
+- `universal.json` pre-configured to add `@package/ui-native` components
+
+## Metro bundler configuration
+
+In a bare React Native project, Uniwind hooks into Metro via `withUniwindConfig`:
+
+```js
+// metro.config.js
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { withUniwindConfig } = require('uniwind/metro');
+
+const config = mergeConfig(getDefaultConfig(__dirname), {
+  /* custom metro configuration */
+});
+
+module.exports = withUniwindConfig(config, {
+  cssEntryFile: './src/index.css',
+});
+```
+
+Uniwind parses Tailwind classes in JSX during bundling and resolves them into optimized native style objects.
+
+## CSS entry and design tokens
+
+The CSS entry file (`src/index.css`) imports Tailwind v4, Uniwind, and the shared design tokens:
+
+```css
+@import "tailwindcss";
+@import "uniwind";
+@import "@package/ui/src/styles/tokens.css";
+```
+
+In source-distributed projects (via `universal init` and `universal add`), the token file is generated locally under `src/lib/universal/ui/styles/tokens.css`.
+
+## Component parity on bare runtime
+
+Components in `@package/ui-native` (and source-distributed components) are crafted strictly from standard React Native primitives:
+
+- **Buttons & Pressables**: Built with React Native's `Pressable` and `Text`, with pressed state feedback using `active:` opacity utilities.
+- **Form Controls**: `Input` wraps `TextInput` with token-aware placeholders; `Switch` provides a pure native toggle.
+- **Overlay Sheets**: Because native has no DOM portals, overlay components (`Dialog`, `DropdownMenu`, `Popover`, `Select`) render using React Native's `Modal` component over dimmed backdrops.
+- **Animations**: `Skeleton` uses React Native `Animated` loops instead of CSS keyframes.
+- **Icons**: Simple glyphs (✓, ⌄, ×) are used to avoid hard dependencies on native SVG packages.
+
+## Theme and dark mode
+
+Theme transitions are managed directly through Uniwind:
+
+```tsx
+
+// Toggle between light and dark modes
+Uniwind.setTheme('dark');
+Uniwind.setTheme('light');
+```
+
+Uniwind dynamically switches CSS custom properties and re-renders affected native components without reloading the bundle.
+

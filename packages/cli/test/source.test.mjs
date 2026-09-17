@@ -218,5 +218,22 @@ test('all nine catalogs build into an actual standalone npm tarball', (t) => {
   assert.ok(fs.existsSync(path.join(cwd, 'starter-go/internal/app/app.go')));
   assert.ok(fs.existsSync(path.join(cwd, 'starter-go/internal/httpapi/router.go')));
   assert.ok(fs.existsSync(path.join(cwd, 'starter-go/Dockerfile')));
+
+  const bareRes = run('create', 'starter-uniwind-bare', '--framework', 'uniwind-bare', '--no-install');
+  assert.equal(bareRes.status, 0, bareRes.stderr);
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-uniwind-bare/metro.config.js')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-uniwind-bare/babel.config.js')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-uniwind-bare/index.js')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-uniwind-bare/src/App.tsx')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-uniwind-bare/src/index.css')));
+  assert.ok(!fs.existsSync(path.join(cwd, 'starter-uniwind-bare/index.html')), 'Bare RN should not have index.html');
+  const metroContent = fs.readFileSync(path.join(cwd, 'starter-uniwind-bare/metro.config.js'), 'utf8');
+  assert.ok(metroContent.includes('withUniwindConfig'));
+  const bareConfig = JSON.parse(fs.readFileSync(path.join(cwd, 'starter-uniwind-bare/universal.json'), 'utf8'));
+  assert.equal(bareConfig.framework, 'native');
+
+  const bareAliasRes = run('create', 'starter-native-bare', '--framework', 'native-bare', '--no-install');
+  assert.equal(bareAliasRes.status, 0, bareAliasRes.stderr);
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-native-bare/metro.config.js')));
 });
 

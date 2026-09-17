@@ -68,7 +68,8 @@ export function initialize(cwd, options = {}) {
   const existing = safePath(cwd, CONFIG);
   if (fs.existsSync(existing)) throw new Error('universal.json already exists; edit it instead of replacing company configuration');
   const allDeps = { ...manifest.dependencies, ...manifest.devDependencies };
-  const framework = options.framework ?? (allDeps.vue ? 'vue' : allDeps.svelte ? 'svelte' : allDeps['react-native'] ? 'native' : 'react');
+  let framework = options.framework ?? (allDeps.vue ? 'vue' : allDeps.svelte ? 'svelte' : allDeps['react-native'] ? 'native' : 'react');
+  if (['uniwind-bare', 'native-bare'].includes(framework)) framework = 'native';
   if (!['react', 'vue', 'svelte', 'native'].includes(framework)) throw new Error(`Unsupported framework: ${framework}`);
   const candidates = ['src/app/globals.css', 'app/globals.css', 'src/index.css', 'src/style.css', 'src/styles.css', 'src/app.css', 'src/styles/globals.css', 'src/assets/main.css'];
   const config = {
@@ -282,12 +283,13 @@ export function createProject(cwd, name, registry, options = {}) {
   }
 
   const isGo = ['go-echo', 'go', 'echo'].includes(framework);
+  const isBareNative = ['uniwind-bare', 'native-bare'].includes(framework);
 
   // Initialize universal.json for frontend projects
   let config = null;
   if (!isGo) {
     config = initialize(projectDir, {
-      framework,
+      framework: isBareNative ? 'native' : framework,
       css: 'src/index.css',
     });
   }
@@ -295,7 +297,7 @@ export function createProject(cwd, name, registry, options = {}) {
   // If registry is provided, add default starter components for supported frontends
   let added = [];
   if (registry && !isGo) {
-    const starterItem = framework === 'react' ? 'button' : framework === 'native' ? 'ui-native-components-ui-button' : 'core';
+    const starterItem = framework === 'react' ? 'button' : (framework === 'native' || isBareNative) ? 'ui-native-components-ui-button' : 'core';
     try {
       const plan = planInstall(projectDir, registry, [starterItem], { noInstall: true });
       applyPlan(plan, { noInstall: true });

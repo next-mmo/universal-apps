@@ -1,5 +1,5 @@
 {
   "title": "Platforms",
   "defaultOpen": true,
-  "pages": ["vue", "svelte", "react-native-web"]
+  "pages": ["vue", "svelte", "react-native-web", "uniwind-bare"]
 }
