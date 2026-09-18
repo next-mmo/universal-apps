@@ -21,7 +21,7 @@ export function buildDistribution(root) {
   writeJson(path.join(output, 'package.json'), {
     name: '@next-mmo/universal-cli', version: registry.version, type: 'module',
     description: 'Copy editable Universal Apps source into your own project. No Universal Apps runtime library.',
-    license: 'Unlicense', engines: { node: '>=20.10.0' },
+    license: 'MIT', engines: { node: '>=20.10.0' },
     bin: { universal: './cli.mjs' }, files: ['cli.mjs', 'install.mjs', 'templates.mjs', 'templates', 'registry', 'LICENSE', 'README.md'],
     publishConfig: { access: 'public' },
   });

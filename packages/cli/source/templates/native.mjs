@@ -1,4 +1,4 @@
-export function getNativeTemplateFiles(name, options = {}) {
+export function getNativeTemplateFiles(name, _options = {}) {
   const files = new Map();
 
   files.set('package.json', JSON.stringify({

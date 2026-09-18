@@ -1,4 +1,4 @@
-export function getNativeBareTemplateFiles(name, options = {}) {
+export function getNativeBareTemplateFiles(name, _options = {}) {
   const files = new Map();
 
   files.set('package.json', JSON.stringify({

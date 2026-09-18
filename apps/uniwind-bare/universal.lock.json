@@ -6,7 +6,7 @@
   "files": {
     "src/lib/universal/ui-native/components/ui/button.tsx": "b5a75da470e6d65ac00693d09e4371df7cbb14ae39e6c9287cf54c112ded1f9f",
     "src/lib/universal/ui/lib/cn.ts": "d75076c095642e9effbacf0adbd94c2a29d61f652ef9e422a0d857e20b2fb0b7",
-    "src/lib/universal/LICENSE": "436a6d536138f203ac333858cff92a568be62797752b3adb94bcaa0f6ffe7ef6"
+    "src/lib/universal/LICENSE": "4c4888a2e7c1a6c3c573be8123a44b1ff022d3388a535f84a299aeb8eeb4c994"
   },
   "registryVersion": "0.1.0"
 }

@@ -1,7 +1,6 @@
 {
   "schema": 1,
   "skills": [
-    "browser-agent-setup",
     "nd-bump-version",
     "nd-compound",
     "nd-converge-check",

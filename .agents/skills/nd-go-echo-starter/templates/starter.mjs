@@ -1,4 +1,4 @@
-export function getGoEchoTemplateFiles(name, options = {}) {
+export function getGoEchoTemplateFiles(name, _options = {}) {
   const moduleName = name.toLowerCase().replace(/[^a-z0-9_-]/g, '-');
   const files = new Map();
 

@@ -253,7 +253,7 @@ export function doctor(cwd, registry) {
 }
 
 export function createProject(cwd, name, registry, options = {}) {
-  if (typeof name !== 'string' || !name || /[\/\\:]/.test(name) || name === '.' || name === '..') {
+  if (typeof name !== 'string' || !name || /[/\\:]/.test(name) || name === '.' || name === '..') {
     throw new Error(`Invalid project name: ${name}`);
   }
   cwd = fs.realpathSync(cwd);

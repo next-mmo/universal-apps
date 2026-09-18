@@ -153,6 +153,9 @@ apps/tauri-app/public/agent/
 # Paired-run evaluation checkouts (throwaway worktrees)
 .eval-wt/
 
+# Source distribution smoke test temporary directory
+.source-test-tmp/
+
 # Benchmark arms commit substrate only — the UI layer is written by the agent under test,
 # so a run's produced files are archived under apps/benchmark/results/ instead of tracked in place.
 apps/benchmark/*/src/app.tsx

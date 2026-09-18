@@ -2,6 +2,7 @@
   "name": "tauri-app-workspace",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "pnpm --filter @app/tauri-app dev",
     "dev:web": "pnpm --filter @app/tauri-app dev:web",
@@ -50,7 +51,8 @@
   },
   "pnpm": {
     "overrides": {
-      "vite": "7.3.6"
+      "vite": "7.3.6",
+      "@babel/runtime": ">=7.26.10"
     }
   }
 }
