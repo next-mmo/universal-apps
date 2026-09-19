@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 import { LayoutAnimation, Platform, Pressable, Text, UIManager, View } from 'react-native';
 
-import { cn } from '@package/ui/src/lib/cn';
+import { cn } from '@package/ui/cn';
 
 import type { ReactNode } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
@@ -57,6 +57,8 @@ export function Accordion({
   );
 }
 
+const AccordionItemContext = createContext<{ value: string } | null>(null);
+
 export function AccordionItem({
   value,
   className,
@@ -71,24 +73,28 @@ export function AccordionItem({
   const { openValue } = useAccordion();
   const open = openValue === value;
   return (
-    <View className={cn(open ? '' : 'border-b border-border', className)} style={style}>
-      {children}
-    </View>
+    <AccordionItemContext.Provider value={{ value }}>
+      <View className={cn(open ? '' : 'border-b border-border', className)} style={style}>
+        {children}
+      </View>
+    </AccordionItemContext.Provider>
   );
 }
 
 export function AccordionTrigger({
-  value,
+  value: explicitValue,
   className,
   style,
   children,
 }: {
-  value: string;
+  value?: string;
   className?: string;
   style?: StyleProp<ViewStyle>;
   children?: ReactNode;
 }) {
   const { openValue, toggle } = useAccordion();
+  const itemCtx = useContext(AccordionItemContext);
+  const value = explicitValue ?? itemCtx?.value ?? '';
   const open = openValue === value;
   return (
     <Pressable
@@ -105,17 +111,19 @@ export function AccordionTrigger({
 }
 
 export function AccordionContent({
-  value,
+  value: explicitValue,
   className,
   style,
   children,
 }: {
-  value: string;
+  value?: string;
   className?: string;
   style?: StyleProp<ViewStyle>;
   children?: ReactNode;
 }) {
   const { openValue } = useAccordion();
+  const itemCtx = useContext(AccordionItemContext);
+  const value = explicitValue ?? itemCtx?.value ?? '';
   const open = openValue === value;
   if (!open) return null;
   return (
