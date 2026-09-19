@@ -185,7 +185,7 @@ test('all nine catalogs build into an actual standalone npm tarball', (t) => {
   const archive = JSON.parse(result.stdout)[0];
   assert.ok(archive.files.some((file) => file.path === 'registry/index.json'));
   assert.ok(!archive.files.some((file) => /node_modules|graph.mjs/.test(file.path)));
-  const unpack = spawnSync('tar', ['-xzf', path.join(f.root, archive.filename), '-C', f.root], { encoding: 'utf8' });
+  const unpack = spawnSync('tar', ['-xzf', archive.filename, '-C', '.'], { cwd: f.root, encoding: 'utf8' });
   assert.equal(unpack.status, 0, unpack.stderr);
   const cli = path.join(f.root, 'package/cli.mjs');
   for (const framework of ['react', 'vue', 'svelte', 'native']) {
