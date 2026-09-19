@@ -8,7 +8,7 @@ import type { AgentCatalog, Implementation } from '../src/catalog.ts';
 import { planChecks, runCommand, discoverWorkspaces } from '../src/checks.ts';
 import type { Workspace } from '../src/checks.ts';
 import { createAsyncTask, TaskCancelledError } from '../../core/src/async-task.ts';
-import { createMemoryDataProvider, createLocalStorageDataProvider } from '../../pro-core/src/resource/data-provider.ts';
+import { createMemoryDataProvider, createLocalStorageDataProvider, createSqliteDataProvider, createSupabaseDataProvider } from '../../pro-core/src/resource/data-provider.ts';
 
 async function fixture(run: (root: string, put: (name: string, value: string) => Promise<void>) => Promise<void>) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'universal-foundation-'));
@@ -288,4 +288,78 @@ test('universal DataProvider handles CRUD, sort, filter, and pagination', async 
   const fetched = await storageProvider.getOne('todos', (item as any).id);
   assert.equal((fetched as any).title, 'Test Todo');
 });
+
+test('Sqlite and Supabase DataProviders map CRUD operations accurately', async () => {
+  const tables = new Map<string, Array<Record<string, unknown>>>();
+  tables.set('products', [
+    { id: 'p1', name: 'Widget A', price: 10 },
+    { id: 'p2', name: 'Widget B', price: 20 },
+  ]);
+
+  const sqlite = createSqliteDataProvider({
+    executor: {
+      async select<T>(sql: string, params: unknown[] = []): Promise<T[]> {
+        if (sql.includes('COUNT(*)')) {
+          return [{ count: 2 }] as T[];
+        }
+        if (sql.includes('WHERE "id" = ?')) {
+          const id = params[0];
+          return tables.get('products')!.filter((r) => r.id === id) as T[];
+        }
+        return tables.get('products')! as T[];
+      },
+      async execute(sql: string, params: unknown[] = []) {
+        if (sql.includes('INSERT INTO')) {
+          const row = { id: params[0] as string, name: params[1] as string, price: params[2] as number };
+          tables.get('products')!.push(row);
+          return { rowsAffected: 1, lastInsertId: row.id };
+        }
+        if (sql.includes('DELETE FROM')) {
+          const id = params[0];
+          tables.set('products', tables.get('products')!.filter((r) => r.id !== id));
+          return { rowsAffected: 1 };
+        }
+        return { rowsAffected: 1 };
+      },
+    },
+  });
+
+  const products = await sqlite.getList('products', { pagination: { page: 1, pageSize: 10 } });
+  assert.equal(products.total, 2);
+  assert.equal(products.data.length, 2);
+
+  const one = await sqlite.getOne('products', 'p1');
+  assert.equal((one as any).name, 'Widget A');
+
+  // Supabase mock test
+  const mockFetch: typeof fetch = async (input, init) => {
+    const url = String(input);
+    const method = init?.method ?? 'GET';
+    if (url.includes('/rest/v1/items') && method === 'GET') {
+      return new Response(JSON.stringify([{ id: 'item-1', title: 'Task 1' }]), {
+        headers: { 'content-range': '0-0/1' },
+      });
+    }
+    if (url.includes('/rest/v1/items') && method === 'POST') {
+      const body = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify([{ id: 'item-2', ...body }]), { status: 201 });
+    }
+    return new Response(JSON.stringify({ ok: true }));
+  };
+
+  const supabase = createSupabaseDataProvider({
+    supabaseUrl: 'https://test.supabase.co',
+    supabaseKey: 'anon-key',
+    fetch: mockFetch,
+  });
+
+  const list = await supabase.getList('items');
+  assert.equal(list.total, 1);
+  assert.equal(list.data.length, 1);
+  assert.equal((list.data[0] as any).title, 'Task 1');
+
+  const created = await supabase.create('items', { title: 'Task 2' });
+  assert.equal((created as any).title, 'Task 2');
+});
+
 

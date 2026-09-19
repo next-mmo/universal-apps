@@ -29,16 +29,18 @@ export function Drawer({
         onRequestClose={close}
         statusBarTranslucent
       >
-        <View className='flex-1 justify-end bg-black/40'>
-          <Pressable className='flex-1' onPress={close} />
-          <View
-            className='max-h-[85%] rounded-t-3xl border-t border-border bg-popover px-6 pb-8 pt-3 shadow-2xl'
-            onStartShouldSetResponder={() => true}
-          >
-            <View className='mx-auto mb-4 h-1.5 w-12 rounded-full bg-muted/80' />
-            {children}
+        {open ? (
+          <View className='flex-1 justify-end bg-black/50'>
+            <Pressable className='flex-1' onPress={close} />
+            <View
+              className='max-h-[85%] rounded-t-3xl border-t border-border bg-popover px-6 pb-8 pt-3 shadow-2xl'
+              onStartShouldSetResponder={() => true}
+            >
+              <View className='mx-auto mb-4 h-1.5 w-12 rounded-full bg-muted/80' />
+              {children}
+            </View>
           </View>
-        </View>
+        ) : null}
       </Modal>
     </DrawerContext.Provider>
   );

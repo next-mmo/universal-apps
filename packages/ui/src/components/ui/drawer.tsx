@@ -17,7 +17,7 @@ function DrawerOverlay({
     <DialogPrimitive.Overlay
       data-slot='drawer-overlay'
       className={cn(
-        'fixed inset-0 z-50 bg-black/40 backdrop-blur-xs duration-200 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
+        'fixed inset-0 z-50 bg-black/50 duration-200 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
         className,
       )}
       {...props}
@@ -36,7 +36,7 @@ function DrawerContent({
       <DialogPrimitive.Content
         data-slot='drawer-content'
         className={cn(
-          'fixed inset-x-0 bottom-0 z-50 flex max-h-[85vh] flex-col rounded-t-2xl border-t border-border bg-popover p-6 shadow-2xl duration-300 data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom',
+          'fixed inset-x-0 bottom-0 z-50 flex max-h-[85vh] flex-col rounded-t-2xl border-t border-border bg-popover p-6 shadow-2xl duration-200 transform-gpu will-change-[transform,opacity] data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom',
           className,
         )}
         {...props}

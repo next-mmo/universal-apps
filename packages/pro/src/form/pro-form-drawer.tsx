@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { ProForm } from './pro-form';
 import {
@@ -50,6 +50,7 @@ export function ProFormDrawer({
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
+  const formKey = useMemo(() => JSON.stringify(defaultValues), [defaultValues]);
 
   const setOpen = (next: boolean) => {
     if (isControlled) controlledOnOpenChange?.(next);
@@ -67,7 +68,7 @@ export function ProFormDrawer({
         {open && (
           <div className='p-4 pt-0'>
             <ProForm
-              key={JSON.stringify(defaultValues)}
+              key={formKey}
               schema={schema}
               defaultValues={defaultValues}
               submitLabel={submitLabel}

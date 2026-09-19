@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { ProForm } from './pro-form';
 import {
   Dialog,
@@ -38,6 +39,8 @@ export function ProFormDialog({
   submitError,
   onSubmit,
 }: ProFormDialogProps) {
+  const formKey = useMemo(() => JSON.stringify(defaultValues), [defaultValues]);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -47,7 +50,7 @@ export function ProFormDialog({
         </DialogHeader>
         {open && (
           <ProForm
-            key={JSON.stringify(defaultValues)}
+            key={formKey}
             schema={schema}
             defaultValues={defaultValues}
             submitLabel={submitLabel}

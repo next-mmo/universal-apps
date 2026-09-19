@@ -26,14 +26,16 @@ export function Dialog({
   return (
     <DialogContext.Provider value={{ close }}>
       <Modal visible={open} transparent animationType='fade' onRequestClose={close} statusBarTranslucent>
-        <Pressable className='flex-1 items-center justify-center bg-black/25 px-4' onPress={close}>
-          <View
-            className='w-full gap-4 rounded-2xl border border-border bg-popover p-6'
-            onStartShouldSetResponder={() => true}
-          >
-            {children}
-          </View>
-        </Pressable>
+        {open ? (
+          <Pressable className='flex-1 items-center justify-center bg-black/50 px-4' onPress={close}>
+            <View
+              className='w-full gap-4 rounded-2xl border border-border bg-popover p-6'
+              onStartShouldSetResponder={() => true}
+            >
+              {children}
+            </View>
+          </Pressable>
+        ) : null}
       </Modal>
     </DialogContext.Provider>
   );

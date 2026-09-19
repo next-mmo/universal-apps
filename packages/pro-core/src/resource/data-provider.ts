@@ -358,3 +358,266 @@ export function createRestDataProvider(
     },
   };
 }
+
+/**
+ * SQL execution interface compatible with Tauri SQL plugin, better-sqlite3, and WebSQL.
+ */
+export interface SqlExecutor {
+  select<T = Record<string, unknown>>(query: string, params?: unknown[]): Promise<T[]>;
+  execute(query: string, params?: unknown[]): Promise<{ rowsAffected?: number; lastInsertId?: number | string }>;
+}
+
+export interface SqliteDataProviderOptions {
+  executor: SqlExecutor;
+  /** Primary key field name, default 'id' */
+  idField?: string;
+}
+
+/**
+ * SQLite data provider generating parameterized queries.
+ * Ideal for Tauri SQLite (`@tauri-apps/plugin-sql`), WASM SQLite, and local embedded databases.
+ */
+export function createSqliteDataProvider(options: SqliteDataProviderOptions): DataProvider {
+  const { executor, idField = 'id' } = options;
+
+  return {
+    async getList<T = Record<string, unknown>>(resource: string, params: GetListParams = {}): Promise<GetListResult<T>> {
+      const { pagination, sort, filters } = params;
+      const whereClauses: string[] = [];
+      const queryParams: unknown[] = [];
+
+      if (filters) {
+        for (const [key, val] of Object.entries(filters)) {
+          if (val !== undefined && val !== null && val !== '') {
+            whereClauses.push(`"${key}" = ?`);
+            queryParams.push(val);
+          }
+        }
+      }
+
+      const whereSql = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : '';
+
+      // Total count
+      const countSql = `SELECT COUNT(*) as count FROM "${resource}" ${whereSql}`;
+      const countRows = await executor.select<{ count: number }>(countSql, queryParams);
+      const total = Number(countRows[0]?.count ?? 0);
+
+      // Main query
+      let sql = `SELECT * FROM "${resource}" ${whereSql}`;
+      const listParams = [...queryParams];
+
+      if (sort && sort.field) {
+        const order = sort.order?.toLowerCase() === 'desc' ? 'DESC' : 'ASC';
+        sql += ` ORDER BY "${sort.field}" ${order}`;
+      }
+
+      if (pagination && pagination.pageSize) {
+        const page = pagination.page && pagination.page > 0 ? pagination.page : 1;
+        const offset = (page - 1) * pagination.pageSize;
+        sql += ` LIMIT ? OFFSET ?`;
+        listParams.push(pagination.pageSize, offset);
+      }
+
+      const data = await executor.select<T>(sql, listParams);
+      return {
+        data,
+        total,
+        page: pagination?.page,
+        pageSize: pagination?.pageSize,
+      };
+    },
+
+    async getOne<T = Record<string, unknown>>(resource: string, id: string | number): Promise<T> {
+      const sql = `SELECT * FROM "${resource}" WHERE "${idField}" = ? LIMIT 1`;
+      const rows = await executor.select<T>(sql, [id]);
+      if (!rows.length) {
+        throw new Error(`Record with ${idField} = ${id} not found in ${resource}`);
+      }
+      return rows[0];
+    },
+
+    async create<T = Record<string, unknown>>(resource: string, data: Partial<T>): Promise<T> {
+      const entries = Object.entries(data);
+      if (entries.length === 0) {
+        throw new Error('Cannot insert empty record');
+      }
+      const columns = entries.map(([col]) => `"${col}"`).join(', ');
+      const placeholders = entries.map(() => '?').join(', ');
+      const values = entries.map(([, val]) => val);
+
+      const sql = `INSERT INTO "${resource}" (${columns}) VALUES (${placeholders})`;
+      const result = await executor.execute(sql, values);
+
+      const newId = result.lastInsertId ?? (data as any)[idField];
+      if (newId !== undefined) {
+        return this.getOne<T>(resource, newId);
+      }
+      return data as T;
+    },
+
+    async update<T = Record<string, unknown>>(resource: string, id: string | number, data: Partial<T>): Promise<T> {
+      const entries = Object.entries(data).filter(([col]) => col !== idField);
+      if (entries.length === 0) {
+        return this.getOne<T>(resource, id);
+      }
+      const setClauses = entries.map(([col]) => `"${col}" = ?`).join(', ');
+      const values = [...entries.map(([, val]) => val), id];
+
+      const sql = `UPDATE "${resource}" SET ${setClauses} WHERE "${idField}" = ?`;
+      await executor.execute(sql, values);
+      return this.getOne<T>(resource, id);
+    },
+
+    async delete(resource: string, id: string | number): Promise<{ id: string | number }> {
+      const sql = `DELETE FROM "${resource}" WHERE "${idField}" = ?`;
+      await executor.execute(sql, [id]);
+      return { id };
+    },
+
+    async deleteMany(resource: string, ids: Array<string | number>): Promise<{ ids: Array<string | number> }> {
+      if (!ids.length) return { ids: [] };
+      const placeholders = ids.map(() => '?').join(', ');
+      const sql = `DELETE FROM "${resource}" WHERE "${idField}" IN (${placeholders})`;
+      await executor.execute(sql, ids);
+      return { ids };
+    },
+  };
+}
+
+export interface SupabaseDataProviderOptions {
+  supabaseUrl: string;
+  supabaseKey: string;
+  /** Custom fetch implementation, defaults to globalThis.fetch */
+  fetch?: typeof fetch;
+  /** PostgREST schema, default 'public' */
+  schema?: string;
+}
+
+/**
+ * Supabase / PostgREST data provider with range pagination, exact counting, and filter mapping.
+ */
+export function createSupabaseDataProvider(options: SupabaseDataProviderOptions): DataProvider {
+  const { supabaseUrl, supabaseKey, fetch: customFetch } = options;
+  const fetcher = customFetch ?? globalThis.fetch;
+  const baseUrl = supabaseUrl.replace(/\/+$/, '');
+
+  const getHeaders = (extra: Record<string, string> = {}) => ({
+    apikey: supabaseKey,
+    Authorization: `Bearer ${supabaseKey}`,
+    'Content-Type': 'application/json',
+    ...extra,
+  });
+
+  return {
+    async getList<T = Record<string, unknown>>(resource: string, params: GetListParams = {}): Promise<GetListResult<T>> {
+      const { pagination, sort, filters } = params;
+      const url = new URL(`${baseUrl}/rest/v1/${resource}`);
+
+      if (filters) {
+        for (const [key, val] of Object.entries(filters)) {
+          if (val !== undefined && val !== null && val !== '') {
+            url.searchParams.set(key, `eq.${val}`);
+          }
+        }
+      }
+
+      if (sort && sort.field) {
+        url.searchParams.set('order', `${sort.field}.${sort.order?.toLowerCase() === 'desc' ? 'desc' : 'asc'}`);
+      }
+
+      const headers: Record<string, string> = getHeaders({
+        Prefer: 'count=exact',
+      });
+
+      if (pagination && pagination.pageSize) {
+        const page = pagination.page && pagination.page > 0 ? pagination.page : 1;
+        const from = (page - 1) * pagination.pageSize;
+        const to = from + pagination.pageSize - 1;
+        headers['Range'] = `${from}-${to}`;
+        headers['Range-Unit'] = 'items';
+      }
+
+      const res = await fetcher(url.toString(), { headers });
+      if (!res.ok) {
+        throw new Error(`Supabase error ${res.status}: ${res.statusText}`);
+      }
+
+      const contentRange = res.headers.get('content-range');
+      let total = 0;
+      if (contentRange) {
+        const parts = contentRange.split('/');
+        total = Number(parts[1]) || 0;
+      }
+
+      const data = (await res.json()) as T[];
+      return {
+        data,
+        total: total || data.length,
+        page: pagination?.page,
+        pageSize: pagination?.pageSize,
+      };
+    },
+
+    async getOne<T = Record<string, unknown>>(resource: string, id: string | number): Promise<T> {
+      const url = `${baseUrl}/rest/v1/${resource}?id=eq.${encodeURIComponent(String(id))}`;
+      const res = await fetcher(url, {
+        headers: getHeaders({
+          Accept: 'application/vnd.pgrst.object+json',
+        }),
+      });
+      if (!res.ok) throw new Error(`Supabase error ${res.status}: ${res.statusText}`);
+      return (await res.json()) as T;
+    },
+
+    async create<T = Record<string, unknown>>(resource: string, data: Partial<T>): Promise<T> {
+      const url = `${baseUrl}/rest/v1/${resource}`;
+      const res = await fetcher(url, {
+        method: 'POST',
+        headers: getHeaders({
+          Prefer: 'return=representation',
+        }),
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(`Supabase error ${res.status}: ${res.statusText}`);
+      const json = (await res.json()) as any;
+      return Array.isArray(json) ? (json[0] as T) : (json as T);
+    },
+
+    async update<T = Record<string, unknown>>(resource: string, id: string | number, data: Partial<T>): Promise<T> {
+      const url = `${baseUrl}/rest/v1/${resource}?id=eq.${encodeURIComponent(String(id))}`;
+      const res = await fetcher(url, {
+        method: 'PATCH',
+        headers: getHeaders({
+          Prefer: 'return=representation',
+        }),
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(`Supabase error ${res.status}: ${res.statusText}`);
+      const json = (await res.json()) as any;
+      return Array.isArray(json) ? (json[0] as T) : (json as T);
+    },
+
+    async delete(resource: string, id: string | number): Promise<{ id: string | number }> {
+      const url = `${baseUrl}/rest/v1/${resource}?id=eq.${encodeURIComponent(String(id))}`;
+      const res = await fetcher(url, {
+        method: 'DELETE',
+        headers: getHeaders(),
+      });
+      if (!res.ok) throw new Error(`Supabase error ${res.status}: ${res.statusText}`);
+      return { id };
+    },
+
+    async deleteMany(resource: string, ids: Array<string | number>): Promise<{ ids: Array<string | number> }> {
+      if (!ids.length) return { ids: [] };
+      const formatted = ids.map((id) => encodeURIComponent(String(id))).join(',');
+      const url = `${baseUrl}/rest/v1/${resource}?id=in.(${formatted})`;
+      const res = await fetcher(url, {
+        method: 'DELETE',
+        headers: getHeaders(),
+      });
+      if (!res.ok) throw new Error(`Supabase error ${res.status}: ${res.statusText}`);
+      return { ids };
+    },
+  };
+}
+

@@ -9,6 +9,7 @@
     "./crud": "./src/crud/pro-crud-page.tsx",
     "./data-table": "./src/data-table/pro-data-table.tsx",
     "./descriptions": "./src/descriptions/pro-descriptions.tsx",
+    "./editable-table": "./src/table/editable-pro-table.tsx",
     "./filter-toolbar": "./src/table/pro-filter-toolbar.tsx",
     "./form": "./src/form/pro-form.tsx",
     "./form-dialog": "./src/form/pro-form-dialog.tsx",
