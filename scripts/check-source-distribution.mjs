@@ -22,7 +22,7 @@ const run = (command, args, cwd = root) => {
 };
 try {
   const packed = JSON.parse(run('npm', ['pack', './dist/universal-cli', '--ignore-scripts', '--json', '--pack-destination', scratch]));
-  run('tar', ['-xzf', path.join(scratch, packed[0].filename), '-C', scratch]);
+  run('tar', ['-xzf', packed[0].filename, '-C', '.'], scratch);
   const distribution = path.join(scratch, 'package');
   const manifest = JSON.parse(fs.readFileSync(path.join(distribution, 'package.json'), 'utf8'));
   assert.equal(Object.keys(manifest.dependencies ?? {}).length, 0);
