@@ -70,8 +70,9 @@ test('npm exec invokes the packed bin and actually generates source through its 
   const f = fixture(t);
   const source = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../source');
   for (const file of ['cli.mjs', 'install.mjs', 'templates.mjs']) f.put(`packed/${file}`, fs.readFileSync(path.join(source, file), 'utf8'));
+  fs.cpSync(path.join(source, 'templates'), path.join(f.root, 'packed/templates'), { recursive: true });
   fs.chmodSync(path.join(f.root, 'packed/cli.mjs'), 0o755);
-  f.put('packed/package.json', { name: 'universal-bin-regression', version: '1.0.0', type: 'module', bin: { universal: './cli.mjs' }, files: ['cli.mjs', 'install.mjs', 'templates.mjs', 'registry'] });
+  f.put('packed/package.json', { name: 'universal-bin-regression', version: '1.0.0', type: 'module', bin: { universal: './cli.mjs' }, files: ['cli.mjs', 'install.mjs', 'templates.mjs', 'templates', 'registry'] });
   f.put('packed/registry/index.json', f.build());
   f.put('consumer/package.json', { name: 'isolated-company-app', private: true, type: 'module' });
   f.put('consumer/src/index.css', '@import "tailwindcss";\n');
