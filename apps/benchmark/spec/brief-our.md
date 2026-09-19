@@ -46,7 +46,7 @@ Available to you: `Read`, `Grep`, `Glob`, and the repository's capability CLI.
 ```text
 pnpm agent find crud --framework react
 pnpm agent inspect block.crud-page --framework react --detail api
-pnpm agent recipe block.crud-page --framework react
+pnpm agent recipe crud-page --framework react --example
 ```
 
 `llms.txt` is the documentation map. `@package/pro` is already a dependency of this arm — do not

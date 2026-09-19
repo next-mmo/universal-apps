@@ -3,7 +3,7 @@ import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { performance } from 'node:perf_hooks';
 import { listStarters, planStarter, resolveStarter, writeStarter } from '@package/agent-workflow/init';
-import { bounded, capabilityCard, findCapabilities, loadCatalog, readOwned, recipeCard, resolveEntry, selectImplementations, validateCatalog } from '@package/agent-workflow/catalog';
+import { bounded, capabilityCard, findCapabilities, loadCatalog, readOwned, recipeCard, resolveEntry, resolveRecipes, selectImplementations, validateCatalog } from '@package/agent-workflow/catalog';
 import { runPnpm as runCheck, workspacePlan } from '@package/agent-workflow/checks';
 import type { Detail } from '@package/agent-workflow/catalog';
 import type { ScaffoldConfig } from './config';
@@ -246,9 +246,14 @@ export async function agent(config: ScaffoldConfig, args: string[]): Promise<voi
         }) : text);
     }
     else {
-        const recipes = snapshot.catalog.recipes.filter((recipe) => (!positionals[0] || recipe.id === positionals[0]) && (!values.framework || recipe.frameworks.includes(values.framework)));
-        if (!recipes.length)
-            throw new Error('Unknown recipe or unsupported framework');
+        const recipes = resolveRecipes(snapshot.catalog, positionals[0], values.framework);
+        if (!recipes.length) {
+            const available = snapshot.catalog.recipes
+                .filter((r) => !values.framework || r.frameworks.includes(values.framework))
+                .map((r) => r.id)
+                .join(', ');
+            throw new Error(`Unknown recipe or unsupported framework: ${positionals[0] ?? ''}\nAvailable recipes${values.framework ? ` (${values.framework})` : ''}: ${available}`);
+        }
         if (values.json)
             console.log(JSON.stringify(recipes.map((recipe) => ({
                 ...recipe, examples: values.framework ? {

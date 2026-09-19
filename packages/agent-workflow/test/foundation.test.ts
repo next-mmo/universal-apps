@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { mkdtemp, mkdir, writeFile, rm, symlink } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { bounded, capabilityCard, compatible, findCapabilities, loadCatalog, readOwned, sourceContract, validateCatalog } from '../src/catalog.ts';
+import { bounded, capabilityCard, compatible, findCapabilities, loadCatalog, readOwned, resolveRecipes, sourceContract, validateCatalog } from '../src/catalog.ts';
 import type { AgentCatalog, Implementation } from '../src/catalog.ts';
 import { planChecks, runCommand, discoverWorkspaces } from '../src/checks.ts';
 import type { Workspace } from '../src/checks.ts';
@@ -360,6 +360,49 @@ test('Sqlite and Supabase DataProviders map CRUD operations accurately', async (
 
   const created = await supabase.create('items', { title: 'Task 2' });
   assert.equal((created as any).title, 'Task 2');
+});
+
+test('resolveRecipes matches exact id, stripped prefix, and capability uses', () => {
+  const fixtureCatalog: AgentCatalog = {
+    version: 1,
+    name: 'test',
+    summary: '',
+    entries: [],
+    recipes: [
+      {
+        id: 'crud-page',
+        summary: 'CRUD page recipe',
+        frameworks: ['react'],
+        uses: ['block.crud-page', 'bridge.todo-storage'],
+        examples: { react: 'apps/tauri-app/src/pages/todos-page.tsx' },
+        verify: 'pnpm check',
+      },
+      {
+        id: 'schema-form',
+        summary: 'Form recipe',
+        frameworks: ['react', 'vue'],
+        uses: ['block.form'],
+        examples: { react: 'form.tsx' },
+        verify: 'pnpm check',
+      },
+    ],
+  };
+
+  // Exact match
+  assert.equal(resolveRecipes(fixtureCatalog, 'crud-page').length, 1);
+  assert.equal(resolveRecipes(fixtureCatalog, 'crud-page')[0].id, 'crud-page');
+
+  // Prefix stripped (block.crud-page -> crud-page)
+  assert.equal(resolveRecipes(fixtureCatalog, 'block.crud-page').length, 1);
+  assert.equal(resolveRecipes(fixtureCatalog, 'block.crud-page')[0].id, 'crud-page');
+
+  // Capability uses match (bridge.todo-storage is in uses)
+  assert.equal(resolveRecipes(fixtureCatalog, 'bridge.todo-storage').length, 1);
+  assert.equal(resolveRecipes(fixtureCatalog, 'bridge.todo-storage')[0].id, 'crud-page');
+
+  // Framework filter
+  assert.equal(resolveRecipes(fixtureCatalog, 'crud-page', 'vue').length, 0);
+  assert.equal(resolveRecipes(fixtureCatalog, 'schema-form', 'vue').length, 1);
 });
 
 

@@ -40,6 +40,9 @@ assert(recipe.length < 1200, 'recipe default stays inside response budget');
 const example = await capture(['recipe', 'crud-page', '--framework', 'react', '--example']);
 assert(example.includes('defineProResource'), 'example source is available explicitly');
 
+const aliasedRecipe = await capture(['recipe', 'block.crud-page', '--framework', 'react']);
+assert(aliasedRecipe.includes('apps/tauri-app/src/pages/todos-page.tsx'), 'recipe resolves capability alias');
+
 const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'tauri-universal-agent-'));
 const starterRoot = path.join(tempRoot, 'todo');
 try {

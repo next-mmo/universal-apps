@@ -2,7 +2,7 @@
 import { createInterface } from 'node:readline';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { bounded, capabilityCard, findCapabilities, loadCatalog, recipeCard, selectImplementations } from '../../agent-workflow/src/catalog.ts';
+import { bounded, capabilityCard, findCapabilities, loadCatalog, recipeCard, resolveRecipes, selectImplementations } from '../../agent-workflow/src/catalog.ts';
 import type { Detail } from '../../agent-workflow/src/catalog.ts';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const frameworks = ['react', 'vue', 'svelte', 'native', 'core', 'universal'];
@@ -103,7 +103,7 @@ export async function dispatch(name: string, input: unknown): Promise<string> {
             framework, runtime: args.runtime as string | undefined, detail: args.detail as Detail | undefined
         });
     }
-    const matching = snapshot.catalog.recipes.filter((recipe) => (!args.id || recipe.id.toLowerCase().includes(String(args.id).toLowerCase())) && (!framework || recipe.frameworks.includes(framework)));
+    const matching = resolveRecipes(snapshot.catalog, args.id ? String(args.id) : undefined, framework);
     if (!matching.length)
         throw new Error('Unknown recipe or unsupported framework');
     const explicit = args.detail === 'usage' || args.detail === 'full';

@@ -210,6 +210,23 @@ export async function recipeCard(root: string, recipe: CatalogRecipe, framework?
     lines.push(`verify: ${recipe.verify}`);
     return example ? lines.join('\n') : bounded(lines.join('\n'));
 }
+export function resolveRecipes(catalog: AgentCatalog, query?: string, framework?: string): CatalogRecipe[] {
+    const raw = query?.trim().toLowerCase();
+    const stripped = raw?.replace(/^(block|core|ui|bridge)\./, '');
+    return catalog.recipes.filter((recipe) => {
+        if (framework && !recipe.frameworks.includes(framework))
+            return false;
+        if (!raw)
+            return true;
+        const id = recipe.id.toLowerCase();
+        return (
+            id === raw ||
+            id.includes(raw) ||
+            (stripped !== undefined && (id === stripped || id.includes(stripped))) ||
+            recipe.uses.some((u) => u.toLowerCase() === raw || u.toLowerCase().includes(raw))
+        );
+    });
+}
 export async function validateCatalog(root: string, snapshot: CatalogSnapshot): Promise<string[]> {
     const errors: string[] = [];
     const { catalog } = snapshot;
