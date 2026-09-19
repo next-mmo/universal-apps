@@ -1,0 +1,56 @@
+---
+title: ProFormDrawer
+description: Ant Design Pro DrawerForm parity — slide-over drawer housing a schema-driven ProForm.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+A slide-over drawer form providing fast create and edit workflows without full-page navigation.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add pro-form-drawer
+```
+  </Tab>
+  <Tab value="Manual">
+Import from `@package/pro/form-drawer`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import { ProFormDrawer } from '@package/pro/form-drawer';
+import { Button } from '@package/ui/button';
+
+export function Example() {
+  return (
+    <ProFormDrawer
+      title="Create Workspace"
+      description="Configure workspace details and settings."
+      trigger={<Button>New Workspace</Button>}
+      schema={[
+        {
+          title: 'General',
+          fields: [
+            { name: 'name', label: 'Workspace Name', type: 'text', required: true },
+            { name: 'slug', label: 'Slug', type: 'text', required: true },
+          ],
+        },
+      ]}
+      defaultValues={{ name: '', slug: '' }}
+      onSubmit={async (values) => {
+        console.log('Submitted', values);
+        return true; // Closes drawer on success
+      }}
+    />
+  );
+}
+```

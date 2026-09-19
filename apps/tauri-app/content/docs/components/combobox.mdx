@@ -1,0 +1,53 @@
+---
+title: Combobox
+description: Autocomplete popover selector combining search filtering and checkmark item selection.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+A popover-anchored autocomplete selector button with search filtering and active checkmarks.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add combobox
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `combobox.tsx` to your components directory and import from `@package/ui/combobox` or `@package/ui-native`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import { useState } from 'react';
+import { Combobox } from '@package/ui/combobox';
+
+const frameworks = [
+  { label: 'Next.js', value: 'next' },
+  { label: 'Tauri', value: 'tauri' },
+  { label: 'React Native', value: 'react-native' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Svelte', value: 'svelte' },
+];
+
+export function Example() {
+  const [value, setValue] = useState('');
+
+  return (
+    <Combobox
+      options={frameworks}
+      value={value}
+      onValueChange={setValue}
+      placeholder="Select framework..."
+    />
+  );
+}
+```

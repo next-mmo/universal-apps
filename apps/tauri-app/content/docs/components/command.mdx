@@ -1,0 +1,60 @@
+---
+title: Command
+description: Fast, searchable command menu with fuzzy filtering and accessible keyboard navigation.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+A composable search and command palette container with full keyboard navigation.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add command
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `command.tsx` to your components directory and import from `@package/ui/command` or `@package/ui-native`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+} from '@package/ui/command';
+
+export function Example() {
+  return (
+    <Command>
+      <CommandInput placeholder="Type a command or search..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Suggestions">
+          <CommandItem onSelect={() => console.log('Calendar')}>Calendar</CommandItem>
+          <CommandItem onSelect={() => console.log('Search')}>Search</CommandItem>
+          <CommandItem onSelect={() => console.log('Settings')}>Settings</CommandItem>
+        </CommandGroup>
+        <CommandSeparator />
+        <CommandGroup heading="Actions">
+          <CommandItem onSelect={() => console.log('Profile')}>Profile</CommandItem>
+          <CommandItem onSelect={() => console.log('Billing')}>Billing</CommandItem>
+        </CommandGroup>
+      </CommandList>
+    </Command>
+  );
+}
+```

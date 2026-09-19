@@ -1,0 +1,43 @@
+---
+title: Calendar
+description: Zero-dependency date grid component with month navigation and today highlights.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+A fast date picker calendar grid with month navigation and day selection without external date libraries.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add calendar
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `calendar.tsx` to your components directory and import from `@package/ui/calendar` or `@package/ui-native`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import { useState } from 'react';
+import { Calendar } from '@package/ui/calendar';
+
+export function Example() {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+
+  return (
+    <Calendar
+      value={date}
+      onValueChange={setDate}
+    />
+  );
+}
+```

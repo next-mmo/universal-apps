@@ -1,0 +1,44 @@
+---
+title: Date Picker
+description: Popover date picker input binding Calendar selection to a formatted button trigger.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+A date input control rendering a formatted trigger button that opens a calendar selection popover.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add date-picker
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `date-picker.tsx` and `calendar.tsx` to your components directory and import from `@package/ui/date-picker`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import { useState } from 'react';
+import { DatePicker } from '@package/ui/date-picker';
+
+export function Example() {
+  const [date, setDate] = useState<Date | undefined>();
+
+  return (
+    <DatePicker
+      value={date}
+      onValueChange={setDate}
+      placeholder="Select launch date..."
+    />
+  );
+}
+```

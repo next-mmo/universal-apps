@@ -72,6 +72,11 @@ import {
   TabsList,
   TabsTrigger,
   Textarea,
+  Calendar,
+  Combobox,
+  DatePicker,
+  toast,
+  Toaster,
   Toggle,
   ToggleGroup,
   ToggleGroupItem,
@@ -105,10 +110,13 @@ export default function App() {
   const [interactiveDrawerOpen, setInteractiveDrawerOpen] = useState(false);
   const [togglePressed, setTogglePressed] = useState(true);
   const [toggleGroupVal, setToggleGroupVal] = useState('center');
+  const [comboboxVal, setComboboxVal] = useState('react');
+  const [dateVal, setDateVal] = useState<Date | undefined>(() => new Date());
 
   return (
-    <ScrollView className='flex-1 bg-background'>
-      <View className='px-6 pt-12 pb-16'>
+    <View className='flex-1 bg-background'>
+      <ScrollView className='flex-1'>
+        <View className='px-6 pt-12 pb-16'>
         {/* Header */}
         <View className='flex-row items-center justify-between pb-6'>
           <View>
@@ -484,7 +492,57 @@ export default function App() {
             <Skeleton className='h-4 w-1/2 rounded' />
           </View>
         </View>
+
+        {/* Phase 2: Toast, Combobox, DatePicker */}
+        <Separator className='my-4' />
+        <View className='py-4'>
+          <Text className='mb-3 font-sans text-lg font-semibold text-foreground'>
+            Phase 2: Toast, Combobox & DatePicker
+          </Text>
+
+          <View className='flex-row flex-wrap gap-2 mb-4'>
+            <Button
+              variant='outline'
+              size='sm'
+              onPress={() => toast.success('Saved to local store!', { description: 'Synchronized across runtimes.' })}
+            >
+              Toast Success
+            </Button>
+            <Button
+              variant='outline'
+              size='sm'
+              onPress={() => toast.error('Connection timeout', { description: 'Retrying in 5 seconds.' })}
+            >
+              Toast Error
+            </Button>
+          </View>
+
+          <View className='mb-4 gap-2'>
+            <Text className='font-sans text-xs font-semibold text-muted-foreground'>Combobox Dropdown:</Text>
+            <Combobox
+              options={[
+                { label: 'React Native', value: 'rn' },
+                { label: 'Tauri Web', value: 'tauri' },
+                { label: 'Uniwind Engine', value: 'uniwind' },
+              ]}
+              value={comboboxVal}
+              onValueChange={setComboboxVal}
+              placeholder='Select framework...'
+            />
+          </View>
+
+          <View className='mb-4 gap-2'>
+            <Text className='font-sans text-xs font-semibold text-muted-foreground'>Date Picker Popover:</Text>
+            <DatePicker
+              value={dateVal}
+              onValueChange={setDateVal}
+              placeholder='Select event date...'
+            />
+          </View>
+        </View>
       </View>
     </ScrollView>
+    <Toaster />
+  </View>
   );
 }

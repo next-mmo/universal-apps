@@ -1,3 +1,4 @@
+@import "./lib/universal/ui/styles/tokens.css";
 @import "tailwindcss";
 @import "uniwind";
 

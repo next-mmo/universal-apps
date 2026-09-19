@@ -1,0 +1,60 @@
+---
+title: Toast
+description: Global notification system with success, error, loading states, and cross-platform native spring animations.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+A responsive, stackable toast notification system inspired by Sonner with zero runtime styling overhead.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add toast
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `toast.tsx` to your components directory and import from `@package/ui/toast` or `@package/ui-native`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import { toast, Toaster } from '@package/ui/toast';
+import { Button } from '@package/ui/button';
+
+export function Example() {
+  return (
+    <>
+      <Button
+        onClick={() =>
+          toast.success('Record created', {
+            description: 'Item has been added to your workspace.',
+            action: { label: 'Undo', onClick: () => console.log('Undo') },
+          })
+        }
+      >
+        Show Toast
+      </Button>
+
+      {/* Render once at root layout */}
+      <Toaster position="bottom-right" />
+    </>
+  );
+}
+```
+
+---
+
+## Key Features
+
+- **Cross-Platform**: Zero-dependency GPU compositor transitions on Web; native driver springs on React Native.
+- **Convenience Methods**: `toast()`, `toast.success()`, `toast.error()`, `toast.warning()`, `toast.info()`, `toast.dismiss()`.
+- **Action Buttons**: Embedded callback buttons that automatically dismiss on press.

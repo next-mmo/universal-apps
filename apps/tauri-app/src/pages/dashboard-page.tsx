@@ -25,17 +25,44 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@package/ui/drawer';
+import { useState } from 'react';
 import {
   AnimatedTabs,
   AnimatedTabsList,
   AnimatedTabsTrigger,
 } from '@package/ui/animated-tabs';
+import { Combobox } from '@package/ui/combobox';
+import { DatePicker } from '@package/ui/date-picker';
+import { toast } from '@package/ui/toast';
 import { ProDescriptions, ProDescriptionsItem } from '@package/pro/descriptions';
+import { ProFormDrawer } from '@package/pro/form-drawer';
+import type { ProFormGroup } from '@package/pro-core/form';
+
+const quickTaskSchema: ProFormGroup[] = [
+  {
+    title: 'Quick Task',
+    fields: [
+      { name: 'title', label: 'Title', type: 'text', required: true, placeholder: 'e.g. Deploy release v1.0' },
+      {
+        name: 'priority',
+        label: 'Priority',
+        type: 'select',
+        options: [
+          { label: 'Low', value: 'low' },
+          { label: 'Medium', value: 'medium' },
+          { label: 'High', value: 'high' },
+        ],
+      },
+    ],
+  },
+];
 
 export default function DashboardPage() {
   const todos = useTodos();
   const rows = todos.data ?? [];
   const done = rows.filter((row) => row.status.label === 'Done').length;
+  const [selectedTech, setSelectedTech] = useState('react');
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(() => new Date());
 
   return (
     <PageContainer
@@ -99,7 +126,7 @@ export default function DashboardPage() {
           platform: 'Tauri 2 + React 19',
           styling: 'Tailwind CSS v4 (Tokens)',
           reactNativeParity: true,
-          componentsTotal: 22,
+          componentsTotal: 27,
           offlineCapable: true,
           buildTool: 'Vite 7',
         }}
@@ -180,6 +207,72 @@ export default function DashboardPage() {
             </AnimatedTabs>
           </div>
         </CardHeader>
+      </Card>
+
+      {/* Phase 2 Competitive Parity Showcase */}
+      <Card className='mt-4'>
+        <CardHeader>
+          <CardTitle>Phase 2 Competitive Parity</CardTitle>
+          <CardDescription>
+            Live demonstration of Sonner-like Toast, Combobox, DatePicker, and Ant Design Pro FormDrawer with zero extra npm dependencies.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className='flex flex-wrap items-center gap-4'>
+          {/* Toast Triggers */}
+          <div className='flex items-center gap-2'>
+            <Button
+              size='sm'
+              variant='outline'
+              onClick={() => toast.success('Task completed successfully!', { description: 'All checks passed.' })}
+            >
+              Toast Success
+            </Button>
+            <Button
+              size='sm'
+              variant='outline'
+              onClick={() => toast.error('Failed to sync changes', { description: 'Network offline or timeout.' })}
+            >
+              Toast Error
+            </Button>
+          </div>
+
+          {/* Combobox */}
+          <div className='w-48'>
+            <Combobox
+              options={[
+                { label: 'React / Tauri', value: 'react' },
+                { label: 'React Native Web', value: 'rn-web' },
+                { label: 'Vue 3 Adapter', value: 'vue' },
+                { label: 'Svelte 5 Adapter', value: 'svelte' },
+              ]}
+              value={selectedTech}
+              onValueChange={setSelectedTech}
+              placeholder='Select tech...'
+            />
+          </div>
+
+          {/* Date Picker */}
+          <div className='w-48'>
+            <DatePicker
+              value={selectedDate}
+              onValueChange={setSelectedDate}
+              placeholder='Pick milestone date...'
+            />
+          </div>
+
+          {/* ProFormDrawer */}
+          <ProFormDrawer
+            trigger={<Button size='sm'>Open Form Drawer</Button>}
+            title='New Quick Task'
+            description='Slide-over form drawer powered by universal ProForm.'
+            schema={quickTaskSchema}
+            defaultValues={{ title: '', priority: 'medium' }}
+            onSubmit={async (values) => {
+              toast.success(`Created task: ${String(values.title || 'Untitled')}`);
+              return true;
+            }}
+          />
+        </CardContent>
       </Card>
     </PageContainer>
   );

@@ -505,6 +505,57 @@ const addTodo = useAddTodo();
 | `onSubmit` | `(values) => Promise<void> \| void` | Close the dialog yourself after success. |
 | `submitLabel` / `pending` | — | Submit button label and pending state. |
 
+## ProFormDrawer
+
+Source: `apps/tauri-app/content/docs/blocks/pro-form-drawer.mdx`
+
+A slide-over drawer form providing fast create and edit workflows without full-page navigation.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add pro-form-drawer
+```
+  </Tab>
+  <Tab value="Manual">
+Import from `@package/pro/form-drawer`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+
+  return (
+    <ProFormDrawer
+      title="Create Workspace"
+      description="Configure workspace details and settings."
+      trigger={<Button>New Workspace</Button>}
+      schema={[
+        {
+          title: 'General',
+          fields: [
+            { name: 'name', label: 'Workspace Name', type: 'text', required: true },
+            { name: 'slug', label: 'Slug', type: 'text', required: true },
+          ],
+        },
+      ]}
+      defaultValues={{ name: '', slug: '' }}
+      onSubmit={async (values) => {
+        console.log('Submitted', values);
+        return true; // Closes drawer on success
+      }}
+    />
+  );
+}
+```
+
 ## AppShell
 
 Source: `apps/tauri-app/content/docs/blocks/app-shell.mdx`
@@ -789,6 +840,44 @@ Displays a button or an anchor that looks like a button. Source: `packages/ui/sr
 | `size` | `default` \| `sm` \| `lg` \| `icon` | `default` |
 | `asChild` | boolean | `false` — merges props onto the child element instead of rendering `<button>`. |
 
+## Calendar
+
+Source: `apps/tauri-app/content/docs/components/calendar.mdx`
+
+A fast date picker calendar grid with month navigation and day selection without external date libraries.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add calendar
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `calendar.tsx` to your components directory and import from `@package/ui/calendar` or `@package/ui-native`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+
+  const [date, setDate] = useState<Date | undefined>(new Date());
+
+  return (
+    <Calendar
+      value={date}
+      onValueChange={setDate}
+    />
+  );
+}
+```
+
 ## Card
 
 Source: `apps/tauri-app/content/docs/components/card.mdx`
@@ -850,6 +939,148 @@ A binary input that toggles a single value. Source: `packages/ui/src/components/
 | `onCheckedChange` | `(checked) => void` | Change handler. |
 
 All other props forward to the Radix primitive (`disabled`, `required`, …).
+
+## Combobox
+
+Source: `apps/tauri-app/content/docs/components/combobox.mdx`
+
+A popover-anchored autocomplete selector button with search filtering and active checkmarks.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add combobox
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `combobox.tsx` to your components directory and import from `@package/ui/combobox` or `@package/ui-native`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+
+const frameworks = [
+  { label: 'Next.js', value: 'next' },
+  { label: 'Tauri', value: 'tauri' },
+  { label: 'React Native', value: 'react-native' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Svelte', value: 'svelte' },
+];
+
+  const [value, setValue] = useState('');
+
+  return (
+    <Combobox
+      options={frameworks}
+      value={value}
+      onValueChange={setValue}
+      placeholder="Select framework..."
+    />
+  );
+}
+```
+
+## Command
+
+Source: `apps/tauri-app/content/docs/components/command.mdx`
+
+A composable search and command palette container with full keyboard navigation.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add command
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `command.tsx` to your components directory and import from `@package/ui/command` or `@package/ui-native`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+} from '@package/ui/command';
+
+  return (
+    <Command>
+      <CommandInput placeholder="Type a command or search..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Suggestions">
+          <CommandItem onSelect={() => console.log('Calendar')}>Calendar</CommandItem>
+          <CommandItem onSelect={() => console.log('Search')}>Search</CommandItem>
+          <CommandItem onSelect={() => console.log('Settings')}>Settings</CommandItem>
+        </CommandGroup>
+        <CommandGroup heading="Actions">
+          <CommandItem onSelect={() => console.log('Profile')}>Profile</CommandItem>
+          <CommandItem onSelect={() => console.log('Billing')}>Billing</CommandItem>
+        </CommandGroup>
+      </CommandList>
+    </Command>
+  );
+}
+```
+
+## Date Picker
+
+Source: `apps/tauri-app/content/docs/components/date-picker.mdx`
+
+A date input control rendering a formatted trigger button that opens a calendar selection popover.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add date-picker
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `date-picker.tsx` and `calendar.tsx` to your components directory and import from `@package/ui/date-picker`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+
+  const [date, setDate] = useState<Date | undefined>();
+
+  return (
+    <DatePicker
+      value={date}
+      onValueChange={setDate}
+      placeholder="Select launch date..."
+    />
+  );
+}
+```
 
 ## Dialog
 
@@ -1351,6 +1582,61 @@ A multi-line text field. Source: `packages/ui/src/components/ui/textarea.tsx`.
 ## API
 
 A plain `<textarea>` — all native props forward (`value`, `onChange`, `rows`, `disabled`, …). `aria-invalid` switches the border to destructive, matching `Input`.
+
+## Toast
+
+Source: `apps/tauri-app/content/docs/components/toast.mdx`
+
+A responsive, stackable toast notification system inspired by Sonner with zero runtime styling overhead.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add toast
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `toast.tsx` to your components directory and import from `@package/ui/toast` or `@package/ui-native`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+
+  return (
+    <>
+      <Button
+        onClick={() =>
+          toast.success('Record created', {
+            description: 'Item has been added to your workspace.',
+            action: { label: 'Undo', onClick: () => console.log('Undo') },
+          })
+        }
+      >
+        Show Toast
+      </Button>
+
+      {/* Render once at root layout */}
+      <Toaster position="bottom-right" />
+    </>
+  );
+}
+```
+
+---
+
+## Key Features
+
+- **Cross-Platform**: Zero-dependency GPU compositor transitions on Web; native driver springs on React Native.
+- **Convenience Methods**: `toast()`, `toast.success()`, `toast.error()`, `toast.warning()`, `toast.info()`, `toast.dismiss()`.
+- **Action Buttons**: Embedded callback buttons that automatically dismiss on press.
 
 ## Toggle
 

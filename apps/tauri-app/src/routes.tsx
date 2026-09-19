@@ -6,6 +6,7 @@ import DocsPage from './pages/docs-page';
 import FormsDemoPage from './pages/forms-page';
 import TodosPage from './pages/todos-page';
 import { AppHeader } from './components/app-header';
+import { Toaster } from '@package/ui/toast';
 
 function RootLayout() {
   return (
@@ -14,6 +15,7 @@ function RootLayout() {
       <div className='flex flex-1 min-h-0 flex-col'>
         <Outlet />
       </div>
+      <Toaster position='bottom-right' />
     </div>
   );
 }

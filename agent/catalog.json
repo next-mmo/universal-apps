@@ -45,6 +45,14 @@
       }
     },
     {
+      "id": "ui.calendar", "kind": "component", "summary": "Accessible zero-dependency date picker calendar grid with month navigation.",
+      "keywords": ["calendar", "date", "month", "grid", "schedule"], "docs": "apps/tauri-app/content/docs/components/calendar.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/calendar", "exports": ["Calendar", "CalendarProps"], "source": "packages/ui/src/components/ui/calendar.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/calendar", "exports": ["Calendar", "CalendarProps"], "source": "packages/ui-native/src/components/ui/calendar.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
       "id": "ui.card", "kind": "component", "summary": "Grouped content surface with header, body, action, and footer slots.",
       "keywords": ["panel", "surface", "container"], "docs": "apps/tauri-app/content/docs/components/card.mdx",
       "implementations": {
@@ -58,6 +66,30 @@
       "implementations": {
         "react": {"import": "@package/ui/checkbox", "exports": ["Checkbox", "CheckboxProps"], "source": "packages/ui/src/components/ui/checkbox.tsx", "runtimes": ["browser", "tauri"]},
         "native": {"import": "@package/ui-native/src/components/ui/checkbox", "exports": ["Checkbox", "CheckboxProps"], "source": "packages/ui-native/src/components/ui/checkbox.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
+      "id": "ui.combobox", "kind": "component", "summary": "Searchable autocompleting select dropdown with keyboard and mobile support.",
+      "keywords": ["combobox", "autocomplete", "filter", "search", "picker"], "docs": "apps/tauri-app/content/docs/components/combobox.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/combobox", "exports": ["Combobox", "ComboboxProps", "ComboboxOption"], "source": "packages/ui/src/components/ui/combobox.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/combobox", "exports": ["Combobox", "ComboboxProps", "ComboboxOption"], "source": "packages/ui-native/src/components/ui/combobox.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
+      "id": "ui.command", "kind": "component", "summary": "Fast, composable command palette with input filtering, groups, and shortcuts.",
+      "keywords": ["command", "palette", "cmdk", "spotlight", "search"], "docs": "apps/tauri-app/content/docs/components/command.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/command", "exports": ["Command", "CommandInput", "CommandList", "CommandEmpty", "CommandGroup", "CommandSeparator", "CommandItem", "CommandShortcut"], "source": "packages/ui/src/components/ui/command.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/command", "exports": ["Command", "CommandInput", "CommandList", "CommandEmpty", "CommandGroup", "CommandSeparator", "CommandItem", "CommandShortcut", "useCommand"], "source": "packages/ui-native/src/components/ui/command.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
+      "id": "ui.date-picker", "kind": "component", "summary": "Single date selector popover with inline calendar and localized formatting.",
+      "keywords": ["datepicker", "calendar", "popover", "input", "form"], "docs": "apps/tauri-app/content/docs/components/date-picker.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/date-picker", "exports": ["DatePicker", "DatePickerProps"], "source": "packages/ui/src/components/ui/date-picker.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/date-picker", "exports": ["DatePicker", "DatePickerProps"], "source": "packages/ui-native/src/components/ui/date-picker.tsx", "runtimes": ["browser", "native"]}
       }
     },
     {
@@ -173,6 +205,14 @@
       }
     },
     {
+      "id": "ui.toast", "kind": "component", "summary": "Zero-dependency reactive notifications with stacking, action triggers, and spring animations.",
+      "keywords": ["toast", "sonner", "notification", "alert", "snackbar"], "docs": "apps/tauri-app/content/docs/components/toast.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/toast", "exports": ["toast", "toastStore", "Toaster", "ToasterProps", "ToastData", "ToastAction"], "source": "packages/ui/src/components/ui/toast.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/toast", "exports": ["toast", "toastStore", "Toaster", "ToasterProps", "ToastData", "ToastAction"], "source": "packages/ui-native/src/components/ui/toast.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
       "id": "ui.toggle", "kind": "component", "summary": "A two-state button that can be either on or off.",
       "keywords": ["toggle", "pressed", "switch", "state"], "docs": "apps/tauri-app/content/docs/components/toggle.mdx",
       "implementations": {
@@ -228,6 +268,13 @@
         "react": {"import": "@package/pro/form-dialog", "exports": ["ProFormDialog", "ProFormDialogProps"], "source": "packages/pro/src/form/pro-form-dialog.tsx", "runtimes": ["browser", "tauri"]},
         "vue": {"import": "@package/pro-vue/src/form/pro-form-dialog.vue", "exports": ["default"], "source": "packages/pro-vue/src/form/pro-form-dialog.vue", "runtimes": ["browser", "tauri"], "defaultExport": "ProFormDialog", "example": "apps/vue-playground/src/views/forms-view.vue"},
         "svelte": {"import": "@package/pro-svelte/src/form/pro-form-dialog.svelte", "exports": ["default"], "source": "packages/pro-svelte/src/form/pro-form-dialog.svelte", "runtimes": ["browser", "tauri"], "defaultExport": "ProFormDialog", "example": "apps/svelte-playground/src/views/forms-view.svelte"}
+      }
+    },
+    {
+      "id": "block.form-drawer", "kind": "block", "summary": "Schema-driven slide-over drawer form for fast creation and inspection workflows.",
+      "keywords": ["drawer", "slideover", "form", "crud", "drawerform"], "docs": "apps/tauri-app/content/docs/blocks/pro-form-drawer.mdx",
+      "implementations": {
+        "react": {"import": "@package/pro/form-drawer", "exports": ["ProFormDrawer", "ProFormDrawerProps"], "source": "packages/pro/src/form/pro-form-drawer.tsx", "runtimes": ["browser", "tauri"]}
       }
     },
     {
