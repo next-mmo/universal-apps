@@ -1,7 +1,7 @@
 # PRD-0000: Product Requirement Index
 
 > Status: living document  
-> Updated: 2026-09-18
+> Updated: 2026-09-19
 
 ## Product architecture
 
@@ -22,6 +22,7 @@
 | **0004** | [Agent-token benchmark: three UI strategies](0004-agent-token-benchmark.md) | **approved** | Measures host-reported agent tokens for one matched todo app built three ways; round 1 smoke is n=1 per arm and its ordering is provisional |
 | **0005** | [Uniwind Bare React Native Support](0005-uniwind-bare-support.md) | **approved** | Official support, CLI starter scaffolding, Metro configuration, and documentation for Bare React Native with Uniwind |
 | **0006** | [Competitive Parity and Enterprise Pro Expansion](0006-competitive-parity-and-expansion.md) | **draft** | Expansion roadmap for high-demand primitives, Ant Design Pro parity blocks, data connectors, and native ergonomics |
+| **0007** | [Enterprise Admin Dashboard Application](0007-admin-dashboard-app.md) | **shipped** | Ant Design Pro and UmiJS inspired enterprise admin portal app (`apps/admin-dashboard`) powered by Full TanStack Suite, `@package/pro`, and `@package/ui` |
 
 ## Authority
 

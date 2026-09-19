@@ -1,3 +1,21 @@
+/**
+ * @agent-quickstart
+ * Minimal working usage for LLMs and agents:
+ * ```tsx
+ * import { ProDataTable } from '@package/pro/data-table';
+ *
+ * <ProDataTable
+ *   columns={[
+ *     { key: 'name', header: 'Name', valueType: 'text' },
+ *     { key: 'status', header: 'Status', valueType: 'status' },
+ *   ]}
+ *   data={rows}
+ *   loading={loading}
+ *   features={{ globalFilter: true, sorting: true, pagination: true }}
+ *   searchPlaceholder="Search records…"
+ * />
+ * ```
+ */
 import { flexRender } from '@tanstack/react-table';
 
 import { DataTablePagination } from './data-table-pagination';

@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+@import '@package/ui/src/styles/tokens.css';
+
+/* Tailwind scans this app directory only; shared packages are declared here. */
+@source '../../../packages/ui/src';
+@source '../../../packages/pro/src';
+@source '../../../packages/pro-core/src';
+
+:root {
+  --app-header-height: 3.5rem;
+  --app-sidebar-width: 16rem;
+  --app-sidebar-collapsed-width: 4.5rem;
+}

@@ -1,3 +1,29 @@
+/**
+ * @agent-quickstart
+ * Minimal working usage for LLMs and agents:
+ * ```tsx
+ * import { ProCrudPage, defineProResource } from '@package/pro/crud';
+ *
+ * const resource = defineProResource<ItemRow, ItemFormValues>({
+ *   id: 'items',
+ *   title: 'Items',
+ *   getRowId: (row) => String(row.id),
+ *   columns: [
+ *     { key: 'title', header: 'Title', valueType: 'text' },
+ *     { key: 'status', header: 'Status', valueType: 'status' },
+ *   ],
+ *   table: { features: { globalFilter: true, sorting: true, pagination: true } },
+ *   form: {
+ *     schema: [{ fields: [{ name: 'title', label: 'Title', type: 'text', required: true }] }],
+ *     create: { title: 'New item', values: { title: '' }, submitLabel: 'Create' },
+ *   },
+ * });
+ *
+ * export function ItemsPage() {
+ *   return <ProCrudPage resource={resource} controller={{ rows, create, update, remove }} />;
+ * }
+ * ```
+ */
 import { useMemo, useState } from 'react';
 import { PlusIcon } from 'lucide-react';
 

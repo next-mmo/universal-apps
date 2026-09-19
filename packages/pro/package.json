@@ -6,6 +6,11 @@
   "exports": {
     "./app-shell": "./src/layout/app-shell.tsx",
     "./app-frame": "./src/layout/app-frame.tsx",
+    "./pro-layout": "./src/layout/pro-layout.tsx",
+    "./page-container": "./src/layout/page-container.tsx",
+    "./error-boundary": "./src/layout/pro-error-boundary.tsx",
+    "./tabs": "./src/tabs/pro-tabs.tsx",
+    "./access": "./src/access/access.tsx",
     "./crud": "./src/crud/pro-crud-page.tsx",
     "./data-table": "./src/data-table/pro-data-table.tsx",
     "./descriptions": "./src/descriptions/pro-descriptions.tsx",
@@ -15,11 +20,12 @@
     "./form-dialog": "./src/form/pro-form-dialog.tsx",
     "./form-drawer": "./src/form/pro-form-drawer.tsx",
     "./step-form": "./src/form/pro-step-form.tsx",
-    "./page-container": "./src/layout/page-container.tsx",
     "./src/data-table/*": "./src/data-table/*.tsx",
     "./src/form/*": "./src/form/*.tsx",
     "./src/layout/*": "./src/layout/*.tsx",
-    "./src/table/*": "./src/table/*.tsx"
+    "./src/table/*": "./src/table/*.tsx",
+    "./src/tabs/*": "./src/tabs/*.tsx",
+    "./src/access/*": "./src/access/*.tsx"
   },
   "dependencies": {
     "@package/pro-core": "workspace:*",
@@ -27,7 +33,9 @@
     "@tanstack/react-form": "^1.0.0",
     "@tanstack/react-query": "^5.0.0",
     "@tanstack/react-router": "^1.0.0",
+    "@tanstack/react-store": "^0.7.0",
     "@tanstack/react-table": "^9.2.3",
+    "@tanstack/store": "^0.7.0",
     "lucide-react": "^0.545.0",
     "react": "19.2.6"
   },
