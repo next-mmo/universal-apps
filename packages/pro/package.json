@@ -9,13 +9,16 @@
     "./crud": "./src/crud/pro-crud-page.tsx",
     "./data-table": "./src/data-table/pro-data-table.tsx",
     "./descriptions": "./src/descriptions/pro-descriptions.tsx",
+    "./filter-toolbar": "./src/table/pro-filter-toolbar.tsx",
     "./form": "./src/form/pro-form.tsx",
     "./form-dialog": "./src/form/pro-form-dialog.tsx",
     "./form-drawer": "./src/form/pro-form-drawer.tsx",
+    "./step-form": "./src/form/pro-step-form.tsx",
     "./page-container": "./src/layout/page-container.tsx",
     "./src/data-table/*": "./src/data-table/*.tsx",
     "./src/form/*": "./src/form/*.tsx",
-    "./src/layout/*": "./src/layout/*.tsx"
+    "./src/layout/*": "./src/layout/*.tsx",
+    "./src/table/*": "./src/table/*.tsx"
   },
   "dependencies": {
     "@package/pro-core": "workspace:*",

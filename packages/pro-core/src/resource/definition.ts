@@ -52,3 +52,5 @@ export function defineProResource<TRow, TValues extends object>(
 ): ProResourceConfig<TRow, TValues> {
   return config;
 }
+
+export * from './data-provider';

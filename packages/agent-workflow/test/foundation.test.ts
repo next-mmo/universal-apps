@@ -8,6 +8,7 @@ import type { AgentCatalog, Implementation } from '../src/catalog.ts';
 import { planChecks, runCommand, discoverWorkspaces } from '../src/checks.ts';
 import type { Workspace } from '../src/checks.ts';
 import { createAsyncTask, TaskCancelledError } from '../../core/src/async-task.ts';
+import { createMemoryDataProvider, createLocalStorageDataProvider } from '../../pro-core/src/resource/data-provider.ts';
 
 async function fixture(run: (root: string, put: (name: string, value: string) => Promise<void>) => Promise<void>) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'universal-foundation-'));
@@ -240,3 +241,51 @@ test('legacy extensionless imports validate without weakening explicit exports m
   await put('packages/example/package.json', JSON.stringify({ name: '@example/ui', exports: { './other': './button.tsx' } }));
   assert.match((await validateCatalog(root, snapshot)).join('\n'), /does not export/);
 }));
+
+test('universal DataProvider handles CRUD, sort, filter, and pagination', async () => {
+  const provider = createMemoryDataProvider({
+    users: [
+      { id: '1', name: 'Alice', role: 'admin' },
+      { id: '2', name: 'Bob', role: 'member' },
+      { id: '3', name: 'Charlie', role: 'member' },
+    ],
+  });
+
+  // Filter & sort
+  const list = await provider.getList('users', {
+    filters: { role: 'member' },
+    sort: { field: 'name', order: 'desc' },
+    pagination: { page: 1, pageSize: 1 },
+  });
+  assert.equal(list.total, 2);
+  assert.equal(list.data.length, 1);
+  assert.equal((list.data[0] as any).name, 'Charlie');
+
+  // Create
+  const created = await provider.create('users', { name: 'Dave', role: 'guest' });
+  assert.equal((created as any).name, 'Dave');
+  assert.ok((created as any).id);
+
+  // Update
+  const updated = await provider.update('users', (created as any).id, { role: 'member' });
+  assert.equal((updated as any).role, 'member');
+
+  // Delete
+  const deleted = await provider.delete('users', (created as any).id);
+  assert.equal(deleted.id, (created as any).id);
+
+  // LocalStorage provider
+  const mockStore = new Map<string, string>();
+  const storageProvider = createLocalStorageDataProvider({
+    prefix: 'test_',
+    storage: {
+      getItem: (k) => mockStore.get(k) ?? null,
+      setItem: (k, v) => mockStore.set(k, v),
+    },
+  });
+  const item = await storageProvider.create('todos', { title: 'Test Todo' });
+  assert.ok(mockStore.has('test_todos'));
+  const fetched = await storageProvider.getOne('todos', (item as any).id);
+  assert.equal((fetched as any).title, 'Test Todo');
+});
+

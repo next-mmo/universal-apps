@@ -1,0 +1,58 @@
+---
+title: ProFilterToolbar
+description: Ant Design Pro QueryFilter parity — collapsible search and query filter bar for tables and lists.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+A collapsible search and filtering toolbar designed to connect directly with table queries and server filters.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add pro-filter-toolbar
+```
+  </Tab>
+  <Tab value="Manual">
+Import from `@package/pro/filter-toolbar`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import { ProFilterToolbar } from '@package/pro/filter-toolbar';
+
+export function Example() {
+  return (
+    <ProFilterToolbar
+      fields={[
+        { name: 'query', label: 'Search Keyword', type: 'text', placeholder: 'Search users...' },
+        {
+          name: 'role',
+          label: 'Role',
+          type: 'select',
+          options: [
+            { label: 'Admin', value: 'admin' },
+            { label: 'User', value: 'user' },
+            { label: 'Guest', value: 'guest' },
+          ],
+        },
+        { name: 'date', label: 'Registered Date', type: 'date' },
+      ]}
+      onFilter={(filters) => {
+        console.log('Applied filters:', filters);
+      }}
+      onReset={() => {
+        console.log('Filters reset');
+      }}
+    />
+  );
+}
+```

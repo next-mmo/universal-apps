@@ -398,6 +398,60 @@ const record = {
 | `schema` | `ProFieldSchema[]` | `undefined` |
 | `items` | `ProDescriptionsItemConfig[]` | `undefined` |
 
+## ProFilterToolbar
+
+Source: `apps/tauri-app/content/docs/blocks/pro-filter-toolbar.mdx`
+
+A collapsible search and filtering toolbar designed to connect directly with table queries and server filters.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add pro-filter-toolbar
+```
+  </Tab>
+  <Tab value="Manual">
+Import from `@package/pro/filter-toolbar`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+
+  return (
+    <ProFilterToolbar
+      fields={[
+        { name: 'query', label: 'Search Keyword', type: 'text', placeholder: 'Search users...' },
+        {
+          name: 'role',
+          label: 'Role',
+          type: 'select',
+          options: [
+            { label: 'Admin', value: 'admin' },
+            { label: 'User', value: 'user' },
+            { label: 'Guest', value: 'guest' },
+          ],
+        },
+        { name: 'date', label: 'Registered Date', type: 'date' },
+      ]}
+      onFilter={(filters) => {
+        console.log('Applied filters:', filters);
+      }}
+      onReset={() => {
+        console.log('Filters reset');
+      }}
+    />
+  );
+}
+```
+
 ## ProForm
 
 Source: `apps/tauri-app/content/docs/blocks/pro-form.mdx`
@@ -550,6 +604,71 @@ Import from `@package/pro/form-drawer`.
       onSubmit={async (values) => {
         console.log('Submitted', values);
         return true; // Closes drawer on success
+      }}
+    />
+  );
+}
+```
+
+## ProStepForm
+
+Source: `apps/tauri-app/content/docs/blocks/pro-step-form.mdx`
+
+A multi-step wizard form component with step progress indicators, per-step validation, and persistent state management across steps.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add pro-step-form
+```
+  </Tab>
+  <Tab value="Manual">
+Import from `@package/pro/step-form`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+
+  return (
+    <ProStepForm
+      steps={[
+        {
+          title: 'Account',
+          description: 'Basic credentials',
+          schema: [
+            {
+              title: 'Account Details',
+              fields: [
+                { name: 'username', label: 'Username', type: 'text', required: true },
+                { name: 'email', label: 'Email', type: 'text', required: true },
+              ],
+            },
+          ],
+        },
+        {
+          title: 'Profile',
+          description: 'Personal info',
+          schema: [
+            {
+              title: 'Bio & Details',
+              fields: [
+                { name: 'bio', label: 'Bio', type: 'textarea' },
+              ],
+            },
+          ],
+        },
+      ]}
+      defaultValues={{ username: '', email: '', bio: '' }}
+      onSubmit={async (allValues) => {
+        console.log('Finished wizard:', allValues);
       }}
     />
   );

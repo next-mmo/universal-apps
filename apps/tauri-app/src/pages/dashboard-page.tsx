@@ -35,8 +35,62 @@ import { Combobox } from '@package/ui/combobox';
 import { DatePicker } from '@package/ui/date-picker';
 import { toast } from '@package/ui/toast';
 import { ProDescriptions, ProDescriptionsItem } from '@package/pro/descriptions';
+import { ProFilterToolbar } from '@package/pro/filter-toolbar';
 import { ProFormDrawer } from '@package/pro/form-drawer';
+import { ProStepForm } from '@package/pro/step-form';
 import type { ProFormGroup } from '@package/pro-core/form';
+
+const onboardingSteps = [
+  {
+    title: 'Workspace',
+    description: 'Project fundamentals',
+    schema: [
+      {
+        fields: [
+          { name: 'projectName', label: 'Project Name', type: 'text' as const, required: true, placeholder: 'e.g. Acme Cloud' },
+          { name: 'organization', label: 'Organization', type: 'text' as const, placeholder: 'e.g. Acme Corp' },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Deployment',
+    description: 'Target environments',
+    schema: [
+      {
+        fields: [
+          {
+            name: 'environment',
+            label: 'Default Environment',
+            type: 'select' as const,
+            options: [
+              { label: 'Production (Edge)', value: 'prod' },
+              { label: 'Staging', value: 'staging' },
+              { label: 'Development', value: 'dev' },
+            ],
+          },
+          { name: 'notifyOnDeploy', label: 'Email notifications on deploy', type: 'switch' as const },
+        ],
+      },
+    ],
+  },
+];
+
+const filterFields = [
+  { name: 'search', label: 'Keyword', type: 'text' as const, placeholder: 'Search audits...' },
+  {
+    name: 'status',
+    label: 'Status',
+    type: 'select' as const,
+    options: [
+      { label: 'All', value: 'all' },
+      { label: 'Active', value: 'active' },
+      { label: 'Completed', value: 'completed' },
+      { label: 'Archived', value: 'archived' },
+    ],
+  },
+  { name: 'date', label: 'Audit Date', type: 'date' as const },
+];
 
 const quickTaskSchema: ProFormGroup[] = [
   {
@@ -126,7 +180,7 @@ export default function DashboardPage() {
           platform: 'Tauri 2 + React 19',
           styling: 'Tailwind CSS v4 (Tokens)',
           reactNativeParity: true,
-          componentsTotal: 27,
+          componentsTotal: 31,
           offlineCapable: true,
           buildTool: 'Vite 7',
         }}
@@ -272,6 +326,56 @@ export default function DashboardPage() {
               return true;
             }}
           />
+        </CardContent>
+      </Card>
+
+      {/* Phase 3 Enterprise Pro Showcase */}
+      <Card className='mt-4'>
+        <CardHeader>
+          <CardTitle>Phase 3 Enterprise Pro: FilterToolbar & StepForm Wizard</CardTitle>
+          <CardDescription>
+            Ant Design Pro QueryFilter and StepsForm parity with zero runtime styling overhead and per-step validation.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className='flex flex-col gap-6'>
+          {/* Filter Toolbar Demo */}
+          <div className='flex flex-col gap-2'>
+            <div className='text-xs font-semibold text-muted-foreground uppercase tracking-wider'>
+              QueryFilter Toolbar
+            </div>
+            <ProFilterToolbar
+              fields={filterFields}
+              onFilter={(filters) => {
+                toast.info('Applied filter query', {
+                  description: JSON.stringify(filters),
+                });
+              }}
+              onReset={() => {
+                toast.info('Filters reset to defaults');
+              }}
+            />
+          </div>
+
+          {/* Multi-Step Wizard Form Demo */}
+          <div className='flex flex-col gap-2'>
+            <div className='text-xs font-semibold text-muted-foreground uppercase tracking-wider'>
+              StepsForm Wizard
+            </div>
+            <ProStepForm
+              steps={onboardingSteps}
+              defaultValues={{
+                projectName: 'Acme Mobile App',
+                organization: 'Acme Global',
+                environment: 'prod',
+                notifyOnDeploy: true,
+              }}
+              onSubmit={async (values) => {
+                toast.success('Workspace created via StepForm!', {
+                  description: `Project: ${String(values.projectName)} (${String(values.environment)})`,
+                });
+              }}
+            />
+          </div>
         </CardContent>
       </Card>
     </PageContainer>

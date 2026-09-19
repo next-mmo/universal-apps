@@ -253,6 +253,13 @@
       }
     },
     {
+      "id": "block.filter-toolbar", "kind": "block", "summary": "Collapsible query filter toolbar with search, select, and date pickers.",
+      "keywords": ["filter", "toolbar", "query", "search", "queryfilter"], "docs": "apps/tauri-app/content/docs/blocks/pro-filter-toolbar.mdx",
+      "implementations": {
+        "react": {"import": "@package/pro/filter-toolbar", "exports": ["ProFilterToolbar", "ProFilterToolbarProps", "FilterField", "FilterOption"], "source": "packages/pro/src/table/pro-filter-toolbar.tsx", "runtimes": ["browser", "tauri"]}
+      }
+    },
+    {
       "id": "block.form", "kind": "block", "summary": "Schema-driven form with groups, validation, and submit lifecycle.",
       "keywords": ["fields", "validation", "submit"], "docs": "apps/tauri-app/content/docs/blocks/pro-form.mdx",
       "implementations": {
@@ -275,6 +282,13 @@
       "keywords": ["drawer", "slideover", "form", "crud", "drawerform"], "docs": "apps/tauri-app/content/docs/blocks/pro-form-drawer.mdx",
       "implementations": {
         "react": {"import": "@package/pro/form-drawer", "exports": ["ProFormDrawer", "ProFormDrawerProps"], "source": "packages/pro/src/form/pro-form-drawer.tsx", "runtimes": ["browser", "tauri"]}
+      }
+    },
+    {
+      "id": "block.step-form", "kind": "block", "summary": "Multi-step wizard form with per-step validation and progress tracking.",
+      "keywords": ["wizard", "step", "form", "stepsform", "stepper"], "docs": "apps/tauri-app/content/docs/blocks/pro-step-form.mdx",
+      "implementations": {
+        "react": {"import": "@package/pro/step-form", "exports": ["ProStepForm", "ProStepFormProps", "ProStepItem"], "source": "packages/pro/src/form/pro-step-form.tsx", "runtimes": ["browser", "tauri"]}
       }
     },
     {
@@ -304,6 +318,11 @@
       "id": "core.form-schema", "kind": "contract", "summary": "Framework-free field schemas, groups, values, and synchronous validation.",
       "keywords": ["form", "validation", "schema"], "docs": "apps/tauri-app/content/docs/pro-core.mdx",
       "implementations": {"core": {"import": "@package/pro-core/form", "exports": ["ProFieldSchema", "ProFormGroup", "ProFormValues", "validateField"], "source": "packages/pro-core/src/form/schema.ts", "consumers": ["react", "vue", "svelte", "native"], "runtimes": ["browser", "tauri", "native", "server"]}}
+    },
+    {
+      "id": "core.data-provider", "kind": "contract", "summary": "Framework-free DataProvider interface with Memory, LocalStorage, and REST adapters.",
+      "keywords": ["data", "provider", "rest", "storage", "crud", "query"], "docs": "apps/tauri-app/content/docs/pro-core.mdx",
+      "implementations": {"core": {"import": "@package/pro-core/data-provider", "exports": ["PaginationParams", "SortParams", "FilterParams", "GetListParams", "GetListResult", "DataProvider", "createMemoryDataProvider", "createLocalStorageDataProvider", "createRestDataProvider"], "source": "packages/pro-core/src/resource/data-provider.ts", "consumers": ["react", "vue", "svelte", "native"], "runtimes": ["browser", "tauri", "native", "server"]}}
     },
     {
       "id": "core.table", "kind": "contract", "summary": "Framework-free column DSL, table features, queries, filtering, sorting, and paging.",

@@ -6,9 +6,11 @@
     "pro-crud-page",
     "pro-data-table",
     "pro-descriptions",
+    "pro-filter-toolbar",
     "pro-form",
     "pro-form-dialog",
     "pro-form-drawer",
+    "pro-step-form",
     "app-shell",
     "page-container"
   ]

@@ -7,6 +7,7 @@
     "./form": "./src/form/schema.ts",
     "./query": "./src/query/keys.ts",
     "./resource": "./src/resource/definition.ts",
+    "./data-provider": "./src/resource/data-provider.ts",
     "./table": "./src/table/columns.ts",
     "./table-engine": "./src/table/client-engine.ts",
     "./table-features": "./src/table/features.ts",
