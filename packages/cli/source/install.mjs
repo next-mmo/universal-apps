@@ -12,6 +12,53 @@ const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const hash = (value) => crypto.createHash('sha256').update(value).digest('hex');
 const slash = (value) => value.split(path.sep).join('/');
 
+/** Blank comment interiors, keeping offsets and strings, so documentation examples cannot read as live workspace imports. */
+export function maskComments(text) {
+  const keywords = new Set(['await', 'case', 'delete', 'do', 'else', 'in', 'instanceof', 'new', 'of', 'return', 'throw', 'typeof', 'void', 'yield']);
+  const chars = text.split('');
+  let index = 0, word = '', previous = '';
+  const blank = (end) => { for (let at = index; at < end; at++) if (chars[at] !== '\n') chars[at] = ' '; index = end; };
+  while (index < chars.length) {
+    const char = chars[index], next = chars[index + 1];
+    if (char === '/' && (next === '/' || next === '*')) {
+      const end = next === '/' ? text.indexOf('\n', index) : text.indexOf('*/', index + 2);
+      blank(end === -1 ? chars.length : next === '/' ? end : end + 2);
+      previous = '/'; word = '';
+      continue;
+    }
+    if (char === "'" || char === '"' || char === '`') {
+      index += 1;
+      while (index < chars.length && chars[index] !== char) index += chars[index] === '\\' ? 2 : 1;
+      index += 1; previous = char; word = '';
+      continue;
+    }
+    // A slash after an operator or keyword opens a regex literal whose class contents are not comments.
+    if (char === '/' && (previous === '' || '([{,;=:?!&|+-*%<>~^'.includes(previous) || keywords.has(word))) {
+      index += 1;
+      let characterClass = false;
+      while (index < chars.length && chars[index] !== '\n') {
+        const inner = chars[index];
+        if (inner === '\\') { index += 2; continue; }
+        if (inner === '[') characterClass = true;
+        else if (inner === ']') characterClass = false;
+        else if (inner === '/' && !characterClass) break;
+        index += 1;
+      }
+      index += 1; previous = '/'; word = '';
+      continue;
+    }
+    if (/[A-Za-z0-9_$]/.test(char)) {
+      const start = index;
+      while (index < chars.length && /[A-Za-z0-9_$]/.test(chars[index])) index += 1;
+      word = text.slice(start, index); previous = 'x';
+      continue;
+    }
+    if (!/\s/.test(char)) { previous = char; word = ''; }
+    index += 1;
+  }
+  return chars.join('');
+}
+
 /** Refuse traversal, absolute targets and symlink ancestors before any write. */
 export function safePath(cwd, value) {
   if (typeof value !== 'string' || !value || path.isAbsolute(value) || /^[A-Za-z]:/.test(value) || value.includes('\\') || value.includes('\0') || value.split('/').some((part) => ['..', '.git', 'node_modules'].includes(part))) throw new Error(`Unsafe project path: ${value}`);
@@ -247,7 +294,7 @@ export function doctor(cwd, registry) {
   else for (const file of Object.keys(readJson(receiptFile).files ?? {})) {
     const target = safePath(cwd, file);
     if (!fs.existsSync(target)) { problems.push(`Missing source file: ${file}`); continue; }
-    if (/\.(?:[cm]?[jt]sx?|vue|svelte|css)$/.test(file) && /(?:from\s*|import\s*(?:\(\s*)?|require\s*\(\s*)["']@package\//.test(fs.readFileSync(target, 'utf8'))) problems.push(`Workspace import remains: ${file}`);
+    if (/\.(?:[cm]?[jt]sx?|vue|svelte|css)$/.test(file) && /(?:from\s*|import\s*(?:\(\s*)?|require\s*\(\s*)["']@package\//.test(maskComments(fs.readFileSync(target, 'utf8')))) problems.push(`Workspace import remains: ${file}`);
   }
   return { ok: problems.length === 0, sourceDir: config.sourceDir, problems, note: 'This checks source ownership, not framework compilation or third-party license compliance.' };
 }

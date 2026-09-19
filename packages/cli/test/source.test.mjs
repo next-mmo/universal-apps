@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { buildRegistry, moduleReferences, runtimePackages } from '../source/graph.mjs';
 import { buildDistribution } from '../../../scripts/build-source-registry.mjs';
-import { initialize, safePath, validateRegistry, planInstall, applyPlan, diffItems, doctor, selectItems } from '../source/install.mjs';
+import { initialize, safePath, validateRegistry, planInstall, applyPlan, diffItems, doctor, selectItems, maskComments } from '../source/install.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const scratch = path.resolve(here, '../../../.source-test-tmp');
@@ -141,6 +141,33 @@ test('doctor detects deleted source and reintroduced workspace imports', (t) => 
   fs.unlinkSync(path.join(f.cwd, 'src/lib/universal/core/value.ts'));
   f.put('consumer/src/lib/universal/ui/lib/cn.ts', 'export * from "@package/ui/cn"');
   const report = doctor(f.cwd, r); assert.equal(report.ok, false); assert.equal(report.problems.length, 2);
+});
+test('comment masking keeps strings, regexes and code while blanking comment interiors', () => {
+  const masked = maskComments([
+    '/** Example: import { x } from "@package/ui/cn"; */',
+    'const pattern = /[/*]/; // split from "@package/ui"',
+    'const note = "the text /* not a comment */ stays";',
+    'const keep = `template ${pattern} // not a comment`;',
+    'import { real } from "@package/ui/cn";',
+  ].join('\n'));
+  assert.match(masked, /import \{ real \} from "@package\/ui\/cn";/);
+  assert.match(masked, /the text \/\* not a comment \*\/ stays/);
+  assert.match(masked, /template \$\{pattern\} \/\/ not a comment/);
+  assert.doesNotMatch(masked, /Example: import/);
+  assert.doesNotMatch(masked, /split from/);
+});
+test('doctor ignores workspace imports quoted inside comments and doc examples', (t) => {
+  const f = fixture(t); initialize(f.cwd); const r = f.build(); applyPlan(planInstall(f.cwd, r, ['button']), { noInstall: true });
+  f.put('consumer/src/lib/universal/ui/lib/cn.ts', [
+    '/**',
+    ' * @agent-quickstart',
+    " * import { cn } from '@package/ui/cn';",
+    ' */',
+    '// const legacy = require("@package/ui/cn");',
+    'import { clsx } from "clsx";',
+    'export const cn = clsx;',
+  ].join('\n'));
+  assert.equal(doctor(f.cwd, r).ok, true);
 });
 test('generated framework-neutral code compiles and runs without the CLI or workspace', (t) => {
   const f = fixture(t); initialize(f.cwd); applyPlan(planInstall(f.cwd, f.build(), ['core']), { noInstall: true });
