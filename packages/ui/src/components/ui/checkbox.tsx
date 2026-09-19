@@ -25,4 +25,6 @@ function Checkbox({ className, ...props }: ComponentProps<typeof CheckboxPrimiti
   );
 }
 
+export type CheckboxProps = ComponentProps<typeof CheckboxPrimitive.Root>;
+
 export { Checkbox };

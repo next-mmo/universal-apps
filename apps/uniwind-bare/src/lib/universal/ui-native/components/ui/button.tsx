@@ -2,8 +2,8 @@ import { Pressable, Text } from 'react-native';
 import { cn } from '../../../ui/lib/cn';
 import type { ComponentProps, ReactNode } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
-type ButtonVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
-type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
+export type ButtonVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+export type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
 export interface ButtonProps extends Omit<ComponentProps<typeof Pressable>, 'children' | 'style'> {
     variant?: ButtonVariant;
     size?: ButtonSize;
@@ -51,6 +51,12 @@ const sizeClasses: Record<ButtonSize, {
         container: 'h-9 w-9 px-0', text: 'text-sm'
     },
 };
+
+export const buttonVariants = {
+    variants: variantClasses,
+    sizes: sizeClasses,
+};
+
 /** Shared semantic radius, with native text styling kept on the inner Text. */
 export function Button({ className, variant = 'default', size = 'default', style, disabled, onPress, children, ...props }: ButtonProps) {
     const variantClass = variantClasses[variant];

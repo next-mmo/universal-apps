@@ -3,11 +3,15 @@
   "defaultOpen": true,
   "pages": [
     "accordion",
+    "animated-tabs",
+    "avatar",
     "badge",
     "button",
     "card",
     "checkbox",
     "dialog",
+    "drawer",
+    "drawer-interactive",
     "dropdown-menu",
     "input",
     "label",
@@ -19,6 +23,8 @@
     "table",
     "tabs",
     "textarea",
+    "toggle",
+    "toggle-group",
     "tooltip"
   ]
 }

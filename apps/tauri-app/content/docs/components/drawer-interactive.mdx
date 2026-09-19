@@ -1,0 +1,72 @@
+---
+title: Interactive Drawer
+description: 120 FPS gesture-driven bottom sheet powered by react-native-reanimated with finger tracking, rubber-banding, and flick dismiss.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+A mobile bottom sheet that executes worklets directly on the native UI thread, allowing interactive dragging with velocity-based flick dismiss and rubber-banding.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add drawer-interactive --framework native
+```
+  </Tab>
+  <Tab value="Manual">
+Install peer dependencies `react-native-reanimated` and `react-native-gesture-handler`, then copy `drawer-interactive.tsx`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import {
+  InteractiveDrawer,
+  InteractiveDrawerClose,
+  InteractiveDrawerContent,
+  InteractiveDrawerDescription,
+  InteractiveDrawerFooter,
+  InteractiveDrawerHeader,
+  InteractiveDrawerTitle,
+} from '@package/ui-native/drawer-interactive';
+import { Button } from '@package/ui-native';
+import { useState } from 'react';
+
+export function Example() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onPress={() => setOpen(true)}>Open Interactive Sheet</Button>
+      <InteractiveDrawer open={open} onOpenChange={setOpen}>
+        <InteractiveDrawerHeader>
+          <InteractiveDrawerTitle>Interactive Bottom Sheet</InteractiveDrawerTitle>
+          <InteractiveDrawerDescription>
+            Drag down to dismiss or flick with downward velocity.
+          </InteractiveDrawerDescription>
+        </InteractiveDrawerHeader>
+        <InteractiveDrawerFooter>
+          <InteractiveDrawerClose>
+            <Button variant="outline">Close</Button>
+          </InteractiveDrawerClose>
+        </InteractiveDrawerFooter>
+      </InteractiveDrawer>
+    </>
+  );
+}
+```
+
+---
+
+## Key Features
+
+- **120 FPS UI Thread**: Animation worklets execute directly on native thread via JSI.
+- **Physical Gestures**: Pan gesture tracking with upward resistance rubber-banding.
+- **Velocity Dismiss**: Automatically detects downward flick velocity ($> 600\text{ px/s}$) to dismiss smoothly.

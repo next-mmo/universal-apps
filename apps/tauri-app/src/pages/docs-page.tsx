@@ -90,7 +90,7 @@ export default function DocsRoute() {
   const markdownUrl = `/docs/${page.path.replace(/\.mdx?$/, '')}.md`;
 
   return (
-    <RootProvider>
+    <RootProvider search={{ enabled: false }}>
       <PlatformProvider>
         <DocsLayout
           tree={source.getPageTree()}

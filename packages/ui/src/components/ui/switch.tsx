@@ -24,4 +24,7 @@ function Switch({ className, ...props }: ComponentProps<typeof SwitchPrimitive.R
   );
 }
 
+export type SwitchProps = ComponentProps<typeof SwitchPrimitive.Root>;
+
 export { Switch };
+

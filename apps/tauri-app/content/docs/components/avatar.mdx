@@ -1,0 +1,31 @@
+---
+title: Avatar
+description: An image element with a fallback for representing the user.
+---
+
+Displays an avatar image with an initials fallback. Source: `packages/ui/src/components/ui/avatar.tsx`.
+
+## Import
+
+```ts
+import { Avatar, AvatarImage, AvatarFallback } from '@package/ui/avatar';
+```
+
+## Usage
+
+```tsx
+import { Avatar, AvatarImage, AvatarFallback } from '@package/ui/avatar';
+
+<Avatar>
+  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+  <AvatarFallback>CN</AvatarFallback>
+</Avatar>
+```
+
+## API
+
+| Component | Description |
+| --------- | ----------- |
+| `Avatar` | The root container supporting `size` (`sm`, `default`, `lg`, `xl`) and `shape` (`circle`, `square`). |
+| `AvatarImage` | The image element with automatic fallback dispatch on load error. |
+| `AvatarFallback` | Displayed when the image is loading or fails to load. |

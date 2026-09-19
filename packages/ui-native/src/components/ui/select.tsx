@@ -39,7 +39,7 @@ export function Select({
       if (!node || typeof node !== 'object' || !('type' in node)) continue;
       const el = node as { type?: unknown; props?: Record<string, unknown>; propsChildren?: unknown };
       if (el.type === SelectValue && el.props) {
-        label = (el.props.children as ReactNode) ?? value;
+        label = (el.props.children as ReactNode) ?? (el.props.placeholder as ReactNode) ?? value;
       } else if (el.type === SelectItem && el.props) {
         const itemValue = el.props.value as string | undefined;
         if (itemValue !== undefined) {
@@ -48,6 +48,11 @@ export function Select({
             label: (el.props.children as ReactNode) ?? itemValue,
           });
         }
+      } else if (
+        (el.type === SelectContent || el.type === SelectGroup || el.type === SelectTrigger) &&
+        el.props
+      ) {
+        walk(el.props.children as ReactNode);
       }
     }
   };
@@ -92,21 +97,26 @@ export function Select({
 }
 
 /** Marker components so DOM JSX trees port without rewrites. */
-export const SelectValue = ({ children }: { children?: ReactNode }) => <>{children}</>;
+export const SelectValue = ({ placeholder, children }: { placeholder?: string; children?: ReactNode }) => <>{children ?? placeholder}</>;
 // `value` is read by the parent Select via child props walking, not here.
 export const SelectItem = ({ children }: { value?: string; children?: ReactNode }) => <>{children}</>;
 export const SelectGroup = ({ children }: { children?: ReactNode }) => <>{children}</>;
 export const SelectLabel = ({ children }: { children?: ReactNode }) => <Text className='px-2 py-1.5 font-sans text-xs text-muted-foreground'>{children}</Text>;
+export const SelectContent = ({ children }: { children?: ReactNode }) => <>{children}</>;
+export const SelectSeparator = () => <View className='-mx-1 my-1 h-px bg-border' />;
 
-/** Composed trigger with explicit label, for non-marker usage. */
+/** Composed trigger with explicit label or children, for non-marker usage. */
 export function SelectTrigger({
   label,
   className,
   style,
+  children,
+  ...props
 }: {
-  label: ReactNode;
+  label?: ReactNode;
   className?: string;
   style?: StyleProp<ViewStyle>;
+  children?: ReactNode;
 }) {
   return (
     <View
@@ -116,9 +126,14 @@ export function SelectTrigger({
         className,
       )}
       style={style}
+      {...props}
     >
-      <Text className='font-sans text-sm text-foreground'>{label}</Text>
-      <Text className='font-sans text-sm text-muted-foreground'>⌄</Text>
+      {children ?? (
+        <>
+          <Text className='font-sans text-sm text-foreground'>{label}</Text>
+          <Text className='font-sans text-sm text-muted-foreground'>⌄</Text>
+        </>
+      )}
     </View>
   );
 }

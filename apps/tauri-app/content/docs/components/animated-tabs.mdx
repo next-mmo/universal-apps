@@ -1,0 +1,59 @@
+---
+title: Animated Tabs
+description: Fluid navigation tabs with a hardware-accelerated sliding pill indicator and zero external runtime dependencies.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+Fluid navigation tabs where the active background pill smoothly slides between tab triggers using CSS GPU transforms and `MutationObserver` layout measurement.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add animated-tabs
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `animated-tabs.tsx` to your components directory and import from `@package/ui/animated-tabs`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import {
+  AnimatedTabs,
+  AnimatedTabsList,
+  AnimatedTabsTrigger,
+  AnimatedTabsContent,
+} from '@package/ui/animated-tabs';
+
+export function Example() {
+  return (
+    <AnimatedTabs defaultValue="metrics">
+      <AnimatedTabsList>
+        <AnimatedTabsTrigger value="metrics">Metrics</AnimatedTabsTrigger>
+        <AnimatedTabsTrigger value="logs">Logs</AnimatedTabsTrigger>
+        <AnimatedTabsTrigger value="settings">Settings</AnimatedTabsTrigger>
+      </AnimatedTabsList>
+      <AnimatedTabsContent value="metrics">Metrics Overview</AnimatedTabsContent>
+      <AnimatedTabsContent value="logs">System Logs</AnimatedTabsContent>
+      <AnimatedTabsContent value="settings">Configuration</AnimatedTabsContent>
+    </AnimatedTabs>
+  );
+}
+```
+
+---
+
+## Key Features
+
+- **Zero Extra Dependencies**: Runs on standard CSS transitions and browser compositor threads.
+- **Auto-Positioning**: Automatically calculates offset and width on tab selection and window resize.
+- **Keyboard Accessible**: Arrow key navigation with automatic indicator sync.

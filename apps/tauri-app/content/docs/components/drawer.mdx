@@ -1,0 +1,65 @@
+---
+title: Drawer
+description: A bottom sheet or slide-over panel for overlays and mobile workflows.
+---
+
+A slide-up panel component with backdrop dismiss and handle bar. Source: `packages/ui/src/components/ui/drawer.tsx`.
+
+## Import
+
+```ts
+import {
+  Drawer,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+} from '@package/ui/drawer';
+```
+
+## Usage
+
+```tsx
+import {
+  Drawer,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+} from '@package/ui/drawer';
+import { Button } from '@package/ui/button';
+
+<Drawer>
+  <DrawerTrigger asChild>
+    <Button variant="outline">Open Drawer</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Are you sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <Button>Submit</Button>
+      <DrawerClose asChild>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+```
+
+## API
+
+| Component | Description |
+| --------- | ----------- |
+| `Drawer` | Root state container accepting `open` and `onOpenChange`. |
+| `DrawerTrigger` | Trigger button or element. |
+| `DrawerContent` | Bottom sheet container with handle bar and rounded top corners. |
+| `DrawerHeader` | Header layout wrapper for title and description. |
+| `DrawerFooter` | Action buttons layout wrapper. |

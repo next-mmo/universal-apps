@@ -19,6 +19,12 @@ export default defineConfig(async ({ mode }) => ({
         exclude: ['node_modules/**', 'dist/**'],
       }),
   ].filter(Boolean),
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom'],
+  },
   clearScreen: false,
   server: {
     port: 1430,

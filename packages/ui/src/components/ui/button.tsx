@@ -33,4 +33,8 @@ function Button({ className, variant, size, asChild = false, ...props }: ButtonP
             variant, size, className
         }))} {...props}/>;
 }
+export type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+export type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
+
 export { Button, buttonVariants };
+

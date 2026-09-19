@@ -13,11 +13,27 @@
       }
     },
     {
+      "id": "ui.animated-tabs", "kind": "component", "summary": "Fluid navigation tabs with smooth sliding pill indicator.",
+      "keywords": ["tabs", "navigation", "animation", "indicator", "pill"],
+      "docs": "apps/tauri-app/content/docs/components/animated-tabs.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/animated-tabs", "exports": ["AnimatedTabs", "AnimatedTabsList", "AnimatedTabsTrigger", "AnimatedTabsContent"], "source": "packages/ui/src/components/ui/animated-tabs.tsx", "runtimes": ["browser", "tauri"]}
+      }
+    },
+    {
+      "id": "ui.avatar", "kind": "component", "summary": "An image element with a fallback for representing the user.",
+      "keywords": ["avatar", "image", "profile", "user"], "docs": "apps/tauri-app/content/docs/components/avatar.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/avatar", "exports": ["Avatar", "AvatarImage", "AvatarFallback", "avatarVariants", "AvatarProps", "AvatarImageProps", "AvatarFallbackProps"], "source": "packages/ui/src/components/ui/avatar.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/avatar", "exports": ["Avatar", "AvatarImage", "AvatarFallback", "avatarVariants", "AvatarProps", "AvatarImageProps", "AvatarFallbackProps", "AvatarSize", "AvatarShape"], "source": "packages/ui-native/src/components/ui/avatar.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
       "id": "ui.badge", "kind": "component", "summary": "Compact semantic status label with visual variants.",
       "keywords": ["status", "tag", "label"], "docs": "apps/tauri-app/content/docs/components/badge.mdx",
       "implementations": {
         "react": {"import": "@package/ui/badge", "exports": ["Badge", "badgeVariants", "BadgeProps"], "source": "packages/ui/src/components/ui/badge.tsx", "runtimes": ["browser", "tauri"]},
-        "native": {"import": "@package/ui-native/src/components/ui/badge", "exports": ["Badge"], "source": "packages/ui-native/src/components/ui/badge.tsx", "runtimes": ["browser", "native"]}
+        "native": {"import": "@package/ui-native/src/components/ui/badge", "exports": ["Badge", "badgeVariants", "BadgeProps"], "source": "packages/ui-native/src/components/ui/badge.tsx", "runtimes": ["browser", "native"]}
       }
     },
     {
@@ -25,7 +41,7 @@
       "keywords": ["action", "click", "submit"], "docs": "apps/tauri-app/content/docs/components/button.mdx",
       "implementations": {
         "react": {"import": "@package/ui/button", "exports": ["Button", "buttonVariants", "ButtonProps"], "source": "packages/ui/src/components/ui/button.tsx", "runtimes": ["browser", "tauri"]},
-        "native": {"import": "@package/ui-native/src/components/ui/button", "exports": ["Button", "ButtonProps"], "source": "packages/ui-native/src/components/ui/button.tsx", "runtimes": ["browser", "native"]}
+        "native": {"import": "@package/ui-native/src/components/ui/button", "exports": ["Button", "buttonVariants", "ButtonProps"], "source": "packages/ui-native/src/components/ui/button.tsx", "runtimes": ["browser", "native"]}
       }
     },
     {
@@ -33,15 +49,15 @@
       "keywords": ["panel", "surface", "container"], "docs": "apps/tauri-app/content/docs/components/card.mdx",
       "implementations": {
         "react": {"import": "@package/ui/card", "exports": ["Card", "CardHeader", "CardTitle", "CardDescription", "CardAction", "CardContent", "CardFooter"], "source": "packages/ui/src/components/ui/card.tsx", "runtimes": ["browser", "tauri"]},
-        "native": {"import": "@package/ui-native/src/components/ui/card", "exports": ["Card", "CardHeader", "CardTitle", "CardDescription", "CardContent", "CardFooter"], "source": "packages/ui-native/src/components/ui/card.tsx", "runtimes": ["browser", "native"]}
+        "native": {"import": "@package/ui-native/src/components/ui/card", "exports": ["Card", "CardHeader", "CardTitle", "CardDescription", "CardAction", "CardContent", "CardFooter"], "source": "packages/ui-native/src/components/ui/card.tsx", "runtimes": ["browser", "native"]}
       }
     },
     {
       "id": "ui.checkbox", "kind": "component", "summary": "Accessible checked, unchecked, and indeterminate input.",
       "keywords": ["boolean", "selection", "form"], "docs": "apps/tauri-app/content/docs/components/checkbox.mdx",
       "implementations": {
-        "react": {"import": "@package/ui/checkbox", "exports": ["Checkbox"], "source": "packages/ui/src/components/ui/checkbox.tsx", "runtimes": ["browser", "tauri"]},
-        "native": {"import": "@package/ui-native/src/components/ui/checkbox", "exports": ["Checkbox"], "source": "packages/ui-native/src/components/ui/checkbox.tsx", "runtimes": ["browser", "native"]}
+        "react": {"import": "@package/ui/checkbox", "exports": ["Checkbox", "CheckboxProps"], "source": "packages/ui/src/components/ui/checkbox.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/checkbox", "exports": ["Checkbox", "CheckboxProps"], "source": "packages/ui-native/src/components/ui/checkbox.tsx", "runtimes": ["browser", "native"]}
       }
     },
     {
@@ -49,22 +65,38 @@
       "keywords": ["modal", "overlay", "confirm"], "docs": "apps/tauri-app/content/docs/components/dialog.mdx",
       "implementations": {
         "react": {"import": "@package/ui/dialog", "exports": ["Dialog", "DialogTrigger", "DialogClose", "DialogContent", "DialogHeader", "DialogFooter", "DialogTitle", "DialogDescription"], "source": "packages/ui/src/components/ui/dialog.tsx", "runtimes": ["browser", "tauri"]},
-        "native": {"import": "@package/ui-native/src/components/ui/dialog", "exports": ["Dialog", "DialogTrigger", "DialogHeader", "DialogFooter", "DialogTitle", "DialogDescription"], "source": "packages/ui-native/src/components/ui/dialog.tsx", "runtimes": ["browser", "native"]}
+        "native": {"import": "@package/ui-native/src/components/ui/dialog", "exports": ["Dialog", "DialogTrigger", "DialogClose", "DialogContent", "DialogHeader", "DialogFooter", "DialogTitle", "DialogDescription"], "source": "packages/ui-native/src/components/ui/dialog.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
+      "id": "ui.drawer", "kind": "component", "summary": "A bottom sheet or slide-over panel for overlays and mobile workflows.",
+      "keywords": ["drawer", "sheet", "bottomsheet", "slideover"], "docs": "apps/tauri-app/content/docs/components/drawer.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/drawer", "exports": ["Drawer", "DrawerPortal", "DrawerOverlay", "DrawerTrigger", "DrawerClose", "DrawerContent", "DrawerHeader", "DrawerFooter", "DrawerTitle", "DrawerDescription"], "source": "packages/ui/src/components/ui/drawer.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/drawer", "exports": ["Drawer", "DrawerPortal", "DrawerOverlay", "DrawerTrigger", "DrawerClose", "DrawerContent", "DrawerHeader", "DrawerFooter", "DrawerTitle", "DrawerDescription", "DrawerProps"], "source": "packages/ui-native/src/components/ui/drawer.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
+      "id": "ui.drawer-interactive", "kind": "component", "summary": "120 FPS gesture-driven bottom sheet with finger tracking and flick dismiss.",
+      "keywords": ["drawer", "sheet", "bottomsheet", "gesture", "reanimated", "pan"],
+      "docs": "apps/tauri-app/content/docs/components/drawer-interactive.mdx",
+      "implementations": {
+        "native": {"import": "@package/ui-native/src/components/ui/drawer-interactive", "exports": ["InteractiveDrawer", "InteractiveDrawerClose", "InteractiveDrawerContent", "InteractiveDrawerHeader", "InteractiveDrawerFooter", "InteractiveDrawerTitle", "InteractiveDrawerDescription", "InteractiveDrawerProps"], "source": "packages/ui-native/src/components/ui/drawer-interactive.tsx", "runtimes": ["native"]}
       }
     },
     {
       "id": "ui.dropdown-menu", "kind": "component", "summary": "Action menu anchored to a trigger.",
       "keywords": ["menu", "actions", "context"], "docs": "apps/tauri-app/content/docs/components/dropdown-menu.mdx",
       "implementations": {
-        "react": {"import": "@package/ui/dropdown-menu", "exports": ["DropdownMenu", "DropdownMenuTrigger", "DropdownMenuContent", "DropdownMenuItem", "DropdownMenuCheckboxItem", "DropdownMenuRadioGroup", "DropdownMenuLabel", "DropdownMenuSeparator", "DropdownMenuShortcut", "DropdownMenuGroup"], "source": "packages/ui/src/components/ui/dropdown-menu.tsx", "runtimes": ["browser", "tauri"]},
-        "native": {"import": "@package/ui-native/src/components/ui/dropdown-menu", "exports": ["DropdownMenu", "DropdownMenuItem", "DropdownMenuLabel", "DropdownMenuSeparator", "DropdownMenuCheckboxItem"], "source": "packages/ui-native/src/components/ui/dropdown-menu.tsx", "runtimes": ["browser", "native"]}
+        "react": {"import": "@package/ui/dropdown-menu", "exports": ["DropdownMenu", "DropdownMenuTrigger", "DropdownMenuContent", "DropdownMenuItem", "DropdownMenuCheckboxItem", "DropdownMenuRadioGroup", "DropdownMenuRadioItem", "DropdownMenuLabel", "DropdownMenuSeparator", "DropdownMenuShortcut", "DropdownMenuGroup"], "source": "packages/ui/src/components/ui/dropdown-menu.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/dropdown-menu", "exports": ["DropdownMenu", "DropdownMenuTrigger", "DropdownMenuContent", "DropdownMenuItem", "DropdownMenuCheckboxItem", "DropdownMenuRadioGroup", "DropdownMenuRadioItem", "DropdownMenuLabel", "DropdownMenuSeparator", "DropdownMenuShortcut", "DropdownMenuGroup"], "source": "packages/ui-native/src/components/ui/dropdown-menu.tsx", "runtimes": ["browser", "native"]}
       }
     },
     {
       "id": "ui.input", "kind": "component", "summary": "Styled single-line text input with invalid state.",
       "keywords": ["text", "field", "form"], "docs": "apps/tauri-app/content/docs/components/input.mdx",
       "implementations": {
-        "react": {"import": "@package/ui/input", "exports": ["Input"], "source": "packages/ui/src/components/ui/input.tsx", "runtimes": ["browser", "tauri"]},
+        "react": {"import": "@package/ui/input", "exports": ["Input", "InputLabel", "InputProps"], "source": "packages/ui/src/components/ui/input.tsx", "runtimes": ["browser", "tauri"]},
         "native": {"import": "@package/ui-native/src/components/ui/input", "exports": ["Input", "InputLabel", "InputProps"], "source": "packages/ui-native/src/components/ui/input.tsx", "runtimes": ["browser", "native"]}
       }
     },
@@ -88,8 +120,8 @@
       "id": "ui.select", "kind": "component", "summary": "Accessible single-value picker with typeahead.",
       "keywords": ["picker", "dropdown", "form"], "docs": "apps/tauri-app/content/docs/components/select.mdx",
       "implementations": {
-        "react": {"import": "@package/ui/select", "exports": ["Select", "SelectContent", "SelectGroup", "SelectItem", "SelectLabel", "SelectTrigger", "SelectValue"], "source": "packages/ui/src/components/ui/select.tsx", "runtimes": ["browser", "tauri"]},
-        "native": {"import": "@package/ui-native/src/components/ui/select", "exports": ["Select", "SelectValue", "SelectItem", "SelectGroup", "SelectLabel", "SelectTrigger"], "source": "packages/ui-native/src/components/ui/select.tsx", "runtimes": ["browser", "native"]}
+        "react": {"import": "@package/ui/select", "exports": ["Select", "SelectContent", "SelectGroup", "SelectItem", "SelectLabel", "SelectSeparator", "SelectTrigger", "SelectValue"], "source": "packages/ui/src/components/ui/select.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/select", "exports": ["Select", "SelectContent", "SelectGroup", "SelectItem", "SelectLabel", "SelectSeparator", "SelectTrigger", "SelectValue"], "source": "packages/ui-native/src/components/ui/select.tsx", "runtimes": ["browser", "native"]}
       }
     },
     {
@@ -112,7 +144,7 @@
       "id": "ui.switch", "kind": "component", "summary": "Immediate on/off setting control.",
       "keywords": ["toggle", "boolean", "setting"], "docs": "apps/tauri-app/content/docs/components/switch.mdx",
       "implementations": {
-        "react": {"import": "@package/ui/switch", "exports": ["Switch"], "source": "packages/ui/src/components/ui/switch.tsx", "runtimes": ["browser", "tauri"]},
+        "react": {"import": "@package/ui/switch", "exports": ["Switch", "SwitchProps"], "source": "packages/ui/src/components/ui/switch.tsx", "runtimes": ["browser", "tauri"]},
         "native": {"import": "@package/ui-native/src/components/ui/switch", "exports": ["Switch", "SwitchProps"], "source": "packages/ui-native/src/components/ui/switch.tsx", "runtimes": ["browser", "native"]}
       }
     },
@@ -120,8 +152,8 @@
       "id": "ui.table", "kind": "component", "summary": "Styled semantic table primitives.",
       "keywords": ["grid", "rows", "columns"], "docs": "apps/tauri-app/content/docs/components/table.mdx",
       "implementations": {
-        "react": {"import": "@package/ui/table", "exports": ["Table", "TableHeader", "TableBody", "TableFooter", "TableRow", "TableHead", "TableCell"], "source": "packages/ui/src/components/ui/table.tsx", "runtimes": ["browser", "tauri"]},
-        "native": {"import": "@package/ui-native/src/components/ui/table", "exports": ["Table", "TableHeader", "TableBody", "TableFooter", "TableRow", "TableHead", "TableCell"], "source": "packages/ui-native/src/components/ui/table.tsx", "runtimes": ["browser", "native"]}
+        "react": {"import": "@package/ui/table", "exports": ["Table", "TableHeader", "TableBody", "TableFooter", "TableRow", "TableHead", "TableCell", "TableCaption"], "source": "packages/ui/src/components/ui/table.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/table", "exports": ["Table", "TableHeader", "TableBody", "TableFooter", "TableRow", "TableHead", "TableCell", "TableCaption"], "source": "packages/ui-native/src/components/ui/table.tsx", "runtimes": ["browser", "native"]}
       }
     },
     {
@@ -136,8 +168,24 @@
       "id": "ui.textarea", "kind": "component", "summary": "Styled multi-line text input with invalid state.",
       "keywords": ["multiline", "field", "form"], "docs": "apps/tauri-app/content/docs/components/textarea.mdx",
       "implementations": {
-        "react": {"import": "@package/ui/textarea", "exports": ["Textarea"], "source": "packages/ui/src/components/ui/textarea.tsx", "runtimes": ["browser", "tauri"]},
-        "native": {"import": "@package/ui-native/src/components/ui/textarea", "exports": ["Textarea"], "source": "packages/ui-native/src/components/ui/textarea.tsx", "runtimes": ["browser", "native"]}
+        "react": {"import": "@package/ui/textarea", "exports": ["Textarea", "TextareaProps"], "source": "packages/ui/src/components/ui/textarea.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/textarea", "exports": ["Textarea", "TextareaProps"], "source": "packages/ui-native/src/components/ui/textarea.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
+      "id": "ui.toggle", "kind": "component", "summary": "A two-state button that can be either on or off.",
+      "keywords": ["toggle", "pressed", "switch", "state"], "docs": "apps/tauri-app/content/docs/components/toggle.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/toggle", "exports": ["Toggle", "toggleVariants", "ToggleProps"], "source": "packages/ui/src/components/ui/toggle.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/toggle", "exports": ["Toggle", "toggleVariants", "ToggleProps", "ToggleVariant", "ToggleSize"], "source": "packages/ui-native/src/components/ui/toggle.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
+      "id": "ui.toggle-group", "kind": "component", "summary": "A set of two-state buttons that can be toggled on or off.",
+      "keywords": ["toggle", "group", "segmented", "toolbar"], "docs": "apps/tauri-app/content/docs/components/toggle-group.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/toggle-group", "exports": ["ToggleGroup", "ToggleGroupItem", "ToggleGroupProps", "ToggleGroupItemProps"], "source": "packages/ui/src/components/ui/toggle-group.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/toggle-group", "exports": ["ToggleGroup", "ToggleGroupItem", "ToggleGroupProps", "ToggleGroupItemProps"], "source": "packages/ui-native/src/components/ui/toggle-group.tsx", "runtimes": ["browser", "native"]}
       }
     },
     {
@@ -155,6 +203,13 @@
         "react": {"import": "@package/pro/data-table", "exports": ["ProDataTable", "ProDataTableProps"], "source": "packages/pro/src/data-table/pro-data-table.tsx", "runtimes": ["browser", "tauri"]},
         "vue": {"import": "@package/pro-vue/src/data-table/pro-data-table.vue", "exports": ["default"], "source": "packages/pro-vue/src/data-table/pro-data-table.vue", "runtimes": ["browser", "tauri"], "defaultExport": "ProDataTable"},
         "svelte": {"import": "@package/pro-svelte/src/data-table/pro-data-table.svelte", "exports": ["default"], "source": "packages/pro-svelte/src/data-table/pro-data-table.svelte", "runtimes": ["browser", "tauri"], "defaultExport": "ProDataTable"}
+      }
+    },
+    {
+      "id": "block.descriptions", "kind": "block", "summary": "Read-only structured detail display with columns, tags, and schema rendering.",
+      "keywords": ["descriptions", "details", "record", "summary"], "docs": "apps/tauri-app/content/docs/blocks/pro-descriptions.mdx",
+      "implementations": {
+        "react": {"import": "@package/pro/descriptions", "exports": ["ProDescriptions", "ProDescriptionsItem", "ProDescriptionsItemProps", "ProDescriptionsProps", "ProDescriptionsItemConfig", "ProDescriptionsValueType"], "source": "packages/pro/src/descriptions/pro-descriptions.tsx", "runtimes": ["browser", "tauri"]}
       }
     },
     {

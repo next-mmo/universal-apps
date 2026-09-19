@@ -1,0 +1,32 @@
+---
+title: Toggle
+description: A two-state button that can be either on or off.
+---
+
+A two-state button for switching options on or off. Source: `packages/ui/src/components/ui/toggle.tsx`.
+
+## Import
+
+```ts
+import { Toggle } from '@package/ui/toggle';
+```
+
+## Usage
+
+```tsx
+import { Toggle } from '@package/ui/toggle';
+import { Bold } from 'lucide-react';
+
+<Toggle aria-label="Toggle italic">
+  <Bold className="h-4 w-4" />
+</Toggle>
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `variant` | `default` \| `outline` | `default` |
+| `size` | `default` \| `sm` \| `lg` | `default` |
+| `pressed` | `boolean` | `undefined` |
+| `onPressedChange` | `(pressed: boolean) => void` | `undefined` |

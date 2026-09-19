@@ -349,6 +349,55 @@ const columns: Array<ProColumnDef<TodoRow>> = [
 
 Without `query`, filtering/sorting/pagination happen in memory (TanStack row models). Pass `query`/`totalRows`/`onQueryChange` and the block becomes a controlled view over your API — translate `TableQuery` into fetch parameters and feed back rows + total. Pair it with `queryKeys.table()` from `@package/pro-core` so cache invalidation stays deterministic.
 
+## ProDescriptions
+
+Source: `apps/tauri-app/content/docs/blocks/pro-descriptions.mdx`
+
+Display structured record details and entity summaries with columns, border grids, and schema-driven rendering. Source: `packages/pro/src/descriptions/pro-descriptions.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+```tsx
+
+const record = {
+  id: 'usr_102',
+  username: 'antigravity',
+  role: 'Maintainer',
+  active: true,
+  createdAt: '2026-09-19',
+};
+
+<ProDescriptions
+  title="User Overview"
+  bordered
+  column={2}
+  data={record}
+>
+  <ProDescriptionsItem label="ID" dataIndex="id" valueType="code" />
+  <ProDescriptionsItem label="Username" dataIndex="username" />
+  <ProDescriptionsItem label="Role" dataIndex="role" valueType="badge" />
+  <ProDescriptionsItem label="Active" dataIndex="active" valueType="boolean" />
+</ProDescriptions>
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `title` | `ReactNode` | `undefined` |
+| `extra` | `ReactNode` | `undefined` |
+| `bordered` | `boolean` | `true` |
+| `column` | `1` \| `2` \| `3` \| `4` | `3` |
+| `layout` | `horizontal` \| `vertical` | `horizontal` |
+| `data` | `Record<string, unknown>` | `{}` |
+| `schema` | `ProFieldSchema[]` | `undefined` |
+| `items` | `ProDescriptionsItemConfig[]` | `undefined` |
+
 ## ProForm
 
 Source: `apps/tauri-app/content/docs/blocks/pro-form.mdx`
@@ -591,6 +640,90 @@ Displays an accordion: vertically stacked, collapsible section panels. Source: `
 
 All props not listed are forwarded to the underlying Radix primitive, so `onValueChange`, `disabled`, and friends work as documented by Radix UI.
 
+## Animated Tabs
+
+Source: `apps/tauri-app/content/docs/components/animated-tabs.mdx`
+
+Fluid navigation tabs where the active background pill smoothly slides between tab triggers using CSS GPU transforms and `MutationObserver` layout measurement.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add animated-tabs
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `animated-tabs.tsx` to your components directory and import from `@package/ui/animated-tabs`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+  AnimatedTabs,
+  AnimatedTabsList,
+  AnimatedTabsTrigger,
+  AnimatedTabsContent,
+} from '@package/ui/animated-tabs';
+
+  return (
+    <AnimatedTabs defaultValue="metrics">
+      <AnimatedTabsList>
+        <AnimatedTabsTrigger value="metrics">Metrics</AnimatedTabsTrigger>
+        <AnimatedTabsTrigger value="logs">Logs</AnimatedTabsTrigger>
+        <AnimatedTabsTrigger value="settings">Settings</AnimatedTabsTrigger>
+      </AnimatedTabsList>
+      <AnimatedTabsContent value="metrics">Metrics Overview</AnimatedTabsContent>
+      <AnimatedTabsContent value="logs">System Logs</AnimatedTabsContent>
+      <AnimatedTabsContent value="settings">Configuration</AnimatedTabsContent>
+    </AnimatedTabs>
+  );
+}
+```
+
+---
+
+## Key Features
+
+- **Zero Extra Dependencies**: Runs on standard CSS transitions and browser compositor threads.
+- **Auto-Positioning**: Automatically calculates offset and width on tab selection and window resize.
+- **Keyboard Accessible**: Arrow key navigation with automatic indicator sync.
+
+## Avatar
+
+Source: `apps/tauri-app/content/docs/components/avatar.mdx`
+
+Displays an avatar image with an initials fallback. Source: `packages/ui/src/components/ui/avatar.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+```tsx
+
+<Avatar>
+  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+  <AvatarFallback>CN</AvatarFallback>
+</Avatar>
+```
+
+## API
+
+| Component | Description |
+| --------- | ----------- |
+| `Avatar` | The root container supporting `size` (`sm`, `default`, `lg`, `xl`) and `shape` (`circle`, `square`). |
+| `AvatarImage` | The image element with automatic fallback dispatch on load error. |
+| `AvatarFallback` | Displayed when the image is loading or fails to load. |
+
 ## Badge
 
 Source: `apps/tauri-app/content/docs/components/badge.mdx`
@@ -761,6 +894,134 @@ A modal window layered over the page. Source: `packages/ui/src/components/ui/dia
 ## API
 
 `Dialog` is the controlled/uncontrolled root (`open`, `onOpenChange`). `DialogTrigger` opens it; `DialogContent` renders the overlay + panel (Esc and overlay click close it), and `DialogHeader`/`DialogFooter` are layout slots.
+
+## Drawer
+
+Source: `apps/tauri-app/content/docs/components/drawer.mdx`
+
+A slide-up panel component with backdrop dismiss and handle bar. Source: `packages/ui/src/components/ui/drawer.tsx`.
+
+## Import
+
+```ts
+  Drawer,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+} from '@package/ui/drawer';
+```
+
+## Usage
+
+```tsx
+  Drawer,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+} from '@package/ui/drawer';
+
+<Drawer>
+  <DrawerTrigger asChild>
+    <Button variant="outline">Open Drawer</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Are you sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <Button>Submit</Button>
+      <DrawerClose asChild>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+```
+
+## API
+
+| Component | Description |
+| --------- | ----------- |
+| `Drawer` | Root state container accepting `open` and `onOpenChange`. |
+| `DrawerTrigger` | Trigger button or element. |
+| `DrawerContent` | Bottom sheet container with handle bar and rounded top corners. |
+| `DrawerHeader` | Header layout wrapper for title and description. |
+| `DrawerFooter` | Action buttons layout wrapper. |
+
+## Interactive Drawer
+
+Source: `apps/tauri-app/content/docs/components/drawer-interactive.mdx`
+
+A mobile bottom sheet that executes worklets directly on the native UI thread, allowing interactive dragging with velocity-based flick dismiss and rubber-banding.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add drawer-interactive --framework native
+```
+  </Tab>
+  <Tab value="Manual">
+Install peer dependencies `react-native-reanimated` and `react-native-gesture-handler`, then copy `drawer-interactive.tsx`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+  InteractiveDrawer,
+  InteractiveDrawerClose,
+  InteractiveDrawerContent,
+  InteractiveDrawerDescription,
+  InteractiveDrawerFooter,
+  InteractiveDrawerHeader,
+  InteractiveDrawerTitle,
+} from '@package/ui-native/drawer-interactive';
+
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onPress={() => setOpen(true)}>Open Interactive Sheet</Button>
+      <InteractiveDrawer open={open} onOpenChange={setOpen}>
+        <InteractiveDrawerHeader>
+          <InteractiveDrawerTitle>Interactive Bottom Sheet</InteractiveDrawerTitle>
+          <InteractiveDrawerDescription>
+            Drag down to dismiss or flick with downward velocity.
+          </InteractiveDrawerDescription>
+        </InteractiveDrawerHeader>
+        <InteractiveDrawerFooter>
+          <InteractiveDrawerClose>
+            <Button variant="outline">Close</Button>
+          </InteractiveDrawerClose>
+        </InteractiveDrawerFooter>
+      </InteractiveDrawer>
+    </>
+  );
+}
+```
+
+---
+
+## Key Features
+
+- **120 FPS UI Thread**: Animation worklets execute directly on native thread via JSI.
+- **Physical Gestures**: Pan gesture tracking with upward resistance rubber-banding.
+- **Velocity Dismiss**: Automatically detects downward flick velocity ($> 600\text{ px/s}$) to dismiss smoothly.
 
 ## Dropdown Menu
 
@@ -1090,6 +1351,73 @@ A multi-line text field. Source: `packages/ui/src/components/ui/textarea.tsx`.
 ## API
 
 A plain `<textarea>` — all native props forward (`value`, `onChange`, `rows`, `disabled`, …). `aria-invalid` switches the border to destructive, matching `Input`.
+
+## Toggle
+
+Source: `apps/tauri-app/content/docs/components/toggle.mdx`
+
+A two-state button for switching options on or off. Source: `packages/ui/src/components/ui/toggle.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+```tsx
+
+<Toggle aria-label="Toggle italic">
+  <Bold className="h-4 w-4" />
+</Toggle>
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `variant` | `default` \| `outline` | `default` |
+| `size` | `default` \| `sm` \| `lg` | `default` |
+| `pressed` | `boolean` | `undefined` |
+| `onPressedChange` | `(pressed: boolean) => void` | `undefined` |
+
+## Toggle Group
+
+Source: `apps/tauri-app/content/docs/components/toggle-group.mdx`
+
+A group of toggle buttons supporting single or multiple selections. Source: `packages/ui/src/components/ui/toggle-group.tsx`.
+
+## Import
+
+```ts
+```
+
+## Usage
+
+```tsx
+
+<ToggleGroup type="multiple">
+  <ToggleGroupItem value="bold" aria-label="Toggle bold">
+    <Bold className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="italic" aria-label="Toggle italic">
+    <Italic className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="underline" aria-label="Toggle underline">
+    <Underline className="h-4 w-4" />
+  </ToggleGroupItem>
+</ToggleGroup>
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `type` | `single` \| `multiple` | Required |
+| `value` | `string` \| `string[]` | `undefined` |
+| `onValueChange` | `(value: any) => void` | `undefined` |
+| `variant` | `default` \| `outline` | `default` |
+| `size` | `default` \| `sm` \| `lg` | `default` |
 
 ## Tooltip
 

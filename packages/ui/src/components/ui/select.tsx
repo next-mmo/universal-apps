@@ -105,4 +105,7 @@ function SelectItem({
   );
 }
 
-export { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue };
+const SelectSeparator = SelectPrimitive.Separator;
+
+export { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue };
+

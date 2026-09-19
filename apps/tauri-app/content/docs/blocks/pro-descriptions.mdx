@@ -1,0 +1,51 @@
+---
+title: ProDescriptions
+description: Read-only structured detail display with columns, tags, and schema rendering.
+---
+
+Display structured record details and entity summaries with columns, border grids, and schema-driven rendering. Source: `packages/pro/src/descriptions/pro-descriptions.tsx`.
+
+## Import
+
+```ts
+import { ProDescriptions, ProDescriptionsItem } from '@package/pro/descriptions';
+```
+
+## Usage
+
+```tsx
+import { ProDescriptions, ProDescriptionsItem } from '@package/pro/descriptions';
+
+const record = {
+  id: 'usr_102',
+  username: 'antigravity',
+  role: 'Maintainer',
+  active: true,
+  createdAt: '2026-09-19',
+};
+
+<ProDescriptions
+  title="User Overview"
+  bordered
+  column={2}
+  data={record}
+>
+  <ProDescriptionsItem label="ID" dataIndex="id" valueType="code" />
+  <ProDescriptionsItem label="Username" dataIndex="username" />
+  <ProDescriptionsItem label="Role" dataIndex="role" valueType="badge" />
+  <ProDescriptionsItem label="Active" dataIndex="active" valueType="boolean" />
+</ProDescriptions>
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `title` | `ReactNode` | `undefined` |
+| `extra` | `ReactNode` | `undefined` |
+| `bordered` | `boolean` | `true` |
+| `column` | `1` \| `2` \| `3` \| `4` | `3` |
+| `layout` | `horizontal` \| `vertical` | `horizontal` |
+| `data` | `Record<string, unknown>` | `{}` |
+| `schema` | `ProFieldSchema[]` | `undefined` |
+| `items` | `ProDescriptionsItemConfig[]` | `undefined` |

@@ -122,6 +122,30 @@ function DropdownMenuShortcut({ className, ...props }: ComponentProps<'span'>) {
   );
 }
 
+function DropdownMenuRadioItem({
+  className,
+  children,
+  ...props
+}: ComponentProps<typeof DropdownMenuPrimitive.RadioItem>) {
+  return (
+    <DropdownMenuPrimitive.RadioItem
+      data-slot='dropdown-menu-radio-item'
+      className={cn(
+        'relative flex cursor-default select-none items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        className,
+      )}
+      {...props}
+    >
+      <span className='pointer-events-none absolute left-2 flex size-3.5 items-center justify-center'>
+        <DropdownMenuPrimitive.ItemIndicator>
+          <div className='size-2 rounded-full bg-current' />
+        </DropdownMenuPrimitive.ItemIndicator>
+      </span>
+      {children}
+    </DropdownMenuPrimitive.RadioItem>
+  );
+}
+
 export {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -129,8 +153,10 @@ export {
   DropdownMenuItem,
   DropdownMenuCheckboxItem,
   DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuGroup,
 };
+

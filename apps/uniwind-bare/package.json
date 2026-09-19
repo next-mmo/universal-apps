@@ -15,7 +15,10 @@
     "react": "^19.0.0",
     "react-native": "^0.81.4",
     "tailwind-merge": "^3.3.1",
-    "uniwind": "1.11.0"
+    "uniwind": "1.11.0",
+    "@tauri-apps/api": "2.11.0",
+    "react-native-gesture-handler": ">=2.20.0",
+    "react-native-reanimated": ">=3.16.0"
   },
   "devDependencies": {
     "@react-native-community/cli": "^20.2.0",

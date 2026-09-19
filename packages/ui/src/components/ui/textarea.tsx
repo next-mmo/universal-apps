@@ -17,4 +17,7 @@ function Textarea({ className, ...props }: ComponentProps<'textarea'>) {
   );
 }
 
+export type TextareaProps = ComponentProps<'textarea'>;
+
 export { Textarea };
+

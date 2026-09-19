@@ -70,4 +70,15 @@ function TableCell({ className, ...props }: ComponentProps<'td'>) {
   );
 }
 
-export { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell };
+function TableCaption({ className, ...props }: ComponentProps<'caption'>) {
+  return (
+    <caption
+      data-slot='table-caption'
+      className={cn('mt-4 text-sm text-muted-foreground', className)}
+      {...props}
+    />
+  );
+}
+
+export { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption };
+

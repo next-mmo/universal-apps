@@ -1,0 +1,41 @@
+---
+title: Toggle Group
+description: A set of two-state buttons that can be toggled on or off.
+---
+
+A group of toggle buttons supporting single or multiple selections. Source: `packages/ui/src/components/ui/toggle-group.tsx`.
+
+## Import
+
+```ts
+import { ToggleGroup, ToggleGroupItem } from '@package/ui/toggle-group';
+```
+
+## Usage
+
+```tsx
+import { ToggleGroup, ToggleGroupItem } from '@package/ui/toggle-group';
+import { Bold, Italic, Underline } from 'lucide-react';
+
+<ToggleGroup type="multiple">
+  <ToggleGroupItem value="bold" aria-label="Toggle bold">
+    <Bold className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="italic" aria-label="Toggle italic">
+    <Italic className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="underline" aria-label="Toggle underline">
+    <Underline className="h-4 w-4" />
+  </ToggleGroupItem>
+</ToggleGroup>
+```
+
+## API
+
+| Prop | Values | Default |
+| ---- | ------ | ------- |
+| `type` | `single` \| `multiple` | Required |
+| `value` | `string` \| `string[]` | `undefined` |
+| `onValueChange` | `(value: any) => void` | `undefined` |
+| `variant` | `default` \| `outline` | `default` |
+| `size` | `default` \| `sm` \| `lg` | `default` |

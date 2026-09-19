@@ -1,10 +1,14 @@
-import { createContext, useContext, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { createContext, useContext, useMemo, useState } from 'react';
+import { LayoutAnimation, Platform, Pressable, Text, UIManager, View } from 'react-native';
 
 import { cn } from '@package/ui/src/lib/cn';
 
 import type { ReactNode } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
+
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 interface AccordionContextValue {
   openValue: string | undefined;
@@ -20,7 +24,7 @@ function useAccordion() {
   return ctx;
 }
 
-/** RN port of the Radix Accordion: single-open collapsible list. */
+/** RN port of the Radix Accordion with smooth LayoutAnimation on toggle. */
 export function Accordion({
   value,
   defaultValue,
@@ -36,13 +40,18 @@ export function Accordion({
 }) {
   const [internal, setInternal] = useState<string | undefined>(defaultValue);
   const openValue = value !== undefined ? value : internal;
+
   const toggle = (item: string) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     const next = openValue === item ? undefined : item;
     if (value === undefined) setInternal(next);
     onValueChange?.(next ?? '');
   };
+
+  const contextValue = useMemo(() => ({ openValue, toggle, type }), [openValue, type]);
+
   return (
-    <AccordionContext.Provider value={{ openValue, toggle, type }}>
+    <AccordionContext.Provider value={contextValue}>
       {children}
     </AccordionContext.Provider>
   );

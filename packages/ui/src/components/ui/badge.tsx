@@ -36,4 +36,7 @@ function Badge({ className, variant, asChild = false, ...props }: BadgeProps) {
   );
 }
 
+export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning';
+
 export { Badge, badgeVariants };
+

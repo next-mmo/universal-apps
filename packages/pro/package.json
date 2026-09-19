@@ -8,6 +8,7 @@
     "./app-frame": "./src/layout/app-frame.tsx",
     "./crud": "./src/crud/pro-crud-page.tsx",
     "./data-table": "./src/data-table/pro-data-table.tsx",
+    "./descriptions": "./src/descriptions/pro-descriptions.tsx",
     "./form": "./src/form/pro-form.tsx",
     "./form-dialog": "./src/form/pro-form-dialog.tsx",
     "./page-container": "./src/layout/page-container.tsx",

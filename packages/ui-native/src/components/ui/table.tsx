@@ -62,3 +62,11 @@ export function TableHead({ className, style, children }: TableSlotProps) {
 export function TableCell({ className, style, children }: TableSlotProps) {
   return <View className={cn('flex-1 px-3 py-2.5', className)} style={style}>{children}</View>;
 }
+
+export function TableCaption({ className, style, children }: { className?: string; style?: StyleProp<ViewStyle>; children?: ReactNode }) {
+  return (
+    <View className={cn('mt-4 items-center justify-center', className)} style={style}>
+      <Text className='font-sans text-sm text-muted-foreground'>{children}</Text>
+    </View>
+  );
+}

@@ -52,6 +52,10 @@ export function CardDescription({ className, style, children }: TextSlotProps) {
   );
 }
 
+export function CardAction({ className, style, children }: SlotProps) {
+  return <View className={cn('ml-auto self-start', className)} style={style}>{children}</View>;
+}
+
 export function CardContent({ className, style, children }: SlotProps) {
   return <View className={cn('px-6', className)} style={style}>{children}</View>;
 }
@@ -59,3 +63,4 @@ export function CardContent({ className, style, children }: SlotProps) {
 export function CardFooter({ className, style, children }: SlotProps) {
   return <View className={cn('flex-row items-center justify-end px-6', className)} style={style}>{children}</View>;
 }
+

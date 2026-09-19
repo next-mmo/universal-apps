@@ -4,7 +4,7 @@ import { cn } from '@package/ui/src/lib/cn';
 
 import type { ReactNode } from 'react';
 
-type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning';
+export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning';
 
 const variantClasses: Record<BadgeVariant, { container: string; text: string }> = {
   default: { container: 'bg-primary/12', text: 'text-primary' },
@@ -15,16 +15,20 @@ const variantClasses: Record<BadgeVariant, { container: string; text: string }> 
   outline: { container: 'border-border bg-transparent', text: 'text-muted-foreground' },
 };
 
+export const badgeVariants = variantClasses;
+
+export interface BadgeProps {
+  variant?: BadgeVariant;
+  className?: string;
+  children?: ReactNode;
+}
+
 /** RN port of `@package/ui` Badge with the DOM variant strings (tinted fills). */
 export function Badge({
   variant = 'default',
   className,
   children,
-}: {
-  variant?: BadgeVariant;
-  className?: string;
-  children?: ReactNode;
-}) {
+}: BadgeProps) {
   const variantClass = variantClasses[variant];
   return (
     <View
