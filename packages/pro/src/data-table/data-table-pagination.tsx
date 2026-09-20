@@ -17,6 +17,8 @@ interface DataTablePaginationProps {
   pageCount: number;
   totalRows: number;
   selectedCount: number;
+  /** Choices offered in the size selector; defaults to the shared table defaults. */
+  pageSizeOptions?: number[];
   onPageSizeChange: (size: number) => void;
   onPageIndexChange: (index: number) => void;
 }
@@ -27,6 +29,7 @@ export function DataTablePagination({
   pageCount,
   totalRows,
   selectedCount,
+  pageSizeOptions = defaultTableFeatures.pageSizeOptions,
   onPageSizeChange,
   onPageIndexChange,
 }: DataTablePaginationProps) {
@@ -50,7 +53,7 @@ export function DataTablePagination({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {defaultTableFeatures.pageSizeOptions.map((size) => (
+              {pageSizeOptions.map((size) => (
                 <SelectItem key={size} value={String(size)}>
                   {size}
                 </SelectItem>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { LayoutAnimation, Platform, Pressable, Text, UIManager, View } from 'react-native';
 
 import { cn } from '../../../ui/lib/cn';
@@ -41,14 +41,20 @@ export function Accordion({
   const [internal, setInternal] = useState<string | undefined>(defaultValue);
   const openValue = value !== undefined ? value : internal;
 
-  const toggle = (item: string) => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    const next = openValue === item ? undefined : item;
-    if (value === undefined) setInternal(next);
-    onValueChange?.(next ?? '');
-  };
+  const toggle = useCallback(
+    (item: string) => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      const next = openValue === item ? undefined : item;
+      if (value === undefined) setInternal(next);
+      onValueChange?.(next ?? '');
+    },
+    [openValue, value, onValueChange],
+  );
 
-  const contextValue = useMemo(() => ({ openValue, toggle, type }), [openValue, type]);
+  const contextValue = useMemo(
+    () => ({ openValue, toggle, type }),
+    [openValue, toggle, type],
+  );
 
   return (
     <AccordionContext.Provider value={contextValue}>

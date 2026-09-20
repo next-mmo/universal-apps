@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
+      - 'v*'
   workflow_dispatch:
     inputs:
       dry_run:
@@ -11,15 +11,25 @@ on:
         required: false
         default: 'true'
 
+# Least privilege is granted per job: only the publish job talks to the registry, and only it holds
+# the OIDC token that npm provenance would consume.
 permissions:
-  contents: write
-  id-token: write
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v6
         with:
           version: 10
@@ -28,13 +38,36 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # A release must clear every gate a pull request clears, plus the release-only checks.
+      - name: Lint gate (correctness rules are errors)
+        run: pnpm lint
+      - name: Unit tests with the coverage threshold gate
+        run: pnpm test:coverage
       - run: pnpm test
+      - name: Verify all discovered workspace consumers
+        run: pnpm agent check --all --timeout 180000
+      - run: pnpm workflow:check --strict-budget
+      - run: pnpm docs:check
       - run: pnpm build:web
       - run: pnpm source:smoke
+      # Proves a generated consumer actually compiles, which source:smoke does not.
+      # It prints every framework and fails on any framework listed as verified in
+      # scripts/check-source-compilation.mjs, so this cannot pass while silently
+      # skipping the ones that do not build yet.
+      - name: Compile generated consumer starters
+        run: pnpm source:compile
 
   publish-npm:
     needs: [verify]
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Requires a protected `release` environment with required reviewers before this job can publish.
+    environment: release
+    permissions:
+      contents: read
+      # Reserved for `npm publish --provenance`; enable that flag once repository visibility and the
+      # npm plan are confirmed to support attestations.
+      id-token: write
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v6
@@ -63,18 +96,31 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          if [ -n "$NODE_AUTH_TOKEN" ]; then
-            npm publish ./dist/universal-cli --access public
-          else
-            echo "Skipping publish: NPM_TOKEN not set"
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "::error::NPM_TOKEN is not set, so this release cannot publish. A tag push or a non-dry-run dispatch is a real release intent; refusing to report success without publishing."
+            exit 1
           fi
+          # A prerelease version must not take the `latest` dist-tag.
+          version=$(node -p "require('./dist/universal-cli/package.json').version")
+          case "$version" in
+            *-*) dist_tag="next" ;;
+            *) dist_tag="latest" ;;
+          esac
+          echo "Publishing @next-mmo/universal-cli@$version with dist-tag $dist_tag"
+          npm publish ./dist/universal-cli --access public --tag "$dist_tag"
       - name: Publish @next-mmo/nd-workflow
         if: github.event.inputs.dry_run != 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          if [ -n "$NODE_AUTH_TOKEN" ]; then
-            npm publish ./packages/nd-workflow/artifacts/nd-workflow.tgz --access public
-          else
-            echo "Skipping publish: NPM_TOKEN not set"
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "::error::NPM_TOKEN is not set, so this release cannot publish. A tag push or a non-dry-run dispatch is a real release intent; refusing to report success without publishing."
+            exit 1
           fi
+          version=$(node -p "require('./packages/nd-workflow/package.json').version")
+          case "$version" in
+            *-*) dist_tag="next" ;;
+            *) dist_tag="latest" ;;
+          esac
+          echo "Publishing @next-mmo/nd-workflow@$version with dist-tag $dist_tag"
+          npm publish ./packages/nd-workflow/artifacts/nd-workflow.tgz --access public --tag "$dist_tag"

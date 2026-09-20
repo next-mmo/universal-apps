@@ -33,7 +33,7 @@ import {
 } from '@package/ui/table';
 import { Skeleton } from '@package/ui/skeleton';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { ProColumnDef } from '@package/pro-core/table';
 import type {
@@ -104,6 +104,25 @@ export function ProDataTable<T extends RowData>({
   const effectiveSearch = serverMode ? (query.search ?? '') : globalFilter;
   const effectivePageSize = serverMode ? (query.pageSize ?? 10) : pagination.pageSize;
 
+  // In server mode the caller owns the sort, so the table reads it back from the query. Without
+  // this the header would show no sort indicator after a round-trip.
+  const serverSorting = useMemo<SortingState>(
+    () =>
+      serverMode && query.sortBy
+        ? [{ id: query.sortBy, desc: query.sortDir === 'desc' }]
+        : [],
+    [serverMode, query?.sortBy, query?.sortDir],
+  );
+  const effectiveSorting = serverMode ? serverSorting : sorting;
+
+  const ariaSortFor = (column: { getCanSort: () => boolean; getIsSorted: () => false | 'asc' | 'desc' }) => {
+    if (!column.getCanSort()) return undefined;
+    const sorted = column.getIsSorted();
+    if (sorted === 'asc') return 'ascending' as const;
+    if (sorted === 'desc') return 'descending' as const;
+    return 'none' as const;
+  };
+
   function handleSearchChange(value: string) {
     if (serverMode) {
       onQueryChange({ ...query!, page: 0, search: value || undefined });
@@ -126,7 +145,7 @@ export function ProDataTable<T extends RowData>({
     columns: buildColumnDefs(columns, { enableRowSelection }),
     getRowId: getRowId !== undefined ? (row) => getRowId(row as T) : undefined,
     state: {
-      sorting: serverMode ? [] : sorting,
+      sorting: effectiveSorting,
       globalFilter: serverMode ? '' : globalFilter,
       pagination: serverMode ? { pageIndex: query!.page, pageSize: query!.pageSize } : pagination,
       rowSelection,
@@ -138,7 +157,9 @@ export function ProDataTable<T extends RowData>({
     rowCount: serverMode ? totalRows : undefined,
     enableRowSelection,
     onSortingChange: (updater) => {
-      const next = typeof updater === 'function' ? updater(sorting) : updater;
+      // The cycle must be computed from the state the user actually sees, which in server mode is
+      // the query rather than the local state.
+      const next = typeof updater === 'function' ? updater(effectiveSorting) : updater;
       setSorting(next);
       const first = next[0];
       onQueryChange?.({
@@ -184,7 +205,7 @@ export function ProDataTable<T extends RowData>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} style={{ width: header.column.getSize() }}>
+                  <TableHead key={header.id} style={{ width: header.column.getSize() }} aria-sort={ariaSortFor(header.column)}>
                     {header.isPlaceholder ? null : header.column.getCanSort() ? (
                       <button
                         type='button'
@@ -263,6 +284,7 @@ export function ProDataTable<T extends RowData>({
           pageCount={pageCount}
           totalRows={resolvedTotal}
           selectedCount={table.getSelectedRowModel().rows.length}
+          pageSizeOptions={features.pageSizeOptions}
           onPageSizeChange={handlePageSizeChange}
           onPageIndexChange={(index) => {
             if (serverMode) onQueryChange!({ ...query!, page: index });

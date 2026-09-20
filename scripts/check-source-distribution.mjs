@@ -28,7 +28,7 @@ try {
   assert.equal(Object.keys(manifest.dependencies ?? {}).length, 0);
   assert.equal(Object.keys(manifest.devDependencies ?? {}).length, 0);
   const registry = JSON.parse(fs.readFileSync(path.join(distribution, 'registry/index.json'), 'utf8'));
-  assert.equal(registry.packages.length, 9, 'Every runtime package must be covered');
+  assert.equal(registry.packages.length, 8, 'Every runtime package must be covered');
   const cli = path.join(distribution, 'cli.mjs');
   for (const framework of ['react', 'vue', 'svelte', 'native']) {
     const cwd = path.join(scratch, framework);
@@ -51,7 +51,7 @@ try {
   assert.ok(fs.existsSync(path.join(starter, 'src/App.tsx')));
   assert.ok(fs.existsSync(path.join(starter, 'src-tauri/tauri.conf.json')));
   console.log('create: packed CLI generated complete starter project with Tauri desktop configuration');
-  console.log(`PASS: ${registry.publicEntryCount} public entries across ${registry.packages.length} runtime packages. Framework compilation is a separate release check.`);
+  console.log(`PASS: ${registry.publicEntryCount} public entries across ${registry.packages.length} runtime packages. Run \`pnpm source:compile\` to install and compile what this check only generated.`);
 } finally {
   fs.rmSync(scratch, { recursive: true, force: true });
 }

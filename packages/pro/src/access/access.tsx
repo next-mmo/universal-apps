@@ -71,9 +71,11 @@ export function AccessProvider<T = Record<string, boolean>>({
 export function useAccessContext<T = Record<string, boolean>>(): AccessContextValue<T> {
   const context = useContext(AccessContext);
   if (!context) {
+    // Fail closed. An RBAC hook that answers "allowed" outside its provider would silently
+    // authorize any component rendered before, or outside, the AccessProvider tree.
     return {
       access: {} as T,
-      can: () => true,
+      can: () => false,
     };
   }
   return context as AccessContextValue<T>;

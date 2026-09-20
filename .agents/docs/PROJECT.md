@@ -44,4 +44,5 @@ Verified project facts and entry points for the Tauri Universal monorepo.
 ## Durable knowledge and open risks
 - Retained package `packages/nd-workflow`: contains package-internal instructions and tests; root instructions govern the monorepo.
 - Case sensitivity: Windows NTFS requires consistent uppercase `.agents/docs/ARCHITECTURE.md` across scripts.
-- Durable docs: all workflow docs live under `.agents/docs/`; root `docs/` is not created.
+- Durable docs split by kind: standing policy lives under `.agents/docs/`, while PRDs, tasks, evidence, and suggestions live in the root `docs/` tree that `AGENTS.md` and `docs/tasks/README.md` define as canonical.
+- `packages/utils` was removed as a manifest-only placeholder with no source and no consumers; the source registry now covers eight runtime packages.

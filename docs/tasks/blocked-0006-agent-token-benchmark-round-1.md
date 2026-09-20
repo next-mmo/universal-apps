@@ -1,6 +1,6 @@
 # Task 0006: Agent-token benchmark round 1 — three UI strategies
 
-> **Status:** wip  
+> **Status:** blocked  
 > **Type:** measurement  
 > **Created:** 2026-09-17  
 > **PRD:** `docs/prd/0004-agent-token-benchmark.md`
@@ -35,10 +35,10 @@ workload, instrumented with host-reported counters, then execute the authorized 
 
 ## Ownership and integration
 
-- Exact task path: `docs/tasks/wip-0006-agent-token-benchmark-round-1.md`.
+- Exact task path: `docs/tasks/blocked-0006-agent-token-benchmark-round-1.md`.
 - Owner / team; session ID: Mavis (integration owner) / session `mvs_8c85c29304824f9c842b4d05a9887854`.
 - Branch/worktree and base revision: repository root, base `ec942a5`.
-- Owned write paths: `apps/benchmark/**`, `docs/prd/0004-agent-token-benchmark.md`, `docs/prd/0000-prd-index.md`, `docs/tasks/wip-0006-agent-token-benchmark-round-1.md`, `docs/evidence/token-benchmark-three-ui-strategies.md`, `pnpm-workspace.yaml`, `.gitignore`.
+- Owned write paths: `apps/benchmark/**`, `docs/prd/0004-agent-token-benchmark.md`, `docs/prd/0000-prd-index.md`, `docs/tasks/blocked-0006-agent-token-benchmark-round-1.md`, `docs/evidence/token-benchmark-three-ui-strategies.md`, `pnpm-workspace.yaml`, `.gitignore`.
 - Dependencies / outstanding workers: none. No other task was active on the board.
 - Integration owner / shared files / merge order: `pnpm-workspace.yaml` and `.gitignore` are shared; both changes are additive and confined to `apps/benchmark`. No merge ordering constraint.
 
@@ -106,4 +106,4 @@ workload, instrumented with host-reported counters, then execute the authorized 
 - Failed / skipped / unverified checks and reasons: the repeat runs are skipped by design — not authorized. Repository gates are listed as pending and must pass before this task closes. `model_verdict` is unavailable from the host and is substituted by per-record model evidence.
 - Recovery plan / operations reference if relevant: the round is additive under `apps/benchmark/**`; reverting is deleting that directory plus the two additive shared-config lines and this task's doc set. No destructive operation, publish, or release step is part of this scope.
 - Implemented / integrated / deployed state and evidence: implemented and committed as `fdd8b78` (52 files, base `ec942a5`); not pushed — pushing is the owner's action; not integrated; not deployed.
-- Status: wip — the authorized increment is complete and verified; closure awaits the gates and the owner's frame-repair decision.
+- Status: blocked — the authorized increment is complete and verified; the next step waits on the owner's frame-repair decision, and repeat runs remain unauthorized.

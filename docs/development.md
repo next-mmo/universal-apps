@@ -17,13 +17,33 @@ Required baseline:
 
 ```bash
 pnpm install --frozen-lockfile
-pnpm test
 pnpm lint
+pnpm test:coverage
+pnpm test
 pnpm build
 pnpm workflow:check --strict-budget
 pnpm docs:check
 bash .agents/scripts/skill.sh check
 ```
+
+`pnpm lint` and `pnpm test:coverage` are gates, not reports. Lint correctness diagnostics are errors,
+so `oxlint` exits non-zero on a defect; the `perf` and `jsx-a11y` rules stay advisory and are printed
+on every run. `test:coverage` fails the run when coverage drops below the floors in
+`vitest.config.ts` (statements 94, branches 87, functions 93, lines 96). Raise a floor when coverage
+improves; never lower one to land a change. The measured file list in that config is explicit, so a
+module in scope with no tests reports 0% rather than disappearing from the report; modules still
+outside that list are named in a comment there and are not yet measured.
+
+`pnpm test:unit` runs the same suite without coverage when you only want the fast signal.
+
+The source distribution has its own pair of checks. `pnpm source:smoke` proves the packed CLI
+generates the right files; `pnpm source:compile` proves a generated consumer then installs and
+compiles, one framework at a time, with a probe import so the bundler reaches generated code. It
+prints every framework on every run. Only the frameworks named in the `verified` list in
+`scripts/check-source-compilation.mjs` can fail it; a framework outside that list is reported as
+UNVERIFIED and is not evidence that it works. Add a framework to that list once it compiles, and
+never remove one to land a change. Both are slower than the unit suite because they install real
+dependencies, so run them when a change touches `packages/**` or the source CLI.
 
 Full repository-local setup adds:
 
@@ -40,7 +60,7 @@ Run the shell commands from Git Bash on Windows.
 pnpm dev
 ```
 
-This starts the browser-first Kitchen and documentation app. Framework previews build as separate same-origin bundles and load after selection. A future Tauri app will have its own project and development command.
+This starts the browser-first Kitchen and documentation app. Framework previews build as separate same-origin bundles and load after selection. There is no Tauri desktop app in this repository; a future one will be its own project with its own development command.
 
 ## Context and lookup
 

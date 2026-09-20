@@ -7,7 +7,7 @@ on:
       - 'package.json'
       - '.github/workflows/source-distribution.yml'
   push:
-    branches: ['main', 'feat/source-owned-distribution']
+    branches: ['main']
     paths:
       - 'packages/**'
       - 'scripts/*source*'
@@ -15,12 +15,16 @@ on:
       - '.github/workflows/source-distribution.yml'
 permissions:
   contents: read
+concurrency:
+  group: source-distribution-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   source-distribution:
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: '22'
       - name: Install build-only TypeScript without installing runtime workspace packages
@@ -31,6 +35,9 @@ jobs:
       - run: node --test packages/cli/test/source.test.mjs packages/cli/test/source-regressions.test.mjs
       - run: node scripts/build-source-registry.mjs
       - run: node scripts/check-source-distribution.mjs
+      # Generated projects are installed and built here, which the check above only
+      # generates. Needs no workspace packages, so it fits this job's slim install.
+      - run: node scripts/check-source-compilation.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: universal-source-cli

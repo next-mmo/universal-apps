@@ -191,7 +191,7 @@ test('packed-style CLI runs from outside the workspace using only its embedded r
   assert.equal(run('add', 'not-real', '--no-install').status, 1);
 });
 
-test('all nine catalogs build into an actual standalone npm tarball', (t) => {
+test('every runtime catalog builds into an actual standalone npm tarball', (t) => {
   const f = fixture(t);
   for (const folder of runtimePackages.filter((name) => !['core', 'ui'].includes(name))) {
     f.put(`packages/${folder}/package.json`, { name: `@package/${folder}` });

@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from 'react';
+import { createContext, useCallback, useContext, useMemo } from 'react';
 
 import { cn } from '../../lib/cn';
 import { Toggle, toggleVariants } from './toggle';
@@ -48,19 +48,22 @@ export function ToggleGroup({
 }: ToggleGroupProps) {
   const isSingle = props.type === 'single';
 
-  const onItemToggle = (itemValue: string) => {
-    if (disabled) return;
-    if (isSingle) {
-      const nextValue = props.value === itemValue ? '' : itemValue;
-      props.onValueChange?.(nextValue);
-    } else {
-      const currentValues = Array.isArray(props.value) ? props.value : [];
-      const nextValues = currentValues.includes(itemValue)
-        ? currentValues.filter((v) => v !== itemValue)
-        : [...currentValues, itemValue];
-      props.onValueChange?.(nextValues);
-    }
-  };
+  const onItemToggle = useCallback(
+    (itemValue: string) => {
+      if (disabled) return;
+      if (isSingle) {
+        const nextValue = props.value === itemValue ? '' : itemValue;
+        props.onValueChange?.(nextValue);
+      } else {
+        const currentValues = Array.isArray(props.value) ? props.value : [];
+        const nextValues = currentValues.includes(itemValue)
+          ? currentValues.filter((v) => v !== itemValue)
+          : [...currentValues, itemValue];
+        props.onValueChange?.(nextValues);
+      }
+    },
+    [disabled, isSingle, props],
+  );
 
   const contextValue = useMemo<ToggleGroupContextValue>(
     () => ({
@@ -71,7 +74,7 @@ export function ToggleGroup({
       size,
       disabled,
     }),
-    [props.type, props.value, variant, size, disabled],
+    [props, isSingle, onItemToggle, variant, size, disabled],
   );
 
   return (

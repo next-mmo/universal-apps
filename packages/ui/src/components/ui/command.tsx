@@ -72,6 +72,7 @@ export function CommandList({
   return (
     <div
       data-slot='command-list'
+      role='listbox'
       className={cn('max-h-72 overflow-y-auto overflow-x-hidden p-1', className)}
       {...props}
     >
@@ -141,10 +142,18 @@ export function CommandItem({
     <div
       data-slot='command-item'
       role='option'
+      tabIndex={disabled ? -1 : 0}
       aria-selected={false}
       aria-disabled={disabled}
       onClick={() => {
         if (!disabled) onSelect?.();
+      }}
+      onKeyDown={(event) => {
+        if (disabled) return;
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onSelect?.();
+        }
       }}
       className={cn(
         'relative flex cursor-pointer select-none items-center gap-2 rounded-lg px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',

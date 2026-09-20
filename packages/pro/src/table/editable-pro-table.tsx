@@ -13,7 +13,7 @@ import { Badge } from '@package/ui/badge';
 import { Skeleton } from '@package/ui/skeleton';
 
 import type { ReactNode } from 'react';
-import type { ProColumnDef } from '@package/pro-core/table';
+import type { BadgeTone, ProColumnDef } from '@package/pro-core/table';
 
 export interface EditableConfig<T> {
   editableKeys?: string[];
@@ -65,17 +65,19 @@ export function EditableProTable<T extends Record<string, any>>({
   empty,
   className = '',
 }: EditableProTableProps<T>) {
-  const [internalKeys, setInternalKeys] = useState<string[]>([]);
+  const [internalKeys, setInternalKeys] = useState<string[]>(editable.editableKeys ?? []);
   const [editingDrafts, setEditingDrafts] = useState<Map<string, T>>(new Map());
   const [savingKeys, setSavingKeys] = useState<Set<string>>(new Set());
+  const [actionError, setActionError] = useState<unknown>(null);
 
-  const activeKeys = editable.editableKeys ?? internalKeys;
+  // Editing keys are controlled only when the caller can also write them back. With `editableKeys`
+  // alone the component starts from those keys but owns the state, instead of silently ignoring
+  // every attempt to enter edit mode.
+  const keysControlled = editable.editableKeys !== undefined && editable.onChange !== undefined;
+  const activeKeys = keysControlled ? editable.editableKeys! : internalKeys;
   const setActiveKeys = (keys: string[]) => {
-    if (editable.onChange) {
-      editable.onChange(keys);
-    } else {
-      setInternalKeys(keys);
-    }
+    if (keysControlled) editable.onChange!(keys);
+    else setInternalKeys(keys);
   };
 
   const startEditing = (row: T, rowKey: string) => {
@@ -110,14 +112,16 @@ export function EditableProTable<T extends Record<string, any>>({
     if (!draft || !original) return;
 
     setSavingKeys((prev) => new Set(prev).add(rowKey));
+    setActionError(null);
     try {
       if (editable.onSave) {
         await editable.onSave(draft, original, index);
       }
-      const nextValue = [...value];
-      nextValue[index] = draft;
-      onChange?.(nextValue);
-      cancelEditing(rowKey);
+    } catch (error) {
+      // The row stays in edit mode so the user's draft is not lost, and the failure is surfaced
+      // instead of escaping as an unhandled rejection from a `void saveRow(...)` call site.
+      setActionError(error);
+      return;
     } finally {
       setSavingKeys((prev) => {
         const next = new Set(prev);
@@ -125,11 +129,23 @@ export function EditableProTable<T extends Record<string, any>>({
         return next;
       });
     }
+
+    const nextValue = [...value];
+    nextValue[index] = draft;
+    onChange?.(nextValue);
+    cancelEditing(rowKey);
   };
 
   const deleteRow = async (row: T, index: number, rowKey: string) => {
+    setActionError(null);
     if (editable.onDelete) {
-      await editable.onDelete(row, index);
+      try {
+        await editable.onDelete(row, index);
+      } catch (error) {
+        // A refused delete must leave the row in place.
+        setActionError(error);
+        return;
+      }
     }
     const nextValue = value.filter((_, i) => i !== index);
     onChange?.(nextValue);
@@ -192,7 +208,10 @@ export function EditableProTable<T extends Record<string, any>>({
       return <Badge variant='secondary'>{String(cellValue)}</Badge>;
     }
     if (col.valueType === 'status') {
-      return <Badge variant={row.done ? 'outline' : 'secondary'}>{String(cellValue)}</Badge>;
+      // A status cell carries the documented BadgeTone shape, which ProDataTable also honours. Keying
+      // the variant off a `done` property stringified the tone into "[object Object]".
+      const tone = cellValue as Partial<BadgeTone>;
+      return <Badge variant={tone.variant ?? 'secondary'}>{tone.label ?? String(cellValue)}</Badge>;
     }
     if (col.valueType === 'date') {
       const d = new Date(cellValue);
@@ -214,6 +233,12 @@ export function EditableProTable<T extends Record<string, any>>({
 
   return (
     <div className={`space-y-3 ${className}`}>
+      {actionError !== null && (
+        <p role='alert' className='rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive'>
+          {actionError instanceof Error ? actionError.message : String(actionError)}
+        </p>
+      )}
+
       {recordCreatorProps && recordCreatorProps.position === 'top' && creatorButton}
 
       <div className='rounded-xl border border-border bg-card shadow-sm overflow-hidden'>

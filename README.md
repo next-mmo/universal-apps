@@ -34,18 +34,19 @@ The CLI copies transitive helpers, types, and styles; rewrites workspace imports
 
 ```sh
 pnpm dev:web
-pnpm tauri dev
 pnpm source:test
 pnpm source:build
 pnpm source:smoke
 ```
+
+There is no Tauri desktop app in this repository; `packages/tauri-api` provides typed commands and browser fallbacks for a separate native consumer.
 
 The development apps still use internal workspace imports. This authoring arrangement does not become a dependency of generated consumer apps. The existing `pnpm scaffold` command remains a maintainer-only template/agent tool; `pnpm source` is the consumer generator.
 
 ## Workspace
 
 - `packages/ui`, `packages/pro`: React primitives, tokens, forms, tables, layouts, and CRUD pages.
-- `packages/core`, `packages/utils`, `packages/pro-core`, `packages/tauri-api`: shared contracts, utilities, and platform adapters.
+- `packages/core`, `packages/pro-core`, `packages/tauri-api`: shared contracts, state, and platform adapters.
 - `packages/pro-vue`, `packages/pro-svelte`, `packages/ui-native`: framework adapters.
 - `packages/cli/source`: standalone consumer CLI and source-registry build graph.
 

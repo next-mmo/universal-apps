@@ -31,6 +31,11 @@ export interface FilterField {
 export interface ProFilterToolbarProps {
   fields: FilterField[];
   values?: Record<string, unknown>;
+  /**
+   * Receives every edit. Supplying it together with `values` makes the toolbar controlled; without
+   * it the toolbar owns its state and `values` is only the starting point.
+   */
+  onValuesChange?: (values: Record<string, unknown>) => void;
   onFilter: (filters: Record<string, unknown>) => void;
   onReset?: () => void;
   collapseThreshold?: number;
@@ -39,6 +44,9 @@ export interface ProFilterToolbarProps {
   className?: string;
 }
 
+/** A `date` field may be fed from a query string or a form, so the value is narrowed here. */
+const asDate = (value: unknown): Date | undefined => (value instanceof Date ? value : undefined);
+
 /**
  * Collapsible search and filter toolbar for ProDataTable and resource views.
  * Matches Ant Design Pro QueryFilter workflow with zero runtime CSS overhead.
@@ -46,6 +54,7 @@ export interface ProFilterToolbarProps {
 export function ProFilterToolbar({
   fields,
   values: controlledValues,
+  onValuesChange,
   onFilter,
   onReset,
   collapseThreshold = 3,
@@ -61,13 +70,21 @@ export function ProFilterToolbar({
     return acc;
   };
 
-  const [internalValues, setInternalValues] = useState<Record<string, unknown>>(initialValues);
+  // Edits can only be controlled when the caller can also write them back. With `values` alone the
+  // toolbar owns the state and starts from the supplied map, instead of ignoring every keystroke.
+  const valuesControlled = controlledValues !== undefined && onValuesChange !== undefined;
+  const [internalValues, setInternalValues] = useState<Record<string, unknown>>(() => ({
+    ...initialValues(),
+    ...(controlledValues ?? {}),
+  }));
   const [collapsed, setCollapsed] = useState(true);
 
-  const values = controlledValues ?? internalValues;
+  const values = valuesControlled ? controlledValues! : internalValues;
 
   const setValue = (name: string, val: unknown) => {
-    setInternalValues((prev) => ({ ...prev, [name]: val }));
+    const next = { ...values, [name]: val };
+    if (valuesControlled) onValuesChange!(next);
+    else setInternalValues(next);
   };
 
   const handleSearch = () => {
@@ -77,6 +94,7 @@ export function ProFilterToolbar({
   const handleReset = () => {
     const fresh = initialValues();
     setInternalValues(fresh);
+    if (valuesControlled) onValuesChange!(fresh);
     onReset?.();
     onFilter(fresh);
   };
@@ -132,7 +150,8 @@ export function ProFilterToolbar({
 
             {field.type === 'date' && (
               <DatePicker
-                value={values[field.name] as Date | undefined}
+                id={`filter-${field.name}`}
+                value={asDate(values[field.name])}
                 onValueChange={(date) => setValue(field.name, date)}
                 placeholder={field.placeholder ?? 'Pick date...'}
                 className='h-9'
@@ -157,6 +176,7 @@ export function ProFilterToolbar({
             <Button
               size='sm'
               variant='ghost'
+              aria-expanded={!collapsed}
               onClick={() => setCollapsed(!collapsed)}
               className='gap-1 text-xs text-muted-foreground hover:text-foreground'
             >

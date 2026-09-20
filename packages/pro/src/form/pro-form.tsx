@@ -15,6 +15,7 @@ import { Switch } from '@package/ui/switch';
 import { Textarea } from '@package/ui/textarea';
 import { cn } from '@package/ui/cn';
 
+import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type {
   ProFieldSchema,
@@ -51,16 +52,19 @@ function FieldControl({
     case 'textarea':
       return (
         <Textarea
+          id={`pro-field-${schema.name}`}
           value={String(value ?? '')}
           onChange={(event) => onChange(event.target.value)}
           placeholder={schema.placeholder}
           disabled={disabled}
           aria-invalid={error !== undefined}
+          aria-describedby={error !== undefined ? `pro-field-${schema.name}-error` : undefined}
         />
       );
     case 'number':
       return (
         <Input
+          id={`pro-field-${schema.name}`}
           type='number'
           value={value === undefined || value === null ? '' : String(value)}
           onChange={(event) =>
@@ -69,6 +73,7 @@ function FieldControl({
           placeholder={schema.placeholder}
           disabled={disabled}
           aria-invalid={error !== undefined}
+          aria-describedby={error !== undefined ? `pro-field-${schema.name}-error` : undefined}
         />
       );
     case 'select':
@@ -78,7 +83,12 @@ function FieldControl({
           onValueChange={(next) => onChange(next)}
           disabled={disabled}
         >
-          <SelectTrigger className='w-full' aria-invalid={error !== undefined}>
+          <SelectTrigger
+            id={`pro-field-${schema.name}`}
+            className='w-full'
+            aria-invalid={error !== undefined}
+            aria-describedby={error !== undefined ? `pro-field-${schema.name}-error` : undefined}
+          >
             <SelectValue placeholder={schema.placeholder ?? 'Select…'} />
           </SelectTrigger>
           <SelectContent>
@@ -93,22 +103,36 @@ function FieldControl({
     case 'checkbox':
       return (
         <div className='flex items-center gap-2'>
-          <Checkbox checked={!!value} onCheckedChange={(checked) => onChange(!!checked)} />
+          <Checkbox
+            id={`pro-field-${schema.name}`}
+            checked={!!value}
+            onCheckedChange={(checked) => onChange(!!checked)}
+            aria-invalid={error !== undefined}
+            aria-describedby={error !== undefined ? `pro-field-${schema.name}-error` : undefined}
+          />
           <span className='text-sm'>{schema.placeholder ?? schema.label}</span>
         </div>
       );
     case 'switch':
       return (
-        <Switch checked={!!value} onCheckedChange={(checked) => onChange(checked)} />
+        <Switch
+          id={`pro-field-${schema.name}`}
+          checked={!!value}
+          onCheckedChange={(checked) => onChange(checked)}
+          aria-invalid={error !== undefined}
+          aria-describedby={error !== undefined ? `pro-field-${schema.name}-error` : undefined}
+        />
       );
     default:
       return (
         <Input
+          id={`pro-field-${schema.name}`}
           value={String(value ?? '')}
           onChange={(event) => onChange(event.target.value)}
           placeholder={schema.placeholder}
           disabled={disabled}
           aria-invalid={error !== undefined}
+          aria-describedby={error !== undefined ? `pro-field-${schema.name}-error` : undefined}
         />
       );
   }
@@ -145,12 +169,24 @@ export function ProForm({
   onCancel,
   className,
 }: ProFormProps) {
+  const [submitFailure, setSubmitFailure] = useState<unknown>(null);
+
   const form = useForm({
     defaultValues: defaultValues as ProFormValues,
     onSubmit: async ({ value }) => {
-      await onSubmit(value);
+      // A rejected onSubmit must become visible form state. Letting it escape the `void
+      // form.handleSubmit()` call site below turns every failure into an unhandled rejection with no
+      // feedback, and callers such as ProStepForm rely on this boundary to report a step failure.
+      setSubmitFailure(null);
+      try {
+        await onSubmit(value);
+      } catch (error) {
+        setSubmitFailure(error);
+      }
     },
   });
+
+  const resolvedSubmitError = submitError ?? submitFailure;
 
   return (
     <form
@@ -209,7 +245,11 @@ export function ProForm({
                         onChange={(next) => api.handleChange(next as never)}
                       />
                       {firstError !== '' && (
-                        <p className='text-xs font-medium text-destructive' role='alert'>
+                        <p
+                          id={`pro-field-${field.name}-error`}
+                          className='text-xs font-medium text-destructive'
+                          role='alert'
+                        >
                           {firstError}
                         </p>
                       )}
@@ -230,9 +270,9 @@ export function ProForm({
         </section>
       ))}
 
-      {submitError !== undefined && (
+      {resolvedSubmitError !== undefined && resolvedSubmitError !== null && (
         <p className='text-sm font-medium text-destructive' role='alert'>
-          {submitError instanceof Error ? submitError.message : String(submitError)}
+          {resolvedSubmitError instanceof Error ? resolvedSubmitError.message : String(resolvedSubmitError)}
         </p>
       )}
 

@@ -9,6 +9,16 @@
     "nd-spec-feature",
     "nd-task-status",
     "nd-user-testing",
-    "nd-workflow-doctor"
+    "nd-workflow-doctor",
+    "tauri-universal-ui",
+    "tauri-universal-ui-components",
+    "tauri-universal-ui-creating-components",
+    "tauri-universal-ui-performance",
+    "tauri-universal-ui-setup",
+    "tauri-universal-ui-styling",
+    "tauri-universal-ui-validation",
+    "tauri-universal-ui-variants",
+    "security-audit",
+    "browser-agent-setup"
   ]
 }

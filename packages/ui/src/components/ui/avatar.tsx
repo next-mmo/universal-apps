@@ -116,7 +116,7 @@ export function AvatarFallback({
     <span
       data-slot='avatar-fallback'
       className={cn(
-        'flex size-full items-center justify-center rounded-inherit font-medium text-muted-foreground',
+        'flex size-full items-center justify-center rounded-[inherit] font-medium text-muted-foreground',
         className,
       )}
       {...props}

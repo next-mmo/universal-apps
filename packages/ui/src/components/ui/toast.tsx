@@ -106,11 +106,16 @@ const positionClasses: Record<NonNullable<ToasterProps['position']>, string> = {
   'bottom-left': 'bottom-4 left-4 items-start',
 };
 
+const EMPTY_TOASTS: ToastData[] = [];
+const getEmptySnapshot = () => EMPTY_TOASTS;
+
 export function Toaster({ position = 'bottom-right', className }: ToasterProps) {
   const toasts = React.useSyncExternalStore(
     toastStore.subscribe,
     toastStore.getSnapshot,
-    () => [] as ToastData[],
+    // Must be a stable reference: useSyncExternalStore compares snapshots, so returning a fresh
+    // array here loops during server rendering and hydration.
+    getEmptySnapshot,
   );
 
   if (toasts.length === 0) return null;
@@ -129,6 +134,10 @@ export function Toaster({ position = 'bottom-right', className }: ToasterProps) 
           key={item.id}
           data-slot='toast'
           data-variant={item.variant ?? 'default'}
+          // A toast is transient, so it needs a live region to be announced at all. Errors
+          // interrupt; everything else waits for a pause in speech.
+          role={item.variant === 'error' ? 'alert' : 'status'}
+          aria-live={item.variant === 'error' ? 'assertive' : 'polite'}
           className={cn(
             'pointer-events-auto flex w-full items-start gap-3 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-lg transition-all duration-200 animate-in slide-in-from-bottom-3 fade-in-0',
             item.variant === 'error' && 'border-destructive/40 bg-destructive/5 text-destructive',

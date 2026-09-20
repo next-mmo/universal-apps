@@ -5,7 +5,7 @@ import { cn } from '@package/ui/src/lib/cn';
 
 import type { ReactNode } from 'react';
 
-export function DropdownMenuTrigger({ children, asChild, ...props }: { children?: ReactNode; asChild?: boolean }) {
+export function DropdownMenuTrigger({ children, asChild: _asChild, ...props }: { children?: ReactNode; asChild?: boolean }) {
   return <View {...props}>{children}</View>;
 }
 

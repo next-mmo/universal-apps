@@ -101,9 +101,10 @@ export function ProLayout({
 
   // Auto-expand parent submenu when pathname changes
   useEffect(() => {
-    if (activeParentKey && !openKeys.includes(activeParentKey)) {
-      setOpenKeys((prev) => [...prev, activeParentKey]);
-    }
+    if (!activeParentKey) return;
+    setOpenKeys((prev) =>
+      prev.includes(activeParentKey) ? prev : [...prev, activeParentKey],
+    );
   }, [activeParentKey]);
 
   const toggleSubMenu = (key: string) => {
@@ -122,9 +123,11 @@ export function ProLayout({
       >
         {/* Brand Header */}
         <div className="flex h-14 items-center justify-between border-b border-border/70 px-4">
-          <div
+          <button
+            type='button'
             onClick={() => onNavigate('/')}
-            className="flex items-center gap-2.5 overflow-hidden cursor-pointer"
+            aria-label={collapsed ? title : undefined}
+            className="flex items-center gap-2.5 overflow-hidden cursor-pointer text-left"
           >
             {logo || (
               <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold shadow-sm">
@@ -143,7 +146,7 @@ export function ProLayout({
                 )}
               </div>
             )}
-          </div>
+          </button>
         </div>
 
         {/* Navigation Menu List */}

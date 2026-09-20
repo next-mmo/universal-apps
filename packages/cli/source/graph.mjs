@@ -2,12 +2,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
 
-export const runtimePackages = ['core', 'utils', 'ui', 'pro-core', 'pro', 'pro-vue', 'pro-svelte', 'ui-native', 'tauri-api'];
+export const runtimePackages = ['core', 'ui', 'pro-core', 'pro', 'pro-vue', 'pro-svelte', 'ui-native', 'tauri-api'];
 const sourceExtensions = ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.vue', '.svelte', '.css', '.json', '.svg'];
 const slash = (value) => value.split(path.sep).join('/');
 const packageName = (value) => value.startsWith('@') ? value.split('/').slice(0, 2).join('/') : value.split('/')[0];
 const slug = (value) => value.replace(/^\.\//, '').replace(/[^a-zA-Z0-9-]+/g, '-').toLowerCase();
 const framework = (name) => name === 'pro-vue' ? 'vue' : name === 'pro-svelte' ? 'svelte' : name === 'ui-native' ? 'native' : ['ui', 'pro'].includes(name) ? 'react' : 'shared';
+// `core` is the framework-neutral package, but this hook imports React. Shipping it
+// inside the `core` item put a React dependency into Vue and Svelte consumer projects,
+// so it is scoped to the React family and distributed as its own item instead.
+const frameworkOverrides = new Map([['core/use-todos.ts', 'react']]);
+const fileFramework = (folder, source, file) => frameworkOverrides.get(`${folder}/${slash(path.relative(source, file))}`) ?? framework(folder);
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 
 function walk(root) {
@@ -130,24 +135,24 @@ export function buildRegistry(root, options = {}) {
             const local = './' + slash(path.relative(pkg.directory, file));
             if (local.startsWith(prefix) && local.endsWith(suffix)) {
               const match = local.slice(prefix.length, suffix ? -suffix.length : undefined);
-              publicEntries.push({ pkg, name: `${pkg.folder}-${slug(key.replace('*', match))}`, file });
+              publicEntries.push({ pkg, name: `${pkg.folder}-${slug(key.replace('*', match))}`, file, framework: fileFramework(pkg.folder, pkg.source, file) });
             }
           }
         } else {
           const file = resolveExport(pkg, key);
           if (!file) throw new Error(`Missing public export ${pkg.manifest.name}/${key}`);
-          publicEntries.push({ pkg, name: key === '.' ? `${pkg.folder}-index` : `${pkg.folder}-${slug(key)}`, file });
+          publicEntries.push({ pkg, name: key === '.' ? `${pkg.folder}-index` : `${pkg.folder}-${slug(key)}`, file, framework: fileFramework(pkg.folder, pkg.source, file) });
         }
       }
     } else if (exports) {
       const file = resolveExport(pkg, '.');
       if (!file) throw new Error(`Missing public export ${pkg.manifest.name}`);
-      publicEntries.push({ pkg, name: `${pkg.folder}-index`, file });
+      publicEntries.push({ pkg, name: `${pkg.folder}-index`, file, framework: fileFramework(pkg.folder, pkg.source, file) });
     } else {
       // Framework adapters without an exports map are still fully source-distributable.
       if ((pkg.manifest.main || pkg.manifest.module) && !resolveExport(pkg, '.')) throw new Error(`Missing public export ${pkg.manifest.name}`);
       for (const file of pkg.files.filter((file) => !file.endsWith('.d.ts'))) {
-        publicEntries.push({ pkg, name: `${pkg.folder}-${slug(slash(path.relative(pkg.source, file)).replace(/\.[^.]+$/, ''))}`, file });
+        publicEntries.push({ pkg, name: `${pkg.folder}-${slug(slash(path.relative(pkg.source, file)).replace(/\.[^.]+$/, ''))}`, file, framework: fileFramework(pkg.folder, pkg.source, file) });
       }
     }
   }
@@ -189,7 +194,7 @@ export function buildRegistry(root, options = {}) {
   }
 
   const license = fs.readFileSync(path.join(root, 'LICENSE'), 'utf8');
-  function item(name, pkg, entries) {
+  function item(name, pkg, entries, itemFramework, metaPackage = pkg.folder) {
     const closure = new Map();
     const visit = (file) => {
       const node = load(file);
@@ -216,20 +221,35 @@ export function buildRegistry(root, options = {}) {
       name, type: 'registry:block', title: name, description: `Editable ${pkg.folder} source with its complete local dependency graph.`,
       dependencies: Object.entries(dependencies).sort(([a], [b]) => a.localeCompare(b)).map(([name, version]) => `${name}@${version}`),
       files,
-      meta: { framework: framework(pkg.folder), package: pkg.folder, entries: entries.map(relative), sourceOwned: true },
+      meta: { framework: itemFramework, package: metaPackage, entries: entries.map(relative), sourceOwned: true },
       docs: 'Source is installed locally; no @package/* runtime dependency is required. For web styles, import the generated ui/styles/tokens.css into your Tailwind v4 stylesheet. Native adapters still need their normal platform configuration.',
     };
   }
-  const items = publicEntries.map(({ pkg, name, file }) => item(name, pkg, [file]));
+  const items = publicEntries.map(({ pkg, name, file, framework: entryFramework }) => item(name, pkg, [file], entryFramework));
   const emptyPackages = [];
   for (const pkg of packages) {
-    const entries = publicEntries.filter((entry) => entry.pkg === pkg).map((entry) => entry.file);
+    const owned = publicEntries.filter((entry) => entry.pkg === pkg);
+    const packageFramework = framework(pkg.folder);
+    const entries = owned.filter((entry) => entry.framework === packageFramework).map((entry) => entry.file);
     if (!entries.length) {
+      // Every entry belongs to another framework and is distributed as its own item.
+      if (owned.length) continue;
       if (pkg.files.length || pkg.manifest.exports || pkg.manifest.main || pkg.manifest.module) throw new Error(`No distributable entry points in ${pkg.folder}`);
       emptyPackages.push(pkg.manifest.name);
       continue;
     }
-    items.push(item(pkg.folder, pkg, entries));
+    items.push(item(pkg.folder, pkg, entries, packageFramework));
+    // Framework-scoped files still need a package-level item, because `add --all`
+    // installs by package name. Naming the item after its scope keeps `--all` honest:
+    // React installs `core-react`, Vue and Svelte never see it.
+    const scoped = new Map();
+    for (const entry of owned) {
+      if (entry.framework === packageFramework) continue;
+      const name = `${pkg.folder}-${entry.framework}`;
+      if (!scoped.has(name)) scoped.set(name, { framework: entry.framework, files: [] });
+      scoped.get(name).files.push(entry.file);
+    }
+    for (const [name, group] of scoped) items.push(item(name, pkg, group.files, group.framework, name));
   }
   if (new Set(items.map((item) => item.name)).size !== items.length) throw new Error('Registry item name collision');
   return { schemaVersion: 1, version: rootManifest.version ?? '0.1.0', packages: packages.map((pkg) => pkg.manifest.name), emptyPackages, publicEntryCount: publicEntries.length, items: items.sort((a, b) => a.name.localeCompare(b.name)) };

@@ -20,7 +20,7 @@ This skill provides fast, targeted routing across `docs/` (PRDs, architecture, d
 ## Routing Procedure
 
 1. **Check context index or catalog first**:
-   Run `nd context locate "<topic>"` (or inspect `docs/README.md`) for bounded routes (max five) and exact excerpt pointers. If the index is absent, stale or corrupted, fall back to scoped live search; the command does this itself and reports which path answered. Absence from the cache never proves absence from the repository.
+   Run `nd context locate "<topic>"` (or inspect `.agents/docs/PROJECT.md`) for bounded routes (max five) and exact excerpt pointers. If the index is absent, stale or corrupted, fall back to scoped live search; the command does this itself and reports which path answered. Absence from the cache never proves absence from the repository.
 2. **Resolve task state from task files**:
    For approval, ownership, blocker or next-action questions run `nd context check` first; it reads task files (not the index) and reports missing checkpoint fields, ambiguous wip tasks, missing catalog anchors, cache freshness and revision mismatch.
 3. **Search before reading**:

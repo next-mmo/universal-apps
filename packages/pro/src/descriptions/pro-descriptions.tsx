@@ -88,6 +88,15 @@ function renderFormattedValue(value: unknown, valueType?: ProDescriptionsValueTy
   return String(value);
 }
 
+// Tailwind only generates the classes it can read as literals, so the span is mapped instead of
+// assembled from a template string. `sm:col-span-${n}` produced a class that never existed.
+const SPAN_CLASS: Record<number, string> = {
+  1: 'sm:col-span-1',
+  2: 'sm:col-span-2',
+  3: 'sm:col-span-3',
+  4: 'sm:col-span-4',
+};
+
 export function ProDescriptions({
   title,
   extra,
@@ -175,7 +184,7 @@ export function ProDescriptions({
 
           const spanClass =
             item.span && item.span > 1
-              ? `sm:col-span-${Math.min(item.span, column)}`
+              ? (SPAN_CLASS[Math.min(item.span, column)] ?? '')
               : '';
 
           return (

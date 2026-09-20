@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Todo, TodoStore } from './todo';
-import { createTodo } from './todo';
+import { createTodo, reserveTodoIds } from './todo';
 
 /**
  * All todo state logic lives here so desktop, web, and any future target
@@ -16,6 +16,7 @@ export function useTodos(store: TodoStore) {
       .load()
       .then((initial) => {
         if (active) {
+          reserveTodoIds(initial);
           setTodos(initial);
           setLoaded(true);
         }

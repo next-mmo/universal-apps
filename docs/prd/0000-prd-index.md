@@ -7,9 +7,9 @@
 
 | Layer | Role | Technology |
 | :--- | :--- | :--- |
-| Applications | Web, Tauri desktop, and framework playground consumers | React, Vue, Svelte, React Native Web, Tauri |
+| Applications | Web and framework playground consumers; a Tauri desktop app is future separate work | React, Vue, Svelte, React Native Web |
 | Shared UI | Tokens, primitives, forms, tables, layouts, and CRUD composition | Canonical workspace source with source-owned consumer distribution |
-| Platform | Typed desktop operations with browser fallbacks | TypeScript and Rust |
+| Platform | Typed native operations with browser fallbacks, consumed by a separate native app | TypeScript; Rust only when a native app exists |
 | Agent interfaces | Focused capability discovery, recipes, docs, and MCP tools | CLI, MCP, `llms.txt` |
 
 ## PRDs
@@ -24,6 +24,7 @@
 | **0006** | [Competitive Parity and Enterprise Pro Expansion](0006-competitive-parity-and-expansion.md) | **draft** | Expansion roadmap for high-demand primitives, Ant Design Pro parity blocks, data connectors, and native ergonomics |
 | **0007** | [Enterprise Admin Dashboard Application](0007-admin-dashboard-app.md) | **shipped** | Ant Design Pro and UmiJS inspired enterprise admin portal app (`apps/admin-dashboard`) powered by Full TanStack Suite, `@package/pro`, and `@package/ui` |
 | **0008** | [Browser-first docs app with optional framework previews](0008-browser-first-docs-app.md) | **in-progress** | Migrate the Fumadocs/Kitchen app to web-only `apps/docs`, with a DOM-first site and optional lazy React, Vue, Svelte, and UniWind previews |
+| **0009** | [Verification foundation and enforced quality gates](0009-verification-foundation.md) | **in-progress** | Behavioral tests for the previously unverified packages, a blocking correctness lint gate, an enforced coverage floor, and gates that fail loudly instead of reporting success |
 
 ## Authority
 

@@ -8,7 +8,9 @@ export function getSvelteTemplateFiles(name, options = {}) {
     type: 'module',
     scripts: {
       dev: 'vite',
-      build: 'vite build',
+      // `--threshold error` keeps the starter's build aligned with the Vue starter's
+      // `vue-tsc`: real type errors fail the build, advisory warnings do not.
+      build: 'svelte-check --tsconfig ./tsconfig.json --threshold error && vite build',
       preview: 'vite preview',
       ...(options.tauri ? { tauri: 'tauri' } : {})
     },
@@ -20,6 +22,9 @@ export function getSvelteTemplateFiles(name, options = {}) {
     devDependencies: {
       '@sveltejs/vite-plugin-svelte': '^6.2.1',
       '@tailwindcss/vite': '^4.3.0',
+      // Svelte's build only bundles; without svelte-check a type error in generated
+      // source ships silently, which is how a React hook reached Svelte consumers.
+      'svelte-check': '^4.3.2',
       tailwindcss: '^4.3.0',
       typescript: '^5.8.3',
       vite: '7.3.6',
@@ -39,8 +44,21 @@ export function getSvelteTemplateFiles(name, options = {}) {
         '@/*': ['./src/*']
       }
     },
-    include: ['src/**/*.ts', 'src/**/*.svelte']
+    // `src/**/*.d.ts` is listed explicitly: svelte-check's tsconfig discovery does not
+    // pick up declaration files through the `src/**/*.ts` pattern, and without them
+    // every `.svelte` import is an unresolved module.
+    include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.svelte']
   }, null, 2) + '\n');
+
+  // Mirrors the Vue starter: declare the component module explicitly so the build's
+  // svelte-check step resolves `import App from './App.svelte'`.
+  files.set('src/vite-env.d.ts', `/// <reference types="vite/client" />
+declare module '*.svelte' {
+  import type { Component } from 'svelte';
+  const component: Component;
+  export default component;
+}
+`);
 
   files.set('vite.config.ts', `import path from 'node:path';
 import tailwindcss from '@tailwindcss/vite';

@@ -18,6 +18,15 @@ const MONTH_NAMES = [
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
+// Day buttons announce their full date; "20" alone is meaningless to a screen reader. The formatter
+// follows the runtime locale so the label is localized wherever the app runs.
+const dayLabelFormatter = new Intl.DateTimeFormat(undefined, {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+const dayLabel = (date: Date) => dayLabelFormatter.format(date);
+
 export function Calendar({
   value,
   onValueChange,
@@ -31,6 +40,18 @@ export function Calendar({
 
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
+
+  // A value set from outside — a form loading a record, a parent resetting state — must move the
+  // view with it. The state is left untouched when the month is controlled or already correct, so
+  // this cannot fight the caller or loop.
+  React.useEffect(() => {
+    if (controlledMonth || !value) return;
+    setInternalMonth((previous) =>
+      previous.getFullYear() === value.getFullYear() && previous.getMonth() === value.getMonth()
+        ? previous
+        : value,
+    );
+  }, [controlledMonth, value]);
 
   const handleMonthChange = (newMonth: Date) => {
     if (onMonthChange) onMonthChange(newMonth);
@@ -49,10 +70,12 @@ export function Calendar({
     today.getFullYear() === year && today.getMonth() === month && today.getDate() === day;
 
   const isSelected = (day: number) =>
-    value &&
-    value.getFullYear() === year &&
-    value.getMonth() === month &&
-    value.getDate() === day;
+    Boolean(
+      value &&
+        value.getFullYear() === year &&
+        value.getMonth() === month &&
+        value.getDate() === day,
+    );
 
   return (
     <div
@@ -63,16 +86,18 @@ export function Calendar({
       <div className='flex items-center justify-between pb-3'>
         <button
           type='button'
+          aria-label='Previous month'
           onClick={prevMonth}
           className='flex size-7 items-center justify-center rounded-lg hover:bg-accent hover:text-accent-foreground'
         >
           <ChevronLeftIcon className='size-4' />
         </button>
-        <div className='text-sm font-semibold'>
+        <div className='text-sm font-semibold' aria-live='polite'>
           {MONTH_NAMES[month]} {year}
         </div>
         <button
           type='button'
+          aria-label='Next month'
           onClick={nextMonth}
           className='flex size-7 items-center justify-center rounded-lg hover:bg-accent hover:text-accent-foreground'
         >
@@ -109,6 +134,11 @@ export function Calendar({
               key={`day-${day}`}
               type='button'
               disabled={isDisabled}
+              aria-label={dayLabel(date)}
+              // A button-based picker uses aria-pressed for selection; aria-selected would require
+              // full grid semantics, which this widget does not claim.
+              aria-pressed={selected}
+              aria-current={current ? 'date' : undefined}
               onClick={() => onValueChange?.(date)}
               className={cn(
                 'size-8 rounded-lg flex items-center justify-center transition-colors text-sm font-normal',

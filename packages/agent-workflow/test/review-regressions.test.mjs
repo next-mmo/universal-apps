@@ -78,9 +78,9 @@ test('CONTROL: ordinary overlapping tasks preserve latest-result semantics', asy
   assert.deepEqual(task.getSnapshot(), { status: 'success', value: 'new' });
 });
 
-test('R1: all-workspace verification must handle the real metadata-only utils placeholder explicitly', () => fixture(async (root, put) => {
-  // Same manifest-only shape as packages/utils at the reviewed SHA. Inventory transport is stubbed;
-  // the real discoverWorkspaces/workspacePlan implementation reads the on-disk manifests.
+test('R1: all-workspace verification must handle a metadata-only workspace member explicitly', () => fixture(async (root, put) => {
+  // Synthesized manifest-only member: any workspace package may legitimately ship a manifest with
+  // no scripts and no source, and the advertised all-workspace command must not stall on it.
   await put('package.json', '{"name":"fixture"}');
   await put('apps/demo/package.json', '{"name":"@app/demo","scripts":{"build":"vite build"}}');
   await put('apps/demo/src/app.ts', 'export const app = 1;');

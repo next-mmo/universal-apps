@@ -121,15 +121,20 @@ async function validateProductSynchronization({ root, changedPaths, active, erro
   const changedDone = changedPaths
     .filter((file) => /^docs\/tasks\/done\/done-[^/]+\.md$/.test(file))
     .sort();
+  // The in-progress task owns the changed product paths. A blocked task is only a fallback, and
+  // several blocked records at once are ambiguous rather than fatal to the board itself.
+  const preferred = active.filter((file) => /\/wip-/.test(`/${file}`));
+  const blocked = active.filter((file) => /\/blocked-/.test(`/${file}`));
   let taskFile = "";
-  if (active.length === 1) taskFile = active[0];
-  else if (active.length === 0 && changedDone.length === 1) taskFile = changedDone[0];
-  else if (active.length === 0) errors.push("product changes require one active wip/blocked task or one changed completed task with evidence");
+  if (preferred.length === 1) taskFile = preferred[0];
+  else if (preferred.length > 1) errors.push(`product changes have multiple in-progress wip tasks; select one increment: ${preferred.join(", ")}`);
+  else if (blocked.length === 1) taskFile = blocked[0];
+  else if (blocked.length > 1) errors.push(`product changes have multiple blocked tasks and no in-progress task; select one increment: ${blocked.join(", ")}`);
+  else if (changedDone.length === 1) taskFile = changedDone[0];
+  else if (changedDone.length > 1) errors.push(`product changes have multiple changed completed tasks; select one increment: ${changedDone.join(", ")}`);
+  else errors.push("product changes require one active wip/blocked task or one changed completed task with evidence");
 
-  if (!taskFile) {
-    if (changedDone.length > 1) errors.push(`product changes have multiple changed completed tasks; select one increment: ${changedDone.join(", ")}`);
-    return;
-  }
+  if (!taskFile) return;
 
   const task = await readText(root, taskFile);
   if (task === null) {
@@ -179,8 +184,11 @@ async function run(options) {
 
   const rootTasks = await markdownFiles(root, tasksRoot);
   const lifecycleTasks = rootTasks.filter((file) => /\/(todo|wip|blocked)-[^/]+\.md$/.test(`/${file}`));
+  // Blocked work waits on a human decision rather than consuming working capacity, so it does not
+  // hold the single in-progress slot: otherwise one stalled task freezes the entire board.
+  const inProgress = lifecycleTasks.filter((file) => /\/wip-/.test(`/${file}`));
   const active = lifecycleTasks.filter((file) => /\/(wip|blocked)-/.test(`/${file}`));
-  if (active.length > 1) errors.push(`expected at most one active wip/blocked task, found ${active.length}: ${active.join(", ")}`);
+  if (inProgress.length > 1) errors.push(`expected at most one in-progress wip task, found ${inProgress.length}: ${inProgress.join(", ")}`);
 
   let changedPaths = [];
   if (options.base) {

@@ -79,7 +79,9 @@ export function createMemoryDataProvider(
 
   return {
     async getList<T = Record<string, unknown>>(resource: string, params?: GetListParams) {
-      let items = [...getCollection(resource)] as unknown as T[];
+      // Copy the rows, not just the array: getOne/create/update already hand out copies, and a
+      // caller editing a row in place must not be able to reach into the store.
+      let items = getCollection(resource).map((item) => ({ ...item })) as unknown as T[];
 
       // Filter
       if (params?.filters) {
@@ -380,7 +382,9 @@ export interface SqliteDataProviderOptions {
 export function createSqliteDataProvider(options: SqliteDataProviderOptions): DataProvider {
   const { executor, idField = 'id' } = options;
 
-  return {
+  // Bound to a name so read-back methods keep working when a caller destructures the provider
+  // instead of calling through it.
+  const provider: DataProvider = {
     async getList<T = Record<string, unknown>>(resource: string, params: GetListParams = {}): Promise<GetListResult<T>> {
       const { pagination, sort, filters } = params;
       const whereClauses: string[] = [];
@@ -450,7 +454,7 @@ export function createSqliteDataProvider(options: SqliteDataProviderOptions): Da
 
       const newId = result.lastInsertId ?? (data as any)[idField];
       if (newId !== undefined) {
-        return this.getOne<T>(resource, newId);
+        return provider.getOne<T>(resource, newId);
       }
       return data as T;
     },
@@ -458,14 +462,14 @@ export function createSqliteDataProvider(options: SqliteDataProviderOptions): Da
     async update<T = Record<string, unknown>>(resource: string, id: string | number, data: Partial<T>): Promise<T> {
       const entries = Object.entries(data).filter(([col]) => col !== idField);
       if (entries.length === 0) {
-        return this.getOne<T>(resource, id);
+        return provider.getOne<T>(resource, id);
       }
       const setClauses = entries.map(([col]) => `"${col}" = ?`).join(', ');
       const values = [...entries.map(([, val]) => val), id];
 
       const sql = `UPDATE "${resource}" SET ${setClauses} WHERE "${idField}" = ?`;
       await executor.execute(sql, values);
-      return this.getOne<T>(resource, id);
+      return provider.getOne<T>(resource, id);
     },
 
     async delete(resource: string, id: string | number): Promise<{ id: string | number }> {
@@ -482,6 +486,8 @@ export function createSqliteDataProvider(options: SqliteDataProviderOptions): Da
       return { ids };
     },
   };
+
+  return provider;
 }
 
 export interface SupabaseDataProviderOptions {

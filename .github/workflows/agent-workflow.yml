@@ -24,6 +24,10 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Lint gate (correctness rules are errors)
+        run: pnpm lint
+      - name: Unit tests with the coverage threshold gate
+        run: pnpm test:coverage
       - name: Standalone native-package typecheck
         run: pnpm exec tsc --noEmit -p packages/ui-native/tsconfig.json
       - run: pnpm test
@@ -53,6 +57,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
       - run: pnpm foundation:typecheck
       - run: pnpm foundation:test
       - name: Real Windows workspace discovery

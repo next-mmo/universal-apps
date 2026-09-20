@@ -35,7 +35,7 @@ Local delta convention, not an OpenSpec CLI schema. Lifecycle: draft, approved, 
 - Recovered comparison pair, published earlier with no new spend: the 2026-09-15 Alert run yielded ND 483,386 versus baseline 775,589 total tokens (−37.7%), with fresh input+output 85,306 versus 96,037 (−11.2%). That is a two-arm pair on a different task; it corroborates the protocol but is not part of this round.
 - Source baseline revision: `ec942a5`, the HEAD from which the round was built.
 - New capability: yes. No three-arm host-counter measurement exists at the baseline.
-- Integration owner: Mavis. Round artifacts live in `apps/benchmark/**`; the board task is `docs/tasks/wip-0006-agent-token-benchmark-round-1.md`. The index row for this proposal was added together with it.
+- Integration owner: Mavis. Round artifacts live in `apps/benchmark/**`; the board task is `docs/tasks/blocked-0006-agent-token-benchmark-round-1.md`. The index row for this proposal was added together with it.
 
 ## Requirement changes
 

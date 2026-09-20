@@ -19,7 +19,10 @@
     "agent:docs": "pnpm --filter @app/docs exec tsx scripts/generate-llm.ts",
     "agent:docs:check": "pnpm --filter @app/docs exec tsx scripts/generate-llm.ts --check",
     "agent:test": "tsx packages/cli/test/agent.integration.ts",
-    "test": "pnpm foundation:typecheck && pnpm foundation:test && pnpm agent catalog-check && pnpm agent:test && pnpm mcp:test && pnpm source:test && pnpm source:build",
+    "test": "pnpm foundation:typecheck && pnpm test:typecheck && pnpm foundation:test && pnpm test:unit && pnpm agent catalog-check && pnpm agent:test && pnpm mcp:test && pnpm source:test && pnpm source:build",
+    "test:unit": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:typecheck": "tsc -p tsconfig.vitest.json",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "dev:native": "pnpm --filter @app/native-playground dev",
@@ -30,6 +33,7 @@
     "source:build": "node scripts/build-source-registry.mjs",
     "source:test": "node --test packages/cli/test/source.test.mjs packages/cli/test/source-regressions.test.mjs",
     "source:smoke": "node scripts/check-source-distribution.mjs",
+    "source:compile": "node scripts/check-source-compilation.mjs",
     "source:pack": "npm pack ./dist/universal-cli --ignore-scripts --pack-destination dist",
     "nd": "node packages/nd-workflow/bin/nd.mjs",
     "nd:pack": "node packages/nd-workflow/bin/nd-package.mjs",
@@ -39,13 +43,21 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
     "@types/node": "22.19.19",
+    "@types/react-dom": "19.2.6",
+    "@vitest/coverage-v8": "^5.0.1",
+    "jsdom": "^30.1.0",
     "oxfmt": "0.51.0",
     "oxlint": "1.66.0",
     "playwright-core": "^1.62.1",
+    "react-dom": "19.2.6",
     "tailwindcss": "4.3.0",
+    "tsx": "4.22.3",
     "typescript": "5.8.3",
-    "tsx": "4.22.3"
+    "vitest": "^5.0.1"
   },
   "pnpm": {
     "overrides": {

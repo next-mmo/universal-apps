@@ -12,6 +12,8 @@ export interface DatePickerProps {
   placeholder?: string;
   className?: string;
   disabled?: boolean;
+  /** Applied to the trigger, so an external `<label htmlFor>` can reach it. */
+  id?: string;
 }
 
 function formatDate(date: Date): string {
@@ -25,6 +27,7 @@ export function DatePicker({
   placeholder = 'Pick a date...',
   className,
   disabled,
+  id,
 }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -32,6 +35,7 @@ export function DatePicker({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          id={id}
           variant='outline'
           disabled={disabled}
           className={cn(

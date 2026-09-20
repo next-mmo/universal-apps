@@ -43,7 +43,7 @@ export function Dialog({
 
 export function DialogTrigger({
   children,
-  asChild,
+  asChild: _asChild,
   ...props
 }: {
   children: ReactNode;

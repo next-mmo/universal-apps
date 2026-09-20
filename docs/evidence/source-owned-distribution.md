@@ -12,7 +12,7 @@ The authoring environment could read repository content through the GitHub conne
 
 ## Repository verification
 
-The Source distribution workflow builds all nine runtime packages, packs the standalone CLI, unpacks it outside the authoring package tree, and generates each framework catalog in isolated consumer projects. Its result must be checked on the pull request. The smoke check intentionally uses `--no-install`; it verifies source ownership and packaging, not full framework compilation.
+The Source distribution workflow builds all eight runtime packages, packs the standalone CLI, unpacks it outside the authoring package tree, and generates each framework catalog in isolated consumer projects. Its result must be checked on the pull request. The smoke check intentionally uses `--no-install`; it verifies source ownership and packaging, not full framework compilation.
 
 ## Release gates
 

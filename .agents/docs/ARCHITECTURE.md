@@ -43,4 +43,4 @@ Do not use tests or retrieved context to override a requirement. Do not use a re
 
 `change:scope` reports committed, staged, unstaged, and untracked paths from an explicit base. Verification planning maps those facts to the narrowest owning boundary check; path mapping cannot prove dynamic imports, generated docs, subprocesses, MCP protocol behavior, Tauri commands, or native capabilities.
 
-The context and workflow checkers treat `apps/` and `packages/` as product paths. Product changes therefore require one active task plus a referenced PRD and evidence ledger.
+The context and workflow checkers treat `apps/` and `packages/` as product paths. Product changes therefore require one active task plus a referenced PRD and evidence ledger. Blocked work waits on a human decision rather than consuming working capacity, so a `blocked-*` record does not hold the single in-progress slot; when no `wip-*` task exists, a single blocked record or a single changed completed task may carry the product evidence.

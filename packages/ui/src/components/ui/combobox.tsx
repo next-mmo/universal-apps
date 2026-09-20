@@ -41,6 +41,8 @@ export function Combobox({
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
+  // The listbox only exists while the popover is open, so `aria-controls` is published only then.
+  const listboxId = React.useId();
 
   const selected = options.find((opt) => opt.value === value);
 
@@ -57,6 +59,7 @@ export function Combobox({
           variant='outline'
           role='combobox'
           aria-expanded={open}
+          aria-controls={open ? listboxId : undefined}
           disabled={disabled}
           className={cn('w-full justify-between font-normal', !value && 'text-muted-foreground', className)}
         >
@@ -71,7 +74,7 @@ export function Combobox({
             value={query}
             onChange={(e) => setQuery((e.target as HTMLInputElement).value)}
           />
-          <CommandList>
+          <CommandList id={listboxId}>
             {filtered.length === 0 ? (
               <CommandEmpty>{emptyText}</CommandEmpty>
             ) : (

@@ -40,7 +40,7 @@ function parseArgs(argv) {
 const seconds = (ms) => (ms > 0 ? `${(ms / 1000).toFixed(1)} s` : 'n/a');
 const grouped = (value) => typeof value === 'number' ? value.toLocaleString('en-US') : value;
 
-function delta(value, best, lowerIsBetter = true) {
+function delta(value, best) {
   if (!Number.isFinite(value) || !Number.isFinite(best) || best === 0) return '—';
   const change = ((value - best) / best) * 100;
   if (Math.abs(change) < 0.05) return 'best';

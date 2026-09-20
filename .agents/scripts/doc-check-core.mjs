@@ -143,6 +143,16 @@ async function run(options) {
   for (const source of [...sources].sort()) {
     const content = await readText(options.root, source);
     if (content === null) continue;
+    // A zero-filled buffer decodes as NUL characters, so a corrupt document would otherwise pass
+    // every link check by simply having no links. Task 0014 was committed exactly this way.
+    if (content.includes("\0")) {
+      errors.push(`${source}: contains NUL bytes; the file is corrupt and its content is unrecoverable`);
+      continue;
+    }
+    if (!content.trim()) {
+      errors.push(`${source}: guarded document is empty`);
+      continue;
+    }
     for (const href of relativeMarkdownLinks(content)) {
       const target = normalizePath(path.normalize(path.join(path.dirname(source), href)));
       if (!await exists(path.join(options.root, target))) errors.push(`${source}: broken relative link '${href}' -> ${target}`);

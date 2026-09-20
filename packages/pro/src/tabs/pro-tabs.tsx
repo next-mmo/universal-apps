@@ -17,13 +17,26 @@ export interface ProTabsState {
 
 const STORAGE_KEY = 'universal_pro_tabs_store';
 
+function isProTabItem(value: unknown): value is ProTabItem {
+  if (typeof value !== 'object' || value === null) return false;
+  const candidate = value as Record<string, unknown>;
+  return (
+    typeof candidate.id === 'string' &&
+    typeof candidate.title === 'string' &&
+    typeof candidate.path === 'string' &&
+    (candidate.closable === undefined || typeof candidate.closable === 'boolean')
+  );
+}
+
 function loadPersistedTabs(defaultTabs: ProTabItem[]): ProTabItem[] {
   if (typeof window === 'undefined') return defaultTabs;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      const parsed: unknown = JSON.parse(raw);
+      // `Array.isArray` alone is not enough: any non-empty array at this key would be adopted as the
+      // tab list, then rendered and persisted as though it were ours.
+      if (Array.isArray(parsed) && parsed.length > 0 && parsed.every(isProTabItem)) {
         return parsed;
       }
     }
@@ -65,6 +78,10 @@ export function syncProTab(pathname: string, title?: string, closable: boolean =
     } else if (title && nextTabs[existingIndex].title !== title) {
       nextTabs = nextTabs.map((t, idx) => (idx === existingIndex ? { ...t, title } : t));
     }
+
+    // Repeating a no-op call must not publish a new state. A caller passing an inline routeTitles
+    // object would otherwise re-run this effect on every render and re-render the bar each time.
+    if (nextTabs === prev.tabs && prev.activeTabId === pathname) return prev;
 
     persistTabs(nextTabs);
     return {
@@ -183,7 +200,7 @@ export function ProTabs({
     <div
       className={`flex items-center gap-1 border-b border-border/70 bg-card/40 px-3 py-1.5 overflow-x-auto select-none ${className}`}
     >
-      <div className="flex items-center gap-1.5 flex-1 min-w-0">
+      <div role='tablist' className="flex items-center gap-1.5 flex-1 min-w-0">
         {tabs.map((tab) => {
           const isActive =
             tab.id === activeTabId ||
@@ -193,7 +210,16 @@ export function ProTabs({
           return (
             <div
               key={tab.id || tab.path}
+              role='tab'
+              tabIndex={0}
+              aria-selected={isActive}
               onClick={() => handleTabClick(tab.path)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleTabClick(tab.path);
+                }
+              }}
               className={`group flex items-center gap-2 px-3 py-1 rounded-md text-xs font-medium cursor-pointer transition-all duration-150 border ${
                 isActive
                   ? 'bg-background text-foreground border-border/80 shadow-xs font-semibold'

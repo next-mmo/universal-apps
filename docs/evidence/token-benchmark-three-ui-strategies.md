@@ -2,7 +2,7 @@
 
 > Status: measured — n=1 per arm, provisional ordering
 > Round: 1 (smoke) · Executed: 2026-09-17 · PRD: [`0004-agent-token-benchmark.md`](../prd/0004-agent-token-benchmark.md)
-> Task: [`wip-0006-agent-token-benchmark-round-1.md`](../tasks/wip-0006-agent-token-benchmark-round-1.md)
+> Task: [`blocked-0006-agent-token-benchmark-round-1.md`](../tasks/blocked-0006-agent-token-benchmark-round-1.md)
 
 Three matched arms built the same frozen todo-app workload, differing only in UI strategy. Every
 figure below is host-reported usage summed from each run's `messages.jsonl`; none is a character

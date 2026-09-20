@@ -9,7 +9,6 @@ import {
   AccordionTrigger,
   Avatar,
   AvatarFallback,
-  AvatarImage,
   Badge,
   Button,
   Card,
@@ -27,7 +26,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -35,17 +33,13 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
   Input,
   InputLabel,
@@ -72,7 +66,6 @@ import {
   TabsList,
   TabsTrigger,
   Textarea,
-  Calendar,
   Combobox,
   DatePicker,
   toast,
@@ -101,7 +94,6 @@ export default function App() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [checked, setChecked] = useState(true);
   const [switchVal, setSwitchVal] = useState(true);
-  const [radioVal, setRadioVal] = useState('one');
   const [selectedFramework, setSelectedFramework] = useState('native');
   const [activeTab, setActiveTab] = useState('overview');
   const [inputValue, setInputValue] = useState('');

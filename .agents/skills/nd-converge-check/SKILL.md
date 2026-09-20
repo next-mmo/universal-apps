@@ -46,7 +46,7 @@ Construct a tabular evaluation comparing each requirement against **fresh observ
 - **Scope Creep / Drift**: If implementation added unrequested behaviors, report the discrepancy. Only the authorized implementation owner may remove it or seek approval; verification-only work remains read-only.
 
 ### Step 4: Write the Convergence Record
-In implementation mode, reconcile affected current docs and optionally use `.agents/skills/compound` for durable findings; no-op is allowed. Recheck changed docs and invalidated evidence before closure. When all required criteria pass, record implemented/integrated/deployed state separately and archive the exact task; update recorded path. Pending deployment can remain explicit for implementation-only scope, never claim shipped without release proof. In review-only mode, return record without writing or moving files.
+In implementation mode, reconcile affected current docs and optionally use `.agents/skills/nd-compound` for durable findings; no-op is allowed. Recheck changed docs and invalidated evidence before closure. When all required criteria pass, record implemented/integrated/deployed state separately and archive the exact task; update recorded path. Pending deployment can remain explicit for implementation-only scope, never claim shipped without release proof. In review-only mode, return record without writing or moving files.
 
 ```markdown
 ## Convergence Record (Verified YYYY-MM-DD)
