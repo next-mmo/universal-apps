@@ -4,15 +4,16 @@
 
 | Area | Owner | Boundary |
 | :--- | :--- | :--- |
-| React application and docs | `apps/tauri-app/` | Browser UI, Tauri shell, generated agent documentation |
+| Browser application and docs | `apps/docs/` | TanStack Start + React DOM Kitchen, Fumadocs, generated agent documentation |
+| Optional framework previews | `apps/docs/previews/` | Separate same-origin Vue, Svelte, and React Native Web + UniWind bundles loaded after selection |
 | Example consumers | `apps/web-todo/`, `apps/*-playground/` | Integration evidence for shared packages |
 | Framework-neutral contracts | `packages/core/`, `packages/pro-core/` | Schemas and behavior without UI/platform dependencies |
 | UI and feature packages | `packages/ui/`, `packages/pro/` | Stable React subpath exports |
 | Framework adapters | `packages/pro-vue/`, `packages/pro-svelte/`, `packages/ui-native/` | Vue, Svelte, and React Native Web bindings |
-| Desktop boundary | `packages/tauri-api/`, `apps/tauri-app/src-tauri/` | Typed commands, browser fallbacks, Rust capabilities |
+| Native app boundary | `packages/tauri-api/` | Typed Tauri commands and browser fallbacks for a separate native app |
 | Agent interfaces | `packages/cli/`, `packages/agent-workflow/`, `packages/mcp/`, `llms.txt` | Bounded discovery, workflow starters, documentation, recipes, and MCP tools |
 
-Application documentation under `apps/tauri-app/content/docs/` owns public usage guidance. `llms.txt` routes agents to focused material; generated bundles are derived.
+Application documentation under `apps/docs/content/docs/` owns public usage guidance. `llms.txt` routes agents to focused material; generated bundles are derived.
 
 ## Workflow planes
 
@@ -42,4 +43,4 @@ Do not use tests or retrieved context to override a requirement. Do not use a re
 
 `change:scope` reports committed, staged, unstaged, and untracked paths from an explicit base. Verification planning maps those facts to the narrowest owning boundary check; path mapping cannot prove dynamic imports, generated docs, subprocesses, MCP protocol behavior, Tauri commands, or native capabilities.
 
-The context and workflow checkers treat `apps/`, `packages/`, and `apps/tauri-app/src-tauri/` as product paths. Product changes therefore require one active task plus a referenced PRD and evidence ledger.
+The context and workflow checkers treat `apps/` and `packages/` as product paths. Product changes therefore require one active task plus a referenced PRD and evidence ledger.

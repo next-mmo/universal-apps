@@ -33,7 +33,7 @@ assert(!inspected.includes('pro-vue') && !inspected.includes('pro-svelte'), 'ins
 assert(inspected.length < 1200, 'inspect default stays inside response budget');
 
 const recipe = await capture(['recipe', 'crud-page', '--framework', 'react']);
-assert(recipe.includes('apps/tauri-app/src/pages/todos-page.tsx'), 'recipe returns the selected example path');
+assert(recipe.includes('apps/docs/src/pages/todos-page.tsx'), 'recipe returns the selected example path');
 assert(!recipe.includes('vue-playground') && !recipe.includes('svelte-playground'), 'recipe excludes other frameworks');
 assert(recipe.length < 1200, 'recipe default stays inside response budget');
 
@@ -41,7 +41,7 @@ const example = await capture(['recipe', 'crud-page', '--framework', 'react', '-
 assert(example.includes('defineProResource'), 'example source is available explicitly');
 
 const aliasedRecipe = await capture(['recipe', 'block.crud-page', '--framework', 'react']);
-assert(aliasedRecipe.includes('apps/tauri-app/src/pages/todos-page.tsx'), 'recipe resolves capability alias');
+assert(aliasedRecipe.includes('apps/docs/src/pages/todos-page.tsx'), 'recipe resolves capability alias');
 
 const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'tauri-universal-agent-'));
 const starterRoot = path.join(tempRoot, 'todo');

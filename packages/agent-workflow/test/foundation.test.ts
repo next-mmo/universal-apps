@@ -234,7 +234,7 @@ test('legacy extensionless imports validate without weakening explicit exports m
   await put('docs/button.md', '# Button');
   await put('packages/ui/src/components/ui/.keep', '');
   await put('packages/ui-native/src/components/ui/.keep', '');
-  for (const name of ['components', 'blocks']) await put(`apps/tauri-app/content/docs/${name}/meta.json`, '{"pages":[]}');
+  for (const name of ['components', 'blocks']) await put(`apps/docs/content/docs/${name}/meta.json`, '{"pages":[]}');
   const entry = { id: 'ui.button', kind: 'component', summary: '', docs: 'docs/button.md', implementations: { native: { import: '@example/ui/button', exports: ['Button'], source: 'packages/example/button.tsx' } } };
   const snapshot = { catalog: { ...catalog, entries: [entry] }, revision: 'test' };
   assert.deepEqual(await validateCatalog(root, snapshot), []);
@@ -374,7 +374,7 @@ test('resolveRecipes matches exact id, stripped prefix, and capability uses', ()
         summary: 'CRUD page recipe',
         frameworks: ['react'],
         uses: ['block.crud-page', 'bridge.todo-storage'],
-        examples: { react: 'apps/tauri-app/src/pages/todos-page.tsx' },
+        examples: { react: 'apps/docs/src/pages/todos-page.tsx' },
         verify: 'pnpm check',
       },
       {

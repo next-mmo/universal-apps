@@ -10,12 +10,12 @@ Select the smallest checks that prove the affected boundary, then add broader ch
 | CLI discovery and response budgets | `pnpm agent:test` |
 | MCP protocol and tool responses | `pnpm mcp:test` |
 | Standard automated suite | `pnpm test` |
-| React web build and generated agent docs | `pnpm build` |
+| TanStack Start browser build and generated agent docs | `pnpm build:web` |
 | Generated docs drift | `pnpm agent:docs:check` |
 | Workflow lifecycle and synchronization | `pnpm workflow:check --strict-budget` |
 | Documentation links and budgets | `pnpm docs:check` |
 | Agent adapter drift | `bash .agents/scripts/skill.sh check` |
-| Rust/Tauri changes | `cargo check --manifest-path apps/tauri-app/src-tauri/Cargo.toml` plus the affected desktop flow |
+| Rust/Tauri changes in a separate native app | `cargo check --manifest-path <native-app>/src-tauri/Cargo.toml` plus the affected native flow |
 
 ## Real-boundary acceptance
 

@@ -6,11 +6,11 @@
 
 ## Product map
 
-- `apps/tauri-app/` owns the React web/Tauri application and focused documentation.
+- `apps/docs/` owns the TanStack Start + React DOM Kitchen and documentation site, plus isolated same-origin Vue, Svelte, and React Native Web + UniWind previews.
 - `apps/web-todo/` and playground apps exercise reusable packages in real consumers.
 - `packages/core/` and `packages/pro-core/` own framework-neutral contracts.
 - `packages/ui/`, `packages/pro/`, `packages/pro-vue/`, `packages/pro-svelte/`, and `packages/ui-native/` own framework-facing components.
-- `packages/tauri-api/` owns typed desktop operations and browser fallbacks.
+- `packages/tauri-api/` owns typed operations for future separate native app consumers and browser fallbacks.
 - `packages/cli/`, `packages/mcp/`, `llms.txt`, and generated agent docs own agent discovery and delivery surfaces.
 - [Architecture](.agents/docs/ARCHITECTURE.md) defines architecture boundaries; [Project facts](.agents/docs/PROJECT.md) defines verified setup; [Workflow](.agents/docs/WORKFLOW.md) defines delivery.
 

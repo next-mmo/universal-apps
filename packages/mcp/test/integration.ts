@@ -92,7 +92,7 @@ const recipe = (await request('tools/call', {
   arguments: { id: 'crud', framework: 'react' },
 })) as { content: { text: string }[] };
 assert(
-  recipe.content[0].text.includes('apps/tauri-app/src/pages/todos-page.tsx') &&
+  recipe.content[0].text.includes('apps/docs/src/pages/todos-page.tsx') &&
     !recipe.content[0].text.includes('vue-playground') &&
     recipe.content[0].text.length < 1200,
   'get_recipe returns one compact framework recipe',

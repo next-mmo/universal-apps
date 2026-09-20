@@ -11,7 +11,7 @@ Use when adding a primitive, preparing a consuming app, repairing styling config
 
 1. Identify the consumer: React DOM, React Native Web, Vue, or Svelte.
 2. Read its package manifest, stylesheet entry, Vite configuration, and the matching local platform docs.
-3. Search `apps/tauri-app/public/agent/catalog.json` and the source tree for an existing component or recipe.
+3. Search `agent/catalog.json` and the source tree for an existing component or recipe.
 4. Check `scaffold.config.json` and use the scaffold command when a supported template exists.
 
 Keep this repository's existing dependencies and versions. Do not install gluestack, NativeWind, Expo, or another UI system as a setup shortcut; this workspace uses Radix/CVA for DOM components and Uniwind for the native playground.

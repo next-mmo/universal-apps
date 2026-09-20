@@ -6,8 +6,8 @@
       "templateDir": "packages/cli/templates/ui",
       "baseTemplate": "_base.tsx",
       "package": "@package/ui",
-      "docsDir": "apps/tauri-app/content/docs/components",
-      "docsMeta": "apps/tauri-app/content/docs/components/meta.json",
+      "docsDir": "apps/docs/content/docs/components",
+      "docsMeta": "apps/docs/content/docs/components/meta.json",
       "importRewrites": {
         "@/lib/cn": "../../lib/cn",
         "@/lib/utils": "../../lib/cn",
@@ -19,8 +19,8 @@
       "templateDir": "packages/cli/templates/native",
       "baseTemplate": "_base.tsx",
       "package": "@package/ui-native",
-      "docsDir": "apps/tauri-app/content/docs/platforms",
-      "docsMeta": "apps/tauri-app/content/docs/platforms/meta.json",
+      "docsDir": "apps/docs/content/docs/platforms",
+      "docsMeta": "apps/docs/content/docs/platforms/meta.json",
       "importRewrites": {
         "@/lib/cn": "@package/ui/cn",
         "@/components/ui/": "./"

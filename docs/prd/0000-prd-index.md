@@ -1,7 +1,7 @@
 # PRD-0000: Product Requirement Index
 
 > Status: living document  
-> Updated: 2026-09-19
+> Updated: 2026-09-20
 
 ## Product architecture
 
@@ -23,6 +23,7 @@
 | **0005** | [Uniwind Bare React Native Support](0005-uniwind-bare-support.md) | **approved** | Official support, CLI starter scaffolding, Metro configuration, and documentation for Bare React Native with Uniwind |
 | **0006** | [Competitive Parity and Enterprise Pro Expansion](0006-competitive-parity-and-expansion.md) | **draft** | Expansion roadmap for high-demand primitives, Ant Design Pro parity blocks, data connectors, and native ergonomics |
 | **0007** | [Enterprise Admin Dashboard Application](0007-admin-dashboard-app.md) | **shipped** | Ant Design Pro and UmiJS inspired enterprise admin portal app (`apps/admin-dashboard`) powered by Full TanStack Suite, `@package/pro`, and `@package/ui` |
+| **0008** | [Browser-first docs app with optional framework previews](0008-browser-first-docs-app.md) | **in-progress** | Migrate the Fumadocs/Kitchen app to web-only `apps/docs`, with a DOM-first site and optional lazy React, Vue, Svelte, and UniWind previews |
 
 ## Authority
 

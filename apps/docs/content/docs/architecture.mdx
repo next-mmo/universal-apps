@@ -1,0 +1,26 @@
+---
+title: Architecture
+description: How the monorepo and shared packages fit together.
+---
+
+## Workspace layout
+
+| Path | Purpose |
+| ---- | ------- |
+| `apps/docs` | TanStack Start + React DOM Kitchen and documentation site |
+| `packages/core` | Shared business logic |
+| `packages/ui` | Shared UI components (shadcn-based) |
+| `packages/pro` | Pro layout components |
+| `packages/tauri-api` | Typed Tauri command bindings for separate native app consumers |
+
+## Tech stack
+
+- **TanStack Start** for the browser application and route rendering
+- **TanStack Router** for typed routing
+- **TanStack Query** for data fetching
+- **Tailwind CSS v4** for styling
+- **Fumadocs** for this documentation section
+
+## Data flow
+
+The Kitchen Todo example stores its data in browser local storage and exposes it through TanStack Query hooks in `src/lib/todo-queries.ts`. The optional Vue, Svelte, and React Native Web + UniWind examples are separate same-origin bundles that load after selection.

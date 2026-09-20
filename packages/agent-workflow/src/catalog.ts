@@ -309,7 +309,7 @@ export async function validateCatalog(root: string, snapshot: CatalogSnapshot): 
         }
     }
     for (const section of ['components', 'blocks']) {
-        const directory = `apps/tauri-app/content/docs/${section}`;
+        const directory = `apps/docs/content/docs/${section}`;
         const meta = JSON.parse(await readOwned(root, `${directory}/meta.json`)) as {
             pages: string[];
         };

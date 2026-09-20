@@ -5,7 +5,7 @@
 - Node.js compatible with the workspace toolchain
 - pnpm 10
 - Git
-- Rust and Tauri prerequisites when changing or running the native shell
+- Rust and Tauri prerequisites only when working on a separate native app
 
 Use the committed `pnpm-lock.yaml`; install with `pnpm install --frozen-lockfile`.
 
@@ -37,11 +37,10 @@ Run the shell commands from Git Bash on Windows.
 ## Run the product
 
 ```bash
-pnpm dev:web
-pnpm tauri dev
+pnpm dev
 ```
 
-The first command runs the browser boundary; the second requires a working Rust/Tauri platform toolchain.
+This starts the browser-first Kitchen and documentation app. Framework previews build as separate same-origin bundles and load after selection. A future Tauri app will have its own project and development command.
 
 ## Context and lookup
 
@@ -62,4 +61,4 @@ Verify the live PR base or stack parent; never infer it from a branch name:
 pnpm change:scope --base <verified-ref>
 ```
 
-ND Workflow artifacts belong under `.agents/docs/`. Existing application documentation remains under `apps/tauri-app/content/docs/`.
+ND Workflow artifacts belong under `.agents/docs/`. Application documentation is under `apps/docs/content/docs/`.

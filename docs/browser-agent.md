@@ -8,9 +8,9 @@ This workspace combines **Chrome DevTools MCP** and **Inspecto** for Cursor-like
 - `.inspecto/settings.json` uses MCP delivery and runtime evidence.
 - `.inspecto/prompts.json` adds `Fix + Browser Verify` and `Debug in Browser` workflows.
 - `.vscode/extensions.json` recommends the `inspecto.inspecto` extension.
-- `apps/tauri-app/vite.config.ts` enables Inspecto source instrumentation outside production builds.
+- `apps/docs/vite.config.ts` enables Inspecto source instrumentation outside production builds.
 
-The web app runs on `http://localhost:1430` with `pnpm dev` and `http://localhost:1431` with `pnpm dev:web`.
+The browser app runs on `http://localhost:1430` with `pnpm dev`.
 
 ## First-time setup
 

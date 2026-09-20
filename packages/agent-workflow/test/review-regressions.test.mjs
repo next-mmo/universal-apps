@@ -37,7 +37,7 @@ async function validationFixture(put) {
   await put('packages/ui/src/components/ui/.keep', '');
   await put('packages/ui-native/src/components/ui/.keep', '');
   for (const section of ['blocks', 'components']) {
-    await put(`apps/tauri-app/content/docs/${section}/meta.json`, '{"pages":[]}');
+    await put(`apps/docs/content/docs/${section}/meta.json`, '{"pages":[]}');
   }
 }
 

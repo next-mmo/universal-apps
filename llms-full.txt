@@ -8,9 +8,9 @@
 
 ## Introduction
 
-Source: `apps/tauri-app/content/docs/index.mdx`
+Source: `apps/docs/content/docs/index.mdx`
 
-This is the documentation index. It is built with [Fumadocs](https://fumadocs.dev) running entirely client-side inside a Vite SPA — no server required, which makes it a good fit for Tauri.
+This is the documentation index. It is built with [Fumadocs](https://fumadocs.dev) and TanStack Start. The site and its optional framework previews run on the same web domain.
 
 ## What's inside
 
@@ -20,11 +20,11 @@ This is the documentation index. It is built with [Fumadocs](https://fumadocs.de
 
 ## Writing docs
 
-Every `.mdx` file under `apps/tauri-app/content/docs` becomes a page. Frontmatter controls its title and description.
+Every `.mdx` file under `apps/docs/content/docs` becomes a page. Frontmatter controls its title and description.
 
 ## Agent Guide
 
-Source: `apps/tauri-app/content/docs/agent.mdx`
+Source: `apps/docs/content/docs/agent.mdx`
 
 Read the root `AGENTS.md` first. It is the authoritative operating contract. This page routes repository work; API facts come from the checked-in catalog and focused component pages.
 
@@ -88,7 +88,7 @@ Run `pnpm agent:docs` after documentation or catalog changes. `pnpm agent:docs:c
 
 ## Getting Started
 
-Source: `apps/tauri-app/content/docs/getting-started.mdx`
+Source: `apps/docs/content/docs/getting-started.mdx`
 
 ## Prerequisites
 
@@ -119,33 +119,33 @@ For the web-only build without Tauri, use `pnpm build:web`.
 
 ## Architecture
 
-Source: `apps/tauri-app/content/docs/architecture.mdx`
+Source: `apps/docs/content/docs/architecture.mdx`
 
 ## Workspace layout
 
 | Path | Purpose |
 | ---- | ------- |
-| `apps/tauri-app` | The Tauri + React application |
+| `apps/docs` | TanStack Start + React DOM Kitchen and documentation site |
 | `packages/core` | Shared business logic |
 | `packages/ui` | Shared UI components (shadcn-based) |
 | `packages/pro` | Pro layout components |
-| `packages/tauri-api` | Typed Tauri command bindings |
+| `packages/tauri-api` | Typed Tauri command bindings for separate native app consumers |
 
 ## Tech stack
 
-- **Tauri 2** for the native shell (desktop & Android)
-- **TanStack Router** for client-side routing
+- **TanStack Start** for the browser application and route rendering
+- **TanStack Router** for typed routing
 - **TanStack Query** for data fetching
 - **Tailwind CSS v4** for styling
 - **Fumadocs** for this documentation section
 
 ## Data flow
 
-Todos live in `@package/core` as plain services. The app exposes them through TanStack Query hooks in `src/lib/todo-queries.ts`, and pages consume those hooks — no global state library involved.
+The Kitchen Todo example stores its data in browser local storage and exposes it through TanStack Query hooks in `src/lib/todo-queries.ts`. The optional Vue, Svelte, and React Native Web + UniWind examples are separate same-origin bundles that load after selection.
 
 ## Pro Core
 
-Source: `apps/tauri-app/content/docs/pro-core.mdx`
+Source: `apps/docs/content/docs/pro-core.mdx`
 
 `@package/pro-core` holds the **framework-free contracts** that pro component adapters consume. It has no React, Vue, or Svelte dependencies — only types and pure functions — which is what lets the same contracts drive adapters across frameworks.
 
@@ -242,7 +242,7 @@ Invalidation can use the key prefix — this app's todo mutations invalidate `['
 
 ## Blocks
 
-Source: `apps/tauri-app/content/docs/blocks/index.mdx`
+Source: `apps/docs/content/docs/blocks/index.mdx`
 
 **Blocks** are higher-level feature components: complete, composable units (a searchable sortable table, a schema-driven form, an app shell) assembled from UI primitives, `@package/pro-core` contracts, and TanStack engines. React implementations live in `@package/pro`; Vue and Svelte adapters implement the same contracts in `@package/pro-vue` and `@package/pro-svelte`.
 
@@ -269,7 +269,7 @@ Components (`@package/ui`) are dumb primitives — a Button, an Input. Blocks ow
 
 ## ProCrudPage
 
-Source: `apps/tauri-app/content/docs/blocks/pro-crud-page.mdx`
+Source: `apps/docs/content/docs/blocks/pro-crud-page.mdx`
 
 `ProCrudPage` composes the page container, data table, form dialog, and delete confirmation. The app keeps ownership of fetching and mutations through a typed controller.
 
@@ -302,7 +302,7 @@ const tasks = defineProResource<Task, { text: string }>({
 
 ## ProDataTable
 
-Source: `apps/tauri-app/content/docs/blocks/pro-data-table.mdx`
+Source: `apps/docs/content/docs/blocks/pro-data-table.mdx`
 
 A complete list view: search toolbar, column sorting, column visibility, page-size selector, pagination, loading/error/empty states. Source: `packages/pro/src/data-table/pro-data-table.tsx`, built on **TanStack Table v9** (`useTable` + `tableFeatures` with registered sorting/filtering/pagination/selection/visibility features) and `@package/ui` table primitives. Column shape comes from the `ProColumnDef` DSL in `@package/pro-core`.
 
@@ -351,7 +351,7 @@ Without `query`, filtering/sorting/pagination happen in memory (TanStack row mod
 
 ## ProDescriptions
 
-Source: `apps/tauri-app/content/docs/blocks/pro-descriptions.mdx`
+Source: `apps/docs/content/docs/blocks/pro-descriptions.mdx`
 
 Display structured record details and entity summaries with columns, border grids, and schema-driven rendering. Source: `packages/pro/src/descriptions/pro-descriptions.tsx`.
 
@@ -400,7 +400,7 @@ const record = {
 
 ## ProFilterToolbar
 
-Source: `apps/tauri-app/content/docs/blocks/pro-filter-toolbar.mdx`
+Source: `apps/docs/content/docs/blocks/pro-filter-toolbar.mdx`
 
 A collapsible search and filtering toolbar designed to connect directly with table queries and server filters.
 
@@ -454,7 +454,7 @@ Import from `@package/pro/filter-toolbar`.
 
 ## ProForm
 
-Source: `apps/tauri-app/content/docs/blocks/pro-form.mdx`
+Source: `apps/docs/content/docs/blocks/pro-form.mdx`
 
 Renders a complete form from a `ProFormGroup[]` schema (see `@package/pro-core/form`): field controls per type, synchronous validators, group titles/descriptions, `stacked` or `grid-2` layouts, pending state on submit. Source: `packages/pro/src/form/pro-form.tsx`, built on TanStack Form.
 
@@ -516,7 +516,7 @@ Validators are plain functions on the field schema (`validators: [(v) => v.lengt
 
 ## ProFormDialog
 
-Source: `apps/tauri-app/content/docs/blocks/pro-form-dialog.mdx`
+Source: `apps/docs/content/docs/blocks/pro-form-dialog.mdx`
 
 Controlled Dialog wrapping `ProForm` — the standard create/edit surface. Key the rendered dialog by the edited record so defaults reset between opens. Source: `packages/pro/src/form/pro-form-dialog.tsx`.
 
@@ -561,7 +561,7 @@ const addTodo = useAddTodo();
 
 ## ProFormDrawer
 
-Source: `apps/tauri-app/content/docs/blocks/pro-form-drawer.mdx`
+Source: `apps/docs/content/docs/blocks/pro-form-drawer.mdx`
 
 A slide-over drawer form providing fast create and edit workflows without full-page navigation.
 
@@ -612,7 +612,7 @@ Import from `@package/pro/form-drawer`.
 
 ## ProStepForm
 
-Source: `apps/tauri-app/content/docs/blocks/pro-step-form.mdx`
+Source: `apps/docs/content/docs/blocks/pro-step-form.mdx`
 
 A multi-step wizard form component with step progress indicators, per-step validation, and persistent state management across steps.
 
@@ -677,7 +677,7 @@ Import from `@package/pro/step-form`.
 
 ## AppShell
 
-Source: `apps/tauri-app/content/docs/blocks/app-shell.mdx`
+Source: `apps/docs/content/docs/blocks/app-shell.mdx`
 
 The application frame used by every route in this app: fixed-width sidebar with nav items (desktop), horizontal scrollable nav in the header (mobile), sticky header with the app title. Source: `packages/pro/src/layout/app-shell.tsx`. You are looking at it right now — this docs page renders inside the AppShell.
 
@@ -715,7 +715,7 @@ Active styling uses the `primary` background for the matched item; icons come fr
 
 ## PageContainer
 
-Source: `apps/tauri-app/content/docs/blocks/page-container.mdx`
+Source: `apps/docs/content/docs/blocks/page-container.mdx`
 
 Standard page scaffold: breadcrumb trail, title, optional description, right-aligned actions, body, optional footer. Source: `packages/pro/src/layout/page-container.tsx`.
 
@@ -755,7 +755,7 @@ Standard page scaffold: breadcrumb trail, title, optional description, right-ali
 
 ## Accordion
 
-Source: `apps/tauri-app/content/docs/components/accordion.mdx`
+Source: `apps/docs/content/docs/components/accordion.mdx`
 
 Displays an accordion: vertically stacked, collapsible section panels. Source: `packages/ui/src/components/ui/accordion.tsx`, built on `@radix-ui/react-accordion`.
 
@@ -812,7 +812,7 @@ All props not listed are forwarded to the underlying Radix primitive, so `onValu
 
 ## Animated Tabs
 
-Source: `apps/tauri-app/content/docs/components/animated-tabs.mdx`
+Source: `apps/docs/content/docs/components/animated-tabs.mdx`
 
 Fluid navigation tabs where the active background pill smoothly slides between tab triggers using CSS GPU transforms and `MutationObserver` layout measurement.
 
@@ -867,7 +867,7 @@ Copy `animated-tabs.tsx` to your components directory and import from `@package/
 
 ## Avatar
 
-Source: `apps/tauri-app/content/docs/components/avatar.mdx`
+Source: `apps/docs/content/docs/components/avatar.mdx`
 
 Displays an avatar image with an initials fallback. Source: `packages/ui/src/components/ui/avatar.tsx`.
 
@@ -896,7 +896,7 @@ Displays an avatar image with an initials fallback. Source: `packages/ui/src/com
 
 ## Badge
 
-Source: `apps/tauri-app/content/docs/components/badge.mdx`
+Source: `apps/docs/content/docs/components/badge.mdx`
 
 Displays a badge or component tag. Source: `packages/ui/src/components/ui/badge.tsx`.
 
@@ -928,7 +928,7 @@ Accepts any `<span>` props plus `asChild` (Radix Slot) to render as a different 
 
 ## Button
 
-Source: `apps/tauri-app/content/docs/components/button.mdx`
+Source: `apps/docs/content/docs/components/button.mdx`
 
 Displays a button or an anchor that looks like a button. Source: `packages/ui/src/components/ui/button.tsx`, styled with `class-variance-authority`.
 
@@ -961,7 +961,7 @@ Displays a button or an anchor that looks like a button. Source: `packages/ui/sr
 
 ## Calendar
 
-Source: `apps/tauri-app/content/docs/components/calendar.mdx`
+Source: `apps/docs/content/docs/components/calendar.mdx`
 
 A fast date picker calendar grid with month navigation and day selection without external date libraries.
 
@@ -999,7 +999,7 @@ Copy `calendar.tsx` to your components directory and import from `@package/ui/ca
 
 ## Card
 
-Source: `apps/tauri-app/content/docs/components/card.mdx`
+Source: `apps/docs/content/docs/components/card.mdx`
 
 Groups related content in a bordered container. Source: `packages/ui/src/components/ui/card.tsx`.
 
@@ -1030,7 +1030,7 @@ Each slot is a plain `<div>` with layout classes: `Card` (border, radius, shadow
 
 ## Checkbox
 
-Source: `apps/tauri-app/content/docs/components/checkbox.mdx`
+Source: `apps/docs/content/docs/components/checkbox.mdx`
 
 A binary input that toggles a single value. Source: `packages/ui/src/components/ui/checkbox.tsx`, built on `@radix-ui/react-checkbox`.
 
@@ -1061,7 +1061,7 @@ All other props forward to the Radix primitive (`disabled`, `required`, …).
 
 ## Combobox
 
-Source: `apps/tauri-app/content/docs/components/combobox.mdx`
+Source: `apps/docs/content/docs/components/combobox.mdx`
 
 A popover-anchored autocomplete selector button with search filtering and active checkmarks.
 
@@ -1109,7 +1109,7 @@ const frameworks = [
 
 ## Command
 
-Source: `apps/tauri-app/content/docs/components/command.mdx`
+Source: `apps/docs/content/docs/components/command.mdx`
 
 A composable search and command palette container with full keyboard navigation.
 
@@ -1164,7 +1164,7 @@ Copy `command.tsx` to your components directory and import from `@package/ui/com
 
 ## Date Picker
 
-Source: `apps/tauri-app/content/docs/components/date-picker.mdx`
+Source: `apps/docs/content/docs/components/date-picker.mdx`
 
 A date input control rendering a formatted trigger button that opens a calendar selection popover.
 
@@ -1203,7 +1203,7 @@ Copy `date-picker.tsx` and `calendar.tsx` to your components directory and impor
 
 ## Dialog
 
-Source: `apps/tauri-app/content/docs/components/dialog.mdx`
+Source: `apps/docs/content/docs/components/dialog.mdx`
 
 A modal window layered over the page. Source: `packages/ui/src/components/ui/dialog.tsx`, built on `@radix-ui/react-dialog`. `ProFormDialog` in `@package/pro` composes this for schema-driven forms.
 
@@ -1247,7 +1247,7 @@ A modal window layered over the page. Source: `packages/ui/src/components/ui/dia
 
 ## Drawer
 
-Source: `apps/tauri-app/content/docs/components/drawer.mdx`
+Source: `apps/docs/content/docs/components/drawer.mdx`
 
 A slide-up panel component with backdrop dismiss and handle bar. Source: `packages/ui/src/components/ui/drawer.tsx`.
 
@@ -1309,7 +1309,7 @@ A slide-up panel component with backdrop dismiss and handle bar. Source: `packag
 
 ## Interactive Drawer
 
-Source: `apps/tauri-app/content/docs/components/drawer-interactive.mdx`
+Source: `apps/docs/content/docs/components/drawer-interactive.mdx`
 
 A mobile bottom sheet that executes worklets directly on the native UI thread, allowing interactive dragging with velocity-based flick dismiss and rubber-banding.
 
@@ -1375,7 +1375,7 @@ Install peer dependencies `react-native-reanimated` and `react-native-gesture-ha
 
 ## Dropdown Menu
 
-Source: `apps/tauri-app/content/docs/components/dropdown-menu.mdx`
+Source: `apps/docs/content/docs/components/dropdown-menu.mdx`
 
 A menu of actions revealed from a trigger. Source: `packages/ui/src/components/ui/dropdown-menu.tsx`, built on `@radix-ui/react-dropdown-menu`.
 
@@ -1413,7 +1413,7 @@ A menu of actions revealed from a trigger. Source: `packages/ui/src/components/u
 
 ## Input
 
-Source: `apps/tauri-app/content/docs/components/input.mdx`
+Source: `apps/docs/content/docs/components/input.mdx`
 
 A single-line text field. Source: `packages/ui/src/components/ui/input.tsx`.
 
@@ -1439,7 +1439,7 @@ A plain `<input>` — every native prop forwards (`type`, `value`, `onChange`, `
 
 ## Label
 
-Source: `apps/tauri-app/content/docs/components/label.mdx`
+Source: `apps/docs/content/docs/components/label.mdx`
 
 A caption for a form control. Source: `packages/ui/src/components/ui/label.tsx`, built on `@radix-ui/react-label`.
 
@@ -1462,7 +1462,7 @@ Forwards all `<label>` props; `htmlFor` clicking focuses the linked control. Whe
 
 ## Popover
 
-Source: `apps/tauri-app/content/docs/components/popover.mdx`
+Source: `apps/docs/content/docs/components/popover.mdx`
 
 A floating panel for rich content. Source: `packages/ui/src/components/ui/popover.tsx`, built on `@radix-ui/react-popover`.
 
@@ -1491,7 +1491,7 @@ A floating panel for rich content. Source: `packages/ui/src/components/ui/popove
 
 ## Select
 
-Source: `apps/tauri-app/content/docs/components/select.mdx`
+Source: `apps/docs/content/docs/components/select.mdx`
 
 A native-feeling select with full styling control. Source: `packages/ui/src/components/ui/select.tsx`, built on `@radix-ui/react-select`.
 
@@ -1528,7 +1528,7 @@ A native-feeling select with full styling control. Source: `packages/ui/src/comp
 
 ## Separator
 
-Source: `apps/tauri-app/content/docs/components/separator.mdx`
+Source: `apps/docs/content/docs/components/separator.mdx`
 
 A visual divider. Source: `packages/ui/src/components/ui/separator.tsx`, built on `@radix-ui/react-separator`.
 
@@ -1553,7 +1553,7 @@ A visual divider. Source: `packages/ui/src/components/ui/separator.tsx`, built o
 
 ## Skeleton
 
-Source: `apps/tauri-app/content/docs/components/skeleton.mdx`
+Source: `apps/docs/content/docs/components/skeleton.mdx`
 
 A pulsing placeholder block for loading states. Source: `packages/ui/src/components/ui/skeleton.tsx`.
 
@@ -1576,7 +1576,7 @@ A single `<div>` with the `animate-pulse` background. Size and shape are entirel
 
 ## Switch
 
-Source: `apps/tauri-app/content/docs/components/switch.mdx`
+Source: `apps/docs/content/docs/components/switch.mdx`
 
 An on/off toggle. Source: `packages/ui/src/components/ui/switch.tsx`, built on `@radix-ui/react-switch`.
 
@@ -1607,7 +1607,7 @@ Other props forward to the Radix primitive (`disabled`, `required`, `name` for f
 
 ## Table
 
-Source: `apps/tauri-app/content/docs/components/table.mdx`
+Source: `apps/docs/content/docs/components/table.mdx`
 
 Low-level table styling primitives. Source: `packages/ui/src/components/ui/table.tsx`. For full-featured tables (sorting, filters, pagination, column visibility), use `ProDataTable` from `@package/pro`, which composes these.
 
@@ -1649,7 +1649,7 @@ Low-level table styling primitives. Source: `packages/ui/src/components/ui/table
 
 ## Tabs
 
-Source: `apps/tauri-app/content/docs/components/tabs.mdx`
+Source: `apps/docs/content/docs/components/tabs.mdx`
 
 A tabbed interface. Source: `packages/ui/src/components/ui/tabs.tsx`, built on `@radix-ui/react-tabs`.
 
@@ -1678,7 +1678,7 @@ A tabbed interface. Source: `packages/ui/src/components/ui/tabs.tsx`, built on `
 
 ## Textarea
 
-Source: `apps/tauri-app/content/docs/components/textarea.mdx`
+Source: `apps/docs/content/docs/components/textarea.mdx`
 
 A multi-line text field. Source: `packages/ui/src/components/ui/textarea.tsx`.
 
@@ -1704,7 +1704,7 @@ A plain `<textarea>` — all native props forward (`value`, `onChange`, `rows`, 
 
 ## Toast
 
-Source: `apps/tauri-app/content/docs/components/toast.mdx`
+Source: `apps/docs/content/docs/components/toast.mdx`
 
 A responsive, stackable toast notification system inspired by Sonner with zero runtime styling overhead.
 
@@ -1759,7 +1759,7 @@ Copy `toast.tsx` to your components directory and import from `@package/ui/toast
 
 ## Toggle
 
-Source: `apps/tauri-app/content/docs/components/toggle.mdx`
+Source: `apps/docs/content/docs/components/toggle.mdx`
 
 A two-state button for switching options on or off. Source: `packages/ui/src/components/ui/toggle.tsx`.
 
@@ -1788,7 +1788,7 @@ A two-state button for switching options on or off. Source: `packages/ui/src/com
 
 ## Toggle Group
 
-Source: `apps/tauri-app/content/docs/components/toggle-group.mdx`
+Source: `apps/docs/content/docs/components/toggle-group.mdx`
 
 A group of toggle buttons supporting single or multiple selections. Source: `packages/ui/src/components/ui/toggle-group.tsx`.
 
@@ -1826,7 +1826,7 @@ A group of toggle buttons supporting single or multiple selections. Source: `pac
 
 ## Tooltip
 
-Source: `apps/tauri-app/content/docs/components/tooltip.mdx`
+Source: `apps/docs/content/docs/components/tooltip.mdx`
 
 A brief message on hover/focus. Source: `packages/ui/src/components/ui/tooltip.tsx`, built on `@radix-ui/react-tooltip`. The app wraps the router in `TooltipProvider` (see `src/main.tsx`).
 
@@ -1853,7 +1853,7 @@ A brief message on hover/focus. Source: `packages/ui/src/components/ui/tooltip.t
 
 ## Vue
 
-Source: `apps/tauri-app/content/docs/platforms/vue.mdx`
+Source: `apps/docs/content/docs/platforms/vue.mdx`
 
 The pro block layer ships a Vue adapter, `@package/pro-vue`: the same layout, form, and data-table blocks from the React docs re-implemented as single-file components that share the exact same design tokens (`@package/ui/tokens.css`).
 
@@ -1881,7 +1881,7 @@ Its CSS entry imports the shared `tokens.css` and scans the Vue packages via `@s
 
 ## Svelte
 
-Source: `apps/tauri-app/content/docs/platforms/svelte.mdx`
+Source: `apps/docs/content/docs/platforms/svelte.mdx`
 
 The pro block layer ships a Svelte adapter, `@package/pro-svelte`: the same layout, form, and data-table blocks from the React docs re-implemented as `.svelte` components that share the exact same design tokens (`@package/ui/tokens.css`).
 
@@ -1909,7 +1909,7 @@ Its CSS entry imports the shared `tokens.css` and scans the Svelte packages via 
 
 ## React Native Web
 
-Source: `apps/tauri-app/content/docs/platforms/react-native-web.mdx`
+Source: `apps/docs/content/docs/platforms/react-native-web.mdx`
 
 The same Apple-inspired design system that powers the DOM components runs on **React Native Web (RNW)** via `@package/ui-native` — hand-built RN primitives (`Pressable`/`View`/`Text`) styled with **Uniwind**, which compiles Tailwind v4 classes for React Native at build time. No Metro, no Expo required: the playground is a plain Vite app.
 
@@ -1921,11 +1921,11 @@ The repo's cross-framework recipe applies unchanged:
 | ----- | ----------- | ------------ |
 | Tokens | `packages/ui/src/styles/tokens.css` (CSS custom properties) | **same file**, imported into the playground CSS entry |
 | Components | `packages/ui` (Radix + Tailwind classes) | `packages/ui-native` (RN primitives + Uniwind `className`) |
-| Playground | `apps/tauri-app` | `apps/native-playground` (`vite-plugin-rnw` + `@tailwindcss/vite` + `uniwind/vite`, port 1453) |
+| Playground | `apps/docs/previews/uniwind` (built on demand at `/previews/uniwind/`) | `apps/native-playground` (`vite-plugin-rnw` + `@tailwindcss/vite` + `uniwind/vite`, port 1453) |
 
 ## Uniwind styling
 
-`apps/native-playground/vite.config.ts` chains `rnw()` (react-native-web resolution + fixes, replaces the manual `react-native` alias), `tailwindcss()`, and `uniwind({ cssEntryFile: './src/index.css' })`. The CSS entry imports `tailwindcss`, `uniwind`, and the shared `@package/ui/tokens.css`, and scans `packages/ui-native/src` via `@source` — so both engines read the same design tokens.
+`apps/docs/previews/uniwind/vite.config.ts` chains `rnw()` (React Native Web resolution + fixes), `tailwindcss()`, and `uniwind({ cssEntryFile: './src/index.css' })`. Its CSS entry imports `tailwindcss`, `uniwind`, and the shared tokens, and scans `packages/ui-native/src` via `@source`. The preview is built separately and fetched only when selected; it runs in the browser through React Native Web, not on an iOS or Android device.
 
 Components mirror the DOM siblings' class strings 1:1; color utilities (`bg-primary`, `text-muted-foreground`, `dark:bg-card`, …) resolve the tokens.css variables. Because RN has no style inheritance, container utilities sit on the primitive and text color/size utilities on the inner `Text` — see the `variantClasses` maps in `packages/ui-native/src/components/ui/*`. Web-only utilities (hover, focus rings) are elided; pressed feedback uses `active:`.
 
@@ -1936,7 +1936,7 @@ Dark mode is uniwind-managed: `Uniwind.setTheme('dark' | 'light')` flips the the
 ## Running the playground
 
 ```bash
-pnpm dev:native   # → http://localhost:1453
+pnpm dev:native   # standalone playground → http://localhost:1453
 ```
 
 Renders every ui-native component (buttons in all variants/sizes, badges, a form card with Input + Switch, separators) with a working light/dark toggle.
@@ -1978,7 +1978,7 @@ The scaffold's `native` target writes to `packages/ui-native/src/components/ui/`
 
 ## Bare React Native (Uniwind)
 
-Source: `apps/tauri-app/content/docs/platforms/uniwind-bare.mdx`
+Source: `apps/docs/content/docs/platforms/uniwind-bare.mdx`
 
 In addition to React Native Web (`apps/native-playground`), the same Apple-inspired design system powers **Bare React Native** applications running directly on Android and iOS devices. Bare React Native bundles through **Metro** and compiles Tailwind CSS v4 utilities for native view trees using **Uniwind**.
 

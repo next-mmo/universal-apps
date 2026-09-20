@@ -17,7 +17,7 @@ Use this skill when creating, reviewing, styling, or porting UI in this monorepo
 | React feature block | `packages/pro` |
 | Vue or Svelte feature block | `packages/pro-vue` or `packages/pro-svelte` |
 | Browser/Tauri operation | `packages/tauri-api` |
-| Public usage guidance | `apps/tauri-app/content/docs/` and its generated agent catalog |
+| Public usage guidance | `apps/docs/content/docs/` and its generated agent catalog |
 
 Do not put framework-specific behavior in `pro-core`, raw Tauri calls in UI components, or DOM components in the native adapter. If a behavior must work on more than one surface, define the contract once and implement the thinnest adapter for each target.
 
