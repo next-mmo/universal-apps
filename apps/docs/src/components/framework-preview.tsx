@@ -106,7 +106,7 @@ export function FrameworkPreview() {
     setFrameState('loading');
     const timeout = window.setTimeout(() => setFrameState('failed'), 10_000);
     const onMessage = (event: MessageEvent<unknown>) => {
-      if (event.source !== frameRef.current?.contentWindow || event.origin !== 'null') return;
+      if (event.source !== frameRef.current?.contentWindow || event.origin !== window.location.origin) return;
       const payload = event.data as { type?: string; framework?: string } | null;
       if (payload?.type === 'docs-preview-ready' && payload.framework === framework) {
         window.clearTimeout(timeout);
@@ -205,7 +205,9 @@ export function FrameworkPreview() {
                 ref={frameRef}
                 title={`${selected.label} live example`}
                 src={previewSrc ?? undefined}
-                sandbox='allow-scripts'
+                // allow-same-origin is required: without it the frame's opaque origin turns the
+                // built `type=module crossorigin` fetch into a CORS request the dev server rejects.
+                sandbox='allow-scripts allow-same-origin'
                 referrerPolicy='no-referrer'
                 className='h-64 w-full rounded-lg bg-background'
               />
