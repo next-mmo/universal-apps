@@ -1,6 +1,6 @@
 # Task 0015: Verification foundation and enforced quality gates
 
-> **Status:** wip
+> **Status:** done
 > **Type:** implementation
 > **Created:** 2026-09-20
 > **PRD:** `docs/prd/0009-verification-foundation.md`
@@ -143,10 +143,12 @@ Each was confirmed by a test that failed on the previous implementation, except 
 | The root chain passes with the new steps | `pnpm test` exit 0 → foundation typecheck, test typecheck, foundation tests (44 pass), 239 unit tests, catalog check, agent integration, MCP integration, source tests (36 pass / 1 skip), `source:build` reporting `packages: 8` | Verified 2026-09-20 |
 | `packages/utils` removal is complete | `git ls-files packages/utils` is empty; `runtimePackages` in `packages/cli/source/graph.mjs` no longer lists it; `scripts/check-source-distribution.mjs` asserts 8; the lockfile no longer has the importer | Verified 2026-09-20 |
 | Advisory accessibility debt is quantified | `npx oxlint` reports 615 warnings including 12 `jsx-a11y` advisories, visible on every run | Verified 2026-09-20 |
+| The increment is committed, not only present in the working tree | `git log --format="%h %ci %s" -- vitest.config.ts` → `61fdd90 2026-09-21`; `git show HEAD:vitest.config.ts` thresholds read `statements 94, branches 87, functions 93, lines 96`, equal to the floors claimed above; `git ls-files "packages/*/test/*"` → 33 tracked test files | Verified 2026-09-23 by the successor session |
 
 ## Resume State
 
-- Updated at / author: 2026-09-20 / agent session.
+- Updated at / author: 2026-09-20 / agent session; closed 2026-09-23 by a successor session that
+  verified the commit and corrected the two stale statements below.
 - Completed / partial / not started: completed — VF-01 through VF-08, the governance repairs, and the
   thirty-five defect fixes, across three increments. The third worked the carried-forward list in
   order: `pro-tabs`, the layout family (`app-frame`, `page-container`, `pro-error-boundary`),
@@ -206,7 +208,11 @@ Each was confirmed by a test that failed on the previous implementation, except 
 - Recovery plan / operations reference if relevant: reverting this increment is reverting the listed
   paths. No migration, published artifact, or persisted state is involved. The one caveat is that the
   coverage floor must be lowered back only if the corresponding tests are removed.
-- Implemented / integrated / deployed state and evidence: implemented and verified in the working
-  tree; **not committed, not pushed, not deployed**. Committing is the owner's action.
-- Status: wip — implementation and verification are complete for the stated scope; the two
-  carried-forward items and the owner decisions remain open, and nothing has been committed.
+- Implemented / integrated / deployed state and evidence: implemented, verified and committed as
+  `61fdd90` (2026-09-21). Not deployed. This record said "not committed" on 2026-09-20; that
+  statement was found false on 2026-09-23 — `git show HEAD:vitest.config.ts` carries the final floors
+  recorded above (94/87/93/96) and `git log -- vitest.config.ts` names `61fdd90`.
+- Status: done — the increment is committed as `61fdd90` with the floors recorded above. The
+  carried-forward items (component coverage for ten files; the twelve advisory `jsx-a11y` findings)
+  and PRD 0009's two owner decisions remain open. They were never part of this increment and stay
+  owned by PRD 0009, not by this record.

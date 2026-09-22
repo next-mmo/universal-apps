@@ -76,7 +76,8 @@ last-audit: 2026-09-20
   `docs/prd/0006-competitive-parity-and-expansion.md` (the parity claims these gates do not yet
   verify), and `CONTEXT.md` "Observation evidence".
 - **Source baseline revision or file-state reference:** `d1242ed` plus the working-tree state
-  described in `docs/tasks/wip-0015-verification-foundation.md`.
+  described in `docs/tasks/done/done-0015-verification-foundation.md`; that increment was committed as
+  `61fdd90` on 2026-09-21 and the task was closed on 2026-09-23.
 - **New capability:** no behavioral-test harness, coverage gate, or blocking lint gate existed at the
   baseline.
 - **Integration owner / related concurrent changes:** `blocked-0006` holds the benchmark harness and
