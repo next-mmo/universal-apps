@@ -161,7 +161,7 @@ export default function DashboardPage() {
               </CardHeader>
               <CardAction>
                 <Button asChild variant='ghost' size='sm'>
-                  <Link to='/forms'>Quick add →</Link>
+                  <Link to='/blocks/forms'>Quick add →</Link>
                 </Button>
               </CardAction>
               <CardContent>

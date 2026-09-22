@@ -11,10 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as KitchenRouteImport } from './routes/_kitchen'
 import { Route as KitchenIndexRouteImport } from './routes/_kitchen.index'
-import { Route as KitchenFormsRouteImport } from './routes/_kitchen.forms'
 import { Route as KitchenTodosRouteImport } from './routes/_kitchen.todos'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as DocsSplatRouteImport } from './routes/docs.$'
+import { Route as KitchenBlocksDataTableRouteImport } from './routes/_kitchen.blocks.data-table'
+import { Route as KitchenBlocksDescriptionsRouteImport } from './routes/_kitchen.blocks.descriptions'
+import { Route as KitchenBlocksFilterToolbarRouteImport } from './routes/_kitchen.blocks.filter-toolbar'
+import { Route as KitchenBlocksFormDialogRouteImport } from './routes/_kitchen.blocks.form-dialog'
+import { Route as KitchenBlocksFormDrawerRouteImport } from './routes/_kitchen.blocks.form-drawer'
+import { Route as KitchenBlocksFormsRouteImport } from './routes/_kitchen.blocks.forms'
+import { Route as KitchenBlocksPageContainerRouteImport } from './routes/_kitchen.blocks.page-container'
+import { Route as KitchenBlocksStepFormRouteImport } from './routes/_kitchen.blocks.step-form'
 
 const KitchenRoute = KitchenRouteImport.update({
   id: '/_kitchen',
@@ -23,11 +30,6 @@ const KitchenRoute = KitchenRouteImport.update({
 const KitchenIndexRoute = KitchenIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => KitchenRoute,
-} as any)
-const KitchenFormsRoute = KitchenFormsRouteImport.update({
-  id: '/forms',
-  path: '/forms',
   getParentRoute: () => KitchenRoute,
 } as any)
 const KitchenTodosRoute = KitchenTodosRouteImport.update({
@@ -45,43 +47,138 @@ const DocsSplatRoute = DocsSplatRouteImport.update({
   path: '/docs/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KitchenBlocksDataTableRoute = KitchenBlocksDataTableRouteImport.update({
+  id: '/blocks/data-table',
+  path: '/blocks/data-table',
+  getParentRoute: () => KitchenRoute,
+} as any)
+const KitchenBlocksDescriptionsRoute =
+  KitchenBlocksDescriptionsRouteImport.update({
+    id: '/blocks/descriptions',
+    path: '/blocks/descriptions',
+    getParentRoute: () => KitchenRoute,
+  } as any)
+const KitchenBlocksFilterToolbarRoute =
+  KitchenBlocksFilterToolbarRouteImport.update({
+    id: '/blocks/filter-toolbar',
+    path: '/blocks/filter-toolbar',
+    getParentRoute: () => KitchenRoute,
+  } as any)
+const KitchenBlocksFormDialogRoute = KitchenBlocksFormDialogRouteImport.update({
+  id: '/blocks/form-dialog',
+  path: '/blocks/form-dialog',
+  getParentRoute: () => KitchenRoute,
+} as any)
+const KitchenBlocksFormDrawerRoute = KitchenBlocksFormDrawerRouteImport.update({
+  id: '/blocks/form-drawer',
+  path: '/blocks/form-drawer',
+  getParentRoute: () => KitchenRoute,
+} as any)
+const KitchenBlocksFormsRoute = KitchenBlocksFormsRouteImport.update({
+  id: '/blocks/forms',
+  path: '/blocks/forms',
+  getParentRoute: () => KitchenRoute,
+} as any)
+const KitchenBlocksPageContainerRoute =
+  KitchenBlocksPageContainerRouteImport.update({
+    id: '/blocks/page-container',
+    path: '/blocks/page-container',
+    getParentRoute: () => KitchenRoute,
+  } as any)
+const KitchenBlocksStepFormRoute = KitchenBlocksStepFormRouteImport.update({
+  id: '/blocks/step-form',
+  path: '/blocks/step-form',
+  getParentRoute: () => KitchenRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof KitchenIndexRoute
-  '/forms': typeof KitchenFormsRoute
   '/todos': typeof KitchenTodosRoute
   '/docs/$': typeof DocsSplatRoute
   '/docs/': typeof DocsIndexRoute
+  '/blocks/data-table': typeof KitchenBlocksDataTableRoute
+  '/blocks/descriptions': typeof KitchenBlocksDescriptionsRoute
+  '/blocks/filter-toolbar': typeof KitchenBlocksFilterToolbarRoute
+  '/blocks/form-dialog': typeof KitchenBlocksFormDialogRoute
+  '/blocks/form-drawer': typeof KitchenBlocksFormDrawerRoute
+  '/blocks/forms': typeof KitchenBlocksFormsRoute
+  '/blocks/page-container': typeof KitchenBlocksPageContainerRoute
+  '/blocks/step-form': typeof KitchenBlocksStepFormRoute
 }
 export interface FileRoutesByTo {
-  '/forms': typeof KitchenFormsRoute
   '/todos': typeof KitchenTodosRoute
   '/docs/$': typeof DocsSplatRoute
   '/': typeof KitchenIndexRoute
   '/docs': typeof DocsIndexRoute
+  '/blocks/data-table': typeof KitchenBlocksDataTableRoute
+  '/blocks/descriptions': typeof KitchenBlocksDescriptionsRoute
+  '/blocks/filter-toolbar': typeof KitchenBlocksFilterToolbarRoute
+  '/blocks/form-dialog': typeof KitchenBlocksFormDialogRoute
+  '/blocks/form-drawer': typeof KitchenBlocksFormDrawerRoute
+  '/blocks/forms': typeof KitchenBlocksFormsRoute
+  '/blocks/page-container': typeof KitchenBlocksPageContainerRoute
+  '/blocks/step-form': typeof KitchenBlocksStepFormRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_kitchen': typeof KitchenRouteWithChildren
-  '/_kitchen/forms': typeof KitchenFormsRoute
   '/_kitchen/todos': typeof KitchenTodosRoute
   '/docs/$': typeof DocsSplatRoute
   '/_kitchen/': typeof KitchenIndexRoute
   '/docs/': typeof DocsIndexRoute
+  '/_kitchen/blocks/data-table': typeof KitchenBlocksDataTableRoute
+  '/_kitchen/blocks/descriptions': typeof KitchenBlocksDescriptionsRoute
+  '/_kitchen/blocks/filter-toolbar': typeof KitchenBlocksFilterToolbarRoute
+  '/_kitchen/blocks/form-dialog': typeof KitchenBlocksFormDialogRoute
+  '/_kitchen/blocks/form-drawer': typeof KitchenBlocksFormDrawerRoute
+  '/_kitchen/blocks/forms': typeof KitchenBlocksFormsRoute
+  '/_kitchen/blocks/page-container': typeof KitchenBlocksPageContainerRoute
+  '/_kitchen/blocks/step-form': typeof KitchenBlocksStepFormRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forms' | '/todos' | '/docs/$' | '/docs/'
+  fullPaths:
+    | '/'
+    | '/todos'
+    | '/docs/$'
+    | '/docs/'
+    | '/blocks/data-table'
+    | '/blocks/descriptions'
+    | '/blocks/filter-toolbar'
+    | '/blocks/form-dialog'
+    | '/blocks/form-drawer'
+    | '/blocks/forms'
+    | '/blocks/page-container'
+    | '/blocks/step-form'
   fileRoutesByTo: FileRoutesByTo
-  to: '/forms' | '/todos' | '/docs/$' | '/' | '/docs'
+  to:
+    | '/todos'
+    | '/docs/$'
+    | '/'
+    | '/docs'
+    | '/blocks/data-table'
+    | '/blocks/descriptions'
+    | '/blocks/filter-toolbar'
+    | '/blocks/form-dialog'
+    | '/blocks/form-drawer'
+    | '/blocks/forms'
+    | '/blocks/page-container'
+    | '/blocks/step-form'
   id:
     | '__root__'
     | '/_kitchen'
-    | '/_kitchen/forms'
     | '/_kitchen/todos'
     | '/docs/$'
     | '/_kitchen/'
     | '/docs/'
+    | '/_kitchen/blocks/data-table'
+    | '/_kitchen/blocks/descriptions'
+    | '/_kitchen/blocks/filter-toolbar'
+    | '/_kitchen/blocks/form-dialog'
+    | '/_kitchen/blocks/form-drawer'
+    | '/_kitchen/blocks/forms'
+    | '/_kitchen/blocks/page-container'
+    | '/_kitchen/blocks/step-form'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,13 +203,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KitchenIndexRouteImport
       parentRoute: typeof KitchenRoute
     }
-    '/_kitchen/forms': {
-      id: '/_kitchen/forms'
-      path: '/forms'
-      fullPath: '/forms'
-      preLoaderRoute: typeof KitchenFormsRouteImport
-      parentRoute: typeof KitchenRoute
-    }
     '/_kitchen/todos': {
       id: '/_kitchen/todos'
       path: '/todos'
@@ -134,19 +224,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_kitchen/blocks/data-table': {
+      id: '/_kitchen/blocks/data-table'
+      path: '/blocks/data-table'
+      fullPath: '/blocks/data-table'
+      preLoaderRoute: typeof KitchenBlocksDataTableRouteImport
+      parentRoute: typeof KitchenRoute
+    }
+    '/_kitchen/blocks/descriptions': {
+      id: '/_kitchen/blocks/descriptions'
+      path: '/blocks/descriptions'
+      fullPath: '/blocks/descriptions'
+      preLoaderRoute: typeof KitchenBlocksDescriptionsRouteImport
+      parentRoute: typeof KitchenRoute
+    }
+    '/_kitchen/blocks/filter-toolbar': {
+      id: '/_kitchen/blocks/filter-toolbar'
+      path: '/blocks/filter-toolbar'
+      fullPath: '/blocks/filter-toolbar'
+      preLoaderRoute: typeof KitchenBlocksFilterToolbarRouteImport
+      parentRoute: typeof KitchenRoute
+    }
+    '/_kitchen/blocks/form-dialog': {
+      id: '/_kitchen/blocks/form-dialog'
+      path: '/blocks/form-dialog'
+      fullPath: '/blocks/form-dialog'
+      preLoaderRoute: typeof KitchenBlocksFormDialogRouteImport
+      parentRoute: typeof KitchenRoute
+    }
+    '/_kitchen/blocks/form-drawer': {
+      id: '/_kitchen/blocks/form-drawer'
+      path: '/blocks/form-drawer'
+      fullPath: '/blocks/form-drawer'
+      preLoaderRoute: typeof KitchenBlocksFormDrawerRouteImport
+      parentRoute: typeof KitchenRoute
+    }
+    '/_kitchen/blocks/forms': {
+      id: '/_kitchen/blocks/forms'
+      path: '/blocks/forms'
+      fullPath: '/blocks/forms'
+      preLoaderRoute: typeof KitchenBlocksFormsRouteImport
+      parentRoute: typeof KitchenRoute
+    }
+    '/_kitchen/blocks/page-container': {
+      id: '/_kitchen/blocks/page-container'
+      path: '/blocks/page-container'
+      fullPath: '/blocks/page-container'
+      preLoaderRoute: typeof KitchenBlocksPageContainerRouteImport
+      parentRoute: typeof KitchenRoute
+    }
+    '/_kitchen/blocks/step-form': {
+      id: '/_kitchen/blocks/step-form'
+      path: '/blocks/step-form'
+      fullPath: '/blocks/step-form'
+      preLoaderRoute: typeof KitchenBlocksStepFormRouteImport
+      parentRoute: typeof KitchenRoute
+    }
   }
 }
 
 interface KitchenRouteChildren {
-  KitchenFormsRoute: typeof KitchenFormsRoute
   KitchenTodosRoute: typeof KitchenTodosRoute
   KitchenIndexRoute: typeof KitchenIndexRoute
+  KitchenBlocksDataTableRoute: typeof KitchenBlocksDataTableRoute
+  KitchenBlocksDescriptionsRoute: typeof KitchenBlocksDescriptionsRoute
+  KitchenBlocksFilterToolbarRoute: typeof KitchenBlocksFilterToolbarRoute
+  KitchenBlocksFormDialogRoute: typeof KitchenBlocksFormDialogRoute
+  KitchenBlocksFormDrawerRoute: typeof KitchenBlocksFormDrawerRoute
+  KitchenBlocksFormsRoute: typeof KitchenBlocksFormsRoute
+  KitchenBlocksPageContainerRoute: typeof KitchenBlocksPageContainerRoute
+  KitchenBlocksStepFormRoute: typeof KitchenBlocksStepFormRoute
 }
 
 const KitchenRouteChildren: KitchenRouteChildren = {
-  KitchenFormsRoute: KitchenFormsRoute,
   KitchenTodosRoute: KitchenTodosRoute,
   KitchenIndexRoute: KitchenIndexRoute,
+  KitchenBlocksDataTableRoute: KitchenBlocksDataTableRoute,
+  KitchenBlocksDescriptionsRoute: KitchenBlocksDescriptionsRoute,
+  KitchenBlocksFilterToolbarRoute: KitchenBlocksFilterToolbarRoute,
+  KitchenBlocksFormDialogRoute: KitchenBlocksFormDialogRoute,
+  KitchenBlocksFormDrawerRoute: KitchenBlocksFormDrawerRoute,
+  KitchenBlocksFormsRoute: KitchenBlocksFormsRoute,
+  KitchenBlocksPageContainerRoute: KitchenBlocksPageContainerRoute,
+  KitchenBlocksStepFormRoute: KitchenBlocksStepFormRoute,
 }
 
 const KitchenRouteWithChildren =
