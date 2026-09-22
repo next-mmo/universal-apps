@@ -52,6 +52,8 @@ Report these separately with evidence and next action:
 - Instructions verified: fresh-session host context/skill discovery observed. Model self-report alone is not proof.
 - Development baseline checked: actual approved source-backed commands and results. Existing failures remain separate from adoption regressions; empty projects have no application test baseline.
 
+`nd context check` reports `ATTENTION` with an `ambiguous` list when more than one task is open, even though every checkpoint is complete. That is accurate output, not unfinished adoption: name the exact task path to resume (`docs/tasks/wip-*` or `blocked-*`) rather than reading the report as a setup failure. The four states above stay separate from it.
+
 Doctor reads bounded instruction/orientation/skill files only. It inspects neither user-level installs nor secrets, and runs no project commands. Exit 0 = inspected files present, 2 = attention required, 1 = failed inspection. Neither 0 nor an apply COMPLETE marker proves host loading, semantic policy correctness or passing app checks. Known duplicate copies and Superpowers references are indicators, not confirmed active triggers.
 
 After setup, use the next approved task directly. Invoke spec-feature only if requirements remain unresolved. Record multi-step work in a checkpoint. For an empty app, ask the intended product and constraints before scaffolding.

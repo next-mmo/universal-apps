@@ -1,7 +1,7 @@
 # PRD-0000: Product Requirement Index
 
 > Status: living document  
-> Updated: 2026-09-20
+> Updated: 2026-09-23
 
 ## Product architecture
 
@@ -25,6 +25,8 @@
 | **0007** | [Enterprise Admin Dashboard Application](0007-admin-dashboard-app.md) | **shipped** | Ant Design Pro and UmiJS inspired enterprise admin portal app (`apps/admin-dashboard`) powered by Full TanStack Suite, `@package/pro`, and `@package/ui` |
 | **0008** | [Browser-first docs app with optional framework previews](0008-browser-first-docs-app.md) | **in-progress** | Migrate the Fumadocs/Kitchen app to web-only `apps/docs`, with a DOM-first site and optional lazy React, Vue, Svelte, and UniWind previews |
 | **0009** | [Verification foundation and enforced quality gates](0009-verification-foundation.md) | **in-progress** | Behavioral tests for the previously unverified packages, a blocking correctness lint gate, an enforced coverage floor, and gates that fail loudly instead of reporting success |
+| **0010** | [ND Light Workflow (ndl) for small applications](0010-nd-light-workflow.md) | **draft** | A second, smaller delivery profile beside ND Workflow: bounded footprint, zero-dependency Node tooling, one enforcement command, and a documented promotion path; scope approval pending |
+| **0011** | [ND adoption document closure and task routing](0011-nd-adoption-document-closure.md) | **in-progress** | Five additive edits to the shipped adoption guidance so an adoption ends with one reviewable closure view: canonical documents, task links, optional layout, and how to read `context check` ambiguity |
 
 ## Authority
 
