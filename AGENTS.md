@@ -45,5 +45,6 @@ Resolve conflicts: safety and workspace boundaries; approved plan; business valu
 - Follow ND risk tiers: Low (scoped edit + check), Medium (task + checks), High (plan + proof + recovery), Critical (auth/security/data; positive/negative proof + signoff).
 - Start non-trivial work with `pnpm nd task "<desc>"` or `pnpm nd context locate "<topic>"`. Keep one active task under `docs/tasks/`.
 - Keep tool-facing contract docs under `.agents/docs/`, canonical skills under `.agents/skills/`, and PRDs, tasks, and evidence under `docs/`.
+- Branch per change (`feat/*`, `fix/*`, `docs/*`) and merge into `main`; trivial scoped edits may land on `main`.
 - Follow [delivery](.agents/docs/WORKFLOW.md), [project facts](.agents/docs/PROJECT.md), [architecture](.agents/docs/ARCHITECTURE.md), and [checks](docs/development.md).
 - `packages/nd-workflow` is a retained monorepo package; root instructions and `.agents/skills/` govern monorepo delivery.

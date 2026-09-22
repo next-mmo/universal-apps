@@ -73,6 +73,20 @@ pnpm nd task "<desc>"
 
 Current code, tasks, PRDs, tests, and human decisions remain authoritative in their respective roles.
 
+## Branching and landing
+
+`main` is the landing branch. Branch per change so review and rollback stay bounded:
+
+```bash
+git switch -c feat/<slug>   # fix/<slug>, docs/<slug>, chore/<slug>
+```
+
+Trivial scoped edits — prose corrections and single-file fixes with no behavior change — may land
+directly on `main`.
+
+Land a branch by merging it into `main`. Commit subjects use `type(scope): summary`; no hook
+enforces the prefix, so it holds only when followed by hand. Do not rewrite published history.
+
 ## Scope and verification
 
 Verify the live PR base or stack parent; never infer it from a branch name:
