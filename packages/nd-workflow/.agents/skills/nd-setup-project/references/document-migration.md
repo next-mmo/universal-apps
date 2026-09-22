@@ -12,10 +12,10 @@ Use for existing projects and migrations from any workflow, not only Superpowers
 
 Use one migration checkpoint following the existing TASK convention, not a parallel documentation system. Before review, write only authorized planning artifacts; no canonical-document or workflow edits. A review-only request may require presenting the map in chat instead.
 
-| Source path / section | Role / current owner | Current, draft, history or unknown | Canonical path / section | Proposed action | Facts and links to preserve | Conflict / decision | Evidence / status |
-|---|---|---|---|---|---|---|---|
+| Source path / section | Role / current owner | Current, draft, history or unknown | Canonical path / section | Proposed action | Task path | Facts and links to preserve | Conflict / decision | Evidence / status |
+|---|---|---|---|---|---|---|---|---|
 
-Actions: KEEP, MERGE, LINK, ARCHIVE, SKIP, ADD. KEEP useful canonical content in place; LINK related history without copying it. MERGE only true overlaps with preserved unique facts. ARCHIVE only superseded material with reviewed destination. ADD only a missing needed role, not every bundled template. Unknowns remain unresolved, not automatically archived. List excluded paths and reasons so scope is bounded.
+Actions: KEEP, MERGE, LINK, ARCHIVE, SKIP, ADD. KEEP useful canonical content in place; LINK related history without copying it. MERGE only true overlaps with preserved unique facts. ARCHIVE only superseded material with reviewed destination. ADD only a missing needed role, not every bundled template. Unknowns remain unresolved, not automatically archived. List excluded paths and reasons so scope is bounded. Record `Task path` only where implementation, verification or acceptance work actually exists for that document, naming the exact `todo-*`, `wip-*`, `blocked-*` or `done-*` path; otherwise write `none`. The column links a document to its tracking work, not to evidence that the document was read.
 
 ## 2. Review gate A: ownership and document map
 
@@ -24,6 +24,7 @@ Present inventory summary, proposed canonical paths, duplicates, semantic confli
 - Replace old delivery routing with ND, or coexist with explicit ownership per phase?
 - Which document is authoritative when sources disagree on current requirements or policy?
 - Approve proposed reuse/consolidation map, or retain specified documents separately?
+- Keep the current document layout, or adopt an optional category layout (for example `architecture/`, `features/`, `reference/`, `operations/`) where volume or navigation justifies it?
 
 Do not ask discoverable facts or repeat prior answers. Show recommended choices with consequences and exact affected paths. Gate A approves direction only, not writes. Wait for actual response and record decision/date/scope. Fresh projects still review proposed minimal map; omit irrelevant conflict questions.
 
@@ -52,10 +53,13 @@ Apply only approved operations. Validate merged destination before archiving sup
 - [ ] Unique facts, requirements, approvals and active tasks preserved; no competing mandatory routing remains without explicit coexistence ownership.
 - [ ] One canonical location per current concern; catalogs and retained entry points link correctly; no unnecessary template copies or empty status boards.
 - [ ] Changed links/anchors and archived paths verified; unknown external references remain explicit.
+- [ ] Stale-reference audit bounded to the project's owned docs and source, inspecting relative Markdown links after approved moves; historical recovery evidence and independent vendored subtrees are excluded or explained rather than silently skipped.
 - [ ] Applicable ND capabilities are mapped to actual files; inactive/optional roles documented without scaffolding unrelated features.
 - [ ] Doctor findings interpreted against canonical equivalents; application checks run only when authorized; pre-existing failures stay separate.
 - [ ] Host instruction loading verified through available evidence or UNVERIFIED with next owner/action; file presence is not proof.
 - [ ] First approved task and QA route identified, or unresolved scope routed to nd-spec-feature. No new implementation authorized by migration.
+
+A canonical document is not a task. Create task records only where implementation, verification or acceptance work genuinely exists, link them from the inventory's `Task path` column, and leave a document that carries none of that work untracked. A `blocked-*` task records work waiting on a decision; it does not authorize the deployment it waits on.
 
 Checkpoint states: INVENTORIED, AWAITING_MAP_REVIEW, PLANNED, AWAITING_APPLY_APPROVAL, APPLYING, BLOCKED, VERIFIED. VERIFIED refers to the documented migration scope only; always report package availability, semantic project adoption, host instruction loading and development baseline separately. Outstanding required consolidation checks prevent semantic adoption completion. No claim of complete onboarding while required evidence is absent.
 
