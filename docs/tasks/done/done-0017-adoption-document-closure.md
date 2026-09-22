@@ -1,6 +1,6 @@
 # Task 0017: ND adoption document closure and task routing
 
-> **Status:** wip
+> **Status:** done
 > **Type:** implementation
 > **Created:** 2026-09-23
 > **PRD:** `docs/prd/0011-nd-adoption-document-closure.md`
@@ -100,14 +100,11 @@ guidance, plus one consistency repair that the package validator currently rejec
 ## Resume State
 
 - Updated at / author: 2026-09-23, implementation session.
-- Completed / partial / not started: complete — PRD 0011, this task, the plan revision, the `wip-0015`
-  closure, the README repair, and all five content edits are done and verified in the working tree.
-  Nothing is committed.
-- Exact next action or command and working directory: owner review and commit of the change set, then
-  move this file to `docs/tasks/done/done-0017-adoption-document-closure.md`, which frees the single
-  in-progress slot for `todo-0013` or `todo-0016`. Until it is committed, this task deliberately keeps
-  the slot: the change is in flight, and closing it first would leave the product-path changes
-  attributed to `blocked-0006` by the fallback rule.
+- Completed / partial / not started: complete and landed — the five content edits, the README repair,
+  the plan revision, the `wip-0015` closure and PRD 0011 are committed as `d737c1b` and `4d63caf`.
+- Exact next action or command and working directory: none for this increment. Closing this file frees
+  the single in-progress slot; the next increment takes it from `todo-0013`, or from `todo-0016` once
+  its five scope decisions are answered.
 - Current hypothesis / blockers / decision needed: none blocking. The only judgement call was phrasing
   that stays additive; the plan's abort signal never triggered.
 - Decisions and rejected approaches with reasons: PRD 0011 records why the three-phase draft was
@@ -115,9 +112,8 @@ guidance, plus one consistency repair that the package validator currently rejec
   manifest. One further decision: no cross-reference link was added from `document-migration.md` to
   `docs/ONBOARDING.md`, because the approved scope did not include one and the two documents address
   different readers.
-- Current revision and uncommitted work location/fingerprint: `main` at `687cb95` plus uncommitted
-  changes across `docs/` and `packages/nd-workflow/`; the plan and feedback records are uncommitted and
-  were authored by another session.
+- Current revision and uncommitted work location/fingerprint: branch `docs/nd-adoption-closure` at
+  `4d63caf` on top of `main` at `687cb95`; the working tree is clean apart from this closure edit.
 - Evidence still valid / invalidated and why: all evidence was produced on this tree and stays valid
   until the change set is edited or committed elsewhere; the `wip-0015` commit evidence is immutable
   Git history.
@@ -147,8 +143,9 @@ guidance, plus one consistency repair that the package validator currently rejec
 - Recovery plan / operations reference if relevant: revert the three content files; no persistent data
   or publication is involved. `docs/plans/plan-0005-adoption-document-closure.md` and the feedback
   record stay in place as the decision history.
-- Implemented / integrated / deployed state and evidence: implemented and verified in the working tree
-  — package validator 0 errors, 186 package tests plus 5 launcher tests green, and both repository
-  gates passing on the final tree. Not committed, not published; release is outside this change.
-- Status: active — all acceptance criteria pass and nothing is outstanding except owner review and
-  commit, which is deliberately left to the owner rather than performed by the implementing session.
+- Implemented / integrated / deployed state and evidence: implemented, verified and committed as
+  `d737c1b` (the guidance change) with its records in `4d63caf`. Not published; the package carries
+  these edits into consumers only through the next validated release, which is outside this change.
+- Status: done — landed as `d737c1b` after every acceptance criterion passed on the verified tree.
+  Release, upstream re-import, and any change to the guidance beyond ADC-01 – ADC-05 remain the
+  owner's decisions.

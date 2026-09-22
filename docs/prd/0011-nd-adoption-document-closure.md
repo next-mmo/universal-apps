@@ -122,16 +122,19 @@ evidence and independent vendored subtrees, and inspects relative Markdown links
 
 ## Acceptance and delivery
 
-- [ ] `python scripts/validate.py` from `packages/nd-workflow` reports **0 errors** (baseline was 1).
-- [ ] `python -m unittest tests.test_tooling tests.test_end_user_adoption` passes, confirming manifest
+Every criterion passed on the verified tree before the commit; the commands and their output are
+recorded in the governing task, `docs/tasks/done/done-0017-adoption-document-closure.md`.
+
+- [x] `python scripts/validate.py` from `packages/nd-workflow` reports **0 errors** (baseline was 1).
+- [x] `python -m unittest tests.test_tooling tests.test_end_user_adoption` passes, confirming manifest
       closure over the edited files and that `docs/ONBOARDING.md` remains excluded from end-user
       adoption.
-- [ ] `pnpm workflow:check` and `pnpm docs:check` pass at the repository root, with the change
+- [x] `pnpm workflow:check` and `pnpm docs:check` pass at the repository root, with the change
       attributed to one active `wip-` task carrying this PRD reference, acceptance criteria, and a
       non-empty evidence ledger.
-- [ ] Each of ADC-01 – ADC-05 is present in the named file, additive only, with no existing rule
+- [x] Each of ADC-01 – ADC-05 is present in the named file, additive only, with no existing rule
       reworded or removed; verified by inspecting the diff, not by intent.
-- [ ] The four adoption states remain separately reported and are not collapsed by the new closure
+- [x] The four adoption states remain separately reported and are not collapsed by the new closure
       view.
 - **Risk / required approvals / rollback constraints:** Medium (shared workflow guidance inside a
   distributed package; reviewed and approved by the owner on 2026-09-23). Rollback is reverting the
@@ -143,4 +146,6 @@ evidence and independent vendored subtrees, and inspects relative Markdown links
 - **Implementation, integration, and deployment gates:** implementation = the three file edits;
   integration = the package validator, the affected package tests, and both repository gates on the
   final tree; deployment = **not applicable** (no release or publication is authorized by this PRD;
-  the edits simply ship with the next release that validates them).
+  the edits ship with the next release that validates them). Landed 2026-09-23 as `d737c1b`, with the
+  records in `4d63caf`. This PRD stays `in-progress`: it reaches consumers only when a release
+  publishes the package, and no release is authorized here.
