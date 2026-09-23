@@ -27,6 +27,7 @@
 | **0009** | [Verification foundation and enforced quality gates](0009-verification-foundation.md) | **in-progress** | Behavioral tests for the previously unverified packages, a blocking correctness lint gate, an enforced coverage floor, and gates that fail loudly instead of reporting success |
 | **0010** | [ND Light Workflow (ndl) for small applications](0010-nd-light-workflow.md) | **draft** | A second, smaller delivery profile beside ND Workflow: bounded footprint, zero-dependency Node tooling, one enforcement command, and a documented promotion path; scope approval pending |
 | **0011** | [ND adoption document closure and task routing](0011-nd-adoption-document-closure.md) | **in-progress** | Five additive edits to the shipped adoption guidance so an adoption ends with one reviewable closure view: canonical documents, task links, optional layout, and how to read `context check` ambiguity |
+| **0012** | [Date range picker for @package/ui and ui-native](0012-date-range-picker.md) | **in-progress** | A zero-dependency range mode for the shared Calendar, DOM and native DateRangePicker wrappers, and a from/to pro filter field; RDP-ported semantics, baseline `main` @ `f905871` |
 
 ## Authority
 
