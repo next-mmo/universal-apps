@@ -1371,7 +1371,8 @@ Install peer dependencies `react-native-reanimated` and `react-native-gesture-ha
 
 - **120 FPS UI Thread**: Animation worklets execute directly on native thread via JSI.
 - **Physical Gestures**: Pan gesture tracking with upward resistance rubber-banding.
-- **Velocity Dismiss**: Automatically detects downward flick velocity ($> 600\text{ px/s}$) to dismiss smoothly.
+- **Velocity Dismiss**: Automatically detects a downward flick velocity above 600 px/s to dismiss
+  smoothly.
 
 ## Dropdown Menu
 
