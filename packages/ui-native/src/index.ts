@@ -62,3 +62,5 @@ export { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, Command
 export { Combobox, type ComboboxOption, type ComboboxProps } from './components/ui/combobox';
 export { Calendar, type CalendarProps } from './components/ui/calendar';
 export { DatePicker, type DatePickerProps } from './components/ui/date-picker';
+export { DateRangePicker, type DateRangePickerProps } from './components/ui/date-range-picker';
+export { useRangeSelection, rangeDayState, rangeDayCount, addDays, isSameDay, type DateRange, type RangeCommitBehavior, type RangeDayState, type RangeSide, type UseRangeSelectionOptions, type RangeSelection } from '@package/ui/use-range-selection';

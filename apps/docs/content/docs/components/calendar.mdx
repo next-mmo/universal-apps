@@ -41,3 +41,36 @@ export function Example() {
   );
 }
 ```
+
+---
+
+## Range mode
+
+`mode="range"` renders a continuous span instead of a single day. The calendar stays presentational:
+it reports day presses through `onSelect` and pointer movement through `onHoverChange`, and marks each
+day with `data-range="start" | "middle" | "end"`. Anchor, preview, and bound handling live in the
+shared `useRangeSelection` hook from `@package/ui/use-range-selection`, which is also what
+`DateRangePicker` is built on.
+
+```tsx
+import { Calendar } from '@package/ui/calendar';
+import { useRangeSelection } from '@package/ui/use-range-selection';
+
+export function Example() {
+  const selection = useRangeSelection({ onSelect: (range) => console.log(range) });
+
+  return (
+    <Calendar
+      mode="range"
+      selected={selection.selected}
+      preview={selection.preview}
+      anchor={selection.anchor}
+      onSelect={selection.press}
+      onHoverChange={selection.hover}
+    />
+  );
+}
+```
+
+Reach for `DateRangePicker` when a formatted trigger and popover are wanted; use the calendar directly
+when the grid is the layout.

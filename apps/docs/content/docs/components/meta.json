@@ -13,6 +13,7 @@
     "combobox",
     "command",
     "date-picker",
+    "date-range-picker",
     "dialog",
     "drawer",
     "drawer-interactive",

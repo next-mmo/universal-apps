@@ -205,4 +205,47 @@ describe('ProFilterToolbar', () => {
 
     expect(screen.getByText('Sep 20, 2026')).toBeDefined();
   });
+
+  it('ignores a non-tuple value in a date-range field instead of crashing', () => {
+    // A range filter commonly arrives as two strings from a query string.
+    render(
+      <ProFilterToolbar
+        fields={[{ name: 'window', label: 'Window', type: 'date-range' }]}
+        values={{ window: ['2026-09-20', '2026-09-25'] }}
+        onFilter={vi.fn<(filters: Record<string, unknown>) => void>()}
+      />,
+    );
+
+    expect(screen.getByLabelText('Window')).toBeDefined();
+    expect(screen.getByText('Pick a range...')).toBeDefined();
+  });
+
+  it('shows a Date tuple in a date-range field', () => {
+    render(
+      <ProFilterToolbar
+        fields={[{ name: 'window', label: 'Window', type: 'date-range' }]}
+        values={{ window: [new Date(2026, 8, 20), new Date(2026, 8, 25)] }}
+        onFilter={vi.fn<(filters: Record<string, unknown>) => void>()}
+      />,
+    );
+
+    expect(screen.getByText('Sep 20, 2026 – Sep 25, 2026')).toBeDefined();
+  });
+
+  it('hands a picked range to onFilter as a Date tuple', async () => {
+    const onFilter = vi.fn<(filters: Record<string, unknown>) => void>();
+    render(<ProFilterToolbar fields={[{ name: 'window', label: 'Window', type: 'date-range' }]} onFilter={onFilter} />);
+
+    const dayLabel = (date: number) =>
+      new Intl.DateTimeFormat(undefined, { month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(2026, 8, date));
+
+    await userEvent.click(screen.getByLabelText('Window'));
+    await userEvent.click(await screen.findByRole('button', { name: dayLabel(10) }));
+    await userEvent.click(await screen.findByRole('button', { name: dayLabel(20) }));
+    await userEvent.click(screen.getByRole('button', { name: /search/i }));
+
+    const filters = onFilter.mock.calls[0]![0] as { window: [Date, Date] };
+    expect(filters.window.every((date) => date instanceof Date)).toBe(true);
+    expect(filters.window.map((date) => date.getDate())).toEqual([10, 20]);
+  });
 });

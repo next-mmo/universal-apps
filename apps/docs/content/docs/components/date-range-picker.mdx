@@ -1,0 +1,85 @@
+---
+title: Date Range Picker
+description: Popover range selector committing a from/to date tuple from a Calendar in range mode.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+A range input control rendering a formatted trigger button that opens a calendar selection popover and commits a `[from, to]` tuple.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add date-range-picker
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `date-range-picker.tsx` and `calendar.tsx` to your components directory and import from `@package/ui/date-range-picker`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+import { useState } from 'react';
+import { DateRangePicker } from '@package/ui/date-range-picker';
+
+export function Example() {
+  const [range, setRange] = useState<[Date, Date] | undefined>();
+
+  return (
+    <DateRangePicker
+      value={range}
+      onValueChange={setRange}
+      placeholder="Select billing period..."
+    />
+  );
+}
+```
+
+The first day press anchors the range and previews the span under the pointer; the second press commits
+it and closes the popover. A press before the anchor swaps the ends instead of producing a backwards
+range, and `onValueChange` receives `undefined` when the range is cleared.
+
+---
+
+## Bounds
+
+`min` and `max` bound the committed span in whole days, both inclusive. The anchor stays fixed and the
+other end is extended or trimmed to satisfy the bound. `excludeDisabled` trims the range at the first
+day rejected by `disabledDate` rather than including it, and wins when both rules apply.
+
+```tsx
+<DateRangePicker
+  value={range}
+  onValueChange={setRange}
+  min={2}
+  disabledDate={(day) => day.getDay() === 0 || day.getDay() === 6}
+  excludeDisabled
+/>
+```
+
+`disabledDate` also receives the anchor as its second argument, so rules such as "no end before the
+anchor" can be expressed directly.
+
+---
+
+## Dismiss behavior
+
+`commitBehavior` decides what dismissing the popover mid-selection does, after the start day but
+before the end day. `'reset'` (the default) discards the pick, `'clear'` clears the value, and
+`'select'` commits the start day alone. A plain open-and-close is unaffected.
+
+---
+
+## Native
+
+`@package/ui-native` ships the same component over the React Native `Modal`, with `style` instead of
+`className` and without `id`. Both surfaces share the selection logic and day-state helpers from
+`@package/ui/use-range-selection`, so range semantics stay identical across platforms.

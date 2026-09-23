@@ -440,6 +440,7 @@ Import from `@package/pro/filter-toolbar`.
           ],
         },
         { name: 'date', label: 'Registered Date', type: 'date' },
+        { name: 'window', label: 'Billing Period', type: 'date-range' },
       ]}
       onFilter={(filters) => {
         console.log('Applied filters:', filters);
@@ -451,6 +452,15 @@ Import from `@package/pro/filter-toolbar`.
   );
 }
 ```
+
+---
+
+## Field types
+
+`type` is one of `text`, `select`, `date`, or `date-range`. A `date-range` field renders a
+`DateRangePicker` and stores a `[Date, Date]` tuple in the emitted filters; a value that is not a
+two-`Date` tuple — for example two strings from a query string — is ignored and the control falls back
+to its placeholder instead of throwing.
 
 ## ProForm
 
@@ -997,6 +1007,36 @@ Copy `calendar.tsx` to your components directory and import from `@package/ui/ca
 }
 ```
 
+---
+
+## Range mode
+
+`mode="range"` renders a continuous span instead of a single day. The calendar stays presentational:
+it reports day presses through `onSelect` and pointer movement through `onHoverChange`, and marks each
+day with `data-range="start" | "middle" | "end"`. Anchor, preview, and bound handling live in the
+shared `useRangeSelection` hook from `@package/ui/use-range-selection`, which is also what
+`DateRangePicker` is built on.
+
+```tsx
+
+  const selection = useRangeSelection({ onSelect: (range) => console.log(range) });
+
+  return (
+    <Calendar
+      mode="range"
+      selected={selection.selected}
+      preview={selection.preview}
+      anchor={selection.anchor}
+      onSelect={selection.press}
+      onHoverChange={selection.hover}
+    />
+  );
+}
+```
+
+Reach for `DateRangePicker` when a formatted trigger and popover are wanted; use the calendar directly
+when the grid is the layout.
+
 ## Card
 
 Source: `apps/docs/content/docs/components/card.mdx`
@@ -1200,6 +1240,86 @@ Copy `date-picker.tsx` and `calendar.tsx` to your components directory and impor
   );
 }
 ```
+
+## Date Range Picker
+
+Source: `apps/docs/content/docs/components/date-range-picker.mdx`
+
+A range input control rendering a formatted trigger button that opens a calendar selection popover and commits a `[from, to]` tuple.
+
+---
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+```bash
+npx @next-mmo/universal-cli add date-range-picker
+```
+  </Tab>
+  <Tab value="Manual">
+Copy `date-range-picker.tsx` and `calendar.tsx` to your components directory and import from `@package/ui/date-range-picker`.
+  </Tab>
+</Tabs>
+
+---
+
+## Anatomy
+
+```tsx
+
+  const [range, setRange] = useState<[Date, Date] | undefined>();
+
+  return (
+    <DateRangePicker
+      value={range}
+      onValueChange={setRange}
+      placeholder="Select billing period..."
+    />
+  );
+}
+```
+
+The first day press anchors the range and previews the span under the pointer; the second press commits
+it and closes the popover. A press before the anchor swaps the ends instead of producing a backwards
+range, and `onValueChange` receives `undefined` when the range is cleared.
+
+---
+
+## Bounds
+
+`min` and `max` bound the committed span in whole days, both inclusive. The anchor stays fixed and the
+other end is extended or trimmed to satisfy the bound. `excludeDisabled` trims the range at the first
+day rejected by `disabledDate` rather than including it, and wins when both rules apply.
+
+```tsx
+<DateRangePicker
+  value={range}
+  onValueChange={setRange}
+  min={2}
+  disabledDate={(day) => day.getDay() === 0 || day.getDay() === 6}
+  excludeDisabled
+/>
+```
+
+`disabledDate` also receives the anchor as its second argument, so rules such as "no end before the
+anchor" can be expressed directly.
+
+---
+
+## Dismiss behavior
+
+`commitBehavior` decides what dismissing the popover mid-selection does, after the start day but
+before the end day. `'reset'` (the default) discards the pick, `'clear'` clears the value, and
+`'select'` commits the start day alone. A plain open-and-close is unaffected.
+
+---
+
+## Native
+
+`@package/ui-native` ships the same component over the React Native `Modal`, with `style` instead of
+`className` and without `id`. Both surfaces share the selection logic and day-state helpers from
+`@package/ui/use-range-selection`, so range semantics stay identical across platforms.
 
 ## Dialog
 

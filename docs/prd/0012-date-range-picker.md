@@ -109,8 +109,10 @@ and a from/to field in the pro filter toolbar. Selection semantics are ported fr
 
 ## Acceptance and delivery
 
-- [ ] DRP-01 – DRP-06 evidenced by the unit suites and the built docs/catalog output.
-- [ ] DRP-07 evidenced by the gate run recorded in the task's evidence ledger.
-- [ ] DRP-08 evidenced by the documented limitation and mirrored source.
+- [x] DRP-01 – DRP-06 evidenced by the unit suites and the built docs/catalog output.
+- [x] DRP-07 evidenced by the gate run recorded in the task's evidence ledger.
+- [x] DRP-08 evidenced by the documented limitation and mirrored source.
+- **Closure record:** `docs/tasks/done/done-0013-date-range-picker.md` (2026-09-23) carries the
+  acceptance checkboxes, the gate run, and the browser check of the kitchen demo.
 - **Delivery state:** implementation on `feat/date-range-picker`; push, merge to `main`, and any
   release step are the maintainer's actions, not part of this authorization.

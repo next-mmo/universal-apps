@@ -2,6 +2,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '../../lib/cn';
+import { isSameDay, rangeDayState } from '../../lib/use-range-selection';
+import type { DateRange } from '../../lib/use-range-selection';
 
 export interface CalendarProps {
   value?: Date;
@@ -10,6 +12,20 @@ export interface CalendarProps {
   onMonthChange?: (month: Date) => void;
   disabled?: (date: Date) => boolean;
   className?: string;
+  /** `'range'` switches to the controlled range props below; the single-date API is unchanged. */
+  mode?: 'single' | 'range';
+  /** Range mode: the committed selection. */
+  selected?: DateRange;
+  /** Range mode: the anchor-to-preview span while a pick is in progress; defaults to `selected`. */
+  preview?: DateRange;
+  /** Range mode: the in-progress anchor, forwarded to `disabledDate`. */
+  anchor?: Date;
+  /** Range mode: fires with the pressed day. */
+  onSelect?: (date: Date) => void;
+  /** Range mode, DOM only: fires with the hovered day, or `null` when the pointer leaves the grid. */
+  onHoverChange?: (date: Date | null) => void;
+  /** Range mode: the anchor-aware replacement for `disabled`. */
+  disabledDate?: (date: Date, anchor?: Date) => boolean;
 }
 
 const DAYS_OF_WEEK = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -34,6 +50,13 @@ export function Calendar({
   onMonthChange,
   disabled,
   className,
+  mode = 'single',
+  selected,
+  preview,
+  anchor,
+  onSelect,
+  onHoverChange,
+  disabledDate,
 }: CalendarProps) {
   const [internalMonth, setInternalMonth] = React.useState<Date>(() => value ?? new Date());
   const currentMonth = controlledMonth ?? internalMonth;
@@ -41,17 +64,21 @@ export function Calendar({
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
 
+  const isRange = mode === 'range';
+  const range: DateRange = isRange ? (preview ?? selected ?? {}) : {};
+
   // A value set from outside — a form loading a record, a parent resetting state — must move the
   // view with it. The state is left untouched when the month is controlled or already correct, so
   // this cannot fight the caller or loop.
+  const focusDate = isRange ? range.from : value;
   React.useEffect(() => {
-    if (controlledMonth || !value) return;
+    if (controlledMonth || !focusDate) return;
     setInternalMonth((previous) =>
-      previous.getFullYear() === value.getFullYear() && previous.getMonth() === value.getMonth()
+      previous.getFullYear() === focusDate.getFullYear() && previous.getMonth() === focusDate.getMonth()
         ? previous
-        : value,
+        : focusDate,
     );
-  }, [controlledMonth, value]);
+  }, [controlledMonth, focusDate]);
 
   const handleMonthChange = (newMonth: Date) => {
     if (onMonthChange) onMonthChange(newMonth);
@@ -80,6 +107,7 @@ export function Calendar({
   return (
     <div
       data-slot='calendar'
+      data-mode={mode}
       className={cn('w-64 rounded-xl border border-border bg-popover p-3 text-popover-foreground shadow-sm', className)}
     >
       {/* Header */}
@@ -114,19 +142,31 @@ export function Calendar({
         ))}
       </div>
 
-      {/* Days grid */}
-      <div className='grid grid-cols-7 gap-1 text-center text-sm'>
+      {/* Days grid. Range mode drops the gap so the anchor-to-end span reads as one band. */}
+      <div
+        className={cn('grid grid-cols-7 text-center text-sm', isRange ? 'gap-0' : 'gap-1')}
+        onMouseLeave={isRange ? () => onHoverChange?.(null) : undefined}
+      >
         {/* Leading empty cells */}
         {Array.from({ length: firstDayIndex }).map((_, i) => (
-          <div key={`empty-${i}`} className='size-8' />
+          <div key={`empty-${i}`} className={isRange ? 'h-8 w-full' : 'size-8'} />
         ))}
 
         {/* Month days */}
         {Array.from({ length: daysInMonth }).map((_, i) => {
           const day = i + 1;
           const date = new Date(year, month, day);
-          const isDisabled = disabled ? disabled(date) : false;
-          const selected = isSelected(day);
+          const isDisabled = isRange
+            ? disabledDate
+              ? disabledDate(date, anchor)
+              : false
+            : disabled
+              ? disabled(date)
+              : false;
+          const dayState = isRange ? rangeDayState(range, date) : null;
+          // A one-day range is reported as its start, so it needs both corners rounded.
+          const singleDay = dayState === 'start' && isSameDay(range.from, range.to ?? range.from);
+          const selected = isRange ? dayState === 'start' || dayState === 'end' : isSelected(day);
           const current = isToday(day);
 
           return (
@@ -134,17 +174,27 @@ export function Calendar({
               key={`day-${day}`}
               type='button'
               disabled={isDisabled}
-              aria-label={dayLabel(date)}
+              aria-label={dayState === 'middle' ? `${dayLabel(date)}, in selected range` : dayLabel(date)}
               // A button-based picker uses aria-pressed for selection; aria-selected would require
               // full grid semantics, which this widget does not claim.
               aria-pressed={selected}
               aria-current={current ? 'date' : undefined}
-              onClick={() => onValueChange?.(date)}
+              data-range={dayState ?? undefined}
+              onMouseEnter={isRange ? () => onHoverChange?.(date) : undefined}
+              onClick={() => (isRange ? onSelect?.(date) : onValueChange?.(date))}
               className={cn(
-                'size-8 rounded-lg flex items-center justify-center transition-colors text-sm font-normal',
-                selected && 'bg-primary text-primary-foreground font-semibold hover:bg-primary/90',
-                !selected && current && 'border border-primary font-semibold text-primary',
-                !selected && !current && 'hover:bg-accent hover:text-accent-foreground',
+                'flex items-center justify-center font-normal transition-colors',
+                isRange ? 'h-8 w-full' : 'size-8 rounded-lg',
+                isRange && (dayState === 'start' || dayState === 'end') && 'bg-primary text-primary-foreground font-semibold',
+                isRange && dayState === 'middle' && 'bg-primary/10 text-foreground',
+                isRange && dayState === 'start' && (singleDay ? 'rounded-lg' : 'rounded-l-lg rounded-r-none'),
+                isRange && dayState === 'end' && (singleDay ? 'rounded-lg' : 'rounded-r-lg rounded-l-none'),
+                isRange && dayState && 'hover:bg-primary/90',
+                isRange && !dayState && current && 'rounded-lg border border-primary font-semibold text-primary',
+                isRange && !dayState && !current && 'hover:bg-accent hover:text-accent-foreground',
+                !isRange && selected && 'bg-primary text-primary-foreground font-semibold hover:bg-primary/90',
+                !isRange && !selected && current && 'border border-primary font-semibold text-primary',
+                !isRange && !selected && !current && 'hover:bg-accent hover:text-accent-foreground',
                 isDisabled && 'opacity-30 pointer-events-none',
               )}
             >

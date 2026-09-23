@@ -4,6 +4,7 @@ import { ChevronDownIcon, ChevronUpIcon, RotateCcwIcon, SearchIcon } from 'lucid
 import { Button } from '@package/ui/button';
 import { cn } from '@package/ui/cn';
 import { DatePicker } from '@package/ui/date-picker';
+import { DateRangePicker } from '@package/ui/date-range-picker';
 import { Input } from '@package/ui/input';
 import { Label } from '@package/ui/label';
 import {
@@ -22,7 +23,7 @@ export interface FilterOption {
 export interface FilterField {
   name: string;
   label: string;
-  type: 'text' | 'select' | 'date';
+  type: 'text' | 'select' | 'date' | 'date-range';
   placeholder?: string;
   options?: FilterOption[];
   defaultValue?: unknown;
@@ -46,6 +47,11 @@ export interface ProFilterToolbarProps {
 
 /** A `date` field may be fed from a query string or a form, so the value is narrowed here. */
 const asDate = (value: unknown): Date | undefined => (value instanceof Date ? value : undefined);
+
+const asDateRange = (value: unknown): [Date, Date] | undefined =>
+  Array.isArray(value) && value.length === 2 && value[0] instanceof Date && value[1] instanceof Date
+    ? [value[0], value[1]]
+    : undefined;
 
 /**
  * Collapsible search and filter toolbar for ProDataTable and resource views.
@@ -154,6 +160,16 @@ export function ProFilterToolbar({
                 value={asDate(values[field.name])}
                 onValueChange={(date) => setValue(field.name, date)}
                 placeholder={field.placeholder ?? 'Pick date...'}
+                className='h-9'
+              />
+            )}
+
+            {field.type === 'date-range' && (
+              <DateRangePicker
+                id={`filter-${field.name}`}
+                value={asDateRange(values[field.name])}
+                onValueChange={(range) => setValue(field.name, range)}
+                placeholder={field.placeholder ?? 'Pick a range...'}
                 className='h-9'
               />
             )}

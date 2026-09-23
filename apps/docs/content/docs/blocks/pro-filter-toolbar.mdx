@@ -45,6 +45,7 @@ export function Example() {
           ],
         },
         { name: 'date', label: 'Registered Date', type: 'date' },
+        { name: 'window', label: 'Billing Period', type: 'date-range' },
       ]}
       onFilter={(filters) => {
         console.log('Applied filters:', filters);
@@ -56,3 +57,12 @@ export function Example() {
   );
 }
 ```
+
+---
+
+## Field types
+
+`type` is one of `text`, `select`, `date`, or `date-range`. A `date-range` field renders a
+`DateRangePicker` and stores a `[Date, Date]` tuple in the emitted filters; a value that is not a
+two-`Date` tuple — for example two strings from a query string — is ignored and the control falls back
+to its placeholder instead of throwing.

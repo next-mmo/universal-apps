@@ -93,6 +93,14 @@
       }
     },
     {
+      "id": "ui.date-range-picker", "kind": "component", "summary": "Popover range selector committing a from/to date tuple.",
+      "keywords": ["daterange", "datepicker", "calendar", "range", "form"], "docs": "apps/docs/content/docs/components/date-range-picker.mdx",
+      "implementations": {
+        "react": {"import": "@package/ui/date-range-picker", "exports": ["DateRangePicker", "DateRangePickerProps"], "source": "packages/ui/src/components/ui/date-range-picker.tsx", "runtimes": ["browser", "tauri"]},
+        "native": {"import": "@package/ui-native/src/components/ui/date-range-picker", "exports": ["DateRangePicker", "DateRangePickerProps"], "source": "packages/ui-native/src/components/ui/date-range-picker.tsx", "runtimes": ["browser", "native"]}
+      }
+    },
+    {
       "id": "ui.dialog", "kind": "component", "summary": "Accessible modal overlay for confirmation and focused workflows.",
       "keywords": ["modal", "overlay", "confirm"], "docs": "apps/docs/content/docs/components/dialog.mdx",
       "implementations": {

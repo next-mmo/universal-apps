@@ -166,6 +166,103 @@ describe('Calendar', () => {
   });
 });
 
+describe('Calendar range mode', () => {
+  const range = { from: new Date(2026, 8, 10), to: new Date(2026, 8, 20) };
+  const stateOf = (date: Date) =>
+    screen.getByRole('button', { name: new RegExp(`^${dayLabel(date)}`) }).getAttribute('data-range');
+  const pressed = (date: Date) =>
+    screen.getByRole('button', { name: new RegExp(`^${dayLabel(date)}`) }).getAttribute('aria-pressed');
+
+  it('marks the committed span with start, middle, and end states', () => {
+    render(<Calendar mode='range' month={SEPTEMBER_2026} selected={range} />);
+
+    expect(stateOf(new Date(2026, 8, 10))).toBe('start');
+    expect(stateOf(new Date(2026, 8, 15))).toBe('middle');
+    expect(stateOf(new Date(2026, 8, 20))).toBe('end');
+    expect(stateOf(new Date(2026, 8, 9))).toBeNull();
+    expect(stateOf(new Date(2026, 8, 21))).toBeNull();
+  });
+
+  it('presses the span ends and not the middle', () => {
+    render(<Calendar mode='range' month={SEPTEMBER_2026} selected={range} />);
+
+    expect(pressed(new Date(2026, 8, 10))).toBe('true');
+    expect(pressed(new Date(2026, 8, 20))).toBe('true');
+    expect(pressed(new Date(2026, 8, 15))).toBe('false');
+  });
+
+  it('announces middle days as part of the selected range', () => {
+    render(<Calendar mode='range' month={SEPTEMBER_2026} selected={range} />);
+    // "September 15, 2026, in selected range" — the day number alone would hide the range membership.
+    expect(screen.getByRole('button', { name: `${dayLabel(new Date(2026, 8, 15))}, in selected range` })).toBeDefined();
+  });
+
+  it('renders the preview span instead of the committed one while picking', () => {
+    render(
+      <Calendar
+        mode='range'
+        month={SEPTEMBER_2026}
+        selected={{ from: new Date(2026, 8, 2), to: new Date(2026, 8, 3) }}
+        preview={{ from: new Date(2026, 8, 10), to: new Date(2026, 8, 14) }}
+      />,
+    );
+
+    expect(stateOf(new Date(2026, 8, 10))).toBe('start');
+    expect(stateOf(new Date(2026, 8, 14))).toBe('end');
+    expect(stateOf(new Date(2026, 8, 2))).toBeNull();
+  });
+
+  it('reports the pressed day through onSelect', async () => {
+    const onSelect = vi.fn<(date: Date) => void>();
+    render(<Calendar mode='range' month={SEPTEMBER_2026} selected={range} onSelect={onSelect} />);
+
+    await userEvent.click(screen.getByRole('button', { name: day(8, 25) }));
+
+    expect(onSelect).toHaveBeenCalledTimes(1);
+    expect(onSelect.mock.calls[0]![0].getDate()).toBe(25);
+  });
+
+  it('previews the hovered day and clears on leave', async () => {
+    const onHoverChange = vi.fn<(date: Date | null) => void>();
+    render(
+      <Calendar mode='range' month={SEPTEMBER_2026} selected={{ from: new Date(2026, 8, 10), to: new Date(2026, 8, 10) }} onHoverChange={onHoverChange} />,
+    );
+
+    await userEvent.hover(screen.getByRole('button', { name: day(8, 15) }));
+    expect(onHoverChange).toHaveBeenLastCalledWith(new Date(2026, 8, 15));
+
+    await userEvent.unhover(screen.getByRole('button', { name: day(8, 15) }));
+    expect(onHoverChange).toHaveBeenLastCalledWith(null);
+  });
+
+  it('disables the days the range rule rejects and forwards the anchor', () => {
+    const disabledDate = vi.fn<(date: Date, anchor?: Date) => boolean>(
+      (date, anchor) => Boolean(anchor) && date.getDate() < anchor!.getDate(),
+    );
+    render(
+      <Calendar
+        mode='range'
+        month={SEPTEMBER_2026}
+        selected={{ from: new Date(2026, 8, 10) }}
+        anchor={new Date(2026, 8, 10)}
+        disabledDate={disabledDate}
+      />,
+    );
+
+    expect((screen.getByRole('button', { name: day(8, 5) }) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole('button', { name: day(8, 15) }) as HTMLButtonElement).disabled).toBe(false);
+    expect(disabledDate).toHaveBeenCalledWith(new Date(2026, 8, 5), new Date(2026, 8, 10));
+  });
+
+  it('rounds and presses a one-day range', () => {
+    render(<Calendar mode='range' month={SEPTEMBER_2026} selected={{ from: new Date(2026, 8, 10), to: new Date(2026, 8, 10) }} />);
+
+    const dayButton = screen.getByRole('button', { name: day(8, 10) });
+    expect(dayButton.getAttribute('data-range')).toBe('start');
+    expect(dayButton.getAttribute('aria-pressed')).toBe('true');
+  });
+});
+
 describe('DatePicker', () => {
   it('shows the placeholder while no date is chosen', () => {
     render(<DatePicker />);

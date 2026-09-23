@@ -168,6 +168,7 @@ const filterFields = [
       { label: 'Archived', value: 'archived' },
     ],
   },
+  { name: 'date-range', label: 'Billing Period', type: 'date-range' as const },
   { name: 'date', label: 'Audit Date', type: 'date' as const },
 ];
 
