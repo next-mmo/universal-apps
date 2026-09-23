@@ -34,6 +34,7 @@
     "./toggle-group": "./src/components/ui/toggle-group.tsx",
     "./tooltip": "./src/components/ui/tooltip.tsx",
     "./cn": "./src/lib/cn.ts",
+    "./date-format": "./src/lib/date-format.ts",
     "./use-range-selection": "./src/lib/use-range-selection.ts",
     "./tokens": "./src/tokens.ts",
     "./tokens.css": "./src/styles/tokens.css",

@@ -2,6 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '../../lib/cn';
+import { formatDayLabel, formatMonthYear, weekdayLabels } from '../../lib/date-format';
 import { isSameDay, rangeDayState } from '../../lib/use-range-selection';
 import type { DateRange } from '../../lib/use-range-selection';
 
@@ -26,22 +27,9 @@ export interface CalendarProps {
   onHoverChange?: (date: Date | null) => void;
   /** Range mode: the anchor-aware replacement for `disabled`. */
   disabledDate?: (date: Date, anchor?: Date) => boolean;
+  /** Locale for the month, weekday, and day labels; the runtime locale when omitted. */
+  locale?: string;
 }
-
-const DAYS_OF_WEEK = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
-
-// Day buttons announce their full date; "20" alone is meaningless to a screen reader. The formatter
-// follows the runtime locale so the label is localized wherever the app runs.
-const dayLabelFormatter = new Intl.DateTimeFormat(undefined, {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric',
-});
-const dayLabel = (date: Date) => dayLabelFormatter.format(date);
 
 export function Calendar({
   value,
@@ -57,12 +45,15 @@ export function Calendar({
   onSelect,
   onHoverChange,
   disabledDate,
+  locale,
 }: CalendarProps) {
   const [internalMonth, setInternalMonth] = React.useState<Date>(() => value ?? new Date());
   const currentMonth = controlledMonth ?? internalMonth;
 
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
+  const monthLabel = formatMonthYear(new Date(year, month, 1), locale);
+  const weekdays = weekdayLabels(locale);
 
   const isRange = mode === 'range';
   const range: DateRange = isRange ? (preview ?? selected ?? {}) : {};
@@ -121,7 +112,7 @@ export function Calendar({
           <ChevronLeftIcon className='size-4' />
         </button>
         <div className='text-sm font-semibold' aria-live='polite'>
-          {MONTH_NAMES[month]} {year}
+          {monthLabel}
         </div>
         <button
           type='button'
@@ -135,9 +126,9 @@ export function Calendar({
 
       {/* Weekday headers */}
       <div className='grid grid-cols-7 gap-1 text-center text-xs font-medium text-muted-foreground pb-2'>
-        {DAYS_OF_WEEK.map((d) => (
-          <div key={d} className='h-6 flex items-center justify-center'>
-            {d}
+        {weekdays.map((label, index) => (
+          <div key={`weekday-${index}`} className='h-6 flex items-center justify-center'>
+            {label}
           </div>
         ))}
       </div>
@@ -164,6 +155,8 @@ export function Calendar({
               ? disabled(date)
               : false;
           const dayState = isRange ? rangeDayState(range, date) : null;
+          // "20" alone is meaningless to a screen reader; the label announces the full date.
+          const label = formatDayLabel(date, locale);
           // A one-day range is reported as its start, so it needs both corners rounded.
           const singleDay = dayState === 'start' && isSameDay(range.from, range.to ?? range.from);
           const selected = isRange ? dayState === 'start' || dayState === 'end' : isSelected(day);
@@ -174,7 +167,7 @@ export function Calendar({
               key={`day-${day}`}
               type='button'
               disabled={isDisabled}
-              aria-label={dayState === 'middle' ? `${dayLabel(date)}, in selected range` : dayLabel(date)}
+              aria-label={dayState === 'middle' ? `${label}, in selected range` : label}
               // A button-based picker uses aria-pressed for selection; aria-selected would require
               // full grid semantics, which this widget does not claim.
               aria-pressed={selected}

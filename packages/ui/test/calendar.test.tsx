@@ -8,17 +8,19 @@ import { DatePicker } from '../src/components/ui/date-picker.tsx';
 
 const SEPTEMBER_2026 = new Date(2026, 8, 1);
 
-// The heading is currently built from hard-coded English month names, unlike the day labels.
-const MONTHS = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
-const heading = (date: Date) => `${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
+// The component formats through `Intl` — at the runtime locale, or at a pinned `locale` prop —
+// so the expectations derive the same way instead of hard-coding English.
+const heading = (date: Date, locale?: string) =>
+  new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(date);
 
-// The component labels days with the runtime locale, so the expectations derive the same way
-// instead of hard-coding English.
-const dayLabel = (date: Date) =>
-  new Intl.DateTimeFormat(undefined, { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+const dayLabel = (date: Date, locale?: string) =>
+  new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+
+const shortDate = (date: Date, locale?: string) =>
+  new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+
+const weekday = (date: Date, locale?: string) =>
+  new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(date);
 
 const day = (month: number, date: number) => dayLabel(new Date(2026, month, date));
 
@@ -28,7 +30,16 @@ const dayButtons = () =>
 describe('Calendar', () => {
   it('shows the requested month and year', () => {
     render(<Calendar month={SEPTEMBER_2026} />);
-    expect(screen.getByText('September 2026')).toBeDefined();
+    expect(screen.getByText(heading(new Date(2026, 8, 1)))).toBeDefined();
+  });
+
+  it('formats the heading, weekdays, and day labels in a pinned locale', () => {
+    render(<Calendar month={SEPTEMBER_2026} locale='fr-FR' />);
+
+    expect(screen.getByText(heading(new Date(2026, 8, 1), 'fr-FR'))).toBeDefined();
+    // The weekday header localizes too; only the grid order stays Sunday-first.
+    expect(screen.getByText(weekday(new Date(2024, 0, 7), 'fr-FR'))).toBeDefined();
+    expect(screen.getByRole('button', { name: dayLabel(new Date(2026, 8, 20), 'fr-FR') })).toBeDefined();
   });
 
   it('renders one button per day of the month', () => {
@@ -146,23 +157,23 @@ describe('Calendar', () => {
     expect(onMonthChange).toHaveBeenCalledTimes(1);
     expect(onMonthChange.mock.calls[0]![0].getMonth()).toBe(9);
     // A controlled month must not move on its own.
-    expect(screen.getByText('September 2026')).toBeDefined();
+    expect(screen.getByText(heading(new Date(2026, 8, 1)))).toBeDefined();
   });
 
   it('follows a value that is set programmatically from outside', () => {
     const { rerender } = render(<Calendar value={new Date(2026, 8, 10)} />);
-    expect(screen.getByText('September 2026')).toBeDefined();
+    expect(screen.getByText(heading(new Date(2026, 8, 1)))).toBeDefined();
 
     // A form loading a record from another month must move the view with it.
     rerender(<Calendar value={new Date(2026, 4, 3)} />);
-    expect(screen.getByText('May 2026')).toBeDefined();
+    expect(screen.getByText(heading(new Date(2026, 4, 1)))).toBeDefined();
   });
 
   it('does not fight a caller that also controls the month', () => {
     const { rerender } = render(<Calendar month={SEPTEMBER_2026} value={new Date(2026, 8, 10)} />);
     rerender(<Calendar month={SEPTEMBER_2026} value={new Date(2026, 4, 3)} />);
     // The controlled month wins over the value's month.
-    expect(screen.getByText('September 2026')).toBeDefined();
+    expect(screen.getByText(heading(new Date(2026, 8, 1)))).toBeDefined();
   });
 });
 
@@ -271,14 +282,14 @@ describe('DatePicker', () => {
 
   it('formats the chosen date', () => {
     render(<DatePicker value={new Date(2026, 8, 20)} />);
-    expect(screen.getByText('Sep 20, 2026')).toBeDefined();
+    expect(screen.getByText(shortDate(new Date(2026, 8, 20)))).toBeDefined();
   });
 
   it('opens the calendar and reports the picked date', async () => {
     const onValueChange = vi.fn<(date: Date) => void>();
     render(<DatePicker value={new Date(2026, 8, 20)} onValueChange={onValueChange} />);
 
-    await userEvent.click(screen.getByRole('button', { name: /Sep 20, 2026/i }));
+    await userEvent.click(screen.getByRole('button', { name: shortDate(new Date(2026, 8, 20)) }));
     await userEvent.click(await screen.findByRole('button', { name: day(8, 25) }));
 
     expect(onValueChange).toHaveBeenCalledTimes(1);
@@ -288,9 +299,17 @@ describe('DatePicker', () => {
   it('opens on the month of the current value', async () => {
     render(<DatePicker value={new Date(2026, 4, 3)} />);
 
-    await userEvent.click(screen.getByRole('button', { name: /May 3, 2026/i }));
+    await userEvent.click(screen.getByRole('button', { name: shortDate(new Date(2026, 4, 3)) }));
 
-    expect(await screen.findByText('May 2026')).toBeDefined();
+    expect(await screen.findByText(heading(new Date(2026, 4, 1)))).toBeDefined();
+  });
+
+  it('threads a pinned locale to the trigger and the calendar', async () => {
+    render(<DatePicker value={new Date(2026, 8, 20)} locale='fr-FR' />);
+
+    await userEvent.click(screen.getByRole('button', { name: shortDate(new Date(2026, 8, 20), 'fr-FR') }));
+
+    expect(await screen.findByText(heading(new Date(2026, 8, 1), 'fr-FR'))).toBeDefined();
   });
 
   it('can be disabled', () => {

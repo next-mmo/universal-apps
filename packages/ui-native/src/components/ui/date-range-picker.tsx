@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 
 import { cn } from '@package/ui/cn';
+import { formatDateShort } from '@package/ui/date-format';
 import { useRangeSelection } from '@package/ui/use-range-selection';
 import { Calendar } from './calendar';
 
@@ -29,11 +30,8 @@ export interface DateRangePickerProps {
    * commits the start day alone. A plain open-and-close is unaffected.
    */
   commitBehavior?: RangeCommitBehavior;
-}
-
-function formatDate(date: Date): string {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  /** Locale for the trigger text and the calendar labels; the runtime locale when omitted. */
+  locale?: string;
 }
 
 export function DateRangePicker({
@@ -48,6 +46,7 @@ export function DateRangePicker({
   excludeDisabled,
   disabledDate,
   commitBehavior,
+  locale,
 }: DateRangePickerProps) {
   const [open, setOpen] = useState(false);
 
@@ -93,7 +92,7 @@ export function DateRangePicker({
             value ? 'text-foreground' : 'text-muted-foreground',
           )}
         >
-          {value ? `${formatDate(value[0])} – ${formatDate(value[1])}` : placeholder}
+          {value ? `${formatDateShort(value[0], locale)} – ${formatDateShort(value[1], locale)}` : placeholder}
         </Text>
         <Text className='font-sans text-xs text-muted-foreground'>📅</Text>
       </Pressable>
@@ -109,6 +108,7 @@ export function DateRangePicker({
           <View onStartShouldSetResponder={() => true}>
             <Calendar
               mode='range'
+              locale={locale}
               selected={selection.selected}
               preview={selection.preview}
               anchor={selection.anchor}

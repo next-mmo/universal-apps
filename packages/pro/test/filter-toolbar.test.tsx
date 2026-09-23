@@ -6,6 +6,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { ProFilterToolbar } from '../src/table/pro-filter-toolbar.tsx';
 import type { FilterField } from '../src/table/pro-filter-toolbar.tsx';
 
+// The pickers format through `Intl` at the runtime locale, so the expectations derive the same
+// way instead of hard-coding English.
+const shortDate = (date: Date, locale?: string) =>
+  new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+
 const fields: FilterField[] = [
   { name: 'name', label: 'Name', type: 'text' },
   { name: 'status', label: 'Status', type: 'select', options: [{ label: 'Open', value: 'open' }] },
@@ -203,7 +208,7 @@ describe('ProFilterToolbar', () => {
       />,
     );
 
-    expect(screen.getByText('Sep 20, 2026')).toBeDefined();
+    expect(screen.getByText(shortDate(new Date(2026, 8, 20)))).toBeDefined();
   });
 
   it('ignores a non-tuple value in a date-range field instead of crashing', () => {
@@ -229,7 +234,9 @@ describe('ProFilterToolbar', () => {
       />,
     );
 
-    expect(screen.getByText('Sep 20, 2026 – Sep 25, 2026')).toBeDefined();
+    const from = shortDate(new Date(2026, 8, 20));
+    const to = shortDate(new Date(2026, 8, 25));
+    expect(screen.getByText(`${from} – ${to}`)).toBeDefined();
   });
 
   it('hands a picked range to onFilter as a Date tuple', async () => {

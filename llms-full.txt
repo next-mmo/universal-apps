@@ -1037,6 +1037,26 @@ shared `useRangeSelection` hook from `@package/ui/use-range-selection`, which is
 Reach for `DateRangePicker` when a formatted trigger and popover are wanted; use the calendar directly
 when the grid is the layout.
 
+---
+
+## Localization
+
+Labels are formatted with `Intl.DateTimeFormat`, so the component stays zero-dependency. The heading,
+weekday names, and each day's screen-reader label follow the runtime locale by default; the `locale`
+prop pins one instead:
+
+```tsx
+<Calendar
+  value={date}
+  onValueChange={setDate}
+  locale="fr-FR"
+/>
+```
+
+Only the names localize. The grid stays Sunday-first, with day columns indexed by `getDay()`, so the
+week layout does not shift between locales. `DatePicker` and `DateRangePicker` forward the same prop to
+their trigger text and their calendar.
+
 ## Card
 
 Source: `apps/docs/content/docs/components/card.mdx`
@@ -1241,6 +1261,23 @@ Copy `date-picker.tsx` and `calendar.tsx` to your components directory and impor
 }
 ```
 
+---
+
+## Localization
+
+The trigger date and the calendar labels are formatted with `Intl.DateTimeFormat` — no date library is
+involved — so they follow the runtime locale. Pass `locale` to pin one:
+
+```tsx
+<DatePicker
+  value={date}
+  onValueChange={setDate}
+  locale="fr-FR"
+/>
+```
+
+Only the names localize; the calendar's day grid stays Sunday-first.
+
 ## Date Range Picker
 
 Source: `apps/docs/content/docs/components/date-range-picker.mdx`
@@ -1312,6 +1349,23 @@ anchor" can be expressed directly.
 `commitBehavior` decides what dismissing the popover mid-selection does, after the start day but
 before the end day. `'reset'` (the default) discards the pick, `'clear'` clears the value, and
 `'select'` commits the start day alone. A plain open-and-close is unaffected.
+
+---
+
+## Localization
+
+The trigger text and the calendar labels are formatted with `Intl.DateTimeFormat` — no date library is
+involved — so they follow the runtime locale. Pass `locale` to pin one:
+
+```tsx
+<DateRangePicker
+  value={range}
+  onValueChange={setRange}
+  locale="fr-FR"
+/>
+```
+
+Only the names localize; the day grid stays Sunday-first.
 
 ---
 

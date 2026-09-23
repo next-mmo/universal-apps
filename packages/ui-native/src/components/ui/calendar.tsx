@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { cn } from '@package/ui/cn';
+import { formatDayLabel, formatMonthYear, weekdayLabels } from '@package/ui/date-format';
 import { isSameDay, rangeDayState } from '@package/ui/use-range-selection';
 
 import type { DateRange } from '@package/ui/use-range-selection';
@@ -27,22 +28,9 @@ export interface CalendarProps {
   onSelect?: (date: Date) => void;
   /** Range mode: the anchor-aware replacement for `disabled`. */
   disabledDate?: (date: Date, anchor?: Date) => boolean;
+  /** Locale for the month, weekday, and day labels; the runtime locale when omitted. */
+  locale?: string;
 }
-
-const DAYS_OF_WEEK = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
-
-// Day cells announce their full date; "20" alone is meaningless to a screen reader. The formatter
-// follows the runtime locale so the label is localized wherever the app runs.
-const dayLabelFormatter = new Intl.DateTimeFormat(undefined, {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric',
-});
-const dayLabel = (date: Date) => dayLabelFormatter.format(date);
 
 export function Calendar({
   value,
@@ -58,6 +46,7 @@ export function Calendar({
   anchor,
   onSelect,
   disabledDate,
+  locale,
 }: CalendarProps) {
   const isRange = mode === 'range';
   const range: DateRange = isRange ? (preview ?? selected ?? {}) : {};
@@ -67,6 +56,8 @@ export function Calendar({
 
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
+  const monthLabel = formatMonthYear(new Date(year, month, 1), locale);
+  const weekdays = weekdayLabels(locale);
 
   const handleMonthChange = (newMonth: Date) => {
     if (onMonthChange) onMonthChange(newMonth);
@@ -105,7 +96,7 @@ export function Calendar({
         </Pressable>
 
         <Text className='font-sans text-sm font-semibold text-foreground'>
-          {MONTH_NAMES[month]} {year}
+          {monthLabel}
         </Text>
 
         <Pressable
@@ -119,9 +110,9 @@ export function Calendar({
 
       {/* Weekday headers */}
       <View className='flex-row justify-between pb-2'>
-        {DAYS_OF_WEEK.map((d) => (
-          <View key={d} className='size-8 items-center justify-center'>
-            <Text className='font-sans text-xs font-medium text-muted-foreground'>{d}</Text>
+        {weekdays.map((label, index) => (
+          <View key={`weekday-${index}`} className='size-8 items-center justify-center'>
+            <Text className='font-sans text-xs font-medium text-muted-foreground'>{label}</Text>
           </View>
         ))}
       </View>
@@ -143,6 +134,8 @@ export function Calendar({
               ? disabled(date)
               : false;
           const dayState = isRange ? rangeDayState(range, date) : null;
+          // "20" alone is meaningless to a screen reader; the label announces the full date.
+          const label = formatDayLabel(date, locale);
           // A one-day range is reported as its start, so it needs both corners rounded.
           const singleDay = dayState === 'start' && isSameDay(range.from, range.to ?? range.from);
           const selected = isRange ? dayState === 'start' || dayState === 'end' : isSelected(day);
@@ -152,7 +145,7 @@ export function Calendar({
             <Pressable
               key={`day-${day}`}
               accessibilityRole='button'
-              accessibilityLabel={dayState === 'middle' ? `${dayLabel(date)}, in selected range` : dayLabel(date)}
+              accessibilityLabel={dayState === 'middle' ? `${label}, in selected range` : label}
               accessibilityState={{ disabled: isDisabled, selected: Boolean(selected) }}
               disabled={isDisabled}
               onPress={() => (isRange ? onSelect?.(date) : onValueChange?.(date))}

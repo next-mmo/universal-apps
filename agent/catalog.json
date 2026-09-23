@@ -45,8 +45,8 @@
       }
     },
     {
-      "id": "ui.calendar", "kind": "component", "summary": "Accessible zero-dependency date picker calendar grid with month navigation.",
-      "keywords": ["calendar", "date", "month", "grid", "schedule"], "docs": "apps/docs/content/docs/components/calendar.mdx",
+      "id": "ui.calendar", "kind": "component", "summary": "Accessible zero-dependency date picker calendar grid with month navigation and locale-aware labels.",
+      "keywords": ["calendar", "date", "month", "grid", "schedule", "locale"], "docs": "apps/docs/content/docs/components/calendar.mdx",
       "implementations": {
         "react": {"import": "@package/ui/calendar", "exports": ["Calendar", "CalendarProps"], "source": "packages/ui/src/components/ui/calendar.tsx", "runtimes": ["browser", "tauri"]},
         "native": {"import": "@package/ui-native/src/components/ui/calendar", "exports": ["Calendar", "CalendarProps"], "source": "packages/ui-native/src/components/ui/calendar.tsx", "runtimes": ["browser", "native"]}
@@ -86,7 +86,7 @@
     },
     {
       "id": "ui.date-picker", "kind": "component", "summary": "Single date selector popover with inline calendar and localized formatting.",
-      "keywords": ["datepicker", "calendar", "popover", "input", "form"], "docs": "apps/docs/content/docs/components/date-picker.mdx",
+      "keywords": ["datepicker", "calendar", "popover", "input", "form", "locale"], "docs": "apps/docs/content/docs/components/date-picker.mdx",
       "implementations": {
         "react": {"import": "@package/ui/date-picker", "exports": ["DatePicker", "DatePickerProps"], "source": "packages/ui/src/components/ui/date-picker.tsx", "runtimes": ["browser", "tauri"]},
         "native": {"import": "@package/ui-native/src/components/ui/date-picker", "exports": ["DatePicker", "DatePickerProps"], "source": "packages/ui-native/src/components/ui/date-picker.tsx", "runtimes": ["browser", "native"]}
@@ -94,7 +94,7 @@
     },
     {
       "id": "ui.date-range-picker", "kind": "component", "summary": "Popover range selector committing a from/to date tuple.",
-      "keywords": ["daterange", "datepicker", "calendar", "range", "form"], "docs": "apps/docs/content/docs/components/date-range-picker.mdx",
+      "keywords": ["daterange", "datepicker", "calendar", "range", "form", "locale"], "docs": "apps/docs/content/docs/components/date-range-picker.mdx",
       "implementations": {
         "react": {"import": "@package/ui/date-range-picker", "exports": ["DateRangePicker", "DateRangePickerProps"], "source": "packages/ui/src/components/ui/date-range-picker.tsx", "runtimes": ["browser", "tauri"]},
         "native": {"import": "@package/ui-native/src/components/ui/date-range-picker", "exports": ["DateRangePicker", "DateRangePickerProps"], "source": "packages/ui-native/src/components/ui/date-range-picker.tsx", "runtimes": ["browser", "native"]}

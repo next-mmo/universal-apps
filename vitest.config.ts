@@ -53,6 +53,7 @@ export default defineConfig({
         'packages/ui/src/components/ui/toggle.tsx',
         'packages/ui/src/components/ui/toggle-group.tsx',
         'packages/ui/src/lib/cn.ts',
+        'packages/ui/src/lib/date-format.ts',
         'packages/ui/src/lib/use-range-selection.ts',
       ],
       // Floors, not targets. Raise them as coverage grows; never lower one to land a change.

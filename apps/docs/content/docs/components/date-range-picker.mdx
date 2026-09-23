@@ -78,6 +78,23 @@ before the end day. `'reset'` (the default) discards the pick, `'clear'` clears 
 
 ---
 
+## Localization
+
+The trigger text and the calendar labels are formatted with `Intl.DateTimeFormat` — no date library is
+involved — so they follow the runtime locale. Pass `locale` to pin one:
+
+```tsx
+<DateRangePicker
+  value={range}
+  onValueChange={setRange}
+  locale="fr-FR"
+/>
+```
+
+Only the names localize; the day grid stays Sunday-first.
+
+---
+
 ## Native
 
 `@package/ui-native` ships the same component over the React Native `Modal`, with `style` instead of

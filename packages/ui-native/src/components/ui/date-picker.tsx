@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 
 import { cn } from '@package/ui/cn';
+import { formatDateShort } from '@package/ui/date-format';
 import { Calendar } from './calendar';
 
 import type { StyleProp, ViewStyle } from 'react-native';
@@ -13,11 +14,8 @@ export interface DatePickerProps {
   className?: string;
   style?: StyleProp<ViewStyle>;
   disabled?: boolean;
-}
-
-function formatDate(date: Date): string {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  /** Locale for the trigger text and the calendar labels; the runtime locale when omitted. */
+  locale?: string;
 }
 
 export function DatePicker({
@@ -27,6 +25,7 @@ export function DatePicker({
   className,
   style,
   disabled,
+  locale,
 }: DatePickerProps) {
   const [open, setOpen] = useState(false);
 
@@ -51,7 +50,7 @@ export function DatePicker({
             value ? 'text-foreground' : 'text-muted-foreground',
           )}
         >
-          {value ? formatDate(value) : placeholder}
+          {value ? formatDateShort(value, locale) : placeholder}
         </Text>
         <Text className='font-sans text-xs text-muted-foreground'>📅</Text>
       </Pressable>
@@ -67,6 +66,7 @@ export function DatePicker({
           <View onStartShouldSetResponder={() => true}>
             <Calendar
               value={value}
+              locale={locale}
               onValueChange={(date) => {
                 onValueChange?.(date);
                 close();

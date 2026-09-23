@@ -74,3 +74,23 @@ export function Example() {
 
 Reach for `DateRangePicker` when a formatted trigger and popover are wanted; use the calendar directly
 when the grid is the layout.
+
+---
+
+## Localization
+
+Labels are formatted with `Intl.DateTimeFormat`, so the component stays zero-dependency. The heading,
+weekday names, and each day's screen-reader label follow the runtime locale by default; the `locale`
+prop pins one instead:
+
+```tsx
+<Calendar
+  value={date}
+  onValueChange={setDate}
+  locale="fr-FR"
+/>
+```
+
+Only the names localize. The grid stays Sunday-first, with day columns indexed by `getDay()`, so the
+week layout does not shift between locales. `DatePicker` and `DateRangePicker` forward the same prop to
+their trigger text and their calendar.

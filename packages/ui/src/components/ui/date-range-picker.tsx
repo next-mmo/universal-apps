@@ -2,6 +2,7 @@ import { CalendarIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '../../lib/cn';
+import { formatDateShort } from '../../lib/date-format';
 import { useRangeSelection } from '../../lib/use-range-selection';
 import type { RangeCommitBehavior } from '../../lib/use-range-selection';
 import { Button } from './button';
@@ -30,11 +31,8 @@ export interface DateRangePickerProps {
    * start day alone. A plain open-and-close is unaffected.
    */
   commitBehavior?: RangeCommitBehavior;
-}
-
-function formatDate(date: Date): string {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  /** Locale for the trigger text and the calendar labels; the runtime locale when omitted. */
+  locale?: string;
 }
 
 export function DateRangePicker({
@@ -49,6 +47,7 @@ export function DateRangePicker({
   excludeDisabled,
   disabledDate,
   commitBehavior,
+  locale,
 }: DateRangePickerProps) {
   const [open, setOpen] = React.useState(false);
   const selection = useRangeSelection({
@@ -89,12 +88,13 @@ export function DateRangePicker({
           )}
         >
           <CalendarIcon className='mr-2 size-4 opacity-70' />
-          {value ? `${formatDate(value[0])} – ${formatDate(value[1])}` : placeholder}
+          {value ? `${formatDateShort(value[0], locale)} – ${formatDateShort(value[1], locale)}` : placeholder}
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0' align='start'>
         <Calendar
           mode='range'
+          locale={locale}
           selected={selection.selected}
           preview={selection.preview}
           anchor={selection.anchor}

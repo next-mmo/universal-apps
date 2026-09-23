@@ -42,3 +42,20 @@ export function Example() {
   );
 }
 ```
+
+---
+
+## Localization
+
+The trigger date and the calendar labels are formatted with `Intl.DateTimeFormat` — no date library is
+involved — so they follow the runtime locale. Pass `locale` to pin one:
+
+```tsx
+<DatePicker
+  value={date}
+  onValueChange={setDate}
+  locale="fr-FR"
+/>
+```
+
+Only the names localize; the calendar's day grid stays Sunday-first.
