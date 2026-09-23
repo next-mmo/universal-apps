@@ -104,5 +104,5 @@ DST-safe date arithmetic that PRD 0012 built stays exactly as it is.
 - [x] DL-06 evidenced by the gate run recorded in the task's evidence ledger.
 - **Closure record:** `docs/tasks/done/done-0019-locale-aware-date-formatting.md` (2026-09-23) carries
   the acceptance checkboxes, the gate run, and the coverage numbers.
-- **Delivery state:** implementation on `feat/date-locale-formatting`; push, merge to `main`, and any
-  release step are the maintainer's actions, not part of this authorization.
+- **Delivery state:** implementation on `feat/date-locale-formatting`, merged to `main` 2026-09-23 by
+  the maintainer; any release step remains a maintainer action, outside this authorization.

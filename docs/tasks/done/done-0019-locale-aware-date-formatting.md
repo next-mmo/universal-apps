@@ -143,6 +143,7 @@ another session held the main checkout at start.
   change is prop-level formatting with DOM assertions in jsdom covering trigger, heading, weekday
   header, and day labels; `ui-native` parity remains code mirroring plus typecheck (that package stays
   outside the vitest coverage list by design, as recorded in PRD 0012).
-- Implemented / integrated / deployed state and evidence: implemented and integrated on the feature
-  branch with the evidence above; not deployed (no release action authorized).
-- Status: done; all acceptance criteria met and evidenced. Push and merge remain the maintainer's.
+- Implemented / integrated / deployed state and evidence: implemented and integrated with the
+  evidence above and merged to `main` 2026-09-23; not deployed (no release action authorized).
+- Status: done; all acceptance criteria met and evidenced. Merged to `main` 2026-09-23 by the
+  maintainer.

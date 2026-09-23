@@ -16,7 +16,7 @@ boundary instead of documentation. Reported by the repository owner from the run
   in session and approved directly ("Fix it now").
 - Execution authorization: granted with that approval, scoped to the two files below (the docs page and
   this task). Publication, push, and release remain outside it.
-- Exact next action: none — closed; push and merge are the maintainer's.
+- Exact next action: none — closed; merged to `main` 2026-09-23 by the maintainer.
 
 ## Goal and scope
 
@@ -83,5 +83,5 @@ boundary instead of documentation. Reported by the repository owner from the run
 - Current-doc reconciliation result / conflicts resolved: no canonical document described the LaTeX
   notation; the page now matches the plain-text style used by the other component pages.
 - Implemented / integrated / deployed state and evidence: implemented and verified on
-  `fix/docs-drawer-interactive-mdx`; push and merge remain the maintainer's actions.
+  `fix/docs-drawer-interactive-mdx`; merged to `main` 2026-09-23 by the maintainer.
 - Status: done; all acceptance criteria met and evidenced.

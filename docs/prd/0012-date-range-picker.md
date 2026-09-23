@@ -114,5 +114,6 @@ and a from/to field in the pro filter toolbar. Selection semantics are ported fr
 - [x] DRP-08 evidenced by the documented limitation and mirrored source.
 - **Closure record:** `docs/tasks/done/done-0013-date-range-picker.md` (2026-09-23) carries the
   acceptance checkboxes, the gate run, and the browser check of the kitchen demo.
-- **Delivery state:** implementation on `feat/date-range-picker`; push, merge to `main`, and any
-  release step are the maintainer's actions, not part of this authorization.
+- **Delivery state:** implementation on `feat/date-range-picker`, merged to `main` 2026-09-23 by the
+  maintainer (its commits landed via the `feat/date-locale-formatting` merge); any release step
+  remains a maintainer action, outside this authorization.

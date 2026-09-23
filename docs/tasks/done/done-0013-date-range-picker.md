@@ -20,8 +20,7 @@ no range support existed anywhere (`grep DateRange` was clean at the 2026-09-20 
   instruction issued directly after that plan; the 2026-09-20 decision record fixes the design.
 - Execution authorization: granted with the same instruction, scoped to the owned write paths below.
   Publication, push, and any release action remain outside this authorization.
-- Exact next action: none — this increment is closed; push/merge of `feat/date-range-picker` is the
-  maintainer's.
+- Exact next action: none — this increment is closed; merged to `main` 2026-09-23 by the maintainer.
 
 ## Goal and scope
 
@@ -134,6 +133,8 @@ no range support existed anywhere (`grep DateRange` was clean at the 2026-09-20 
 - 2026-09-23 — Integration: `feat/date-range-picker` (based on `main` @ `f905871`) carries the promotion
   commit `23a7432` and this implementation/closure commit; push, merge to `main`, and any release step
   are the maintainer's actions.
+- 2026-09-23 — Landing: merged to `main` (`094a598`, the `feat/date-locale-formatting` merge);
+  `feat/date-range-picker` @ `72718d0` is an ancestor of `main`.
 
 ## Verification and closure
 
@@ -158,6 +159,7 @@ no range support existed anywhere (`grep DateRange` was clean at the 2026-09-20 
 - Current-doc reconciliation result / conflicts resolved: `CONTEXT.md` and the components nav were not
   claimed to already include the range API; the catalog entry, nav entry, and `calendar.mdx` range
   section are part of this change, and `llms-full.txt` was regenerated with them.
-- Implemented / integrated / deployed state and evidence: implemented and integrated on the feature
-  branch with the evidence above; not deployed (no release action authorized).
-- Status: done; all acceptance criteria met and evidenced. Push and merge remain the maintainer's.
+- Implemented / integrated / deployed state and evidence: implemented and integrated with the
+  evidence above and merged to `main` 2026-09-23; not deployed (no release action authorized).
+- Status: done; all acceptance criteria met and evidenced. Merged to `main` 2026-09-23 by the
+  maintainer.
