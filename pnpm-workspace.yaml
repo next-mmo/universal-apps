@@ -2,3 +2,8 @@ packages:
   - "apps/*"
   - "apps/benchmark/*"
   - "packages/*"
+  # A scaffolded consumer project, not a workspace member: it vendors its own copy of the UI
+  # components under src/lib/universal and carries its own lockfile, so it installs standalone
+  # (pnpm install --ignore-workspace inside it) rather than pulling its dependencies, including a
+  # second vitest and typescript, into the shared lockfile.
+  - "!apps/browser-files-viewer"
