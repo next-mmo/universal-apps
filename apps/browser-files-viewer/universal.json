@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "framework": "react",
+  "sourceDir": "src/lib/universal",
+  "css": "src/index.css"
+}
