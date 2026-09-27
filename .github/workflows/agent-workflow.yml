@@ -11,15 +11,17 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Raised from 20: source:compile alone runs a real install and build per framework
+    # (~4.5 min locally) and build:web builds three preview bundles plus vite and tsc.
+    timeout-minutes: 35
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
         with:
           version: 10
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 22
           cache: pnpm
@@ -31,6 +33,17 @@ jobs:
       - name: Standalone native-package typecheck
         run: pnpm exec tsc --noEmit -p packages/ui-native/tsconfig.json
       - run: pnpm test
+      # The PR gate previously never built the app, so a break in fumadocs-mdx, the preview
+      # bundles, vite build, or the docs tsconfig merged green and only failed at release time.
+      # These three also stop the path-filtered source-distribution workflow from being the only
+      # place the published surface is proven: a PR touching only apps/** or docs/** previously
+      # ran none of them.
+      - name: Build the app
+        run: pnpm build:web
+      - name: Verify the published source surface
+        run: pnpm source:smoke
+      - name: Compile the shipped consumer starters
+        run: pnpm source:compile
       - name: Preview the actual PR range
         if: github.event_name == 'pull_request'
         env:
@@ -46,13 +59,13 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
         with:
           version: 10
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 22
           cache: pnpm
