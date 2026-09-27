@@ -5,7 +5,7 @@
   "type": "module",
   "dependencies": {
     "@package/pro-core": "workspace:*",
-    "@tanstack/svelte-query": "^6.0.0"
+    "@tanstack/svelte-query": "^6.2.4"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"

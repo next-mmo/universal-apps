@@ -12,7 +12,7 @@
     "@package/pro-core": "workspace:*",
     "@package/pro-svelte": "workspace:*",
     "@package/tauri-api": "workspace:*",
-    "@tanstack/svelte-query": "^6.0.0",
+    "@tanstack/svelte-query": "^6.2.4",
     "lucide-svelte": "^1.0.1"
   },
   "devDependencies": {
