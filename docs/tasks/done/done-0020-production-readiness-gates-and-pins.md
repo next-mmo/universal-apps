@@ -1,7 +1,7 @@
 # Task: 0020 Production readiness: gates, pins, coverage ratchet, vue/svelte compile gate
 
 > **PRD:** `docs/prd/0014-production-readiness-gates-and-pins.md`
-- Mode: implemented on a feature branch; not merged to `main`
+- Mode: shipped — merged to `main` via PR #5 (`506b080`), verified in CI before merge
 - Risk / scope approval: High (CI, release path, dependency graph). Approved by the owner in
   session `mvs_99f98c588d57463aa99298184777282f` on 2026-09-27, with three explicit decisions:
   ratchet the coverage gate to the true number now, land the low-risk batch only, and fix the
@@ -143,4 +143,12 @@ passed end to end in 49s (9/9 sub-gates), 16 of 17 declared gates passed, and
     a prop-parity test against `packages/ui`, runtime validation at the `tauri-api` invoke
     boundary, and the optimistic-write path in `packages/core/src/use-todos.ts` that reports a
     failed persist as a successful save.
-- Status: implemented and verified on `chore/production-readiness`; not merged, not released.
+- Status: shipped. Merged to `main` via PR #5. CI green before merge: `verify` 5m56s
+  (including the new `build:web`, `source:smoke`, and `source:compile` steps),
+  `windows-foundation`, `source-distribution`, and all six `standalone` legs. The one red check,
+  Vercel, fails identically on every deployment in the repository going back at least to
+  2026-09-19, including Production on `main`, and is a pre-existing incident unrelated to this
+  increment.
+- Follow-up, still open: the `ui-native` suite and DOM/native parity test, runtime validation at
+  the `tauri-api` invoke boundary, the `use-todos.ts:36` optimistic-write path, and the
+  `apps/browser-files-viewer` workspace-boundary decision.
