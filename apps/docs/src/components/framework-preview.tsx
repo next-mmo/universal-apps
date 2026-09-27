@@ -1,79 +1,42 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { Button } from '@package/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@package/ui/card';
-import { Input } from '@package/ui/input';
+import uniwindSource from '../../previews/uniwind/src/preview.tsx?raw';
+import svelteSource from '../../previews/svelte/src/preview.svelte?raw';
+import vueSource from '../../previews/vue/src/preview.vue?raw';
+import reactSource from './framework-preview-task.tsx?raw';
+import { FrameworkPreviewTask } from './framework-preview-task';
 
 type Framework = 'react' | 'vue' | 'svelte' | 'uniwind';
 
-const frameworks: Array<{ id: Framework; label: string; source: string }> = [
+/**
+ * Each entry points at the file that actually renders, and `source` is that same
+ * file read verbatim through Vite's `?raw` import. The code a reader copies is
+ * therefore the code that runs, and the two cannot drift apart.
+ */
+const frameworks: Array<{ id: Framework; label: string; file: string; source: string }> = [
   {
     id: 'react',
     label: 'React DOM',
-    source: `<Card>
-  <CardHeader>
-    <CardTitle>New task</CardTitle>
-    <CardDescription>Create a task with the shared DOM components.</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <Input value={title} onChange={(event) => setTitle(event.target.value)} />
-    <Button onClick={() => setSaved(true)}>Add task</Button>
-  </CardContent>
-</Card>`,
+    file: 'apps/docs/src/components/framework-preview-task.tsx',
+    source: reactSource,
   },
   {
     id: 'vue',
     label: 'Vue',
-    source: `<script setup lang="ts">
-import { ref } from 'vue'
-const title = ref('')
-const saved = ref(false)
-</script>
-
-<template>
-  <section class="task-card">
-    <h2>New task</h2>
-    <p>Create a task with Vue and shared design tokens.</p>
-    <input v-model="title" aria-label="Task title" />
-    <button @click="saved = true">{{ saved ? 'Added' : 'Add task' }}</button>
-  </section>
-</template>`,
+    file: 'apps/docs/previews/vue/src/preview.vue',
+    source: vueSource,
   },
   {
     id: 'svelte',
     label: 'Svelte',
-    source: `<script lang="ts">
-  let title = ''
-  let saved = false
-</script>
-
-<section class="task-card">
-  <h2>New task</h2>
-  <p>Create a task with Svelte and shared design tokens.</p>
-  <input bind:value={title} aria-label="Task title" />
-  <button onclick={() => (saved = true)}>{saved ? 'Added' : 'Add task'}</button>
-</section>`,
+    file: 'apps/docs/previews/svelte/src/preview.svelte',
+    source: svelteSource,
   },
   {
     id: 'uniwind',
     label: 'React Native + UniWind',
-    source: `import { Button, Card, CardContent, CardTitle, Input } from '@package/ui-native'
-import { Text, View } from 'react-native'
-
-<Card>
-  <View className="gap-3 p-4">
-    <CardTitle>New task</CardTitle>
-    <Text>Create a task with React Native Web and UniWind.</Text>
-    <Input value={title} onChangeText={setTitle} />
-    <Button onPress={() => setSaved(true)}>Add task</Button>
-  </View>
-</Card>`,
+    file: 'apps/docs/previews/uniwind/src/preview.tsx',
+    source: uniwindSource,
   },
 ];
 
@@ -81,8 +44,6 @@ const storageKey = 'docs-preview-framework';
 
 export function FrameworkPreview() {
   const [framework, setFramework] = useState<Framework>('react');
-  const [title, setTitle] = useState('Ship the browser docs');
-  const [saved, setSaved] = useState(false);
   const [frameState, setFrameState] = useState<'loading' | 'ready' | 'failed'>('loading');
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -104,7 +65,7 @@ export function FrameworkPreview() {
     if (framework === 'react') return;
 
     setFrameState('loading');
-    const timeout = window.setTimeout(() => setFrameState('failed'), 10_000);
+    const timeout = window.setTimeout(() => setFrameState('failed'), 20_000);
     const onMessage = (event: MessageEvent<unknown>) => {
       if (event.source !== frameRef.current?.contentWindow || event.origin !== window.location.origin) return;
       const payload = event.data as { type?: string; framework?: string } | null;
@@ -125,7 +86,6 @@ export function FrameworkPreview() {
 
   const chooseFramework = (next: Framework) => {
     setFramework(next);
-    setSaved(false);
     setFrameState('loading');
     setPreviewSrc(null);
     try {
@@ -162,26 +122,7 @@ export function FrameworkPreview() {
       <div className='grid min-w-0 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.9fr)]'>
         <div className='relative min-h-64 border-b border-fd-border p-4 lg:border-b-0 lg:border-r'>
           {framework === 'react' ? (
-            <Card className='mx-auto max-w-lg'>
-              <CardHeader>
-                <CardTitle>New task</CardTitle>
-                <CardDescription>Create a task with the shared React DOM components.</CardDescription>
-              </CardHeader>
-              <CardContent className='flex flex-col gap-3'>
-                <Input
-                  aria-label='Task title'
-                  value={title}
-                  onChange={(event) => setTitle(event.target.value)}
-                  placeholder='Task title'
-                />
-                <div className='flex items-center justify-between gap-3'>
-                  <span role='status' className='text-sm text-muted-foreground'>
-                    {saved ? `Added: ${title || 'Untitled task'}` : 'Ready to add'}
-                  </span>
-                  <Button onClick={() => setSaved(true)}>Add task</Button>
-                </div>
-              </CardContent>
-            </Card>
+            <FrameworkPreviewTask />
           ) : (
             <>
               {frameState === 'loading' ? (
@@ -215,8 +156,11 @@ export function FrameworkPreview() {
           )}
         </div>
         <div className='min-w-0 p-4'>
-          <div className='mb-2 text-xs font-medium text-fd-muted-foreground'>
+          <div className='mb-1 text-xs font-medium text-fd-muted-foreground'>
             {selected.label} implementation
+          </div>
+          <div className='mb-2 truncate font-mono text-[11px] text-fd-muted-foreground/80' title={selected.file}>
+            {selected.file}
           </div>
           <pre className='max-h-64 overflow-auto rounded-lg bg-fd-secondary p-3 text-xs leading-relaxed text-fd-secondary-foreground'>
             <code>{selected.source}</code>
