@@ -23,48 +23,39 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json-summary'],
-      // Files in scope are listed explicitly so a module with no tests reports 0% instead of
-      // disappearing from the report. Widen this list as each remaining package gains tests:
-      // packages/{ui,pro,ui-native,pro-vue,pro-svelte,tauri-api} are still outside it.
+      // Measured across every package's source, not a hand-picked subset. The previous list
+      // named 37 files and reported 96% while the real packages-wide number was 40.55%, so the
+      // gate was green against a slice that excluded ui-native, tauri-api, pro-vue, pro-svelte
+      // and most of ui and pro. A module with no tests now reports 0% instead of disappearing.
+      //
+      // apps/** is deliberately out of scope: they are demos and playgrounds with no test suite
+      // at all, and including them drops the floor to 21% for a number that says nothing about
+      // the shipped libraries. apps/browser-files-viewer additionally carries its own vitest
+      // install and lockfile and is excluded from the pnpm workspace.
       include: [
-        'packages/core/src/**/*.ts',
-        'packages/pro-core/src/**/*.ts',
-        'packages/pro/src/access/**/*.tsx',
-        'packages/pro/src/descriptions/pro-descriptions.tsx',
-        'packages/pro/src/form/pro-form.tsx',
-        'packages/pro/src/form/pro-step-form.tsx',
-        'packages/pro/src/layout/app-frame.tsx',
-        'packages/pro/src/layout/page-container.tsx',
-        'packages/pro/src/layout/pro-error-boundary.tsx',
-        'packages/pro/src/tabs/pro-tabs.tsx',
-        'packages/pro/src/table/editable-pro-table.tsx',
-        'packages/pro/src/table/pro-filter-toolbar.tsx',
-        'packages/pro/src/data-table/columns.tsx',
-        'packages/pro/src/data-table/data-table-pagination.tsx',
-        'packages/pro/src/data-table/data-table-toolbar.tsx',
-        'packages/pro/src/data-table/pro-data-table.tsx',
-        'packages/pro/src/data-table/pro-table-features.ts',
-        'packages/ui/src/components/ui/avatar.tsx',
-        'packages/ui/src/components/ui/calendar.tsx',
-        'packages/ui/src/components/ui/date-picker.tsx',
-        'packages/ui/src/components/ui/date-range-picker.tsx',
-        'packages/ui/src/components/ui/table.tsx',
-        'packages/ui/src/components/ui/toast.tsx',
-        'packages/ui/src/components/ui/toggle.tsx',
-        'packages/ui/src/components/ui/toggle-group.tsx',
-        'packages/ui/src/lib/cn.ts',
-        'packages/ui/src/lib/date-format.ts',
-        'packages/ui/src/lib/use-range-selection.ts',
+        'packages/*/src/**/*.ts',
+        'packages/*/src/**/*.tsx',
       ],
-      // Floors, not targets. Raise them as coverage grows; never lower one to land a change.
-      // Still outside this list, and therefore unmeasured: the remaining ui and pro components
-      // (command, combobox, animated-tabs, pro-layout, pro-crud-page, app-shell), ui-native,
-      // pro-vue, pro-svelte, and tauri-api.
+      // Ratchet floors, not targets. They sit just under the measured 40.16/40.19/41.79/40.55 so
+      // an unrelated change cannot silently lower real coverage. Raising one is the point of
+      // this gate: when a package gains tests, measure, then raise the floor to the new value
+      // in the same commit. Never lower one to land a change.
+      //
+      // Known gaps, in the order they are worth closing:
+      //   packages/ui-native  0%  447 lines, 198 functions, no test directory, no parity check
+      //   packages/tauri-api  untested runtime boundary (invoke payloads are not validated)
+      //   packages/pro-vue    untested, and diverges from the React prop surface
+      //   packages/pro-svelte untested, and diverges from the React prop surface
+      //   packages/ui         11 of 33 files measured before; accordion, button, combobox,
+      //                       dialog, drawer, dropdown-menu, popover, select, switch, tabs and
+      //                       tooltip are still unexercised
+      //   packages/pro        pro-crud-page, pro-form-dialog, pro-form-drawer, app-shell,
+      //                       pro-layout and use-pro-list are unexercised
       thresholds: {
-        statements: 94,
-        branches: 87,
-        functions: 93,
-        lines: 96,
+        statements: 40,
+        branches: 39,
+        functions: 41,
+        lines: 40,
       },
     },
   },

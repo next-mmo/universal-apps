@@ -1,0 +1,57 @@
+version: 2
+
+# The repository had no dependency automation at all, so npm CVEs and the SHA-pinned actions
+# below were tracked by nothing. The pnpm workspace resolves from the root lockfile.
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    # Grouped so a routine bump does not open one PR per package. The monorepo is most
+    # fragile when the same dependency resolves to two versions, so anything that could split a
+    # major is deliberately left ungrouped and reviewed on its own.
+    groups:
+      dev-tooling:
+        patterns:
+          - 'oxlint'
+          - 'oxfmt'
+          - 'typescript'
+          - 'vitest'
+          - '@vitest/*'
+          - 'tsx'
+      tailwind:
+        patterns:
+          - 'tailwindcss'
+          - '@tailwindcss/*'
+          - 'uniwind'
+      tanstack:
+        patterns:
+          - '@tanstack/*'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - 'react-native'
+          - 'react-native-web'
+          - '@types/react'
+          - '@types/react-dom'
+    ignore:
+      # Floating floors resolve differently on a fresh clone, which defeats --frozen-lockfile
+      # reproducibility. These are pinned exactly on purpose.
+      - dependency-name: '@babel/runtime'
+        update-types: ['version-update:semver-patch', 'version-update:semver-minor']
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    # Every action is pinned to a commit SHA with a `# vX` comment. Dependabot rewrites both
+    # together, so a bump stays auditable and never silently follows a moved major tag.
+    groups:
+      actions:
+        patterns:
+          - '*'

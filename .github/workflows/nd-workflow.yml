@@ -27,11 +27,11 @@ jobs:
       run:
         working-directory: packages/nd-workflow
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ matrix.python }}
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '20'
       - name: Validate portable source
@@ -90,7 +90,7 @@ jobs:
       - name: Hardened Node reference
         working-directory: packages/nd-workflow/example/harden-full-nd/js-md-links
         run: node --test
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: matrix.os == 'ubuntu-latest' && matrix.python == '3.11'
         with:
           name: nd-workflow-standalone

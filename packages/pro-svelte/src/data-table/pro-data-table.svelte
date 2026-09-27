@@ -52,16 +52,19 @@ const visibleColumns = $derived(columns.filter((c) => !hiddenColumns.includes(c.
 const effectiveSearch = $derived(serverMode ? (query?.search ?? '') : search);
 
 const processed = $derived.by(() => {
-  let rows = serverMode
+  // These engine helpers are generic over the row type, so the `as never` casts this block used
+  // to carry were never needed. They erased T, which left `row` typed `unknown` in the markup
+  // and broke the keyed each block. The row type is now carried all the way to the template.
+  let rows: Array<Record<string, unknown>> = serverMode
     ? data
-    : filterRows(data as never, effectiveSearch, columns as never);
+    : filterRows(data, effectiveSearch, columns);
   rows = serverMode
     ? rows
-    : sortRows(rows as never, sortState?.id, sortState?.desc ? 'desc' : 'asc', columns as never);
+    : sortRows(rows, sortState?.id, sortState?.desc ? 'desc' : 'asc', columns);
   const total = rows.length;
   const size = serverMode ? (query?.pageSize ?? 10) : pageSize;
   const page = serverMode ? (query?.page ?? 0) : pageIndex;
-  const sliced = serverMode ? rows : pageRows(rows as never, page, size);
+  const sliced = serverMode ? rows : pageRows(rows, page, size);
   return { rows: sliced, total, pageCount: Math.max(Math.ceil(total / size), 1) };
 });
 

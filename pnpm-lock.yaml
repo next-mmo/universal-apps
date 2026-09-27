@@ -6,7 +6,7 @@ settings:
 
 overrides:
   vite: 7.3.6
-  '@babel/runtime': '>=7.26.10'
+  '@babel/runtime': 7.29.7
 
 importers:
 
@@ -82,8 +82,8 @@ importers:
         specifier: ^5.90.0
         version: 5.102.3(react@19.2.6)
       '@tanstack/react-router':
-        specifier: ^1.0.0
-        version: 1.170.32(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: ^1.170.38
+        version: 1.170.38(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@tanstack/react-store':
         specifier: ^0.7.0
         version: 0.7.7(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -266,7 +266,7 @@ importers:
         specifier: ^5.0.0
         version: 5.102.3(react@19.2.6)
       '@tanstack/react-router':
-        specifier: 1.170.38
+        specifier: ^1.170.38
         version: 1.170.38(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@tanstack/react-start':
         specifier: 1.168.56
@@ -431,7 +431,7 @@ importers:
   apps/uniwind-bare:
     dependencies:
       '@babel/runtime':
-        specifier: '>=7.26.10'
+        specifier: 7.29.7
         version: 7.29.7
       '@tauri-apps/api':
         specifier: 2.11.0
@@ -449,10 +449,10 @@ importers:
         specifier: ^0.81.4
         version: 0.81.6(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.8.3))(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.6)
       react-native-gesture-handler:
-        specifier: '>=2.20.0'
+        specifier: ^3.3.0
         version: 3.3.0(react-native@0.81.6(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.8.3))(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.6))(react@19.2.6)
       react-native-reanimated:
-        specifier: '>=3.16.0'
+        specifier: ^4.7.0
         version: 4.7.0(react-native-worklets@0.13.0(@babel/core@7.29.7)(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(react-native@0.81.6(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.8.3))(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.6))(react@19.2.6))(react-native@0.81.6(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.8.3))(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.6))(react@19.2.6)
       tailwind-merge:
         specifier: ^3.3.1
@@ -613,8 +613,8 @@ importers:
         specifier: ^5.0.0
         version: 5.102.3(react@19.2.6)
       '@tanstack/react-router':
-        specifier: ^1.0.0
-        version: 1.170.32(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: ^1.170.38
+        version: 1.170.38(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@tanstack/react-store':
         specifier: ^0.7.0
         version: 0.7.7(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -752,10 +752,10 @@ importers:
         specifier: ^0.81.4
         version: 0.81.6(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.8.3))(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.6)
       react-native-gesture-handler:
-        specifier: '>=2.20.0'
+        specifier: ^3.3.0
         version: 3.3.0(react-native@0.81.6(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.8.3))(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.6))(react@19.2.6)
       react-native-reanimated:
-        specifier: '>=3.16.0'
+        specifier: ^4.7.0
         version: 4.7.0(react-native-worklets@0.13.0(@babel/core@7.29.7)(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(react-native@0.81.6(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.8.3))(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.6))(react@19.2.6))(react-native@0.81.6(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.8.3))(@react-native/metro-config@0.81.6(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.6))(react@19.2.6)
       react-native-web:
         specifier: ^0.21.0
@@ -2934,10 +2934,6 @@ packages:
   '@tanstack/form-core@1.33.5':
     resolution: {integrity: sha512-3dfx9MBP0aq5sXKteikG629X9oviptrQj0IFRk9YGcb+lB7Kv5x8S17oOSk1wUWgjQZ4xVJEMbKwOAODymocgA==}
 
-  '@tanstack/history@1.162.1':
-    resolution: {integrity: sha512-DR9t6lfLVdrjgCwpglrR9DR7Ok8/HlXjcOE+goWXF3zyuLUO/ug7vMbSFxTqrQTtbRghJfyhmIZ0S6LhPIy44w==}
-    engines: {node: '>=20.19'}
-
   '@tanstack/history@1.162.4':
     resolution: {integrity: sha512-utTS5L2OkeYUzXGohL1Z8sefu1GLNOJcxe8Hd6iIdc/Xo1K1nDB2JEp4iSFhvYh33xKC9V91TxrS8qfrpoKobQ==}
     engines: {node: '>=20.19'}
@@ -2966,13 +2962,6 @@ packages:
     resolution: {integrity: sha512-nHazxUEUQSGJOswGgSL2DI77f2K75WRCowDgaiyEi0ACocZTFKewTv+A/rJfq6QkuE35rVPff1QUT3ClbaePGQ==}
     peerDependencies:
       react: ^18 || ^19
-
-  '@tanstack/react-router@1.170.32':
-    resolution: {integrity: sha512-SIpxvaTKco100a5ZR3ePmArbhtm3XOx+w1dpGYY9gxHDta4iXSKDdQuhLonwJbIMkVJsU1rwXf0UDHMrF/1snw==}
-    engines: {node: '>=20.19'}
-    peerDependencies:
-      react: '>=18.0.0 || >=19.0.0'
-      react-dom: '>=18.0.0 || >=19.0.0'
 
   '@tanstack/react-router@1.170.38':
     resolution: {integrity: sha512-iHM9b0aDJbuvftmkiQXawzoqsdV68p2Re2safbVLCnxafe+iLKV++2i3hI/BMAP6uR92/Mjw94JKJJfD7pbwHQ==}
@@ -3041,12 +3030,6 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@tanstack/react-store@0.9.3':
-    resolution: {integrity: sha512-y2iHd/N9OkoQbFJLUX1T9vbc2O9tjH0pQRgTcx1/Nz4IlwLvkgpuglXUx+mXt0g5ZDFrEeDnONPqkbfxXJKwRg==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
   '@tanstack/react-table@9.2.3':
     resolution: {integrity: sha512-Aot6+uNmFbOQhk4Y56TqP9PFTge6hJIDkKC4mbGaPZpRHTosebvO4gFevz7V0KKcUzpIRH2MqWiiyskAYkfWKw==}
     engines: {node: '>=20'}
@@ -3058,10 +3041,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  '@tanstack/router-core@1.171.27':
-    resolution: {integrity: sha512-wDwSLvoLwIaNcnx9UNcN9Mb7Y8QwCYq1U1RQZwyN186gnkIoIYI2SOxy8VqH1vFigbkHkk4FmwMAQlghPgDK2g==}
-    engines: {node: '>=20.19'}
 
   '@tanstack/router-core@1.171.32':
     resolution: {integrity: sha512-X86Jqk3vB2KJcUfS6oLi7B7yxbaa59QEhZRPPP1fRx3k+Jw/Fu1UYVBcRtdwK/OccQnrlQdVoKvNO3QXmyEBOw==}
@@ -3129,9 +3108,6 @@ packages:
 
   '@tanstack/store@0.7.7':
     resolution: {integrity: sha512-xa6pTan1bcaqYDS9BDpSiS63qa6EoDkPN9RsRaxHuDdVDNntzq3xNwR5YKTU/V3SkSyC9T4YVOPh2zRQN0nhIQ==}
-
-  '@tanstack/store@0.9.3':
-    resolution: {integrity: sha512-8reSzl/qGWGGVKhBoxXPMWzATSbZLZFWhwBAFO9NAyp0TxzfBP0mIrGb8CP8KrQTmvzXlR/vFPPUrHTLBGyFyw==}
 
   '@tanstack/svelte-query@6.1.43':
     resolution: {integrity: sha512-EpYdLoIUJ8PCb3StUV8NUiPDvu1VfrETN8t7kpvYCJ2xhbwZfxJu6Kqtf/octjF2dERbYF7bPvlrnGeO8aFUFw==}
@@ -9162,8 +9138,6 @@ snapshots:
       '@tanstack/pacer-lite': 0.1.1
       '@tanstack/store': 0.11.1
 
-  '@tanstack/history@1.162.1': {}
-
   '@tanstack/history@1.162.4': {}
 
   '@tanstack/match-sorter-utils@8.19.4':
@@ -9186,15 +9160,6 @@ snapshots:
     dependencies:
       '@tanstack/query-core': 5.102.3
       react: 19.2.6
-
-  '@tanstack/react-router@1.170.32(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
-    dependencies:
-      '@tanstack/history': 1.162.1
-      '@tanstack/react-store': 0.9.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@tanstack/router-core': 1.171.27
-      isbot: 5.2.1
-      react: 19.2.6
-      react-dom: 19.2.6(react@19.2.6)
 
   '@tanstack/react-router@1.170.38(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
@@ -9292,13 +9257,6 @@ snapshots:
       react-dom: 19.2.6(react@19.2.6)
       use-sync-external-store: 1.6.0(react@19.2.6)
 
-  '@tanstack/react-store@0.9.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
-    dependencies:
-      '@tanstack/store': 0.9.3
-      react: 19.2.6
-      react-dom: 19.2.6(react@19.2.6)
-      use-sync-external-store: 1.6.0(react@19.2.6)
-
   '@tanstack/react-table@9.2.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
       '@tanstack/react-store': 0.11.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -9312,13 +9270,6 @@ snapshots:
       '@tanstack/virtual-core': 3.17.11
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
-
-  '@tanstack/router-core@1.171.27':
-    dependencies:
-      '@tanstack/history': 1.162.1
-      cookie-es: 3.1.1
-      seroval: 1.6.4
-      seroval-plugins: 1.6.4(seroval@1.6.4)
 
   '@tanstack/router-core@1.171.32':
     dependencies:
@@ -9444,8 +9395,6 @@ snapshots:
   '@tanstack/store@0.11.1': {}
 
   '@tanstack/store@0.7.7': {}
-
-  '@tanstack/store@0.9.3': {}
 
   '@tanstack/svelte-query@6.1.43(svelte@5.56.10)':
     dependencies:
