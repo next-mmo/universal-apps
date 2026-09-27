@@ -1,0 +1,56 @@
+# Normalize every text file to LF in the index so the committed bytes are platform-independent.
+# Working-tree checkouts follow each developer's core.autocrlf, which is what you want: LF in
+# git, native endings on disk.
+#
+# Without this file the repository has no line-ending policy at all. On a Windows machine with
+# core.autocrlf=true, a file rewritten as LF by a tool (a docs generator, a dev server) gets a
+# different size than the stale index stat, so `git status` reports it modified forever while
+# `git diff` stays empty. That made `git status` unusable as a signal and made change-scoped
+# gates run against changes that did not exist.
+* text=auto eol=lf
+
+# Generated text that must never be rewritten by a checkout with CRLF.
+*.md   text eol=lf
+*.mdx  text eol=lf
+*.ts   text eol=lf
+*.tsx  text eol=lf
+*.js   text eol=lf
+*.mjs  text eol=lf
+*.cjs  text eol=lf
+*.json text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.css  text eol=lf
+*.html text eol=lf
+*.mdx  text eol=lf
+*.txt  text eol=lf
+*.svg  text eol=lf
+*.vue  text eol=lf
+*.svelte text eol=lf
+*.py   text eol=lf
+*.xml  text eol=lf
+*.sh   text eol=lf
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+
+# Binaries: never EOL-translated, never filtered.
+*.jar    binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.webp   binary
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.eot    binary
+*.otf    binary
+*.mp3    binary
+*.mp4    binary
+*.webm   binary
+*.wasm   binary
+*.zip    binary
+*.tgz    binary
+*.pdf    binary
+*.keystore binary
