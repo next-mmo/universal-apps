@@ -61,7 +61,20 @@ if (entry === fileURLToPath(import.meta.url)) {
   try {
     process.stdout.write(renderChangeScope(process.argv.slice(2), process.cwd()));
   } catch (error) {
-    console.error(`change-scope: ${error instanceof Error ? error.message : String(error)}`);
+    const message = error instanceof Error ? error.message : String(error);
+    // --base stays required on purpose: change scope decides which gates run, so guessing a
+    // base would silently verify the wrong surface. The real defect was that this failure was
+    // invisible through pnpm, where the ELIFECYCLE wrapper can swallow stderr and leave a bare
+    // exit 1. Print the reason and the two real invocations on stdout so the gate is debuggable.
+    const hint = [
+      "",
+      "Usage: pnpm change:scope --base <ref> [--head <ref>]",
+      "  pnpm change:scope --base origin/main",
+      "  pnpm change:scope --base \"$(git merge-base HEAD origin/main)\"",
+      "",
+    ].join("\n");
+    process.stdout.write(`change-scope: ${message}${hint}\n`);
+    console.error(`change-scope: ${message}`);
     process.exitCode = 1;
   }
 }
