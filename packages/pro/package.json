@@ -37,9 +37,9 @@
     "@tanstack/react-table": "^9.2.3",
     "@tanstack/store": "^0.7.0",
     "lucide-react": "^0.545.0",
-    "react": "19.2.6"
+    "react": "19.3.0"
   },
   "devDependencies": {
-    "@types/react": "19.2.15"
+    "@types/react": "19.3.0"
   }
 }

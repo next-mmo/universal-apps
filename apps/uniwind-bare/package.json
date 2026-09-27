@@ -12,8 +12,8 @@
   "dependencies": {
     "@babel/runtime": "^7.26.0",
     "clsx": "^2.1.1",
-    "react": "^19.0.0",
-    "react-native": "^0.81.4",
+    "react": "^19.3.0",
+    "react-native": "^0.87.1",
     "tailwind-merge": "^3.3.1",
     "uniwind": "1.11.0",
     "@tauri-apps/api": "2.11.0",
@@ -28,7 +28,7 @@
     "@react-native/gradle-plugin": "^0.81.4",
     "@react-native/metro-config": "^0.81.4",
     "@react-native/typescript-config": "^0.81.4",
-    "@types/react": "^19.0.0",
+    "@types/react": "^19.3.0",
     "metro": "^0.81.4",
     "tailwindcss": "^4.3.0",
     "typescript": "^5.8.3"
