@@ -27,14 +27,17 @@ const only = onlyIndex === -1 ? null : argv[onlyIndex + 1]?.split(',').filter(Bo
 const keep = argv.includes('--keep');
 const frameworks = only ?? ['react', 'vue', 'svelte', 'native'];
 
-// Every framework is always built and reported. `verified` names the ones whose output
-// is known to compile, and only those can fail this gate. A framework outside it is
-// printed as UNVERIFIED on every run rather than skipped, so a red result can never be
-// mistaken for a green one:
-//   vue, svelte — pro-vue and pro-svelte data-table do not type-check. Those adapters
-//   are owned by PRD 0006, which is why this list is short of the full set.
-// Move a framework here the moment it compiles; never move one out to land a change.
-const verified = ['react', 'native'];
+// Every framework is always built and reported, and every framework is now verified. `verified`
+// names the ones whose output is known to compile, and only those can fail this gate. A
+// framework outside it is printed as UNVERIFIED on every run rather than skipped, so a red
+// result can never be mistaken for a green one:
+//   vue, svelte — were excluded because the pro-vue and pro-svelte data tables did not
+//   type-check (a `ref<VisibilityState>` initialised with a thunk, a status cell read off an
+//   `unknown` value, and `as never` casts that erased the row type). Those are fixed, so both
+//   are gated now. They were owned by PRD 0006.
+// Move a framework out of this list only if it genuinely stops compiling, and say why in the
+// comment above; never move one out to land a change.
+const verified = ['react', 'vue', 'svelte', 'native'];
 
 const entryFor = (framework) => (framework === 'react' || framework === 'native' ? 'src/main.tsx' : 'src/main.ts');
 const isWindows = process.platform === 'win32';
@@ -76,6 +79,40 @@ const parent = path.join(root, '.source-test-tmp');
 fs.mkdirSync(parent, { recursive: true });
 const scratch = fs.mkdtempSync(path.join(parent, 'compile-'));
 const results = [];
+
+// `cli add --all` generates the consumer project from the built registry under dist/, not from
+// the live package sources, so a standalone `source:compile` compiles whatever snapshot was
+// built last. That is the same class of defect this gate exists to catch: a result that
+// describes code other than the code on disk. `pnpm test` runs `source:build` first, so the
+// chain is ordered correctly; a bare `pnpm source:compile` is not.
+const registryPath = path.join(root, 'dist/universal-cli/registry/registry.json');
+if (fs.existsSync(registryPath)) {
+  const builtAt = fs.statSync(registryPath).mtimeMs;
+  let newestAt = 0;
+  let newestPath = '';
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name === 'node_modules' || entry.name === 'dist') continue;
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+        continue;
+      }
+      if (!/\.(?:ts|tsx|vue|svelte|css)$/.test(entry.name)) continue;
+      const mtime = fs.statSync(full).mtimeMs;
+      if (mtime > newestAt) {
+        newestAt = mtime;
+        newestPath = path.relative(root, full).split(path.sep).join('/');
+      }
+    }
+  };
+  walk(path.join(root, 'packages'));
+  assert.ok(
+    newestAt <= builtAt,
+    `the built source registry is older than ${newestPath}; run \`pnpm source:build\` before \`pnpm source:compile\`, otherwise this compiles a stale snapshot`,
+  );
+}
+
 try {
   for (const framework of frameworks) {
     const cwd = path.join(scratch, framework);

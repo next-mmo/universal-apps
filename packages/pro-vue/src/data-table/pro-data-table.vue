@@ -8,7 +8,7 @@ import {
   useVueTable,
 } from '@tanstack/vue-table';
 
-import type { ActionColumnDef, ProColumnDef } from '@package/pro-core/src/table/columns';
+import type { ActionColumnDef, BadgeTone, ProColumnDef } from '@package/pro-core/src/table/columns';
 import type {
   PaginationState,
   SortingState,
@@ -38,7 +38,10 @@ const sorting = ref<SortingState>([]);
 const globalFilter = ref('');
 const pagination = ref<PaginationState>({ pageIndex: 0, pageSize: pageSizeOptions.value[0] });
 const rowSelection = ref<Record<string, boolean>>({});
-const columnVisibility = ref<VisibilityState>(() =>
+// A ref whose value is an object must be initialised with the object, not a thunk. Passing a
+// function here type-checks as `VisibilityState` but fails to compile: the function itself is
+// the ref value, so the table would receive a callback where it expects a visibility map.
+const columnVisibility = ref<VisibilityState>(
   Object.fromEntries(props.columns.filter((c) => c.hiddenByDefault).map((c) => [c.key, false])),
 );
 watch(
@@ -164,6 +167,19 @@ const columnsPanelOpen = ref(false);
 function cellValue(row: Record<string, unknown>, column: ProColumnDef<Record<string, unknown>>) {
   const path = (column as { accessor?: string }).accessor ?? column.key;
   return row[path];
+}
+
+/**
+ * A `status` column carries a BadgeTone rather than a scalar, so its fields cannot be read off
+ * the raw `unknown` cell value. The React renderer narrows the same way in
+ * packages/pro/src/data-table/columns.tsx; keep the two contracts identical.
+ */
+function cellTone(
+  row: Record<string, unknown>,
+  column: ProColumnDef<Record<string, unknown>>,
+): Partial<BadgeTone> | undefined {
+  const value = cellValue(row, column);
+  return value !== null && typeof value === 'object' ? (value as Partial<BadgeTone>) : undefined;
 }
 
 function formatDate(value: unknown): string {
@@ -295,12 +311,12 @@ function runAction(column: ActionColumnDef<Record<string, unknown>>, actionIndex
                     <span
                       class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
                       :class="
-                        cellValue(row.original, column)?.variant === 'success'
+                        cellTone(row.original, column)?.variant === 'success'
                           ? 'bg-green/15 text-green'
                           : 'bg-fill text-muted-foreground'
                       "
                     >
-                      {{ cellValue(row.original, column)?.label ?? '—' }}
+                      {{ cellTone(row.original, column)?.label ?? '—' }}
                     </span>
                   </template>
                   <template v-else-if="column.valueType === 'badge'">
