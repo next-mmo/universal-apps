@@ -1,0 +1,1 @@
+import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalDatePicker = defineUniversalElement('universal-date-picker', 'date-picker');\n

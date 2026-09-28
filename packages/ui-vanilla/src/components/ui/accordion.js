@@ -1,0 +1,1 @@
+import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalAccordion = defineUniversalElement('universal-accordion', 'accordion');\n

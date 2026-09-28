@@ -1,0 +1,1 @@
+import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalLabel = defineUniversalElement('universal-label', 'label');\n

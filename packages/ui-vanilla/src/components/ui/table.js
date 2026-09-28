@@ -1,0 +1,1 @@
+import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalTable = defineUniversalElement('universal-table', 'table');\n

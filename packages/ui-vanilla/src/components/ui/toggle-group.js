@@ -1,0 +1,1 @@
+import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalToggleGroup = defineUniversalElement('universal-toggle-group', 'toggle-group');\n

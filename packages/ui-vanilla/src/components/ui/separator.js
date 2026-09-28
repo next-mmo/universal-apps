@@ -1,0 +1,1 @@
+import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalSeparator = defineUniversalElement('universal-separator', 'separator');\n
