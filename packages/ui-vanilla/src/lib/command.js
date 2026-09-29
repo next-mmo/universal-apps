@@ -36,11 +36,12 @@ export function renderCommand(host, combobox = false) {
   results.className = 'u-command-list';
   results.setAttribute('role', 'listbox');
 
+  let query = '';
   const paint = () => {
-    const query = input.value.trim().toLowerCase();
+    const normalizedQuery = query.trim().toLowerCase();
     results.replaceChildren();
     for (const item of options.filter((entry) =>
-      entry.label.toLowerCase().includes(query),
+      entry.label.toLowerCase().includes(normalizedQuery),
     )) {
       const row = makeButton(item.label, 'u-command-item');
       row.setAttribute('role', 'option');
@@ -56,7 +57,10 @@ export function renderCommand(host, combobox = false) {
     }
   };
 
-  input.addEventListener('input', paint);
+  input.addEventListener('input', () => {
+    query = input.value;
+    paint();
+  });
   wrap.append(input, results);
   clear(host, wrap);
   paint();
