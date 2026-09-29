@@ -136,6 +136,18 @@ test('all requires an explicit framework and excludes foreign frameworks', (t) =
   const f = fixture(t), r = f.build(); assert.throws(() => selectItems(r, [], { all: true }), /requires/);
   assert.deepEqual(selectItems(r, [], { all: true, framework: 'react' }).map((i) => i.name), ['core', 'ui']);
 });
+test('short UI aliases resolve against the configured project framework', () => {
+  const registry = {
+    schemaVersion: 1,
+    packages: [],
+    items: [
+      { name: 'ui-button', files: [], meta: { framework: 'react', package: 'ui' } },
+      { name: 'ui-vanilla-button', files: [], meta: { framework: 'vanilla', package: 'ui-vanilla' } },
+    ],
+  };
+  assert.equal(selectItems(registry, ['button'], { projectFramework: 'react' })[0].name, 'ui-button');
+  assert.equal(selectItems(registry, ['button'], { projectFramework: 'vanilla' })[0].name, 'ui-vanilla-button');
+});
 test('doctor detects deleted source and reintroduced workspace imports', (t) => {
   const f = fixture(t); initialize(f.cwd); const r = f.build(); applyPlan(planInstall(f.cwd, r, ['button']), { noInstall: true });
   fs.unlinkSync(path.join(f.cwd, 'src/lib/universal/core/value.ts'));
@@ -215,7 +227,7 @@ test('every runtime catalog builds into an actual standalone npm tarball', (t) =
   const unpack = spawnSync('tar', ['-xzf', archive.filename, '-C', '.'], { cwd: f.root, encoding: 'utf8' });
   assert.equal(unpack.status, 0, unpack.stderr);
   const cli = path.join(f.root, 'package/cli.mjs');
-  for (const framework of ['react', 'vue', 'svelte', 'native']) {
+  for (const framework of ['react', 'vue', 'svelte', 'native', 'vanilla']) {
     const cwd = path.join(f.root, `company-${framework}`);
     f.put(`company-${framework}/package.json`, { name: `company-${framework}`, private: true, type: 'module' });
     f.put(`company-${framework}/src/index.css`, '@import "tailwindcss";\n');
@@ -230,6 +242,7 @@ test('every runtime catalog builds into an actual standalone npm tarball', (t) =
     assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/universal.json`)));
     assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/package.json`)));
     assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/src/index.css`)));
+    if (framework === 'vanilla') assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/src/main.js`)));
   }
   const cwd = path.join(f.root, 'company-react');
   const run = (...args) => spawnSync(process.execPath, [cli, ...args], { cwd, encoding: 'utf8' });
