@@ -18,7 +18,8 @@ export function renderChoice(host, kind) {
     kind === 'switch' ? 'Toggle' : 'Option',
   );
 
-  input.addEventListener('change', () => {
+  input.addEventListener('change', (event) => {
+    event.stopPropagation();
     host.toggleAttribute('checked', input.checked);
     emit(host, 'change', { checked: input.checked });
   });
