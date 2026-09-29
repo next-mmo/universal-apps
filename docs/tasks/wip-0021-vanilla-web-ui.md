@@ -37,8 +37,10 @@ Implement PRD 0015 as a first-class source-owned vanilla web target.
 
 - 2026-09-29 — repository orientation completed from `AGENTS.md`, `CONTEXT.md`, workflow/architecture docs, PRD 0002, source CLI guide, graph/install code, and source verification scripts.
 - 2026-09-29 — implementation authorized; branch created.
-- Checks: pending implementation.
+- 2026-09-29 — implementation committed on `feat/vanilla-ui`; PR #14 opened and marked ready for review.
+- 2026-09-29 — Vercel status for head `ed1e99d1a6853f7d04f35c65a7b9fdf303cc3116`: success.
+- 2026-09-29 — GitHub Actions at handoff: `Source distribution` and `Agent Workflow` are in progress; no pass is claimed yet because this environment cannot execute the repository checkout locally.
 
 ## Resume state
 
-Implementation in progress on `feat/vanilla-ui`. Next action: add framework plumbing and `ui-vanilla`, then run the source distribution gates.
+Implementation is on `feat/vanilla-ui` and PR #14. Framework plumbing, `ui-vanilla`, starter, smoke/compile gates, and docs are committed. Remaining closure step: inspect the in-progress GitHub Actions results and fix any failures before moving this task to `done/`.
