@@ -5,6 +5,7 @@ import {
   fieldAttributes,
   list,
   option,
+  reflectAttribute,
 } from '../../lib/component.js';
 
 export const UniversalSelect = defineUniversalElement(
@@ -36,7 +37,7 @@ export const UniversalSelect = defineUniversalElement(
 
     node.addEventListener('change', (event) => {
       event.stopPropagation();
-      host.setAttribute('value', node.value);
+      reflectAttribute(host, 'value', node.value);
       emit(host, 'change', { value: node.value });
     });
     clear(host, node);
