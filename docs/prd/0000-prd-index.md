@@ -1,7 +1,7 @@
 # PRD-0000: Product Requirement Index
 
 > Status: living document  
-> Updated: 2026-09-23
+> Updated: 2026-09-29
 
 ## Product architecture
 
@@ -34,3 +34,5 @@
 ## Authority
 
 PRDs define intended behavior after human approval; they do not prove implementation. Use [`CONTEXT.md`](../../CONTEXT.md) to reconcile requirements with current code, checks, and task evidence.
+
+| **0015** | [Vanilla Web UI source target](0015-vanilla-web-ui.md) | **in-progress** | Adds framework-free light-DOM Custom Elements as a first-class source CLI target with `create/init/add --framework vanilla`, framework-local short aliases, and smoke/compile gates |
