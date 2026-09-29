@@ -58,8 +58,8 @@ const writeProbe = (projectDir, sourceDir, framework) => {
   const absolute = path.join(projectDir, sourceDir);
   const found = [];
   const vanilla = framework === 'vanilla';
-  const sourcePattern = vanilla ? /\.(?:js|mjs)$/ : /\.(?:ts|tsx)$/;
-  const stripPattern = vanilla ? /\.(?:js|mjs)$/ : /\.(?:ts|tsx)$/;
+  const sourcePattern = vanilla ? /\.(?:js|mjs|ts|tsx)$/ : /\.(?:ts|tsx)$/;
+  const stripPattern = vanilla ? /\.(?:js|mjs|ts|tsx)$/ : /\.(?:ts|tsx)$/;
   const walk = (dir) => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
