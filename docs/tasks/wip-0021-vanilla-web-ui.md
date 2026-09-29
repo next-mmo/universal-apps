@@ -36,11 +36,16 @@ Implement PRD 0015 as a first-class source-owned vanilla web target.
 ## Evidence ledger
 
 - 2026-09-29 — repository orientation completed from `AGENTS.md`, `CONTEXT.md`, workflow/architecture docs, PRD 0002, source CLI guide, graph/install code, and source verification scripts.
-- 2026-09-29 — implementation authorized; branch created.
-- 2026-09-29 — implementation committed on `feat/vanilla-ui`; PR #14 opened and marked ready for review.
-- 2026-09-29 — Vercel status for head `ed1e99d1a6853f7d04f35c65a7b9fdf303cc3116`: success.
-- 2026-09-29 — GitHub Actions at handoff: `Source distribution` and `Agent Workflow` are in progress; no pass is claimed yet because this environment cannot execute the repository checkout locally.
+- 2026-09-29 — implementation authorized; branch `feat/vanilla-ui` created and PR #14 opened for review. No merge, publication, or deployment was authorized.
+- 2026-09-29 — double-check found and fixed malformed literal `\\n` sequences in all 29 component entry modules; the original failure was 116 lint errors plus a Vite parser failure.
+- 2026-09-29 — double-check reconciled the approved starter contract to Vite + **TypeScript** + Tailwind v4, expanded the stale-registry guard to JavaScript source, and added vanilla JavaScript to the packages-wide coverage surface.
+- 2026-09-29 — runtime jsdom coverage added for registration/light DOM, native controls, normalized single events, keyboard tabs/focus, reactive state, overlays, toast visibility, combobox/toggle selection, and company-owned host classes.
+- 2026-09-29 — source generation was refactored from one catalog-wide renderer into a small shared base plus focused helpers and per-component renderers. Packed smoke now asserts `ui-vanilla-button` does not pull unrelated component implementations.
+- 2026-09-29 — packed CLI coverage includes `--framework vanilla --tauri`; workspace discovery coverage was fixed by giving `@package/ui-vanilla` a focused package-level test command instead of exempting the package.
+- 2026-09-29 — **Source distribution run 75 passed** on code head `74913cef9c9dcfd8b6bd5d36b1f2216a8be9a48a`: 38 source tests / 0 failures; 134 public entries across 9 runtime packages; packed vanilla generation without a workspace library; consumer compilation PASS for React (66 modules), Vue (12), Svelte (12), Native (46), and Vanilla (48).
+- 2026-09-29 — **Agent Workflow run 95 passed** on the same code head: frozen install, lint, packages-wide coverage (including `ui-vanilla` JS), native typecheck, full `pnpm test`, app build, published source surface, consumer compile, PR-range preview, all-workspace verification, strict workflow budget, docs check, and skill check all succeeded. The separate Windows foundation job also succeeded.
+- 2026-09-29 — recovery remains branch/PR revert only; no persistent data, deployment, npm publication, or migration was performed.
 
 ## Resume state
 
-Implementation is on `feat/vanilla-ui` and PR #14. Framework plumbing, `ui-vanilla`, starter, smoke/compile gates, and docs are committed. Remaining closure step: inspect the in-progress GitHub Actions results and fix any failures before moving this task to `done/`.
+Implementation is verified on `feat/vanilla-ui` and PR #14. The product-code verification head is `74913cef9c9dcfd8b6bd5d36b1f2216a8be9a48a`, with Source distribution run 75 and Agent Workflow run 95 both green. Remaining work is human review/merge/release decision only; keep this task WIP until integration ownership is resolved. Do not publish or merge solely from this task record.
