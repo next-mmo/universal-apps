@@ -181,6 +181,51 @@ describe('vanilla custom element catalog', () => {
     expect(document.activeElement).toBe(second);
   });
 
+  it('preserves command selection and single toggle-group deselection', () => {
+    const combobox = mount('combobox', {
+      options: JSON.stringify([
+        { value: 'a', label: 'Alpha' },
+        { value: 'b', label: 'Beta' },
+      ]),
+      value: 'a',
+    });
+    const search = combobox.querySelector('input');
+    expect(search?.value).toBe('Alpha');
+
+    const beta = [...combobox.querySelectorAll('[role="option"]')]
+      .find((node) => node.textContent === 'Beta');
+    beta?.click();
+
+    expect(combobox.getAttribute('value')).toBe('b');
+    expect(combobox.querySelector('input')).toBe(search);
+    expect(search?.value).toBe('Beta');
+
+    const group = mount('toggle-group', {
+      options: JSON.stringify([{ value: 'a', label: 'A' }]),
+      value: 'a',
+    });
+    const toggle = group.querySelector('button');
+    expect(toggle?.getAttribute('aria-pressed')).toBe('true');
+    toggle?.click();
+
+    expect(group.getAttribute('value')).toBe('');
+    expect(group.querySelector('button')).toBe(toggle);
+    expect(toggle?.getAttribute('aria-pressed')).toBe('false');
+  });
+
+  it('preserves company-owned host classes', () => {
+    const badge = document.createElement('universal-badge');
+    badge.className = 'company-class';
+    badge.setAttribute('label', 'Ready');
+    document.body.append(badge);
+
+    expect(badge.classList.contains('company-class')).toBe(true);
+    expect(badge.classList.contains('u-badge')).toBe(true);
+
+    badge.setAttribute('variant', 'outline');
+    expect(badge.classList.contains('company-class')).toBe(true);
+  });
+
   it('keeps date range and sizing attributes reactive', () => {
     const range = mount('date-range-picker', {
       start: '2026-09-01',
