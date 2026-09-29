@@ -7,7 +7,7 @@
 
 | Layer | Role | Technology |
 | :--- | :--- | :--- |
-| Applications | Web and framework playground consumers; a Tauri desktop app is future separate work | React, Vue, Svelte, React Native Web |
+| Applications | Web and framework playground consumers; a Tauri desktop app is future separate work | React, Vue, Svelte, Vanilla Web Components, React Native Web |
 | Shared UI | Tokens, primitives, forms, tables, layouts, and CRUD composition | Canonical workspace source with source-owned consumer distribution |
 | Platform | Typed native operations with browser fallbacks, consumed by a separate native app | TypeScript; Rust only when a native app exists |
 | Agent interfaces | Focused capability discovery, recipes, docs, and MCP tools | CLI, MCP, `llms.txt` |
@@ -30,9 +30,9 @@
 | **0012** | [Date range picker for @package/ui and ui-native](0012-date-range-picker.md) | **in-progress** | A zero-dependency range mode for the shared Calendar, DOM and native DateRangePicker wrappers, and a from/to pro filter field; RDP-ported semantics, baseline `main` @ `f905871`; closure recorded in `docs/tasks/done/done-0013-date-range-picker.md`; merged to `main` 2026-09-23 |
 | **0013** | [Locale-aware date formatting for the date components](0013-locale-aware-date-formatting.md) | **in-progress** | `Intl.DateTimeFormat` replaces the hard-coded English month/weekday/day strings in the date components on both surfaces, with an optional `locale` prop; zero new dependencies, week layout unchanged; closure recorded in `docs/tasks/done/done-0019-locale-aware-date-formatting.md`; merged to `main` 2026-09-23 |
 | **0014** | [Production readiness: gates that can fail, pins that resolve, coverage that is true](0014-production-readiness-gates-and-pins.md) | **in-progress** | A line-ending policy, one router version instead of two, a PR gate that actually builds, SHA-pinned actions with dependabot, a release that cannot publish a mismatched tag, a coverage floor that reports the true 40% packages-wide number instead of a curated 96%, and vue/svelte consumer compilation that can fail; recorded in `docs/tasks/wip-0020-production-readiness-gates-and-pins.md` |
+| **0015** | [Vanilla Web UI source target](0015-vanilla-web-ui.md) | **in-progress** | Adds framework-free light-DOM Custom Elements as a first-class source CLI target with `create/init/add --framework vanilla`, framework-local short aliases, and smoke/compile gates |
 
 ## Authority
 
 PRDs define intended behavior after human approval; they do not prove implementation. Use [`CONTEXT.md`](../../CONTEXT.md) to reconcile requirements with current code, checks, and task evidence.
 
-| **0015** | [Vanilla Web UI source target](0015-vanilla-web-ui.md) | **in-progress** | Adds framework-free light-DOM Custom Elements as a first-class source CLI target with `create/init/add --framework vanilla`, framework-local short aliases, and smoke/compile gates |
