@@ -117,7 +117,7 @@ export function initialize(cwd, options = {}) {
   const allDeps = { ...manifest.dependencies, ...manifest.devDependencies };
   let framework = options.framework ?? (allDeps.vue ? 'vue' : allDeps.svelte ? 'svelte' : allDeps['react-native'] ? 'native' : 'react');
   if (['uniwind-bare', 'native-bare'].includes(framework)) framework = 'native';
-  if (!['react', 'vue', 'svelte', 'native'].includes(framework)) throw new Error(`Unsupported framework: ${framework}`);
+  if (!['react', 'vue', 'svelte', 'vanilla', 'native'].includes(framework)) throw new Error(`Unsupported framework: ${framework}`);
   const candidates = ['src/app/globals.css', 'app/globals.css', 'src/index.css', 'src/style.css', 'src/styles.css', 'src/app.css', 'src/styles/globals.css', 'src/assets/main.css'];
   const config = {
     schemaVersion: 1,
@@ -136,7 +136,7 @@ export function initialize(cwd, options = {}) {
 
 function getConfig(cwd) {
   const config = readJson(safePath(cwd, CONFIG));
-  if (config.schemaVersion !== 1 || !['react', 'vue', 'svelte', 'native'].includes(config.framework)) throw new Error('Unsupported universal.json configuration');
+  if (config.schemaVersion !== 1 || !['react', 'vue', 'svelte', 'vanilla', 'native'].includes(config.framework)) throw new Error('Unsupported universal.json configuration');
   safePath(cwd, config.sourceDir);
   if (config.css !== null) {
     safePath(cwd, config.css);
@@ -154,8 +154,17 @@ export function selectItems(registry, names, options = {}) {
     }
   }
   if (!requested.size) throw new Error('Choose at least one registry item; use list to discover names');
+  const aliasFramework = options.projectFramework ?? options.framework;
+  const aliasPrefix = aliasFramework === 'vanilla' ? 'ui-vanilla-' : aliasFramework === 'react' ? 'ui-' : null;
   return [...requested].map((name) => {
-    const item = registry.items.find((item) => item.name === name || (item.name === `ui-${name}` && !registry.items.some((other) => other.name === name)));
+    const exact = registry.items.find((item) => item.name === name);
+    const alias = aliasPrefix
+      ? registry.items.find((item) => item.name === aliasPrefix + name && item.meta?.framework === aliasFramework)
+      : null;
+    const legacyReactAlias = registry.items.find(
+      (item) => item.name === `ui-${name}` && !registry.items.some((other) => other.name === name),
+    );
+    const item = exact ?? alias ?? legacyReactAlias;
     if (!item) throw new Error(`Unknown registry item: ${name}`);
     return item;
   });
@@ -167,7 +176,7 @@ export function planInstall(cwd, registry, names, options = {}) {
   const config = getConfig(cwd);
   const manifestPath = safePath(cwd, 'package.json');
   const manifest = readJson(manifestPath);
-  const items = selectItems(registry, names, options);
+  const items = selectItems(registry, names, { ...options, projectFramework: config.framework });
   for (const item of items) {
     if (![config.framework, 'shared'].includes(item.meta?.framework)) throw new Error(`${item.name} targets ${item.meta?.framework}, but this project is ${config.framework}`);
   }
@@ -209,11 +218,19 @@ export function planInstall(cwd, registry, names, options = {}) {
     }
   }
   if (dependenciesChanged) writes.set('package.json', json(manifest));
-  const tokens = `${config.sourceDir}/ui/styles/tokens.css`;
-  if (proposed.has(tokens) && !options.diff) {
+  const tokenFiles = [
+    `${config.sourceDir}/ui/styles/tokens.css`,
+    `${config.sourceDir}/ui-vanilla/styles/tokens.css`,
+  ];
+  for (const tokens of tokenFiles.filter((file) => proposed.has(file))) {
+    if (options.diff) continue;
     if (!config.css) throw new Error('Set css in universal.json to your existing Tailwind v4 stylesheet before adding web components');
     const cssFile = safePath(cwd, config.css);
-    const original = fs.existsSync(cssFile) ? fs.readFileSync(cssFile, 'utf8') : '';
+    const original = writes.has(config.css)
+      ? String(writes.get(config.css))
+      : fs.existsSync(cssFile)
+        ? fs.readFileSync(cssFile, 'utf8')
+        : '';
     let specifier = slash(path.relative(path.dirname(cssFile), safePath(cwd, tokens)));
     if (!specifier.startsWith('.')) specifier = './' + specifier;
     const rule = `@import ${JSON.stringify(specifier)};`;
@@ -344,7 +361,7 @@ export function createProject(cwd, name, registry, options = {}) {
   // If registry is provided, add default starter components for supported frontends
   let added = [];
   if (registry && !isGo) {
-    const starterItem = framework === 'react' ? 'button' : (framework === 'native' || isBareNative) ? 'ui-native-components-ui-button' : 'core';
+    const starterItem = framework === 'react' || framework === 'vanilla' ? 'button' : (framework === 'native' || isBareNative) ? 'ui-native-components-ui-button' : 'core';
     try {
       const plan = planInstall(projectDir, registry, [starterItem], { noInstall: true });
       applyPlan(plan, { noInstall: true });

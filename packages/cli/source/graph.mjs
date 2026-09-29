@@ -2,12 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
 
-export const runtimePackages = ['core', 'ui', 'pro-core', 'pro', 'pro-vue', 'pro-svelte', 'ui-native', 'tauri-api'];
+export const runtimePackages = ['core', 'ui', 'ui-vanilla', 'pro-core', 'pro', 'pro-vue', 'pro-svelte', 'ui-native', 'tauri-api'];
 const sourceExtensions = ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.vue', '.svelte', '.css', '.json', '.svg'];
 const slash = (value) => value.split(path.sep).join('/');
 const packageName = (value) => value.startsWith('@') ? value.split('/').slice(0, 2).join('/') : value.split('/')[0];
 const slug = (value) => value.replace(/^\.\//, '').replace(/[^a-zA-Z0-9-]+/g, '-').toLowerCase();
-const framework = (name) => name === 'pro-vue' ? 'vue' : name === 'pro-svelte' ? 'svelte' : name === 'ui-native' ? 'native' : ['ui', 'pro'].includes(name) ? 'react' : 'shared';
+const framework = (name) => name === 'pro-vue' ? 'vue' : name === 'pro-svelte' ? 'svelte' : name === 'ui-native' ? 'native' : name === 'ui-vanilla' ? 'vanilla' : ['ui', 'pro'].includes(name) ? 'react' : 'shared';
 // `core` is the framework-neutral package, but this hook imports React. Shipping it
 // inside the `core` item put a React dependency into Vue and Svelte consumer projects,
 // so it is scoped to the React family and distributed as its own item instead.
@@ -203,7 +203,10 @@ export function buildRegistry(root, options = {}) {
       for (const edge of node.edges) visit(edge);
     };
     for (const entry of entries) visit(entry);
-    if (['ui', 'pro', 'pro-vue', 'pro-svelte'].includes(pkg.folder) || [...closure.values()].some((node) => node.path.startsWith('ui/components/'))) {
+    if (pkg.folder === 'ui-vanilla') {
+      const tokens = path.join(root, 'packages/ui-vanilla/src/styles/tokens.css');
+      if (fs.existsSync(tokens) && byName.has('@package/ui-vanilla')) visit(tokens);
+    } else if (['ui', 'pro', 'pro-vue', 'pro-svelte'].includes(pkg.folder) || [...closure.values()].some((node) => node.path.startsWith('ui/components/'))) {
       const tokens = path.join(root, 'packages/ui/src/styles/tokens.css');
       if (fs.existsSync(tokens) && byName.has('@package/ui')) visit(tokens);
     }
@@ -222,7 +225,7 @@ export function buildRegistry(root, options = {}) {
       dependencies: Object.entries(dependencies).sort(([a], [b]) => a.localeCompare(b)).map(([name, version]) => `${name}@${version}`),
       files,
       meta: { framework: itemFramework, package: metaPackage, entries: entries.map(relative), sourceOwned: true },
-      docs: 'Source is installed locally; no @package/* runtime dependency is required. For web styles, import the generated ui/styles/tokens.css into your Tailwind v4 stylesheet. Native adapters still need their normal platform configuration.',
+      docs: `Source is installed locally; no @package/* runtime dependency is required. For web styles, import the generated ${itemFramework === 'vanilla' ? 'ui-vanilla' : 'ui'}/styles/tokens.css into your stylesheet. Native adapters still need their normal platform configuration.`,
     };
   }
   const items = publicEntries.map(({ pkg, name, file, framework: entryFramework }) => item(name, pkg, [file], entryFramework));

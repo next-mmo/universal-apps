@@ -14,6 +14,7 @@ export default defineConfig({
       'packages/core/test/**/*.test.{ts,tsx}',
       'packages/pro-core/test/**/*.test.{ts,tsx}',
       'packages/ui/test/**/*.test.tsx',
+      'packages/ui-vanilla/test/**/*.test.js',
       'packages/pro/test/**/*.test.tsx',
     ],
     exclude: ['**/node_modules/**', '**/dist/**'],
@@ -35,6 +36,7 @@ export default defineConfig({
       include: [
         'packages/*/src/**/*.ts',
         'packages/*/src/**/*.tsx',
+        'packages/*/src/**/*.js',
       ],
       // Ratchet floors, not targets. They sit just under the measured 40.16/40.19/41.79/40.55 so
       // an unrelated change cannot silently lower real coverage. Raising one is the point of

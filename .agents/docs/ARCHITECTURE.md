@@ -8,7 +8,7 @@
 | Optional framework previews | `apps/docs/previews/` | Separate same-origin Vue, Svelte, and React Native Web + UniWind bundles loaded after selection |
 | Example consumers | `apps/web-todo/`, `apps/*-playground/` | Integration evidence for shared packages |
 | Framework-neutral contracts | `packages/core/`, `packages/pro-core/` | Schemas and behavior without UI/platform dependencies |
-| UI and feature packages | `packages/ui/`, `packages/pro/` | Stable React subpath exports |
+| UI and feature packages | `packages/ui/`, `packages/ui-vanilla/`, `packages/pro/` | Stable React subpath exports plus framework-free light-DOM Custom Elements |
 | Framework adapters | `packages/pro-vue/`, `packages/pro-svelte/`, `packages/ui-native/` | Vue, Svelte, and React Native Web bindings |
 | Native app boundary | `packages/tauri-api/` | Typed Tauri commands and browser fallbacks for a separate native app |
 | Agent interfaces | `packages/cli/`, `packages/agent-workflow/`, `packages/mcp/`, `llms.txt` | Bounded discovery, workflow starters, documentation, recipes, and MCP tools |

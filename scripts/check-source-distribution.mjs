@@ -28,9 +28,21 @@ try {
   assert.equal(Object.keys(manifest.dependencies ?? {}).length, 0);
   assert.equal(Object.keys(manifest.devDependencies ?? {}).length, 0);
   const registry = JSON.parse(fs.readFileSync(path.join(distribution, 'registry/index.json'), 'utf8'));
-  assert.equal(registry.packages.length, 8, 'Every runtime package must be covered');
+  assert.equal(registry.packages.length, 9, 'Every runtime package must be covered');
+  const vanillaButton = registry.items.find((item) => item.name === 'ui-vanilla-button');
+  assert.ok(vanillaButton, 'Vanilla button registry item is missing');
+  const vanillaButtonTargets = vanillaButton.files.map((file) => file.target);
+  assert.ok(vanillaButtonTargets.some((target) => target.endsWith('/ui-vanilla/components/ui/button.js')));
+  assert.ok(vanillaButtonTargets.some((target) => target.endsWith('/ui-vanilla/lib/component.js')));
+  assert.ok(vanillaButtonTargets.some((target) => target.endsWith('/ui-vanilla/styles/tokens.css')));
+  assert.ok(
+    !vanillaButtonTargets.some((target) =>
+      /\/ui-vanilla\/components\/ui\/(?!button\.js$)/.test(target),
+    ),
+    'Adding the vanilla button must not pull unrelated component implementations',
+  );
   const cli = path.join(distribution, 'cli.mjs');
-  for (const framework of ['react', 'vue', 'svelte', 'native']) {
+  for (const framework of ['react', 'vue', 'svelte', 'native', 'vanilla']) {
     const cwd = path.join(scratch, framework);
     fs.mkdirSync(path.join(cwd, 'src'), { recursive: true });
     fs.writeFileSync(path.join(cwd, 'package.json'), JSON.stringify({ name: `consumer-${framework}`, private: true, type: 'module' }));
@@ -42,6 +54,9 @@ try {
     for (const group of ['dependencies', 'devDependencies']) for (const [name, version] of Object.entries(consumer[group] ?? {})) {
       assert.ok(!name.startsWith('@package/') && !name.includes('universal-cli'));
       assert.ok(!version.startsWith('workspace:'));
+      if (framework === 'vanilla') {
+        assert.ok(!['react', 'react-dom', 'vue', 'svelte'].includes(name), `Vanilla unexpectedly depends on ${name}`);
+      }
     }
     console.log(`${framework}: packed CLI generated all matching source items without a workspace library`);
   }

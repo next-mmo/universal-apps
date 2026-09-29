@@ -1,6 +1,6 @@
 # Universal Apps
 
-Source-owned Tauri and web application building blocks for React, Vue, Svelte, and React Native Web. Companies generate the implementation into their own project, edit it locally, and do not install an `@package/*` runtime library. The monorepo packages remain the authoring source and power the development playgrounds.
+Source-owned Tauri and web application building blocks for React, Vue, Svelte, framework-free Vanilla Web Components, and React Native Web. Companies generate the implementation into their own project, edit it locally, and do not install an `@package/*` runtime library. The monorepo packages remain the authoring source and power the development playgrounds.
 
 ## Source-first consumer workflow
 
@@ -46,6 +46,7 @@ The development apps still use internal workspace imports. This authoring arrang
 ## Workspace
 
 - `packages/ui`, `packages/pro`: React primitives, tokens, forms, tables, layouts, and CRUD pages.
+- `packages/ui-vanilla`: light-DOM Custom Elements and browser-native controls with no UI framework runtime.
 - `packages/core`, `packages/pro-core`, `packages/tauri-api`: shared contracts, state, and platform adapters.
 - `packages/pro-vue`, `packages/pro-svelte`, `packages/ui-native`: framework adapters.
 - `packages/cli/source`: standalone consumer CLI and source-registry build graph.

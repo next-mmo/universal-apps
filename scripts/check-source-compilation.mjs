@@ -25,7 +25,7 @@ const argv = process.argv.slice(2);
 const onlyIndex = argv.indexOf('--only');
 const only = onlyIndex === -1 ? null : argv[onlyIndex + 1]?.split(',').filter(Boolean);
 const keep = argv.includes('--keep');
-const frameworks = only ?? ['react', 'vue', 'svelte', 'native'];
+const frameworks = only ?? ['react', 'vue', 'svelte', 'native', 'vanilla'];
 
 // Every framework is always built and reported, and every framework is now verified. `verified`
 // names the ones whose output is known to compile, and only those can fail this gate. A
@@ -37,9 +37,9 @@ const frameworks = only ?? ['react', 'vue', 'svelte', 'native'];
 //   are gated now. They were owned by PRD 0006.
 // Move a framework out of this list only if it genuinely stops compiling, and say why in the
 // comment above; never move one out to land a change.
-const verified = ['react', 'vue', 'svelte', 'native'];
+const verified = ['react', 'vue', 'svelte', 'native', 'vanilla'];
 
-const entryFor = (framework) => (framework === 'react' || framework === 'native' ? 'src/main.tsx' : 'src/main.ts');
+const entryFor = (framework) => framework === 'react' || framework === 'native' ? 'src/main.tsx' : 'src/main.ts';
 const isWindows = process.platform === 'win32';
 // Built from a code point so the source holds no literal control character.
 const ansiEscape = new RegExp(`${String.fromCharCode(27)}\\[[0-9;]*m`, 'g');
@@ -57,19 +57,23 @@ const run = (command, args, cwd) => {
 const writeProbe = (projectDir, sourceDir, framework) => {
   const absolute = path.join(projectDir, sourceDir);
   const found = [];
+  const vanilla = framework === 'vanilla';
+  const sourcePattern = vanilla ? /\.(?:js|mjs|ts|tsx)$/ : /\.(?:ts|tsx)$/;
+  const stripPattern = vanilla ? /\.(?:js|mjs|ts|tsx)$/ : /\.(?:ts|tsx)$/;
   const walk = (dir) => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full);
-      else if (/\.(?:ts|tsx)$/.test(entry.name)) found.push(full);
+      else if (sourcePattern.test(entry.name)) found.push(full);
     }
   };
   walk(absolute);
   assert.ok(found.length > 0, `No generated source under ${sourceDir}; the probe would prove nothing`);
   const importers = found
-    .map((file) => './' + path.relative(path.join(projectDir, 'src'), file).replaceAll('\\', '/').replace(/\.(?:ts|tsx)$/, ''))
+    .map((file) => './' + path.relative(path.join(projectDir, 'src'), file).replaceAll('\\', '/').replace(stripPattern, ''))
     .sort();
-  fs.writeFileSync(path.join(projectDir, 'src', '__compile-probe.ts'), importers.map((specifier) => `import '${specifier}';`).join('\n') + '\n');
+  const probe = path.join(projectDir, 'src', '__compile-probe.ts');
+  fs.writeFileSync(probe, importers.map((specifier) => `import '${specifier}';`).join('\n') + '\n');
   const entry = path.join(projectDir, entryFor(framework));
   fs.appendFileSync(entry, `\nimport './__compile-probe';\n`);
   return importers.length;
@@ -98,7 +102,7 @@ if (fs.existsSync(registryPath)) {
         walk(full);
         continue;
       }
-      if (!/\.(?:ts|tsx|vue|svelte|css)$/.test(entry.name)) continue;
+      if (!/\.(?:js|jsx|mjs|cjs|ts|tsx|vue|svelte|css)$/.test(entry.name)) continue;
       const mtime = fs.statSync(full).mtimeMs;
       if (mtime > newestAt) {
         newestAt = mtime;

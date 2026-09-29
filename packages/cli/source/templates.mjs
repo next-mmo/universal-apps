@@ -1,5 +1,6 @@
 import { getReactTemplateFiles } from './templates/react.mjs';
 import { getVueTemplateFiles } from './templates/vue.mjs';
+import { getVanillaTemplateFiles } from './templates/vanilla.mjs';
 import { getSvelteTemplateFiles } from './templates/svelte.mjs';
 import { getNativeTemplateFiles } from './templates/native.mjs';
 import { getNativeBareTemplateFiles } from './templates/native-bare.mjs';
@@ -48,6 +49,8 @@ export function getTemplateFiles(name, options = {}) {
     frameworkFiles = getVueTemplateFiles(name, options);
   } else if (framework === 'svelte') {
     frameworkFiles = getSvelteTemplateFiles(name, options);
+  } else if (framework === 'vanilla') {
+    frameworkFiles = getVanillaTemplateFiles(name, options);
   } else if (framework === 'native') {
     frameworkFiles = getNativeTemplateFiles(name, options);
   } else {

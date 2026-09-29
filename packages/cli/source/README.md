@@ -20,8 +20,9 @@ Use the resulting `dist/next-mmo-universal-cli-0.1.0.tgz` with `npm exec --packa
 To generate a complete, runnable starter application with Vite, Tailwind CSS v4, TypeScript, and pre-configured Universal components:
 
 ```sh
-# Web starter (React, Vue, Svelte, or React Native Web)
+# Web starter (React, Vue, Svelte, Vanilla, or React Native Web)
 npx @next-mmo/universal-cli create my-app --framework react
+npx @next-mmo/universal-cli create my-vanilla-app --framework vanilla
 
 # Mobile starter (Bare React Native + Uniwind + Metro + Tailwind v4)
 npx @next-mmo/universal-cli create my-mobile-app --framework uniwind-bare
@@ -41,7 +42,7 @@ npx @next-mmo/universal-cli diff button
 npx @next-mmo/universal-cli doctor
 ```
 
-Web projects must already have their framework and Tailwind v4 integration configured. `init` detects common global stylesheets, or accepts `--css`. It leaves `components.json`, bundler configuration, and the company's dependency versions untouched. Use `--path` at initialization to change the generated directory. No global CLI installation is required.
+Web projects must already have their framework (or browser-module setup for `vanilla`) and Tailwind v4 integration configured. `init` detects common global stylesheets, or accepts `--css`. It leaves `components.json`, bundler configuration, and the company's dependency versions untouched. Use `--path` at initialization to change the generated directory. No global CLI installation is required.
 
 By default, files go under `src/lib/universal` when `src` exists, otherwise `lib/universal`. For example:
 
@@ -63,7 +64,7 @@ universal list --framework react
 universal add --all --framework react
 ```
 
-Supported source catalogs cover `core`, `utils`, `ui`, `pro-core`, `pro`, `pro-vue`, `pro-svelte`, `ui-native`, and `tauri-api`. Framework-neutral items can be used in every project. `--all` requires an explicit framework and never mixes Vue, Svelte, React, and Native component implementations.
+Supported source catalogs cover `core`, `utils`, `ui`, `ui-vanilla`, `pro-core`, `pro`, `pro-vue`, `pro-svelte`, `ui-native`, and `tauri-api`. Framework-neutral items can be used in every project. `--all` requires an explicit framework and never mixes Vue, Svelte, React, Vanilla, and Native component implementations.
 
 The build discovers every non-legacy public export. Packages without exports maps expose their source entries. A missing export, unresolved module, unportable dependency version, source escape, or conflicting dependency version fails the build. Package aggregates include every discovered entry. This is source-distribution coverage, not a claim that every framework/platform combination has been compiled or tested.
 
@@ -87,4 +88,16 @@ To host a registry, serve the generated JSON files from a location your consumer
 
 Generated code includes the repository's existing LICENSE. Original source notices are preserved because source is copied rather than reconstructed. Third-party package licenses still apply; this is not a legal compliance audit.
 
-Maintainers run `pnpm source:test`, `pnpm source:build`, `pnpm source:smoke`, and `pnpm source:compile`. The smoke check unpacks an actual CLI tarball and generates each framework's catalog in isolated projects. The compile check goes further: it installs and builds a generated project per framework with a probe import, so generated source reaches the consumer's compiler and bundler. It reports every framework on every run and gates only those listed as `verified` in `scripts/check-source-compilation.mjs`; **React and native compile today, while Vue and Svelte do not**, because their `pro-*` data-table adapters do not type-check (PRD 0006). Treat the Vue and Svelte starters as not yet release-ready. `doctor` checks source ownership and missing generated files, not type safety, accessibility, or license compliance.
+Maintainers run `pnpm source:test`, `pnpm source:build`, `pnpm source:smoke`, and `pnpm source:compile`. The smoke check unpacks an actual CLI tarball and generates each framework's catalog in isolated projects. The compile check goes further: it installs and builds a generated project per framework with a probe import, so generated source reaches the consumer's compiler and bundler. React, Vue, Svelte, Native, and Vanilla are in the blocking `verified` matrix; a failure in any of them fails the gate. `doctor` checks source ownership and missing generated files, not type safety, accessibility, or license compliance.
+
+
+## Vanilla Web Components
+
+Vanilla is a first-class source target:
+
+```sh
+npx @next-mmo/universal-cli init --framework vanilla --css src/index.css
+npx @next-mmo/universal-cli add button tabs dialog
+```
+
+The short item names stay familiar. In a vanilla project, `add button` resolves to the `ui-vanilla` button; in a React project it continues to resolve to the React button. Generated vanilla components are light-DOM Custom Elements such as `<universal-button>`, use browser-native controls where possible, and add no React, Vue, Svelte, or Universal runtime package.
