@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalSwitch = defineUniversalElement('universal-switch', 'switch');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalSwitch = defineUniversalElement('universal-switch', 'switch');

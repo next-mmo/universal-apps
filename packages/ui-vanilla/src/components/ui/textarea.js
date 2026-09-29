@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalTextarea = defineUniversalElement('universal-textarea', 'textarea');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalTextarea = defineUniversalElement('universal-textarea', 'textarea');

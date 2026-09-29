@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalDropdownMenu = defineUniversalElement('universal-dropdown-menu', 'dropdown-menu');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalDropdownMenu = defineUniversalElement('universal-dropdown-menu', 'dropdown-menu');

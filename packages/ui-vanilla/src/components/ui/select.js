@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalSelect = defineUniversalElement('universal-select', 'select');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalSelect = defineUniversalElement('universal-select', 'select');

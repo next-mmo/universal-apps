@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalBadge = defineUniversalElement('universal-badge', 'badge');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalBadge = defineUniversalElement('universal-badge', 'badge');

@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalDrawer = defineUniversalElement('universal-drawer', 'drawer');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalDrawer = defineUniversalElement('universal-drawer', 'drawer');

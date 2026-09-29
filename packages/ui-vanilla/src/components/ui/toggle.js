@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalToggle = defineUniversalElement('universal-toggle', 'toggle');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalToggle = defineUniversalElement('universal-toggle', 'toggle');

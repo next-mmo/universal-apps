@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalAvatar = defineUniversalElement('universal-avatar', 'avatar');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalAvatar = defineUniversalElement('universal-avatar', 'avatar');

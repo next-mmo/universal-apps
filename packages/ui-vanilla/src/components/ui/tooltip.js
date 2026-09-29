@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalTooltip = defineUniversalElement('universal-tooltip', 'tooltip');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalTooltip = defineUniversalElement('universal-tooltip', 'tooltip');

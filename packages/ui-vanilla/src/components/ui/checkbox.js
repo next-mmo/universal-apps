@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalCheckbox = defineUniversalElement('universal-checkbox', 'checkbox');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalCheckbox = defineUniversalElement('universal-checkbox', 'checkbox');

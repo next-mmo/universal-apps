@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalCalendar = defineUniversalElement('universal-calendar', 'calendar');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalCalendar = defineUniversalElement('universal-calendar', 'calendar');

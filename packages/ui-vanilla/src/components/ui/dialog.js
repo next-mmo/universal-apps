@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalDialog = defineUniversalElement('universal-dialog', 'dialog');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalDialog = defineUniversalElement('universal-dialog', 'dialog');

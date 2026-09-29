@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalTable = defineUniversalElement('universal-table', 'table');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalTable = defineUniversalElement('universal-table', 'table');

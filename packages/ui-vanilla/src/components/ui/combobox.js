@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalCombobox = defineUniversalElement('universal-combobox', 'combobox');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalCombobox = defineUniversalElement('universal-combobox', 'combobox');

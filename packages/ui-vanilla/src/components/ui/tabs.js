@@ -1,1 +1,3 @@
-import { defineUniversalElement } from '../../lib/component.js';\n\nexport const UniversalTabs = defineUniversalElement('universal-tabs', 'tabs');\n
+import { defineUniversalElement } from '../../lib/component.js';
+
+export const UniversalTabs = defineUniversalElement('universal-tabs', 'tabs');
