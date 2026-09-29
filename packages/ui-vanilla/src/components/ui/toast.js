@@ -4,6 +4,7 @@ import {
   defineUniversalElement,
   emit,
   makeButton,
+  reflectAttribute,
   text,
 } from '../../lib/component.js';
 
@@ -13,7 +14,7 @@ export const UniversalToast = defineUniversalElement(
     const node = document.createElement('div');
     node.className = 'u-toast';
     node.setAttribute('role', 'status');
-    node.hidden = !bool(host, 'open') && !host.hasAttribute('content');
+    node.hidden = !bool(host, 'open');
 
     const title = document.createElement('strong');
     title.textContent = text(host, 'title', 'Notification');
@@ -23,7 +24,7 @@ export const UniversalToast = defineUniversalElement(
 
     const close = makeButton('Dismiss', 'u-button u-button--ghost');
     close.addEventListener('click', () => {
-      host.removeAttribute('open');
+      reflectAttribute(host, 'open', false);
       node.hidden = true;
       emit(host, 'close', {});
     });
@@ -34,8 +35,8 @@ export const UniversalToast = defineUniversalElement(
   {
     methods: {
       show(message) {
-        this.setAttribute('content', String(message ?? ''));
-        this.setAttribute('open', '');
+        reflectAttribute(this, 'content', String(message ?? ''));
+        reflectAttribute(this, 'open', true);
         this.render();
       },
     },
