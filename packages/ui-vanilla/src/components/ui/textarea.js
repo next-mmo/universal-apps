@@ -3,6 +3,7 @@ import {
   defineUniversalElement,
   emit,
   fieldAttributes,
+  reflectAttribute,
   text,
 } from '../../lib/component.js';
 
@@ -16,6 +17,7 @@ export const UniversalTextarea = defineUniversalElement(
     fieldAttributes(host, node);
     node.addEventListener('input', (event) => {
       event.stopPropagation();
+      reflectAttribute(host, 'value', node.value);
       emit(host, 'input', { value: node.value });
     });
     clear(host, node);
