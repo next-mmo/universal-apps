@@ -32,9 +32,10 @@ export const UniversalToggleGroup = defineUniversalElement(
         );
 
         node.addEventListener('click', () => {
+          const wasSelected = selected.has(entry.value);
           if (!multiple) selected.clear();
-          if (selected.has(entry.value)) selected.delete(entry.value);
-          else selected.add(entry.value);
+          if (multiple && wasSelected) selected.delete(entry.value);
+          else if (!wasSelected) selected.add(entry.value);
 
           reflectAttribute(host, 'value', [...selected].join(','));
           for (const child of wrap.children) {
