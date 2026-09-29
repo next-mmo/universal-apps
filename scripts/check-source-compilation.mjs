@@ -39,7 +39,7 @@ const frameworks = only ?? ['react', 'vue', 'svelte', 'native', 'vanilla'];
 // comment above; never move one out to land a change.
 const verified = ['react', 'vue', 'svelte', 'native', 'vanilla'];
 
-const entryFor = (framework) => framework === 'vanilla' ? 'src/main.js' : framework === 'react' || framework === 'native' ? 'src/main.tsx' : 'src/main.ts';
+const entryFor = (framework) => framework === 'react' || framework === 'native' ? 'src/main.tsx' : 'src/main.ts';
 const isWindows = process.platform === 'win32';
 // Built from a code point so the source holds no literal control character.
 const ansiEscape = new RegExp(`${String.fromCharCode(27)}\\[[0-9;]*m`, 'g');
@@ -72,10 +72,10 @@ const writeProbe = (projectDir, sourceDir, framework) => {
   const importers = found
     .map((file) => './' + path.relative(path.join(projectDir, 'src'), file).replaceAll('\\', '/').replace(stripPattern, ''))
     .sort();
-  const probe = path.join(projectDir, 'src', vanilla ? '__compile-probe.js' : '__compile-probe.ts');
+  const probe = path.join(projectDir, 'src', '__compile-probe.ts');
   fs.writeFileSync(probe, importers.map((specifier) => `import '${specifier}';`).join('\n') + '\n');
   const entry = path.join(projectDir, entryFor(framework));
-  fs.appendFileSync(entry, vanilla ? `\nimport './__compile-probe.js';\n` : `\nimport './__compile-probe';\n`);
+  fs.appendFileSync(entry, `\nimport './__compile-probe';\n`);
   return importers.length;
 };
 
@@ -102,7 +102,7 @@ if (fs.existsSync(registryPath)) {
         walk(full);
         continue;
       }
-      if (!/\.(?:ts|tsx|vue|svelte|css)$/.test(entry.name)) continue;
+      if (!/\.(?:js|jsx|mjs|cjs|ts|tsx|vue|svelte|css)$/.test(entry.name)) continue;
       const mtime = fs.statSync(full).mtimeMs;
       if (mtime > newestAt) {
         newestAt = mtime;
