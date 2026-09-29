@@ -258,6 +258,12 @@ test('every runtime catalog builds into an actual standalone npm tarball', (t) =
   assert.ok(fs.existsSync(path.join(cwd, 'starter-tauri/src-tauri/tauri.conf.json')));
   assert.ok(fs.existsSync(path.join(cwd, 'starter-tauri/src-tauri/Cargo.toml')));
 
+  const vanillaTauriRes = run('create', 'starter-tauri-vanilla', '--framework', 'vanilla', '--tauri', '--no-install');
+  assert.equal(vanillaTauriRes.status, 0, vanillaTauriRes.stderr);
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-tauri-vanilla/src/main.ts')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-tauri-vanilla/src-tauri/tauri.conf.json')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-tauri-vanilla/src-tauri/Cargo.toml')));
+
   const goRes = run('create', 'starter-go', '--framework', 'go-echo', '--no-install');
   assert.equal(goRes.status, 0, goRes.stderr);
   assert.ok(fs.existsSync(path.join(cwd, 'starter-go/go.mod')));
