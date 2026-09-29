@@ -2,6 +2,7 @@ import {
   clear,
   defineUniversalElement,
   emit,
+  reflectAttribute,
   text,
 } from '../../lib/component.js';
 
@@ -30,8 +31,8 @@ export const UniversalDateRangePicker = defineUniversalElement(
 
     const change = (event) => {
       event.stopPropagation();
-      host.setAttribute('start', start.value);
-      host.setAttribute('end', end.value);
+      reflectAttribute(host, 'start', start.value);
+      reflectAttribute(host, 'end', end.value);
       emit(host, 'change', {
         start: start.value,
         end: end.value,
