@@ -144,11 +144,15 @@ describe('vanilla custom element catalog', () => {
     const inputEvent = vi.fn();
     input.addEventListener('input', inputEvent);
     const nativeInput = input.querySelector('input');
+    nativeInput.focus();
     nativeInput.value = 'second';
     nativeInput.dispatchEvent(new Event('input', { bubbles: true }));
 
     expect(inputEvent).toHaveBeenCalledTimes(1);
     expect(inputEvent.mock.calls[0][0].detail.value).toBe('second');
+    expect(input.getAttribute('value')).toBe('second');
+    expect(input.querySelector('input')).toBe(nativeInput);
+    expect(document.activeElement).toBe(nativeInput);
   });
 
   it('does not emit a tabs change on mount and supports keyboard selection', () => {
@@ -165,11 +169,16 @@ describe('vanilla custom element catalog', () => {
     expect(element.getAttribute('value')).toBe('one');
 
     const first = element.querySelector('[role="tab"][data-value="one"]');
+    const second = element.querySelector('[role="tab"][data-value="two"]');
+    first.focus();
     first.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
 
     expect(element.getAttribute('value')).toBe('two');
     expect(changed).toHaveBeenCalledTimes(1);
-    expect(element.querySelector('[role="tab"][data-value="two"]')?.getAttribute('aria-selected')).toBe('true');
+    expect(element.querySelector('[role="tab"][data-value="one"]')).toBe(first);
+    expect(element.querySelector('[role="tab"][data-value="two"]')).toBe(second);
+    expect(second?.getAttribute('aria-selected')).toBe('true');
+    expect(document.activeElement).toBe(second);
   });
 
   it('keeps date range and sizing attributes reactive', () => {
@@ -184,6 +193,25 @@ describe('vanilla custom element catalog', () => {
     const skeleton = mount('skeleton', { width: '4rem', height: '1rem' });
     skeleton.setAttribute('width', '8rem');
     expect(skeleton.firstElementChild?.style.width).toBe('8rem');
+  });
+
+  it('keeps toast visibility tied to open and supports imperative show', () => {
+    const toast = mount('toast', { title: 'Saved', content: 'Done', open: true });
+    const status = toast.querySelector('[role="status"]');
+    expect(status?.hidden).toBe(false);
+
+    const closed = vi.fn();
+    toast.addEventListener('close', closed);
+    toast.querySelector('button')?.click();
+
+    expect(toast.hasAttribute('open')).toBe(false);
+    expect(status?.hidden).toBe(true);
+    expect(closed).toHaveBeenCalledTimes(1);
+
+    toast.show('Updated');
+    expect(toast.hasAttribute('open')).toBe(true);
+    expect(toast.getAttribute('content')).toBe('Updated');
+    expect(toast.querySelector('[role="status"]')?.hidden).toBe(false);
   });
 
   it('uses native disclosure and dialog primitives for overlays', () => {
