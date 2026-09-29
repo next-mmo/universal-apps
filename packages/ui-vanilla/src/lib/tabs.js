@@ -4,6 +4,7 @@ import {
   list,
   makeButton,
   option,
+  reflectAttribute,
   text,
 } from './component.js';
 
@@ -28,7 +29,7 @@ export function renderTabs(host, animated) {
   panels.className = 'u-tabs-panels';
 
   const activate = (value, focus = false, notify = true) => {
-    host.setAttribute('value', value);
+    reflectAttribute(host, 'value', value);
     for (const trigger of tabList.querySelectorAll('[role="tab"]')) {
       const active = trigger.dataset.value === value;
       trigger.setAttribute('aria-selected', String(active));
