@@ -28,7 +28,8 @@ export const UniversalDateRangePicker = defineUniversalElement(
       text(host, 'end-label', 'End date'),
     );
 
-    const change = () => {
+    const change = (event) => {
+      event.stopPropagation();
       host.setAttribute('start', start.value);
       host.setAttribute('end', end.value);
       emit(host, 'change', {
