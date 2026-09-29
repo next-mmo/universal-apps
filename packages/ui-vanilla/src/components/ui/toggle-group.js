@@ -6,6 +6,7 @@ import {
   list,
   makeButton,
   option,
+  reflectAttribute,
   text,
 } from '../../lib/component.js';
 
@@ -35,7 +36,7 @@ export const UniversalToggleGroup = defineUniversalElement(
           if (selected.has(entry.value)) selected.delete(entry.value);
           else selected.add(entry.value);
 
-          host.setAttribute('value', [...selected].join(','));
+          reflectAttribute(host, 'value', [...selected].join(','));
           for (const child of wrap.children) {
             child.setAttribute(
               'aria-pressed',
