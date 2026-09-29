@@ -242,7 +242,14 @@ test('every runtime catalog builds into an actual standalone npm tarball', (t) =
     assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/universal.json`)));
     assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/package.json`)));
     assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/src/index.css`)));
-    if (framework === 'vanilla') assert.ok(fs.existsSync(path.join(cwd, `starter-${framework}/src/main.js`)));
+    if (framework === 'vanilla') {
+      const starter = path.join(cwd, `starter-${framework}`);
+      assert.ok(fs.existsSync(path.join(starter, 'src/main.ts')));
+      assert.ok(fs.existsSync(path.join(starter, 'tsconfig.json')));
+      const vanillaManifest = JSON.parse(fs.readFileSync(path.join(starter, 'package.json'), 'utf8'));
+      assert.equal(vanillaManifest.devDependencies.typescript, '^5.8.3');
+      assert.match(vanillaManifest.scripts.build, /tsc -p tsconfig\.json/);
+    }
   }
   const cwd = path.join(f.root, 'company-react');
   const run = (...args) => spawnSync(process.execPath, [cli, ...args], { cwd, encoding: 'utf8' });
