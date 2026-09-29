@@ -23,7 +23,7 @@ export function getTemplateFiles(name, options = {}) {
   const files = new Map();
 
   // Shared web assets
-  const mainScript = framework === 'vanilla' ? '/src/main.js' : framework === 'react' || framework === 'native' ? '/src/main.tsx' : '/src/main.ts';
+  const mainScript = framework === 'react' || framework === 'native' ? '/src/main.tsx' : '/src/main.ts';
   files.set('index.html', `<!doctype html>
 <html lang="en">
   <head>
