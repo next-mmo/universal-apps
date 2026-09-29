@@ -14,9 +14,10 @@ export const UniversalTextarea = defineUniversalElement(
     node.value = text(host, 'value');
     node.rows = Number(text(host, 'rows', '4')) || 4;
     fieldAttributes(host, node);
-    node.addEventListener('input', () =>
-      emit(host, 'input', { value: node.value }),
-    );
+    node.addEventListener('input', (event) => {
+      event.stopPropagation();
+      emit(host, 'input', { value: node.value });
+    });
     clear(host, node);
   },
 );
