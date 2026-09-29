@@ -1,10 +1,11 @@
 const ElementBase = globalThis.HTMLElement ?? class {};
 
 const observed = [
-  'checked', 'content', 'default-value', 'description', 'disabled', 'fallback',
-  'headers', 'items', 'label', 'max', 'min', 'multiple', 'name', 'open',
-  'options', 'placeholder', 'pressed', 'rows', 'side', 'src', 'step', 'tabs',
-  'title', 'trigger-text', 'type', 'value', 'variant',
+  'checked', 'content', 'default-value', 'description', 'disabled', 'end',
+  'end-label', 'fallback', 'for', 'headers', 'height', 'items', 'label', 'max',
+  'min', 'multiple', 'name', 'open', 'options', 'orientation', 'placeholder',
+  'pressed', 'required', 'rows', 'side', 'src', 'start', 'start-label', 'step',
+  'tabs', 'title', 'trigger-text', 'type', 'value', 'variant', 'width',
 ];
 
 const bool = (element, name) =>
@@ -91,7 +92,7 @@ function renderTabs(host, animated) {
   const panels = document.createElement('div');
   panels.className = 'u-tabs-panels';
 
-  const activate = (value, focus = false) => {
+  const activate = (value, focus = false, notify = true) => {
     host.setAttribute('value', value);
     for (const trigger of tabList.querySelectorAll('[role="tab"]')) {
       const active = trigger.dataset.value === value;
@@ -102,7 +103,7 @@ function renderTabs(host, animated) {
     for (const panel of panels.querySelectorAll('[role="tabpanel"]')) {
       panel.hidden = panel.dataset.value !== value;
     }
-    emit(host, 'change', { value });
+    if (notify) emit(host, 'change', { value });
   };
 
   tabs.forEach((tab, index) => {
@@ -133,7 +134,7 @@ function renderTabs(host, animated) {
   });
 
   clear(host, tabList, panels);
-  activate(tabs.some((tab) => tab.value === selected) ? selected : tabs[0]?.value ?? '');
+  activate(tabs.some((tab) => tab.value === selected) ? selected : tabs[0]?.value ?? '', false, false);
 }
 
 function renderOverlay(host, kind) {
