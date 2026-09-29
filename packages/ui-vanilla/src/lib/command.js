@@ -4,6 +4,7 @@ import {
   list,
   makeButton,
   option,
+  reflectAttribute,
   text,
 } from './component.js';
 
@@ -26,6 +27,10 @@ export function renderCommand(host, combobox = false) {
     host.getAttribute('options'),
     ['First option', 'Second option', 'Third option'],
   ).map(option);
+  const selected = options.find(
+    (entry) => entry.value === host.getAttribute('value'),
+  );
+  if (selected) input.value = selected.label;
 
   const results = document.createElement('div');
   results.className = 'u-command-list';
@@ -41,7 +46,7 @@ export function renderCommand(host, combobox = false) {
       row.setAttribute('role', 'option');
       row.addEventListener('click', () => {
         input.value = item.label;
-        host.setAttribute('value', item.value);
+        reflectAttribute(host, 'value', item.value);
         emit(host, 'change', {
           value: item.value,
           label: item.label,
