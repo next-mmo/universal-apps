@@ -10,7 +10,7 @@ Verified project facts and entry points for the Tauri Universal monorepo.
   - Cross-framework playgrounds: `apps/vue-playground/`, `apps/svelte-playground/`, `apps/native-playground/`
   - Same-domain opt-in framework previews: `apps/docs/previews/` (Vue, Svelte, React Native Web + UniWind)
   - Framework-neutral contracts: `packages/core/`, `packages/pro-core/`
-  - UI libraries: `packages/ui/`, `packages/pro/`, `packages/pro-vue/`, `packages/pro-svelte/`, `packages/ui-native/`
+  - UI libraries: `packages/ui/`, `packages/ui-vanilla/`, `packages/pro/`, `packages/pro-vue/`, `packages/pro-svelte/`, `packages/ui-native/`
   - Tauri bindings for separate native app consumers: `packages/tauri-api/`
   - CLI & workflow packages: `packages/cli/`, `packages/agent-workflow/`, `packages/mcp/`, `packages/nd-workflow/`
 - Runtime/version pins: Node.js >= 22, pnpm 10+, Python 3.10+ (for ND scripts); Rust is needed only for a separate native app.
