@@ -11,7 +11,8 @@ export function renderDateInput(host) {
   node.type = 'date';
   node.value = text(host, 'value');
   fieldAttributes(host, node);
-  node.addEventListener('change', () => {
+  node.addEventListener('change', (event) => {
+    event.stopPropagation();
     host.setAttribute('value', node.value);
     emit(host, 'change', { value: node.value });
   });
