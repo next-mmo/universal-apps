@@ -137,7 +137,18 @@ describe('vanilla custom element catalog', () => {
     control.dispatchEvent(new Event('change', { bubbles: true }));
 
     expect(select.getAttribute('value')).toBe('b');
-    expect(selectChange).toHaveBeenCalled();
+    expect(selectChange).toHaveBeenCalledTimes(1);
+    expect(selectChange.mock.calls[0][0].detail.value).toBe('b');
+
+    const input = mount('input', { value: 'first' });
+    const inputEvent = vi.fn();
+    input.addEventListener('input', inputEvent);
+    const nativeInput = input.querySelector('input');
+    nativeInput.value = 'second';
+    nativeInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+    expect(inputEvent).toHaveBeenCalledTimes(1);
+    expect(inputEvent.mock.calls[0][0].detail.value).toBe('second');
   });
 
   it('does not emit a tabs change on mount and supports keyboard selection', () => {
