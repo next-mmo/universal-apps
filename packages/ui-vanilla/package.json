@@ -35,5 +35,8 @@
     "./tooltip": "./src/components/ui/tooltip.js",
     "./component": "./src/lib/component.js",
     "./tokens.css": "./src/styles/tokens.css"
+  },
+  "scripts": {
+    "test": "pnpm --dir ../.. exec vitest run packages/ui-vanilla/test/components.test.js"
   }
 }
