@@ -14,12 +14,14 @@ export const UniversalInput = defineUniversalElement(
     node.type = text(host, 'type', 'text');
     node.value = text(host, 'value');
     fieldAttributes(host, node);
-    node.addEventListener('input', () =>
-      emit(host, 'input', { value: node.value }),
-    );
-    node.addEventListener('change', () =>
-      emit(host, 'change', { value: node.value }),
-    );
+    node.addEventListener('input', (event) => {
+      event.stopPropagation();
+      emit(host, 'input', { value: node.value });
+    });
+    node.addEventListener('change', (event) => {
+      event.stopPropagation();
+      emit(host, 'change', { value: node.value });
+    });
     clear(host, node);
   },
 );
