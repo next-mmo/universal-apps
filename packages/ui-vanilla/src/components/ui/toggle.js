@@ -4,6 +4,7 @@ import {
   defineUniversalElement,
   emit,
   makeButton,
+  reflectAttribute,
   text,
 } from '../../lib/component.js';
 
@@ -15,7 +16,7 @@ export const UniversalToggle = defineUniversalElement(
       node.setAttribute('aria-pressed', String(bool(host, 'pressed')));
 
     node.addEventListener('click', () => {
-      host.toggleAttribute('pressed', !bool(host, 'pressed'));
+      reflectAttribute(host, 'pressed', !bool(host, 'pressed'));
       update();
       emit(host, 'change', { pressed: bool(host, 'pressed') });
     });
