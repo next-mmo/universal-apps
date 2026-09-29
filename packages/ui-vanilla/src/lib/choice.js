@@ -1,4 +1,4 @@
-import { bool, clear, emit, text } from './component.js';
+import { bool, clear, emit, reflectAttribute, text } from './component.js';
 
 export function renderChoice(host, kind) {
   const wrapper = document.createElement('label');
@@ -20,7 +20,7 @@ export function renderChoice(host, kind) {
 
   input.addEventListener('change', (event) => {
     event.stopPropagation();
-    host.toggleAttribute('checked', input.checked);
+    reflectAttribute(host, 'checked', input.checked);
     emit(host, 'change', { checked: input.checked });
   });
 
