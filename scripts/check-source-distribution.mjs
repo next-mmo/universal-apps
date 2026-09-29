@@ -29,6 +29,18 @@ try {
   assert.equal(Object.keys(manifest.devDependencies ?? {}).length, 0);
   const registry = JSON.parse(fs.readFileSync(path.join(distribution, 'registry/index.json'), 'utf8'));
   assert.equal(registry.packages.length, 9, 'Every runtime package must be covered');
+  const vanillaButton = registry.items.find((item) => item.name === 'ui-vanilla-button');
+  assert.ok(vanillaButton, 'Vanilla button registry item is missing');
+  const vanillaButtonTargets = vanillaButton.files.map((file) => file.target);
+  assert.ok(vanillaButtonTargets.some((target) => target.endsWith('/ui-vanilla/components/ui/button.js')));
+  assert.ok(vanillaButtonTargets.some((target) => target.endsWith('/ui-vanilla/lib/component.js')));
+  assert.ok(vanillaButtonTargets.some((target) => target.endsWith('/ui-vanilla/styles/tokens.css')));
+  assert.ok(
+    !vanillaButtonTargets.some((target) =>
+      /\/ui-vanilla\/components\/ui\/(?!button\.js$)/.test(target),
+    ),
+    'Adding the vanilla button must not pull unrelated component implementations',
+  );
   const cli = path.join(distribution, 'cli.mjs');
   for (const framework of ['react', 'vue', 'svelte', 'native', 'vanilla']) {
     const cwd = path.join(scratch, framework);
