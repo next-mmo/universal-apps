@@ -42,6 +42,9 @@ try {
     for (const group of ['dependencies', 'devDependencies']) for (const [name, version] of Object.entries(consumer[group] ?? {})) {
       assert.ok(!name.startsWith('@package/') && !name.includes('universal-cli'));
       assert.ok(!version.startsWith('workspace:'));
+      if (framework === 'vanilla') {
+        assert.ok(!['react', 'react-dom', 'vue', 'svelte'].includes(name), `Vanilla unexpectedly depends on ${name}`);
+      }
     }
     console.log(`${framework}: packed CLI generated all matching source items without a workspace library`);
   }
