@@ -1,3 +1,7 @@
 import { defineUniversalElement } from '../../lib/component.js';
+import { renderChoice } from '../../lib/choice.js';
 
-export const UniversalSwitch = defineUniversalElement('universal-switch', 'switch');
+export const UniversalSwitch = defineUniversalElement(
+  'universal-switch',
+  (host) => renderChoice(host, 'switch'),
+);
