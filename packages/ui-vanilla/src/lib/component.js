@@ -52,6 +52,16 @@ export const emit = (element, name, detail) =>
 
 export const clear = (element, ...nodes) => element.replaceChildren(...nodes);
 
+export const reflectAttribute = (element, name, value) => {
+  element._reflecting = true;
+  try {
+    if (value === false || value == null) element.removeAttribute(name);
+    else element.setAttribute(name, value === true ? '' : String(value));
+  } finally {
+    element._reflecting = false;
+  }
+};
+
 export const fieldAttributes = (host, control) => {
   for (const name of ['name', 'min', 'max', 'step', 'placeholder']) {
     const value = host.getAttribute(name);
@@ -79,7 +89,7 @@ export function defineUniversalElement(tagName, renderer, options = {}) {
     }
 
     attributeChangedCallback() {
-      if (this.isConnected && !this._rendering) this.render();
+      if (this.isConnected && !this._rendering && !this._reflecting) this.render();
     }
 
     get value() {
