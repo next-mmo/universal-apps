@@ -34,7 +34,8 @@ export const UniversalSelect = defineUniversalElement(
         node.append(item);
       });
 
-    node.addEventListener('change', () => {
+    node.addEventListener('change', (event) => {
+      event.stopPropagation();
       host.setAttribute('value', node.value);
       emit(host, 'change', { value: node.value });
     });
