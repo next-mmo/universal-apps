@@ -17,7 +17,9 @@
   },
   "peerDependencies": {
     "react-native-gesture-handler": "^3.3.0",
-    "react-native-reanimated": "^4.7.0"
+    "react-native-reanimated": "^4.7.0",
+    "uniwind": ">=1.11.0",
+    "nativewind": ">=5.0.0-rc.0"
   },
   "peerDependenciesMeta": {
     "react-native": {
@@ -27,6 +29,12 @@
       "optional": true
     },
     "react-native-gesture-handler": {
+      "optional": true
+    },
+    "uniwind": {
+      "optional": true
+    },
+    "nativewind": {
       "optional": true
     }
   }

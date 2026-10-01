@@ -163,3 +163,5 @@ apps/docs/public/previews/
 apps/benchmark/*/src/app.tsx
 apps/benchmark/*/src/components.tsx
 apps/benchmark/*/dist/
+
+.expo/

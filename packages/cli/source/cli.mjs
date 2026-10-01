@@ -16,7 +16,7 @@ const help = `universal <command> [items] [options]
   -c, --cwd <path>          target project (default: current directory)
   --path <path>             generated source directory (init only)
   --css <path>              Tailwind v4 stylesheet (init only)
-  --framework <name>        react, vue, svelte, vanilla, native, or uniwind-bare
+  --framework <name>        react, vue, svelte, vanilla, native, uniwind-bare, expo-uniwind, or nativewind
   --tauri                   include Tauri 2 desktop shell configuration (create only)
   --all                     add all packages for an explicit --framework
   --overwrite               explicitly replace differing local source files
@@ -46,9 +46,9 @@ export async function main(args = process.argv.slice(2)) {
     else names.push(arg);
   }
   if (!['create', 'init', 'list', 'add', 'diff', 'doctor'].includes(command)) throw new Error(`Unknown command: ${command}`);
-  const supportedFrameworks = ['react', 'vue', 'svelte', 'vanilla', 'native', 'uniwind-bare', 'native-bare', 'go-echo', 'go', 'echo'];
+  const supportedFrameworks = ['react', 'vue', 'svelte', 'vanilla', 'native', 'uniwind-bare', 'native-bare', 'expo-uniwind', 'expo', 'nativewind', 'nativewind-expo', 'expo-nativewind', 'go-echo', 'go', 'echo'];
   if (options.framework && !supportedFrameworks.includes(options.framework)) throw new Error('Invalid --framework');
-  if (['uniwind-bare', 'native-bare'].includes(options.framework) && command !== 'create') {
+  if (['uniwind-bare', 'native-bare', 'expo-uniwind', 'expo', 'nativewind', 'nativewind-expo', 'expo-nativewind'].includes(options.framework) && command !== 'create') {
     options.framework = 'native';
   }
   if (command !== 'init' && (options.path || options.css)) throw new Error('--path and --css configure init only; edit universal.json for existing projects');

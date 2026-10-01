@@ -31,6 +31,7 @@
 | **0013** | [Locale-aware date formatting for the date components](0013-locale-aware-date-formatting.md) | **in-progress** | `Intl.DateTimeFormat` replaces the hard-coded English month/weekday/day strings in the date components on both surfaces, with an optional `locale` prop; zero new dependencies, week layout unchanged; closure recorded in `docs/tasks/done/done-0019-locale-aware-date-formatting.md`; merged to `main` 2026-09-23 |
 | **0014** | [Production readiness: gates that can fail, pins that resolve, coverage that is true](0014-production-readiness-gates-and-pins.md) | **in-progress** | A line-ending policy, one router version instead of two, a PR gate that actually builds, SHA-pinned actions with dependabot, a release that cannot publish a mismatched tag, a coverage floor that reports the true 40% packages-wide number instead of a curated 96%, and vue/svelte consumer compilation that can fail; recorded in `docs/tasks/wip-0020-production-readiness-gates-and-pins.md` |
 | **0015** | [Vanilla Web UI source target](0015-vanilla-web-ui.md) | **in-progress** | Adds framework-free light-DOM Custom Elements as a first-class source CLI target with `create/init/add --framework vanilla`, framework-local short aliases, and smoke/compile gates |
+| **0016** | [Nativewind v5 and Expo React Native Support](0016-nativewind-v5-and-expo-support.md) | **in-progress** | Adds dual native engine support for Nativewind v5 RC0 and Uniwind with Tailwind CSS v4, Expo scaffolding, and engine-agnostic @package/ui-native components |
 
 ## Authority
 

@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "framework": "native",
+  "sourceDir": "src/lib/universal",
+  "css": "src/index.css"
+}

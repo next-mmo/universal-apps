@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "uniwind";
+@import "@package/ui/src/styles/tokens.css";
+
+/* Tailwind's automatic detection scans the app directory; the shared
+   native package lives outside it, so its sources must be declared explicitly. */
+@source "../../../packages/ui-native/src";
+
+@theme inline {
+  --color-primary: #007aff;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #2c2c2e;
+  --color-secondary-foreground: #f5f5f7;
+  --color-destructive: #ff453a;
+  --color-destructive-foreground: #ffffff;
+  --color-card: #1c1c1e;
+  --color-card-foreground: #f5f5f7;
+  --color-border: rgba(255, 255, 255, 0.12);
+}

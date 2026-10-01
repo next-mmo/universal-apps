@@ -116,7 +116,7 @@ export function initialize(cwd, options = {}) {
   if (fs.existsSync(existing)) throw new Error('universal.json already exists; edit it instead of replacing company configuration');
   const allDeps = { ...manifest.dependencies, ...manifest.devDependencies };
   let framework = options.framework ?? (allDeps.vue ? 'vue' : allDeps.svelte ? 'svelte' : allDeps['react-native'] ? 'native' : 'react');
-  if (['uniwind-bare', 'native-bare'].includes(framework)) framework = 'native';
+  if (['uniwind-bare', 'native-bare', 'expo-uniwind', 'expo', 'nativewind', 'nativewind-expo', 'expo-nativewind'].includes(framework)) framework = 'native';
   if (!['react', 'vue', 'svelte', 'vanilla', 'native'].includes(framework)) throw new Error(`Unsupported framework: ${framework}`);
   const candidates = ['src/app/globals.css', 'app/globals.css', 'src/index.css', 'src/style.css', 'src/styles.css', 'src/app.css', 'src/styles/globals.css', 'src/assets/main.css'];
   const config = {
@@ -155,15 +155,23 @@ export function selectItems(registry, names, options = {}) {
   }
   if (!requested.size) throw new Error('Choose at least one registry item; use list to discover names');
   const aliasFramework = options.projectFramework ?? options.framework;
-  const aliasPrefix = aliasFramework === 'vanilla' ? 'ui-vanilla-' : aliasFramework === 'react' ? 'ui-' : null;
+  const aliasPrefixes = aliasFramework === 'vanilla'
+    ? ['ui-vanilla-']
+    : aliasFramework === 'native'
+    ? ['ui-native-components-ui-', 'ui-native-']
+    : aliasFramework === 'react'
+    ? ['ui-']
+    : [];
   return [...requested].map((name) => {
     const exact = registry.items.find((item) => item.name === name);
-    const alias = aliasPrefix
-      ? registry.items.find((item) => item.name === aliasPrefix + name && item.meta?.framework === aliasFramework)
+    const alias = aliasPrefixes.length
+      ? registry.items.find((item) => aliasPrefixes.some((prefix) => item.name === prefix + name) && item.meta?.framework === aliasFramework)
       : null;
-    const legacyReactAlias = registry.items.find(
-      (item) => item.name === `ui-${name}` && !registry.items.some((other) => other.name === name),
-    );
+    const legacyReactAlias = (!aliasFramework || aliasFramework === 'react')
+      ? registry.items.find(
+          (item) => item.name === `ui-${name}` && !registry.items.some((other) => other.name === name),
+        )
+      : null;
     const item = exact ?? alias ?? legacyReactAlias;
     if (!item) throw new Error(`Unknown registry item: ${name}`);
     return item;
@@ -347,13 +355,13 @@ export function createProject(cwd, name, registry, options = {}) {
   }
 
   const isGo = ['go-echo', 'go', 'echo'].includes(framework);
-  const isBareNative = ['uniwind-bare', 'native-bare'].includes(framework);
+  const isNativeMobile = ['uniwind-bare', 'native-bare', 'expo-uniwind', 'expo', 'nativewind', 'nativewind-expo', 'expo-nativewind'].includes(framework);
 
   // Initialize universal.json for frontend projects
   let config = null;
   if (!isGo) {
     config = initialize(projectDir, {
-      framework: isBareNative ? 'native' : framework,
+      framework: isNativeMobile ? 'native' : framework,
       css: 'src/index.css',
     });
   }
@@ -361,7 +369,7 @@ export function createProject(cwd, name, registry, options = {}) {
   // If registry is provided, add default starter components for supported frontends
   let added = [];
   if (registry && !isGo) {
-    const starterItem = framework === 'react' || framework === 'vanilla' ? 'button' : (framework === 'native' || isBareNative) ? 'ui-native-components-ui-button' : 'core';
+    const starterItem = framework === 'react' || framework === 'vanilla' ? 'button' : (framework === 'native' || isNativeMobile) ? 'ui-native-components-ui-button' : 'core';
     try {
       const plan = planInstall(projectDir, registry, [starterItem], { noInstall: true });
       applyPlan(plan, { noInstall: true });

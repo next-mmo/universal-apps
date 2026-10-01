@@ -28,6 +28,8 @@
     "lint:fix": "oxlint --fix",
     "dev:native": "pnpm --filter @app/native-playground dev",
     "start:bare": "pnpm --filter uniwind-bare start",
+    "start:expo": "pnpm --filter expo-uniwind start",
+    "start:nativewind": "pnpm --filter @app/nativewind-showcase dev",
     "foundation:typecheck": "tsc -p packages/agent-workflow/tsconfig.json",
     "foundation:test": "tsx --test packages/agent-workflow/test/foundation.test.ts packages/agent-workflow/test/review-regressions.test.mjs packages/mcp/test/foundation.integration.ts",
     "source": "node packages/cli/source/cli.mjs",
@@ -63,7 +65,8 @@
   "pnpm": {
     "overrides": {
       "vite": "7.3.6",
-      "@babel/runtime": "7.29.7"
+      "@babel/runtime": "7.29.7",
+      "lightningcss": "1.30.1"
     }
   }
 }
