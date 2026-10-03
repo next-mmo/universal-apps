@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "nativewind-showcase",
+    "slug": "nativewind-showcase",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

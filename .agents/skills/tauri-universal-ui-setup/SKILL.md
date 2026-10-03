@@ -14,7 +14,7 @@ Use when adding a primitive, preparing a consuming app, repairing styling config
 3. Search `agent/catalog.json` and the source tree for an existing component or recipe.
 4. Check `scaffold.config.json` and use the scaffold command when a supported template exists.
 
-Keep this repository's existing dependencies and versions. Do not install gluestack, NativeWind, Expo, or another UI system as a setup shortcut; this workspace uses Radix/CVA for DOM components and Uniwind for the native playground.
+Keep this repository's existing dependencies and versions. This workspace uses Radix/CVA for DOM components, and supports both Uniwind and Nativewind v5 for React Native platforms. Do not install external component libraries like gluestack as a setup shortcut.
 
 ## Scaffold first when supported
 

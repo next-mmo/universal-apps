@@ -2244,3 +2244,156 @@ Uniwind.setTheme('light');
 
 Uniwind dynamically switches CSS custom properties and re-renders affected native components without reloading the bundle.
 
+## React Native (Nativewind v5)
+
+Source: `apps/docs/content/docs/platforms/nativewind.mdx`
+
+Tauri Universal supports both **Uniwind** and **Nativewind v5 RC0** (`nativewind@5.0.0-rc.0` with `react-native-css@3.1.0-rc.0`) as native styling engines. Both engines share the same Apple-inspired design tokens, Tailwind CSS v4 compilation, and underlying `lightningcss@1.30.1` CSS parsing.
+
+## Native engine comparison
+
+| Feature | Uniwind (`uniwind-bare`) | Nativewind v5 (`nativewind`) |
+| ------- | ------------------------ | ---------------------------- |
+| **Target Runtime** | Bare React Native (Community CLI / Metro) | Expo & Bare React Native (Metro) |
+| **Engine Core** | Uniwind runtime + Babel / Metro transform | `react-native-css` compilation |
+| **Tailwind Support** | Tailwind CSS v4 (`@tailwindcss/node`) | Tailwind CSS v4 (`@tailwindcss/postcss`) |
+| **CSS Entry** | `src/index.css` (`@import "tailwindcss"; @import "uniwind";`) | `src/index.css` (unlayered Tailwind + `nativewind/theme`) |
+| **PostCSS Config** | Optional | Required (`@tailwindcss/postcss`) |
+| **Type Augmentation** | `uniwind/types` | `react-native-css/types` |
+| **Scaffolding** | `universal create <name> --framework uniwind-bare` | `universal create <name> --framework nativewind` |
+
+## Scaffolding a Nativewind v5 project
+
+Create a runnable React Native Expo project configured with Nativewind v5 RC0 and Tailwind CSS v4:
+
+```bash
+npx @next-mmo/universal-cli create my-mobile-app --framework nativewind
+```
+
+Or using the alias:
+
+```bash
+npx @next-mmo/universal-cli create my-mobile-app --framework nativewind-expo
+```
+
+This scaffolds:
+- `package.json` with exact pinned `nativewind@5.0.0-rc.0`, `react-native-css@3.1.0-rc.0`, and `lightningcss@1.30.1` overrides
+- `postcss.config.mjs` configuring `@tailwindcss/postcss`
+- `metro.config.js` wrapping Expo Metro config with `withNativewind`
+- `nativewind-env.d.ts` referencing `react-native-css/types`
+- `src/index.css` importing Tailwind v4 layers, Nativewind theme, and universal design tokens
+- `App.tsx` rendering styled native components
+- `universal.json` pre-configured to add `@package/ui-native` components
+
+## Manual configuration
+
+### 1. Dependencies and engine pin
+
+Nativewind v5 RC0 requires the exact pair `nativewind@5.0.0-rc.0` and `react-native-css@3.1.0-rc.0`, along with `lightningcss` pinned to `1.30.1`:
+
+```json
+{
+  "dependencies": {
+    "nativewind": "5.0.0-rc.0",
+    "react-native-css": "3.1.0-rc.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.1.12",
+    "lightningcss": "1.30.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "4.1.12"
+  },
+  "overrides": {
+    "lightningcss": "1.30.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "lightningcss": "1.30.1"
+    }
+  }
+}
+```
+
+### 2. PostCSS configuration
+
+Create `postcss.config.mjs` in the project root:
+
+```js
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+```
+
+### 3. Metro configuration
+
+Wrap your Metro configuration in `metro.config.js` with `withNativewind`:
+
+```js
+const { getDefaultConfig } = require('expo/metro-config');
+const { withNativewind } = require('nativewind/metro');
+
+/** @type {import('expo/metro-config').MetroConfig} */
+const config = getDefaultConfig(__dirname);
+
+module.exports = withNativewind(config);
+```
+
+### 4. CSS entry and tokens
+
+Create `src/index.css` and keep the utility imports unlayered:
+
+```css
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@import "nativewind/theme";
+
+@theme inline {
+  --color-primary: #007aff;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #2c2c2e;
+  --color-secondary-foreground: #f5f5f7;
+  --color-destructive: #ff453a;
+  --color-destructive-foreground: #ffffff;
+  --color-card: #1c1c1e;
+  --color-card-foreground: #f5f5f7;
+  --color-border: rgba(255, 255, 255, 0.12);
+}
+```
+
+Import this file once at the top of your root application component (`App.tsx` or `app/_layout.tsx`):
+
+```tsx
+```
+
+### 5. TypeScript declarations
+
+Add `nativewind-env.d.ts` in your project root:
+
+```ts
+/// <reference types="react-native-css/types" />
+```
+
+Ensure this declaration file is included in `tsconfig.json`.
+
+## Consuming `@package/ui-native` components
+
+All primitives in `@package/ui-native` (`Button`, `Card`, `Dialog`, `DropdownMenu`, `Tabs`, `Table`, `Badge`, `Input`, `Switch`, etc.) are engine-agnostic:
+
+```tsx
+
+  return (
+    <View className="flex-1 items-center justify-center bg-slate-950 p-6">
+      <Text className="text-2xl font-bold text-slate-50 mb-4">Hello Nativewind!</Text>
+      <Button variant="default" onPress={() => console.log('Pressed')}>
+        Universal Button
+      </Button>
+    </View>
+  );
+}
+```
+
+For source-distributed projects (via `npx @next-mmo/universal-cli add <component>`), source files are added directly to `src/lib/universal/ui-native/` and styled via your project's Nativewind setup without third-party runtime library lock-in.
+

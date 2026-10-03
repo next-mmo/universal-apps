@@ -1,6 +1,6 @@
 # Task 0021: Vanilla Web UI source target
 
-> **Status:** wip
+> **Status:** done
 > **Type:** feature
 > **Created:** 2026-09-29
 > **PRD:** `docs/prd/0015-vanilla-web-ui.md`

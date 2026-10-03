@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    "ui-native-components-ui-button"
+  ],
+  "files": {
+    "src/lib/universal/ui-native/components/ui/button.tsx": "3cc56c5fa67ba8186df63000173f96317f99f4687ec8a7444b6feb5b72e714e8",
+    "src/lib/universal/ui/lib/cn.ts": "d75076c095642e9effbacf0adbd94c2a29d61f652ef9e422a0d857e20b2fb0b7",
+    "src/lib/universal/LICENSE": "de631c00ccad48843538d9adbda68e519ebcb40d193a73c6d8a4c0c20b184263"
+  },
+  "registryVersion": "0.1.0"
+}

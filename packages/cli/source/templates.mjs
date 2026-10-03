@@ -4,6 +4,8 @@ import { getVanillaTemplateFiles } from './templates/vanilla.mjs';
 import { getSvelteTemplateFiles } from './templates/svelte.mjs';
 import { getNativeTemplateFiles } from './templates/native.mjs';
 import { getNativeBareTemplateFiles } from './templates/native-bare.mjs';
+import { getExpoTemplateFiles } from './templates/expo.mjs';
+import { getNativewindTemplateFiles } from './templates/nativewind.mjs';
 import { getTauriTemplateFiles } from './templates/tauri.mjs';
 import { getGoEchoTemplateFiles } from './templates/go-echo.mjs';
 
@@ -18,6 +20,16 @@ export function getTemplateFiles(name, options = {}) {
   // Bare React Native starter (Metro + Uniwind)
   if (['uniwind-bare', 'native-bare'].includes(framework)) {
     return getNativeBareTemplateFiles(name, options);
+  }
+
+  // Expo starter (Expo Metro + Uniwind)
+  if (['expo-uniwind', 'expo'].includes(framework)) {
+    return getExpoTemplateFiles(name, options);
+  }
+
+  // Nativewind v5 RC0 starter (Expo Metro + Nativewind + Tailwind v4)
+  if (['nativewind', 'nativewind-expo', 'expo-nativewind'].includes(framework)) {
+    return getNativewindTemplateFiles(name, options);
   }
 
   const files = new Map();

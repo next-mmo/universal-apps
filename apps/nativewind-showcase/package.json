@@ -1,0 +1,40 @@
+{
+  "name": "@app/nativewind-showcase",
+  "private": true,
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "expo start --web --port=1470",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web --port=1470",
+    "lint": "oxlint"
+  },
+  "dependencies": {
+    "@package/ui-native": "workspace:*",
+    "clsx": "^2.1.1",
+    "expo": "^57.0.0",
+    "nativewind": "5.0.0-rc.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-native": "^0.81.4",
+    "react-native-css": "3.1.0-rc.0",
+    "react-native-reanimated": "^4.7.0",
+    "react-native-safe-area-context": "^5.0.0",
+    "react-native-web": "^0.21.0",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@expo/metro-config": "^57.0.0",
+    "@expo/metro-runtime": "^57.0.0",
+    "@tailwindcss/postcss": "4.1.12",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.6",
+    "babel-preset-expo": "^57.0.0",
+    "lightningcss": "1.30.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "4.1.12",
+    "typescript": "^5.8.3"
+  }
+}

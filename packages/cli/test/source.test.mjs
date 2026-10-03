@@ -143,10 +143,12 @@ test('short UI aliases resolve against the configured project framework', () => 
     items: [
       { name: 'ui-button', files: [], meta: { framework: 'react', package: 'ui' } },
       { name: 'ui-vanilla-button', files: [], meta: { framework: 'vanilla', package: 'ui-vanilla' } },
+      { name: 'ui-native-components-ui-button', files: [], meta: { framework: 'native', package: 'ui-native' } },
     ],
   };
   assert.equal(selectItems(registry, ['button'], { projectFramework: 'react' })[0].name, 'ui-button');
   assert.equal(selectItems(registry, ['button'], { projectFramework: 'vanilla' })[0].name, 'ui-vanilla-button');
+  assert.equal(selectItems(registry, ['button'], { projectFramework: 'native' })[0].name, 'ui-native-components-ui-button');
 });
 test('doctor detects deleted source and reintroduced workspace imports', (t) => {
   const f = fixture(t); initialize(f.cwd); const r = f.build(); applyPlan(planInstall(f.cwd, r, ['button']), { noInstall: true });
@@ -288,5 +290,60 @@ test('every runtime catalog builds into an actual standalone npm tarball', (t) =
   const bareAliasRes = run('create', 'starter-native-bare', '--framework', 'native-bare', '--no-install');
   assert.equal(bareAliasRes.status, 0, bareAliasRes.stderr);
   assert.ok(fs.existsSync(path.join(cwd, 'starter-native-bare/metro.config.js')));
+
+  const expoRes = run('create', 'starter-expo-uniwind', '--framework', 'expo-uniwind', '--no-install');
+  assert.equal(expoRes.status, 0, expoRes.stderr);
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-expo-uniwind/metro.config.js')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-expo-uniwind/babel.config.js')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-expo-uniwind/app.json')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-expo-uniwind/index.js')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-expo-uniwind/src/App.tsx')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-expo-uniwind/src/index.css')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-expo-uniwind/src/uniwind-env.d.ts')));
+  assert.ok(!fs.existsSync(path.join(cwd, 'starter-expo-uniwind/index.html')), 'Expo should not have index.html');
+  const expoMetro = fs.readFileSync(path.join(cwd, 'starter-expo-uniwind/metro.config.js'), 'utf8');
+  assert.ok(expoMetro.includes('expo/metro-config'));
+  assert.ok(expoMetro.includes('withUniwindConfig'));
+  const expoBabel = fs.readFileSync(path.join(cwd, 'starter-expo-uniwind/babel.config.js'), 'utf8');
+  assert.ok(expoBabel.includes('babel-preset-expo'));
+  const expoAppJson = JSON.parse(fs.readFileSync(path.join(cwd, 'starter-expo-uniwind/app.json'), 'utf8'));
+  assert.equal(expoAppJson.expo.name, 'starter-expo-uniwind');
+  assert.equal(expoAppJson.expo.newArchEnabled, true);
+  const expoIndex = fs.readFileSync(path.join(cwd, 'starter-expo-uniwind/index.js'), 'utf8');
+  assert.ok(expoIndex.includes('registerRootComponent'));
+  const expoConfig = JSON.parse(fs.readFileSync(path.join(cwd, 'starter-expo-uniwind/universal.json'), 'utf8'));
+  assert.equal(expoConfig.framework, 'native');
+
+  const expoAliasRes = run('create', 'starter-expo', '--framework', 'expo', '--no-install');
+  assert.equal(expoAliasRes.status, 0, expoAliasRes.stderr);
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-expo/metro.config.js')));
+
+  const nwRes = run('create', 'starter-nativewind', '--framework', 'nativewind', '--no-install');
+  assert.equal(nwRes.status, 0, nwRes.stderr);
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-nativewind/metro.config.js')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-nativewind/postcss.config.mjs')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-nativewind/nativewind-env.d.ts')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-nativewind/src/index.css')));
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-nativewind/App.tsx')));
+  assert.ok(!fs.existsSync(path.join(cwd, 'starter-nativewind/index.html')), 'Nativewind should not have index.html');
+  const nwMetro = fs.readFileSync(path.join(cwd, 'starter-nativewind/metro.config.js'), 'utf8');
+  assert.ok(nwMetro.includes('withNativewind'));
+  const nwPostcss = fs.readFileSync(path.join(cwd, 'starter-nativewind/postcss.config.mjs'), 'utf8');
+  assert.ok(nwPostcss.includes('@tailwindcss/postcss'));
+  const nwEnv = fs.readFileSync(path.join(cwd, 'starter-nativewind/nativewind-env.d.ts'), 'utf8');
+  assert.ok(nwEnv.includes('react-native-css/types'));
+  const nwCss = fs.readFileSync(path.join(cwd, 'starter-nativewind/src/index.css'), 'utf8');
+  assert.ok(nwCss.includes('nativewind/theme'));
+  const nwPkg = JSON.parse(fs.readFileSync(path.join(cwd, 'starter-nativewind/package.json'), 'utf8'));
+  assert.equal(nwPkg.dependencies.nativewind, '5.0.0-rc.0');
+  assert.equal(nwPkg.dependencies['react-native-css'], '3.1.0-rc.0');
+  assert.equal(nwPkg.overrides?.lightningcss, '1.30.1');
+  assert.equal(nwPkg.pnpm?.overrides?.lightningcss, '1.30.1');
+  const nwConfig = JSON.parse(fs.readFileSync(path.join(cwd, 'starter-nativewind/universal.json'), 'utf8'));
+  assert.equal(nwConfig.framework, 'native');
+
+  const nwAliasRes = run('create', 'starter-nativewind-expo', '--framework', 'nativewind-expo', '--no-install');
+  assert.equal(nwAliasRes.status, 0, nwAliasRes.stderr);
+  assert.ok(fs.existsSync(path.join(cwd, 'starter-nativewind-expo/metro.config.js')));
 });
 
