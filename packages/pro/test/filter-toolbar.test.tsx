@@ -243,8 +243,12 @@ describe('ProFilterToolbar', () => {
     const onFilter = vi.fn<(filters: Record<string, unknown>) => void>();
     render(<ProFilterToolbar fields={[{ name: 'window', label: 'Window', type: 'date-range' }]} onFilter={onFilter} />);
 
+    // With no value the calendar opens on the current month, so the pressed days must live there.
+    const now = new Date();
     const dayLabel = (date: number) =>
-      new Intl.DateTimeFormat(undefined, { month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(2026, 8, date));
+      new Intl.DateTimeFormat(undefined, { month: 'long', day: 'numeric', year: 'numeric' }).format(
+        new Date(now.getFullYear(), now.getMonth(), date),
+      );
 
     await userEvent.click(screen.getByLabelText('Window'));
     await userEvent.click(await screen.findByRole('button', { name: dayLabel(10) }));
