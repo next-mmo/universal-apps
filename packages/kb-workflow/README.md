@@ -13,6 +13,7 @@ A lightweight, evidence-driven delivery workflow for AI-assisted software develo
 | `.agents/skills/` | Nine `kb-` agent skills (see below) |
 | `.agents/templates/` | `PRD.md` and `TASK.md` skeletons matching the conventions |
 | `docs/` | `README.md` topic router; empty `prd/`, `plans/`, `tasks/` (kanban) directories |
+| `tests/` | `node --test` smoke tests for `init.mjs` and the shipped skill/template inventory |
 | `AGENTS.md` | Compact starter policy for coding agents (fill in the project placeholders) |
 
 ## Skills

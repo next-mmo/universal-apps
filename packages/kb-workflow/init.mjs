@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 
 const packageRoot = path.dirname(fileURLToPath(import.meta.url));
 const SCAFFOLD = ['AGENTS.md', '.agents', 'docs'];
-const SKIP_DIRS = new Set(['node_modules', '.git']);
+const SKIP_DIRS = new Set(['node_modules', '.git', '__pycache__']);
 
 const args = process.argv.slice(2);
 const write = args.includes('--write');
