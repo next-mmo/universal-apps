@@ -14,7 +14,7 @@ import {
 } from 'fumadocs-ui/layouts/docs/page';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 
-import { FrameworkPreview } from '../components/framework-preview';
+import { FrameworkPreview, resolvePreviewComponent } from '../components/framework-preview';
 import { PlatformProvider, PlatformSwitcher } from '../components/platform-switcher';
 import { source } from '../lib/source';
 
@@ -34,28 +34,28 @@ type MdxPage = {
 
 const mdxComponents = {
   ...defaultMdxComponents,
-  AccordionDemo: lazy(() => import('../components/accordion-demo').then((module) => ({ default: module.AccordionDemo }))),
+  AccordionDemo: lazy(() => import('../demos/accordion').then((module) => ({ default: module.AccordionDemo }))),
   PageContainerDemo: lazy(() => import('../components/blocks-demos').then((module) => ({ default: module.PageContainerDemo }))),
   ProDataTableDemo: lazy(() => import('../components/blocks-demos').then((module) => ({ default: module.ProDataTableDemo }))),
   ProFormDemo: lazy(() => import('../components/blocks-demos').then((module) => ({ default: module.ProFormDemo }))),
   ProFormDialogDemo: lazy(() => import('../components/blocks-demos').then((module) => ({ default: module.ProFormDialogDemo }))),
-  BadgeDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.BadgeDemo }))),
-  ButtonDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.ButtonDemo }))),
-  CardDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.CardDemo }))),
-  CheckboxDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.CheckboxDemo }))),
-  DialogDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.DialogDemo }))),
-  DropdownMenuDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.DropdownMenuDemo }))),
-  InputDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.InputDemo }))),
-  LabelDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.LabelDemo }))),
-  PopoverDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.PopoverDemo }))),
-  SelectDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.SelectDemo }))),
-  SeparatorDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.SeparatorDemo }))),
-  SkeletonDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.SkeletonDemo }))),
-  SwitchDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.SwitchDemo }))),
-  TableDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.TableDemo }))),
-  TabsDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.TabsDemo }))),
-  TextareaDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.TextareaDemo }))),
-  TooltipDemo: lazy(() => import('../components/component-demos').then((module) => ({ default: module.TooltipDemo }))),
+  BadgeDemo: lazy(() => import('../demos/badge').then((module) => ({ default: module.BadgeDemo }))),
+  ButtonDemo: lazy(() => import('../demos/button').then((module) => ({ default: module.ButtonDemo }))),
+  CardDemo: lazy(() => import('../demos/card').then((module) => ({ default: module.CardDemo }))),
+  CheckboxDemo: lazy(() => import('../demos/checkbox').then((module) => ({ default: module.CheckboxDemo }))),
+  DialogDemo: lazy(() => import('../demos/dialog').then((module) => ({ default: module.DialogDemo }))),
+  DropdownMenuDemo: lazy(() => import('../demos/dropdown-menu').then((module) => ({ default: module.DropdownMenuDemo }))),
+  InputDemo: lazy(() => import('../demos/input').then((module) => ({ default: module.InputDemo }))),
+  LabelDemo: lazy(() => import('../demos/label').then((module) => ({ default: module.LabelDemo }))),
+  PopoverDemo: lazy(() => import('../demos/popover').then((module) => ({ default: module.PopoverDemo }))),
+  SelectDemo: lazy(() => import('../demos/select').then((module) => ({ default: module.SelectDemo }))),
+  SeparatorDemo: lazy(() => import('../demos/separator').then((module) => ({ default: module.SeparatorDemo }))),
+  SkeletonDemo: lazy(() => import('../demos/skeleton').then((module) => ({ default: module.SkeletonDemo }))),
+  SwitchDemo: lazy(() => import('../demos/switch').then((module) => ({ default: module.SwitchDemo }))),
+  TableDemo: lazy(() => import('../demos/table').then((module) => ({ default: module.TableDemo }))),
+  TabsDemo: lazy(() => import('../demos/tabs').then((module) => ({ default: module.TabsDemo }))),
+  TextareaDemo: lazy(() => import('../demos/textarea').then((module) => ({ default: module.TextareaDemo }))),
+  TooltipDemo: lazy(() => import('../demos/tooltip').then((module) => ({ default: module.TooltipDemo }))),
 };
 
 const pageComponents = new Map<string, LazyExoticComponent<ComponentType>>();
@@ -69,6 +69,7 @@ function getPageComponent(page: MdxPage): LazyExoticComponent<ComponentType> {
     return {
       default: function LoadedMdxPage() {
         const markdownUrl = `/docs/${page.path.replace(/\.mdx?$/, '')}.md`;
+        const previewComponent = resolvePreviewComponent(page.path);
         return (
           <FumaDocsPage toc={toc}>
             <div className='flex flex-row items-center gap-2 border-b pb-2'>
@@ -77,7 +78,7 @@ function getPageComponent(page: MdxPage): LazyExoticComponent<ComponentType> {
               <ViewOptionsPopover markdownUrl={markdownUrl} />
             </div>
             {page.data.description ? <DocsDescription>{page.data.description}</DocsDescription> : null}
-            <FrameworkPreview />
+            {previewComponent ? <FrameworkPreview componentId={previewComponent} /> : null}
             <DocsBody>
               <Body components={mdxComponents} />
             </DocsBody>
