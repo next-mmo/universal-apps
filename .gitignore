@@ -165,3 +165,7 @@ apps/benchmark/*/src/components.tsx
 apps/benchmark/*/dist/
 
 .expo/
+
+# Python bytecode caches (e.g. .agents skill scripts)
+__pycache__/
+*.pyc

@@ -1,0 +1,10 @@
+{
+  "name": "@package/kb-workflow",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Spec-first PRD + kanban task-board delivery workflow starter for AI agent development, with kb- prefixed agent skills.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  }
+}
