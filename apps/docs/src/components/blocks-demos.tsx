@@ -118,7 +118,7 @@ export function ProFormDialogDemo() {
 
 export function PageContainerDemo() {
   return (
-    <div className='mb-6 rounded-xl border'>
+    <div className='mb-6 rounded-xl border p-4 md:p-6'>
       <PageContainer
         title='Todos'
         breadcrumbs={['App', 'Data', 'Todos']}

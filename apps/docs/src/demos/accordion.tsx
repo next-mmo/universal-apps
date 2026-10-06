@@ -24,7 +24,7 @@ const items = [
   },
 ];
 
-/** Live accordion rendered by the Accordion docs page. */
+/** Live accordion demo shared by the Accordion docs page and the framework preview. */
 export function AccordionDemo() {
   return (
     <Accordion type='single' collapsible className='mb-6'>
