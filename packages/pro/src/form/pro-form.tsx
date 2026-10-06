@@ -218,28 +218,31 @@ export function ProForm({
               <form.Field
                 key={field.name}
                 name={field.name as never}
-                validators={{
-                  onChange: ({ value }) => {
-                    for (const validate of field.validators ?? []) {
-                      const message = validate(value);
-                      if (message !== undefined) return message;
-                    }
-                    if (field.required && (value === undefined || value === '')) {
-                      return `${field.label} is required`;
-                    }
-                    return undefined;
+                validators={[
+                  {
+                    run: ({ value }) => {
+                      for (const validate of field.validators ?? []) {
+                        const message = validate(value);
+                        if (message !== undefined) return message;
+                      }
+                      if (field.required && (value === undefined || value === '')) {
+                        return `${field.label} is required`;
+                      }
+                      return undefined;
+                    },
+                    triggers: ['change'],
                   },
-                }}
+                ]}
               >
                 {(api) => {
-                  const errors = api.state.meta.errors;
-                  const firstError =
-                    typeof errors[0] === 'string' ? errors[0] : String(errors[0] ?? '');
+                  // v2 normalizes validator results into ValidationIssue objects, so the
+                  // message lives on the issue rather than being the error itself.
+                  const firstError = api.errors[0]?.message ?? '';
                   return (
                     <FieldRow schema={field}>
                       <FieldControl
                         schema={field}
-                        value={api.state.value as unknown}
+                        value={api.value as unknown}
                         error={firstError || undefined}
                         disabled={field.disabled}
                         onChange={(next) => api.handleChange(next as never)}
