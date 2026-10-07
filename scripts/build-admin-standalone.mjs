@@ -166,12 +166,46 @@ const leftovers = [];
 })(OUT);
 if (leftovers.length) throw new Error(`@package/* imports remain: ${leftovers.join(', ')}`);
 
-// --- 10. best-effort zip (tar exists on Windows 10+ and common CI images) --------
-// Relative paths only: GNU tar reads a leading `C:` in -caf as a remote host.
+// --- 10. best-effort zip. GNU tar exits 0 on `-caf x.zip` but writes a plain
+// tar archive that Explorer rejects as invalid; only bsdtar writes real zip.
+// Prefer bsdtar when present, fall back to PowerShell Compress-Archive on
+// Windows (small staged copy — Compress-Archive cannot exclude patterns).
 const zipDir = path.dirname(OUT);
-const zipName = 'admin-dashboard-standalone.zip';
-const zipped = spawnSync('tar', ['-caf', zipName, '--exclude', '*/node_modules*', '--exclude', '*/dist', '--exclude', '*/dist/*', '-C', zipDir, path.basename(OUT)], { cwd: zipDir, stdio: 'pipe', encoding: 'utf8' });
+const zipName = `${path.basename(OUT)}.zip`;
 const zip = path.join(zipDir, zipName);
-console.log(zipped.status === 0 ? `\nzip: ${zip} (${Math.round(fs.statSync(zip).size / 1024)} KiB)` : `\nzip skipped: ${String(zipped.error ?? zipped.stderr).slice(0, 200)}`);
+// A PATH-shadowing GNU tar exits 0 on `-caf x.zip` while writing a plain tar;
+// only bsdtar writes real zip (with forward-slash entry names). Check explicit
+// bsdtar locations before trusting whatever `tar` resolves to.
+const bsdtarCandidates = [
+  process.env.SystemRoot ? path.join(process.env.SystemRoot, 'System32', 'tar.exe') : null,
+  '/usr/bin/bsdtar',
+].filter(Boolean);
+const bsdtar = bsdtarCandidates.find(candidate => {
+  try { return /bsdtar/.test(spawnSync(candidate, ['--version'], { stdio: 'pipe', encoding: 'utf8' }).stdout ?? ''); } catch { return false; }
+});
+let zipNote = null;
+if (bsdtar) {
+  const zipped = spawnSync(bsdtar, ['-caf', zipName, '--exclude', '*/node_modules*', '--exclude', '*/dist', '--exclude', '*/dist/*', '-C', zipDir, path.basename(OUT)], { cwd: zipDir, stdio: 'pipe', encoding: 'utf8' });
+  if (zipped.status !== 0) zipNote = String(zipped.error ?? zipped.stderr);
+} else if (process.platform === 'win32') {
+  const stage = path.join(zipDir, `.${path.basename(OUT)}.stage`);
+  fs.rmSync(stage, { recursive: true, force: true });
+  fs.mkdirSync(path.join(stage, path.basename(OUT)), { recursive: true });
+  for (const name of fs.readdirSync(OUT)) {
+    if (name === 'node_modules' || name === 'dist') continue;
+    fs.cpSync(path.join(OUT, name), path.join(stage, path.basename(OUT), name), { recursive: true });
+  }
+  const zipped = spawnSync('powershell.exe', ['-NoProfile', '-Command', `Compress-Archive -Path '${stage}\\${path.basename(OUT)}' -DestinationPath '${zip}' -Force`], { stdio: 'pipe', encoding: 'utf8' });
+  fs.rmSync(stage, { recursive: true, force: true });
+  if (zipped.status !== 0) zipNote = String(zipped.error ?? zipped.stderr);
+} else {
+  zipNote = 'no real zip writer available (need bsdtar or Windows PowerShell)';
+}
+if (!zipNote && fs.existsSync(zip)) {
+  const head = fs.readFileSync(zip).subarray(0, 2).toString('latin1');
+  if (head !== 'PK') zipNote = 'writer produced a non-zip archive (missing PK magic)';
+}
+if (zipNote) console.log(`\nzip skipped: ${zipNote.slice(0, 200)}`);
+else console.log(`\nzip: ${zip} (${Math.round(fs.statSync(zip).size / 1024)} KiB)`);
 
 console.log(`\nOK standalone extraction verified at ${OUT}`);

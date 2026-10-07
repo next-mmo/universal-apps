@@ -71,6 +71,15 @@ rebuilding the registry from current source is the fix, so it is not left as a m
 - 2026-10-07 — **Workflow check.** `pnpm workflow:check` first FAILED with "expected at most one
   in-progress wip task, found 2" (this task's draft plus `wip-0022`); resolved by closing this
   verified increment into `done/`, re-run PASS with `wip-0022` remaining as the single active task.
+- 2026-10-07 — **Zip correction.** The tar-based zip step recorded above silently wrote a plain
+  POSIX tar named `.zip`: GNU tar 1.35 exits 0 on `-caf x.zip` despite not knowing the suffix, and
+  Windows Explorer rejected the archive as invalid. The script now prefers explicit bsdtar
+  locations (`%SystemRoot%\System32\tar.exe`, `/usr/bin/bsdtar`) over whatever `tar` resolves to,
+  falls back to Windows PowerShell `Compress-Archive` (small staged copy — it cannot exclude
+  patterns), skips with a warning where neither exists, and verifies the `PK` magic bytes before
+  reporting a zip. Re-run evidence: `pnpm admin:standalone` emits a real 137 KiB zip with
+  forward-slash entry names; the `nd-admin.zip` starter variant (staged copy retitled to
+  `nd-admin` in package.json and README) rebuilt the same way and verified.
 
 ## Checkpoint
 
@@ -80,6 +89,6 @@ rebuilding the registry from current source is the fix, so it is not left as a m
 - Affected docs: this record; the generated consumer README inside each extraction.
 - Known risks carried forward: the extraction is a fork by design — monorepo component updates do
   not propagate automatically (`universal diff`/lockfile cover vendored items only); the zip step
-  is best-effort and skipped with a warning where `tar` is unavailable; Google Fonts (Inter) is a
-  runtime network dependency of the app shell.
+  is best-effort (bsdtar or PowerShell) and skipped with a warning where neither exists; Google
+  Fonts (Inter) is a runtime network dependency of the app shell.
 - Status: shipped. Merged to `main` 2026-10-07. Release/publishing remains a maintainer action.
