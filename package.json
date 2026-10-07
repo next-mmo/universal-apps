@@ -38,6 +38,7 @@
     "source:smoke": "node scripts/check-source-distribution.mjs",
     "source:compile": "node scripts/check-source-compilation.mjs",
     "source:pack": "npm pack ./dist/universal-cli --ignore-scripts --pack-destination dist",
+    "admin:standalone": "node scripts/build-admin-standalone.mjs",
     "nd": "node packages/nd-workflow/bin/nd.mjs",
     "nd:pack": "node packages/nd-workflow/bin/nd-package.mjs",
     "nd:doctor": "node packages/nd-workflow/bin/nd.mjs doctor .",
