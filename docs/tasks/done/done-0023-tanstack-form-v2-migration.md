@@ -105,6 +105,8 @@ Baseline, recorded before any edit: `@tanstack/react-form@1.33.5` resolved in `p
 - Status: shipped. PR #17 merged to `main` 2026-10-07 (merge commit `eb191c9`) after all nine
   PR checks passed: `verify`, `windows-foundation`, `source-distribution`, six `standalone`
   legs, and the Vercel preview comment. Any release remains a maintainer action.
-- Follow-up, still open: re-run the release-notes review and a fresh typecheck/test pass when
-  TanStack Form v2 goes stable and publishes its migration guide; consider dropping the erasure
-  casts if a future alpha widens `DeepKeys` inference for schema-driven names.
+- Follow-up, still open: tracked as
+  `docs/tasks/blocked-0024-tanstack-form-v2-stable-review.md` — re-run the release-notes
+  review and a fresh typecheck/test pass when TanStack Form v2 goes stable and publishes its
+  migration guide; consider dropping the erasure casts if a future alpha widens `DeepKeys`
+  inference for schema-driven names.

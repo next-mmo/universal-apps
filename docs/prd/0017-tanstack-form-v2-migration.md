@@ -66,3 +66,5 @@ last-audit: 2026-10-07
 - **Delivery state:** merged to `main` 2026-10-07 via PR #17 after all nine PR checks passed
   (`verify`, `windows-foundation`, `source-distribution`, six `standalone` legs, Vercel preview
   comment); any release step remains a maintainer action, outside this authorization.
+- **Follow-up:** the stable-v2 re-review is tracked as
+  `docs/tasks/blocked-0024-tanstack-form-v2-stable-review.md`.
