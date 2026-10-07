@@ -1,8 +1,8 @@
 ---
 id: "0017"
 title: "TanStack Form v2 migration for the pro form components"
-status: in-progress
-last-audit: 2026-10-06
+status: shipped
+last-audit: 2026-10-07
 ---
 
 # Change Proposal: TanStack Form v2 migration for the pro form components
@@ -55,3 +55,14 @@ last-audit: 2026-10-06
   `docs:check`, and `agent check --changed`.
 - R4: the increment is recorded with a before/after evidence ledger in
   `docs/tasks/done/done-0023-tanstack-form-v2-migration.md`.
+
+## Closure
+
+- **Closure record:** `docs/tasks/done/done-0023-tanstack-form-v2-migration.md` (2026-10-07)
+  carries the acceptance checkboxes, the two undocumented v1→v2 API breaks found on the way
+  (validator array shape, `FieldApi.state` removal), and the gate run: typecheck, the 39
+  form/step-form tests unmodified, the 448-test unit suite, lint, and the docs and workflow
+  checks.
+- **Delivery state:** merged to `main` 2026-10-07 via PR #17 after all nine PR checks passed
+  (`verify`, `windows-foundation`, `source-distribution`, six `standalone` legs, Vercel preview
+  comment); any release step remains a maintainer action, outside this authorization.

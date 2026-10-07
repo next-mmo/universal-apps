@@ -1,7 +1,7 @@
 # Task: 0023 Migrate @tanstack/react-form to v2 alpha
 
 > **PRD:** `docs/prd/0017-tanstack-form-v2-migration.md`
-- Mode: shipped on `feat/tanstack-form-v2`; merge to `main` is the owner's call
+- Mode: shipped — merged to `main` via PR #17 (`eb191c9`), verified in CI before merge
 - Risk / scope approval: Medium (dependency major bump on the pro form surface). Approved by the
   owner in the project conversation on 2026-10-06 with an explicit "yes migrate now" after the
   v2 deep-check assessment was presented.
@@ -102,8 +102,9 @@ Baseline, recorded before any edit: `@tanstack/react-form@1.33.5` resolved in `p
 - Known risks carried forward: the alpha line can shift again before stable (release notes list
   PR titles only — typecheck plus the suite is the real contract); no upstream support for
   alphas; `formOptions.looseSchema/strictSchema` callers would break if introduced later.
-- Status: implemented and verified locally on `feat/tanstack-form-v2`. Merge to `main`, PR
-  creation, and any release are owner decisions per the ND workflow.
+- Status: shipped. PR #17 merged to `main` 2026-10-07 (merge commit `eb191c9`) after all nine
+  PR checks passed: `verify`, `windows-foundation`, `source-distribution`, six `standalone`
+  legs, and the Vercel preview comment. Any release remains a maintainer action.
 - Follow-up, still open: re-run the release-notes review and a fresh typecheck/test pass when
   TanStack Form v2 goes stable and publishes its migration guide; consider dropping the erasure
   casts if a future alpha widens `DeepKeys` inference for schema-driven names.
