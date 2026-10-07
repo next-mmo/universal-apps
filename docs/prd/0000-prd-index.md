@@ -32,6 +32,7 @@
 | **0014** | [Production readiness: gates that can fail, pins that resolve, coverage that is true](0014-production-readiness-gates-and-pins.md) | **in-progress** | A line-ending policy, one router version instead of two, a PR gate that actually builds, SHA-pinned actions with dependabot, a release that cannot publish a mismatched tag, a coverage floor that reports the true 40% packages-wide number instead of a curated 96%, and vue/svelte consumer compilation that can fail; recorded in `docs/tasks/wip-0020-production-readiness-gates-and-pins.md` |
 | **0015** | [Vanilla Web UI source target](0015-vanilla-web-ui.md) | **in-progress** | Adds framework-free light-DOM Custom Elements as a first-class source CLI target with `create/init/add --framework vanilla`, framework-local short aliases, and smoke/compile gates |
 | **0016** | [Nativewind v5 and Expo React Native Support](0016-nativewind-v5-and-expo-support.md) | **in-progress** | Adds dual native engine support for Nativewind v5 RC0 and Uniwind with Tailwind CSS v4, Expo scaffolding, and engine-agnostic @package/ui-native components |
+| **0017** | [TanStack Form v2 migration for the pro form components](0017-tanstack-form-v2-migration.md) | **in-progress** | Repins `@tanstack/react-form` to the `2.0.0-alpha.2` line and adapts the single direct consumer in `packages/pro` to the v2 validator array and field-state API with behavior parity; closure recorded in `docs/tasks/done/done-0023-tanstack-form-v2-migration.md` |
 
 ## Authority
 
